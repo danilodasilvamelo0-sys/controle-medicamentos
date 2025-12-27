@@ -1850,7 +1850,7 @@
             if (!useSupabase) return;
             
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('medicamentos')
                     .select('*')
                     .eq('user_id', USER_ID);
@@ -1916,7 +1916,7 @@
             if (!useSupabase) return;
             
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('semanas')
                     .select('*')
                     .eq('user_id', USER_ID);
@@ -1944,7 +1944,7 @@
             if (!useSupabase) return;
             
             try {
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('dieta')
                     .upsert({
                         id: USER_ID,
@@ -1965,7 +1965,7 @@
             if (!useSupabase) return;
             
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('dieta')
                     .select('*')
                     .eq('user_id', USER_ID)
