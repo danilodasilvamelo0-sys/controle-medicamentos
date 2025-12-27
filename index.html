@@ -1351,90 +1351,37 @@
                 min-width: 100%;
             }
 
-            /* Tabela Mobile - Cards */
+            /* Tabela Mobile - Manter formato de tabela com scroll */
             .table-container {
-                overflow-x: visible;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
             }
 
             table {
-                display: block;
+                min-width: 700px;
             }
 
-            thead {
-                display: none;
-            }
-
-            tbody {
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            tr {
-                display: flex;
-                flex-direction: column;
-                background: white;
-                border-radius: 12px;
-                padding: 15px;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            }
-
-            tr[id^="form-"] {
-                padding: 10px;
-            }
-
-            td {
-                display: flex;
-                flex-direction: column;
-                padding: 5px 0;
-                border: none;
-                text-align: left !important;
-            }
-
-            td:before {
-                content: attr(data-label);
-                font-weight: 600;
-                color: #667eea;
+            thead th {
+                padding: 10px 8px;
                 font-size: 0.75em;
-                text-transform: uppercase;
-                margin-bottom: 3px;
             }
 
-            td:first-child {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                margin: -15px -15px 10px -15px;
-                padding: 12px 15px;
-                border-radius: 12px 12px 0 0;
-                color: white;
-            }
-
-            td:first-child div {
-                color: rgba(255,255,255,0.8) !important;
-            }
-
-            td:first-child strong {
-                color: white !important;
-                font-size: 1.2em !important;
+            tbody td {
+                padding: 8px 6px;
+                font-size: 0.85em;
             }
 
             .med-row {
-                padding: 8px 0;
-                border-bottom: 1px solid #f0f0f0;
-            }
-
-            .med-row:last-child {
-                border-bottom: none;
+                padding: 4px 0;
             }
 
             .action-buttons {
                 flex-direction: row;
-                justify-content: flex-start;
-                gap: 10px;
-                padding-top: 10px;
+                gap: 5px;
             }
 
             .action-buttons button {
-                padding: 8px 12px;
+                padding: 5px 8px;
             }
 
             .inline-form {
