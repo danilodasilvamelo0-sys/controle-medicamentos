@@ -1780,10 +1780,226 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        // ========== CONFIGURAÇÃO SUPABASE ==========
+        const SUPABASE_URL = 'https://ltwamldgdwqzyssoukzl.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0d2FtbGRnZHdxenlzc291a3psIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY4NzEzMDUsImV4cCI6MjA4MjQ0NzMwNX0.UVyo0c0BHslB7mCU74Qx8rdo42HA0WPAyDQ6J-FIakE';
+        
+        // Tentar inicializar Supabase
+        let supabase = null;
+        let useSupabase = false;
+        
+        try {
+            if (typeof window.supabase !== 'undefined') {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+                useSupabase = true;
+                console.log('✅ Supabase conectado!');
+            }
+        } catch (e) {
+            console.log('⚠️ Usando localStorage (offline)');
+        }
+
+        const USER_ID = 'default_user';
+        
         let medicamentos = JSON.parse(localStorage.getItem('medicamentos')) || {};
         let currentWeek = 1;
         let weekDates = JSON.parse(localStorage.getItem('weekDates')) || {};
+
+        // ========== FUNÇÕES DE SINCRONIZAÇÃO ==========
+        
+        // Salvar medicamentos no Supabase
+        async function salvarMedicamentosSupabase() {
+            if (!useSupabase) return;
+            
+            try {
+                // Deletar todos os medicamentos do usuário
+                await supabase.from('medicamentos').delete().eq('user_id', USER_ID);
+                
+                // Inserir todos os medicamentos
+                const medsParaInserir = [];
+                Object.keys(medicamentos).forEach(semana => {
+                    (medicamentos[semana] || []).forEach(med => {
+                        medsParaInserir.push({
+                            id: String(med.id),
+                            user_id: USER_ID,
+                            semana: semana,
+                            dia: med.dia,
+                            medicamento: med.medicamento,
+                            dosagem: med.dosagem,
+                            estoque: med.estoque,
+                            aviso_compra: med.avisoCompra || 5,
+                            tipo: med.tipo,
+                            dose_por_toma: med.dosePorToma,
+                            hora: med.hora,
+                            status: med.status
+                        });
+                    });
+                });
+                
+                if (medsParaInserir.length > 0) {
+                    await supabase.from('medicamentos').insert(medsParaInserir);
+                }
+                console.log('✅ Medicamentos sincronizados!');
+            } catch (e) {
+                console.error('Erro ao salvar medicamentos:', e);
+            }
+        }
+        
+        // Carregar medicamentos do Supabase
+        async function carregarMedicamentosSupabase() {
+            if (!useSupabase) return;
+            
+            try {
+                const { data, error } = await supabase
+                    .from('medicamentos')
+                    .select('*')
+                    .eq('user_id', USER_ID);
+                
+                if (error) throw error;
+                
+                if (data && data.length > 0) {
+                    medicamentos = {};
+                    data.forEach(med => {
+                        if (!medicamentos[med.semana]) {
+                            medicamentos[med.semana] = [];
+                        }
+                        medicamentos[med.semana].push({
+                            id: med.id,
+                            dia: med.dia,
+                            medicamento: med.medicamento,
+                            dosagem: med.dosagem,
+                            estoque: med.estoque,
+                            avisoCompra: med.aviso_compra,
+                            tipo: med.tipo,
+                            dosePorToma: med.dose_por_toma,
+                            hora: med.hora,
+                            status: med.status
+                        });
+                    });
+                    localStorage.setItem('medicamentos', JSON.stringify(medicamentos));
+                    console.log('✅ Medicamentos carregados do Supabase!');
+                }
+            } catch (e) {
+                console.error('Erro ao carregar medicamentos:', e);
+            }
+        }
+        
+        // Salvar semanas no Supabase
+        async function salvarSemanasSupabase() {
+            if (!useSupabase) return;
+            
+            try {
+                await supabase.from('semanas').delete().eq('user_id', USER_ID);
+                
+                const semanasParaInserir = [];
+                Object.keys(weekDates).forEach(semana => {
+                    semanasParaInserir.push({
+                        id: `${USER_ID}_${semana}`,
+                        user_id: USER_ID,
+                        semana: semana,
+                        start_date: weekDates[semana].startDate,
+                        week_number: weekDates[semana].weekNumber
+                    });
+                });
+                
+                if (semanasParaInserir.length > 0) {
+                    await supabase.from('semanas').insert(semanasParaInserir);
+                }
+                console.log('✅ Semanas sincronizadas!');
+            } catch (e) {
+                console.error('Erro ao salvar semanas:', e);
+            }
+        }
+        
+        // Carregar semanas do Supabase
+        async function carregarSemanasSupabase() {
+            if (!useSupabase) return;
+            
+            try {
+                const { data, error } = await supabase
+                    .from('semanas')
+                    .select('*')
+                    .eq('user_id', USER_ID);
+                
+                if (error) throw error;
+                
+                if (data && data.length > 0) {
+                    weekDates = {};
+                    data.forEach(sem => {
+                        weekDates[sem.semana] = {
+                            startDate: sem.start_date,
+                            weekNumber: sem.week_number
+                        };
+                    });
+                    localStorage.setItem('weekDates', JSON.stringify(weekDates));
+                    console.log('✅ Semanas carregadas do Supabase!');
+                }
+            } catch (e) {
+                console.error('Erro ao carregar semanas:', e);
+            }
+        }
+        
+        // Salvar dieta no Supabase
+        async function salvarDietaSupabase() {
+            if (!useSupabase) return;
+            
+            try {
+                const { error } = await supabase
+                    .from('dieta')
+                    .upsert({
+                        id: USER_ID,
+                        user_id: USER_ID,
+                        dados: dietaData,
+                        updated_at: new Date().toISOString()
+                    });
+                
+                if (error) throw error;
+                console.log('✅ Dieta sincronizada!');
+            } catch (e) {
+                console.error('Erro ao salvar dieta:', e);
+            }
+        }
+        
+        // Carregar dieta do Supabase
+        async function carregarDietaSupabase() {
+            if (!useSupabase) return;
+            
+            try {
+                const { data, error } = await supabase
+                    .from('dieta')
+                    .select('*')
+                    .eq('user_id', USER_ID)
+                    .single();
+                
+                if (error && error.code !== 'PGRST116') throw error;
+                
+                if (data && data.dados) {
+                    dietaData = data.dados;
+                    localStorage.setItem('dietaData', JSON.stringify(dietaData));
+                    console.log('✅ Dieta carregada do Supabase!');
+                }
+            } catch (e) {
+                console.error('Erro ao carregar dieta:', e);
+            }
+        }
+        
+        // Sincronizar tudo
+        async function sincronizarTudo() {
+            await carregarMedicamentosSupabase();
+            await carregarSemanasSupabase();
+            await carregarDietaSupabase();
+            
+            updateWeekSelector();
+            renderMedicamentos();
+            updateStats();
+            checkEstoqueAlertas();
+        }
+        
+        // Inicializar sincronização
+        if (useSupabase) {
+            sincronizarTudo();
+        }
 
         // Funções do Menu Lateral Fixo
         function navigateTo(section, element) {
@@ -2003,10 +2219,12 @@
 
         function salvarDietaAuto() {
             localStorage.setItem('dietaData', JSON.stringify(dietaData));
+            salvarDietaSupabase();
         }
 
         function salvarDieta() {
             localStorage.setItem('dietaData', JSON.stringify(dietaData));
+            salvarDietaSupabase();
             alert('✅ Dieta salva com sucesso!');
         }
 
@@ -2079,9 +2297,11 @@
                     status: 'pendente' // Reset do status
                 }));
                 localStorage.setItem('medicamentos', JSON.stringify(medicamentos));
+                salvarMedicamentosSupabase();
             }
             
             localStorage.setItem('weekDates', JSON.stringify(weekDates));
+            salvarSemanasSupabase();
             updateWeekSelector();
             
             document.getElementById('weekSelect').value = newWeekNum;
@@ -2108,6 +2328,7 @@
             // Excluir medicamentos da semana
             delete medicamentos[currentWeekKey];
             localStorage.setItem('medicamentos', JSON.stringify(medicamentos));
+            salvarMedicamentosSupabase();
             
             // Excluir dados da semana
             delete weekDates[currentWeekKey];
@@ -2143,6 +2364,8 @@
             
             localStorage.setItem('weekDates', JSON.stringify(weekDates));
             localStorage.setItem('medicamentos', JSON.stringify(medicamentos));
+            salvarSemanasSupabase();
+            salvarMedicamentosSupabase();
             
             // Voltar para semana 1
             currentWeek = 1;
@@ -2215,6 +2438,7 @@
                 atualizarEstoqueCompartilhado(med.medicamento, novoEstoque);
             }
 
+            salvarMedicamentosSupabase();
             renderMedicamentos();
             updateStats();
             checkEstoqueAlertas();
@@ -2330,6 +2554,7 @@
 
             medicamentos[weekKey].push(novoMedicamento);
             localStorage.setItem('medicamentos', JSON.stringify(medicamentos));
+            salvarMedicamentosSupabase();
             
             renderMedicamentos();
             updateStats();
@@ -2411,6 +2636,7 @@
             }
             
             localStorage.setItem('medicamentos', JSON.stringify(medicamentos));
+            salvarMedicamentosSupabase();
             
             fecharModal();
             renderMedicamentos();
@@ -2440,6 +2666,7 @@
             }
             
             localStorage.setItem('medicamentos', JSON.stringify(medicamentos));
+            salvarMedicamentosSupabase();
             renderMedicamentos();
             updateStats();
             checkEstoqueAlertas();
@@ -2459,6 +2686,7 @@
             
             medicamentos[weekKey].push(novoMed);
             localStorage.setItem('medicamentos', JSON.stringify(medicamentos));
+            salvarMedicamentosSupabase();
             renderMedicamentos();
             updateStats();
         }
@@ -2487,6 +2715,7 @@
             });
             
             localStorage.setItem('medicamentos', JSON.stringify(medicamentos));
+            salvarMedicamentosSupabase();
             renderMedicamentos();
             updateStats();
             
