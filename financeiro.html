@@ -34,7 +34,7 @@
         body::after { bottom: 0; }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -80,9 +80,10 @@
             font-size: 0.85em;
         }
 
+        /* Resumo Grid */
         .resumo-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             margin-bottom: 30px;
         }
@@ -91,7 +92,7 @@
             background: #141414;
             border: 1px solid rgba(212, 175, 125, 0.15);
             border-radius: 15px;
-            padding: 25px;
+            padding: 20px;
             position: relative;
             overflow: hidden;
         }
@@ -107,24 +108,27 @@
 
         .resumo-card.recebido::before { background: linear-gradient(90deg, #27ae60, #2ecc71); }
         .resumo-card.pago::before { background: linear-gradient(90deg, #e74c3c, #c0392b); }
+        .resumo-card.economia::before { background: linear-gradient(90deg, #3498db, #2980b9); }
 
         .resumo-card label {
             display: block;
             color: rgba(255,255,255,0.5);
-            font-size: 0.75em;
+            font-size: 0.7em;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .resumo-card .valor {
-            font-size: 1.8em;
+            font-size: 1.5em;
             font-weight: 600;
         }
 
         .resumo-card.recebido .valor { color: #2ecc71; }
         .resumo-card.pago .valor { color: #e74c3c; }
+        .resumo-card.economia .valor { color: #3498db; }
 
+        /* Mês Selector */
         .mes-selector {
             display: flex;
             align-items: center;
@@ -151,6 +155,7 @@
             color: #fff;
         }
 
+        /* Sections */
         .section {
             background: #141414;
             border: 1px solid rgba(212, 175, 125, 0.15);
@@ -170,9 +175,18 @@
 
         .section-header h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.2em;
+            font-size: 1.1em;
             font-weight: 400;
             color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-header .subtotal {
+            font-size: 0.8em;
+            color: rgba(255,255,255,0.5);
+            margin-left: 10px;
         }
 
         .btn-add {
@@ -181,7 +195,7 @@
             color: #d4af7d;
             padding: 8px 15px;
             border-radius: 8px;
-            font-size: 0.85em;
+            font-size: 0.8em;
             cursor: pointer;
             transition: all 0.3s;
         }
@@ -191,9 +205,10 @@
         }
 
         .section-content {
-            padding: 20px;
+            padding: 15px;
         }
 
+        /* Table */
         .table-container {
             overflow-x: auto;
         }
@@ -201,24 +216,24 @@
         .transacoes-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 600px;
+            min-width: 550px;
         }
 
         .transacoes-table th {
             text-align: left;
-            padding: 12px 8px;
+            padding: 10px 8px;
             color: rgba(255,255,255,0.5);
-            font-size: 0.7em;
+            font-size: 0.65em;
             text-transform: uppercase;
             letter-spacing: 1px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .transacoes-table td {
-            padding: 12px 8px;
+            padding: 10px 8px;
             color: #fff;
             border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: 0.85em;
+            font-size: 0.8em;
             vertical-align: middle;
         }
 
@@ -240,136 +255,137 @@
 
         .transacoes-table .categoria {
             display: inline-block;
-            padding: 3px 8px;
+            padding: 2px 8px;
             background: rgba(212, 175, 125, 0.15);
-            border-radius: 20px;
-            font-size: 0.75em;
+            border-radius: 15px;
+            font-size: 0.7em;
             color: #d4af7d;
         }
 
         .transacoes-table .valor-positivo { color: #2ecc71; font-weight: 500; }
         .transacoes-table .valor-negativo { color: #e74c3c; font-weight: 500; }
+        .transacoes-table .valor-economia { color: #3498db; font-weight: 500; }
+
+        .transacoes-table .acoes {
+            display: flex;
+            gap: 3px;
+        }
 
         .transacoes-table .acoes button {
             background: transparent;
             border: none;
             color: rgba(255,255,255,0.4);
             cursor: pointer;
-            padding: 5px;
-            font-size: 0.9em;
+            padding: 4px;
+            font-size: 0.85em;
             transition: color 0.3s;
         }
 
         .transacoes-table .acoes button:hover {
+            color: #d4af7d;
+        }
+
+        .transacoes-table .acoes button.delete:hover {
             color: #e74c3c;
         }
 
-        .parcela-info {
-            font-size: 0.75em;
-            color: rgba(255,255,255,0.6);
-            margin-top: 4px;
+        /* Badges e Info */
+        .info-extra {
+            font-size: 0.7em;
+            color: rgba(255,255,255,0.5);
+            margin-top: 3px;
         }
 
-        .parcela-info .destaque {
+        .info-extra .destaque {
             color: #d4af7d;
-            font-weight: 500;
         }
 
-        .parcela-badge {
+        .badge {
             display: inline-block;
-            padding: 2px 8px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.65em;
+            margin-left: 5px;
+        }
+
+        .badge.parcela {
             background: rgba(52, 152, 219, 0.2);
-            border-radius: 10px;
-            font-size: 0.7em;
             color: #3498db;
-            margin-left: 5px;
         }
 
-        .emprestimo-badge {
-            display: inline-block;
-            padding: 2px 8px;
+        .badge.emprestimo {
             background: rgba(155, 89, 182, 0.2);
-            border-radius: 10px;
-            font-size: 0.7em;
             color: #9b59b6;
-            margin-left: 5px;
+        }
+
+        .badge.vencido {
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+        }
+
+        .badge.proximo {
+            background: rgba(241, 196, 15, 0.2);
+            color: #f1c40f;
         }
 
         .progress-bar {
             width: 100%;
-            height: 6px;
+            height: 4px;
             background: #1a1a1a;
-            border-radius: 3px;
+            border-radius: 2px;
             overflow: hidden;
-            margin-top: 6px;
+            margin-top: 4px;
         }
 
         .progress-bar-fill {
             height: 100%;
             background: linear-gradient(90deg, #27ae60, #2ecc71);
-            border-radius: 3px;
+            border-radius: 2px;
             transition: width 0.5s ease;
-        }
-
-        .vencimento-badge {
-            display: inline-block;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.7em;
-            font-weight: 500;
-            margin-left: 5px;
-        }
-
-        .vencimento-badge.vencido {
-            background: rgba(231, 76, 60, 0.2);
-            color: #e74c3c;
-        }
-
-        .vencimento-badge.proximo {
-            background: rgba(241, 196, 15, 0.2);
-            color: #f1c40f;
         }
 
         .empty-state {
             text-align: center;
-            padding: 40px;
+            padding: 30px;
             color: rgba(255,255,255,0.3);
+            font-size: 0.85em;
         }
 
+        /* Forms */
         .form-container {
             background: #1a1a1a;
             border-radius: 10px;
             padding: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .form-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 12px;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
         }
 
         .form-group label {
             color: rgba(255,255,255,0.5);
-            font-size: 0.75em;
+            font-size: 0.7em;
             text-transform: uppercase;
         }
 
         .form-group input,
         .form-group select {
-            padding: 12px;
+            padding: 10px;
             background: #141414;
             border: 1px solid rgba(212, 175, 125, 0.2);
-            border-radius: 8px;
+            border-radius: 6px;
             color: #fff;
-            font-size: 0.9em;
+            font-size: 0.85em;
         }
 
         .form-group input:focus,
@@ -385,36 +401,36 @@
         .form-group.checkbox-group {
             flex-direction: row;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .form-group.checkbox-group input[type="checkbox"],
-        .form-group.checkbox-group input[type="radio"] {
-            width: 18px;
-            height: 18px;
+        .form-group.checkbox-group input {
+            width: 16px;
+            height: 16px;
             accent-color: #d4af7d;
         }
 
         .form-group.checkbox-group label {
             color: #fff;
             text-transform: none;
-            font-size: 0.9em;
+            font-size: 0.85em;
         }
 
         .form-buttons {
             display: flex;
             gap: 10px;
             justify-content: flex-end;
-            margin-top: 15px;
+            margin-top: 12px;
         }
 
         .btn-salvar {
             background: #d4af7d;
             color: #0a0a0a;
             border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 6px;
             font-weight: 600;
+            font-size: 0.85em;
             cursor: pointer;
         }
 
@@ -424,8 +440,9 @@
             background: rgba(255,255,255,0.1);
             color: rgba(255,255,255,0.6);
             border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 0.85em;
             cursor: pointer;
         }
 
@@ -433,18 +450,50 @@
 
         .extra-fields {
             display: none;
-            margin-top: 15px;
-            padding-top: 15px;
+            margin-top: 12px;
+            padding-top: 12px;
             border-top: 1px solid rgba(255,255,255,0.1);
         }
 
         .extra-fields.active { display: block; }
 
+        .tipo-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .tipo-selector label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: #141414;
+            border: 1px solid rgba(212, 175, 125, 0.2);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.8em;
+        }
+
+        .tipo-selector label:hover {
+            border-color: #d4af7d;
+        }
+
+        .tipo-selector input:checked + span {
+            color: #d4af7d;
+        }
+
+        .tipo-selector span {
+            color: rgba(255,255,255,0.7);
+        }
+
         .checkbox-status {
             appearance: none;
             -webkit-appearance: none;
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             border: 2px solid #2ecc71;
             border-radius: 50%;
             cursor: pointer;
@@ -463,56 +512,11 @@
             content: '✓';
             position: absolute;
             color: #0a0a0a;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: bold;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-        }
-
-        .tipo-selector {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .tipo-selector label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 15px;
-            background: #141414;
-            border: 1px solid rgba(212, 175, 125, 0.2);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .tipo-selector label:hover {
-            border-color: #d4af7d;
-        }
-
-        .tipo-selector input:checked + span {
-            color: #d4af7d;
-        }
-
-        .tipo-selector span {
-            color: rgba(255,255,255,0.7);
-            font-size: 0.9em;
-        }
-
-        .categoria-input-group {
-            display: flex;
-            gap: 10px;
-        }
-
-        .categoria-input-group input {
-            flex: 1;
-        }
-
-        .categoria-input-group select {
-            width: 200px;
         }
 
         /* Resumo Final */
@@ -520,28 +524,28 @@
             background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
             border: 1px solid rgba(212, 175, 125, 0.2);
             border-radius: 15px;
-            padding: 30px;
+            padding: 25px;
             margin-top: 30px;
         }
 
         .resumo-final h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.3em;
+            font-size: 1.2em;
             color: #d4af7d;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
             letter-spacing: 2px;
         }
 
         .resumo-final-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
         }
 
         .resumo-final-item {
             text-align: center;
-            padding: 20px;
+            padding: 15px;
             background: rgba(0,0,0,0.3);
             border-radius: 10px;
         }
@@ -549,37 +553,94 @@
         .resumo-final-item label {
             display: block;
             color: rgba(255,255,255,0.5);
-            font-size: 0.8em;
+            font-size: 0.7em;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .resumo-final-item .valor {
-            font-size: 2em;
+            font-size: 1.6em;
             font-weight: 600;
         }
 
         .resumo-final-item.recebido .valor { color: #2ecc71; }
         .resumo-final-item.pago .valor { color: #e74c3c; }
+        .resumo-final-item.economia .valor { color: #3498db; }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #141414;
+            border: 1px solid rgba(212, 175, 125, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .modal-header h3 {
+            font-family: 'Playfair Display', serif;
+            color: #d4af7d;
+            font-size: 1.2em;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.5);
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
 
         @media (max-width: 768px) {
-            .resumo-grid { grid-template-columns: 1fr 1fr; }
+            .resumo-grid { grid-template-columns: repeat(3, 1fr); }
             .resumo-final-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 480px) {
             body { padding: 15px; }
-            .header-title h1 { font-size: 1.4em; }
-            .resumo-card { padding: 15px; }
-            .resumo-card .valor { font-size: 1.4em; }
-            .mes-selector { flex-direction: column; gap: 15px; align-items: stretch; }
-            .section-header { flex-direction: column; gap: 15px; align-items: flex-start; }
+            .header-title h1 { font-size: 1.3em; }
+            .resumo-grid { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+            .resumo-card { padding: 12px; }
+            .resumo-card .valor { font-size: 1.1em; }
+            .mes-selector { flex-direction: column; gap: 12px; align-items: stretch; }
+            .section-header { flex-direction: column; gap: 12px; align-items: flex-start; }
             .btn-add { width: 100%; text-align: center; }
             .form-row { grid-template-columns: 1fr; }
             .tipo-selector { flex-direction: column; }
-            .categoria-input-group { flex-direction: column; }
-            .categoria-input-group select { width: 100%; }
         }
     </style>
 </head>
@@ -613,16 +674,20 @@
 
         <div class="resumo-grid">
             <div class="resumo-card recebido">
-                <label>💰 Total Recebido</label>
+                <label>💰 Recebido</label>
                 <div class="valor" id="totalRecebido">R$ 0,00</div>
             </div>
             <div class="resumo-card pago">
-                <label>💸 Total Pago</label>
+                <label>💸 Pago</label>
                 <div class="valor" id="totalPago">R$ 0,00</div>
+            </div>
+            <div class="resumo-card economia">
+                <label>🏦 Economizado</label>
+                <div class="valor" id="totalEconomia">R$ 0,00</div>
             </div>
         </div>
 
-        <!-- Receitas -->
+        <!-- RECEITAS -->
         <div class="section">
             <div class="section-header">
                 <h2>📈 Receitas</h2>
@@ -633,24 +698,21 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Descrição</label>
-                            <input type="text" id="receitaDescricao" placeholder="Ex: Salário">
+                            <input type="text" id="receitaDescricao">
                         </div>
                         <div class="form-group">
                             <label>Valor</label>
-                            <input type="number" id="receitaValor" placeholder="0,00" step="0.01">
+                            <input type="number" id="receitaValor" step="0.01">
                         </div>
                         <div class="form-group">
                             <label>Categoria</label>
-                            <div class="categoria-input-group">
-                                <input type="text" id="receitaCategoriaCustom" placeholder="Digite ou escolha">
-                                <select id="receitaCategoria" onchange="selecionarCategoria('receita')">
-                                    <option value="">Escolher...</option>
-                                    <option value="Salário">Salário</option>
-                                    <option value="Freelance">Freelance</option>
-                                    <option value="Investimentos">Investimentos</option>
-                                    <option value="Outros">Outros</option>
-                                </select>
-                            </div>
+                            <select id="receitaCategoria">
+                                <option value="">Selecione...</option>
+                                <option value="Salário">Salário</option>
+                                <option value="Freelance">Freelance</option>
+                                <option value="Investimentos">Investimentos</option>
+                                <option value="Outros">Outros</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Data</label>
@@ -677,106 +739,49 @@
                         <tbody id="receitasTable"></tbody>
                     </table>
                 </div>
-                <div id="emptyReceitas" class="empty-state">
-                    <p>Nenhuma receita cadastrada</p>
-                </div>
+                <div id="emptyReceitas" class="empty-state">Nenhuma receita cadastrada</div>
             </div>
         </div>
 
-        <!-- Despesas -->
+        <!-- DESPESAS FIXAS -->
         <div class="section">
             <div class="section-header">
-                <h2>📉 Despesas</h2>
-                <button class="btn-add" onclick="mostrarForm('despesa')">+ Adicionar</button>
+                <h2>🏠 Despesas Fixas <span class="subtotal" id="subtotalFixas"></span></h2>
+                <button class="btn-add" onclick="mostrarForm('despesaFixa')">+ Adicionar</button>
             </div>
             <div class="section-content">
-                <div id="formDespesa" class="form-container" style="display: none;">
-                    <div class="tipo-selector">
-                        <label>
-                            <input type="radio" name="tipoDespesa" value="normal" checked onchange="mudarTipoDespesa()">
-                            <span>💳 Normal</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="tipoDespesa" value="parcelada" onchange="mudarTipoDespesa()">
-                            <span>📅 Parcelada</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="tipoDespesa" value="emprestimo" onchange="mudarTipoDespesa()">
-                            <span>🏦 Empréstimo/Agiota</span>
-                        </label>
-                    </div>
-
+                <div id="formDespesaFixa" class="form-container" style="display: none;">
                     <div class="form-row">
                         <div class="form-group">
                             <label>Descrição</label>
-                            <input type="text" id="despesaDescricao" placeholder="Ex: Aluguel">
+                            <input type="text" id="despesaFixaDescricao">
                         </div>
                         <div class="form-group">
-                            <label id="labelValorDespesa">Valor</label>
-                            <input type="number" id="despesaValor" placeholder="0,00" step="0.01">
+                            <label>Valor</label>
+                            <input type="number" id="despesaFixaValor" step="0.01">
                         </div>
                         <div class="form-group">
                             <label>Categoria</label>
-                            <div class="categoria-input-group">
-                                <input type="text" id="despesaCategoriaCustom" placeholder="Digite ou escolha">
-                                <select id="despesaCategoria" onchange="selecionarCategoria('despesa')">
-                                    <option value="">Escolher...</option>
-                                    <option value="Moradia">Moradia</option>
-                                    <option value="Alimentação">Alimentação</option>
-                                    <option value="Transporte">Transporte</option>
-                                    <option value="Saúde">Saúde</option>
-                                    <option value="Educação">Educação</option>
-                                    <option value="Lazer">Lazer</option>
-                                    <option value="Contas">Contas</option>
-                                    <option value="Cartão">Cartão</option>
-                                    <option value="Empréstimo">Empréstimo</option>
-                                    <option value="Outros">Outros</option>
-                                </select>
-                            </div>
+                            <select id="despesaFixaCategoria">
+                                <option value="">Selecione...</option>
+                                <option value="Moradia">Moradia</option>
+                                <option value="Internet">Internet</option>
+                                <option value="Energia">Energia</option>
+                                <option value="Água">Água</option>
+                                <option value="Escola">Escola</option>
+                                <option value="Plano de Saúde">Plano de Saúde</option>
+                                <option value="Streaming">Streaming</option>
+                                <option value="Outros">Outros</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label>Data Vencimento</label>
-                            <input type="date" id="despesaData">
+                            <label>Vencimento</label>
+                            <input type="date" id="despesaFixaData">
                         </div>
                     </div>
-
-                    <!-- Campos Parcelada -->
-                    <div id="parceladaFields" class="extra-fields">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Quantidade de Parcelas</label>
-                                <input type="number" id="despesaTotalParcelas" placeholder="12" min="1">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Campos Empréstimo/Agiota -->
-                    <div id="emprestimoFields" class="extra-fields">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Valor Total da Dívida</label>
-                                <input type="number" id="emprestimoValorTotal" placeholder="0,00" step="0.01">
-                            </div>
-                            <div class="form-group">
-                                <label>Taxa de Juros (%)</label>
-                                <input type="number" id="emprestimoJuros" placeholder="10" step="0.1">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group checkbox-group">
-                                <input type="radio" name="tipoPagamento" value="juros" checked>
-                                <label>Pagar apenas Juros</label>
-                            </div>
-                            <div class="form-group checkbox-group">
-                                <input type="radio" name="tipoPagamento" value="divida">
-                                <label>Abater da Dívida</label>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="form-buttons">
-                        <button class="btn-cancelar" onclick="esconderForm('despesa')">Cancelar</button>
-                        <button class="btn-salvar" onclick="salvarDespesa()">Salvar</button>
+                        <button class="btn-cancelar" onclick="esconderForm('despesaFixa')">Cancelar</button>
+                        <button class="btn-salvar" onclick="salvarDespesaFixa()">Salvar</button>
                     </div>
                 </div>
                 <div class="table-container">
@@ -791,33 +796,303 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody id="despesasTable"></tbody>
+                        <tbody id="despesasFixasTable"></tbody>
                     </table>
                 </div>
-                <div id="emptyDespesas" class="empty-state">
-                    <p>Nenhuma despesa cadastrada</p>
-                </div>
+                <div id="emptyDespesasFixas" class="empty-state">Nenhuma despesa fixa cadastrada</div>
             </div>
         </div>
 
-        <!-- Resumo Final -->
+        <!-- DESPESAS VARIÁVEIS -->
+        <div class="section">
+            <div class="section-header">
+                <h2>🛒 Despesas Variáveis <span class="subtotal" id="subtotalVariaveis"></span></h2>
+                <button class="btn-add" onclick="mostrarForm('despesaVariavel')">+ Adicionar</button>
+            </div>
+            <div class="section-content">
+                <div id="formDespesaVariavel" class="form-container" style="display: none;">
+                    <div class="tipo-selector">
+                        <label>
+                            <input type="radio" name="tipoDespesaVar" value="normal" checked onchange="mudarTipoDespesaVar()">
+                            <span>💳 Normal</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="tipoDespesaVar" value="parcelada" onchange="mudarTipoDespesaVar()">
+                            <span>📅 Parcelada</span>
+                        </label>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Descrição</label>
+                            <input type="text" id="despesaVariavelDescricao">
+                        </div>
+                        <div class="form-group">
+                            <label id="labelValorVar">Valor</label>
+                            <input type="number" id="despesaVariavelValor" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Categoria</label>
+                            <select id="despesaVariavelCategoria">
+                                <option value="">Selecione...</option>
+                                <option value="Alimentação">Alimentação</option>
+                                <option value="Transporte">Transporte</option>
+                                <option value="Lazer">Lazer</option>
+                                <option value="Compras">Compras</option>
+                                <option value="Saúde">Saúde</option>
+                                <option value="Cartão">Cartão</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Data</label>
+                            <input type="date" id="despesaVariavelData">
+                        </div>
+                    </div>
+                    <div id="parceladaFieldsVar" class="extra-fields">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Quantidade de Parcelas</label>
+                                <input type="number" id="despesaVariavelParcelas" min="1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-buttons">
+                        <button class="btn-cancelar" onclick="esconderForm('despesaVariavel')">Cancelar</button>
+                        <button class="btn-salvar" onclick="salvarDespesaVariavel()">Salvar</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="transacoes-table">
+                        <thead>
+                            <tr>
+                                <th>✓</th>
+                                <th>Descrição</th>
+                                <th>Categoria</th>
+                                <th>Data</th>
+                                <th>Valor</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="despesasVariaveisTable"></tbody>
+                    </table>
+                </div>
+                <div id="emptyDespesasVariaveis" class="empty-state">Nenhuma despesa variável cadastrada</div>
+            </div>
+        </div>
+
+        <!-- EMPRÉSTIMOS / DÍVIDAS -->
+        <div class="section">
+            <div class="section-header">
+                <h2>🏦 Empréstimos / Dívidas <span class="subtotal" id="subtotalEmprestimos"></span></h2>
+                <button class="btn-add" onclick="mostrarForm('emprestimo')">+ Adicionar</button>
+            </div>
+            <div class="section-content">
+                <div id="formEmprestimo" class="form-container" style="display: none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Descrição / Credor</label>
+                            <input type="text" id="emprestimoDescricao">
+                        </div>
+                        <div class="form-group">
+                            <label>Valor Principal (Dívida)</label>
+                            <input type="number" id="emprestimoPrincipal" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Taxa de Juros (%)</label>
+                            <input type="number" id="emprestimoJuros" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label>Categoria</label>
+                            <select id="emprestimoCategoria">
+                                <option value="">Selecione...</option>
+                                <option value="Agiota">Agiota</option>
+                                <option value="Banco">Banco</option>
+                                <option value="Financeira">Financeira</option>
+                                <option value="Pessoa Física">Pessoa Física</option>
+                                <option value="Cartão">Cartão</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Data Vencimento Juros</label>
+                            <input type="date" id="emprestimoData">
+                        </div>
+                    </div>
+                    <div class="form-buttons">
+                        <button class="btn-cancelar" onclick="esconderForm('emprestimo')">Cancelar</button>
+                        <button class="btn-salvar" onclick="salvarEmprestimo()">Salvar</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="transacoes-table">
+                        <thead>
+                            <tr>
+                                <th>Credor</th>
+                                <th>Categoria</th>
+                                <th>Dívida</th>
+                                <th>Juros</th>
+                                <th>Saldo</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="emprestimosTable"></tbody>
+                    </table>
+                </div>
+                <div id="emptyEmprestimos" class="empty-state">Nenhum empréstimo cadastrado</div>
+            </div>
+        </div>
+
+        <!-- ECONOMIAS -->
+        <div class="section">
+            <div class="section-header">
+                <h2>💎 Economias <span class="subtotal" id="subtotalEconomias"></span></h2>
+                <button class="btn-add" onclick="mostrarForm('economia')">+ Adicionar</button>
+            </div>
+            <div class="section-content">
+                <div id="formEconomia" class="form-container" style="display: none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Descrição</label>
+                            <input type="text" id="economiaDescricao">
+                        </div>
+                        <div class="form-group">
+                            <label>Valor</label>
+                            <input type="number" id="economiaValor" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Categoria</label>
+                            <select id="economiaCategoria">
+                                <option value="">Selecione...</option>
+                                <option value="Poupança">Poupança</option>
+                                <option value="Investimento">Investimento</option>
+                                <option value="Reserva">Reserva de Emergência</option>
+                                <option value="Objetivo">Objetivo Específico</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Data</label>
+                            <input type="date" id="economiaData">
+                        </div>
+                    </div>
+                    <div class="form-buttons">
+                        <button class="btn-cancelar" onclick="esconderForm('economia')">Cancelar</button>
+                        <button class="btn-salvar" onclick="salvarEconomia()">Salvar</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="transacoes-table">
+                        <thead>
+                            <tr>
+                                <th>Descrição</th>
+                                <th>Categoria</th>
+                                <th>Data</th>
+                                <th>Valor</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="economiasTable"></tbody>
+                    </table>
+                </div>
+                <div id="emptyEconomias" class="empty-state">Nenhuma economia cadastrada</div>
+            </div>
+        </div>
+
+        <!-- RESUMO FINAL -->
         <div class="resumo-final">
-            <h3>📊 RESUMO GERAL</h3>
+            <h3>📊 RESUMO GERAL ACUMULADO</h3>
             <div class="resumo-final-grid">
                 <div class="resumo-final-item recebido">
-                    <label>Total que Recebi</label>
+                    <label>Total Recebido</label>
                     <div class="valor" id="totalRecebidoFinal">R$ 0,00</div>
                 </div>
                 <div class="resumo-final-item pago">
-                    <label>Total que Paguei</label>
+                    <label>Total Pago</label>
                     <div class="valor" id="totalPagoFinal">R$ 0,00</div>
                 </div>
+                <div class="resumo-final-item economia">
+                    <label>Total Economizado</label>
+                    <div class="valor" id="totalEconomiaFinal">R$ 0,00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar -->
+    <div class="modal" id="modalEditar">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Editar Item</h3>
+                <button class="modal-close" onclick="fecharModal()">&times;</button>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <input type="text" id="editDescricao">
+                </div>
+                <div class="form-group">
+                    <label>Valor</label>
+                    <input type="number" id="editValor" step="0.01">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Categoria</label>
+                    <input type="text" id="editCategoria">
+                </div>
+                <div class="form-group">
+                    <label>Data</label>
+                    <input type="date" id="editData">
+                </div>
+            </div>
+            <div class="form-buttons">
+                <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+                <button class="btn-salvar" onclick="salvarEdicao()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Pagar Empréstimo -->
+    <div class="modal" id="modalPagarEmprestimo">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Registrar Pagamento</h3>
+                <button class="modal-close" onclick="fecharModalPagamento()">&times;</button>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Valor do Pagamento</label>
+                    <input type="number" id="pagamentoValor" step="0.01">
+                </div>
+            </div>
+            <div class="tipo-selector">
+                <label>
+                    <input type="radio" name="tipoPagamentoEmp" value="juros" checked>
+                    <span>💰 Apenas Juros</span>
+                </label>
+                <label>
+                    <input type="radio" name="tipoPagamentoEmp" value="amortizacao">
+                    <span>📉 Amortização (Abate Dívida)</span>
+                </label>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Data do Pagamento</label>
+                    <input type="date" id="pagamentoData">
+                </div>
+            </div>
+            <div class="form-buttons">
+                <button class="btn-cancelar" onclick="fecharModalPagamento()">Cancelar</button>
+                <button class="btn-salvar" onclick="confirmarPagamentoEmprestimo()">Confirmar</button>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        // ========== CONFIGURAÇÃO ==========
         const SUPABASE_URL = 'https://ltwamldgdwqzyssoukzl.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0d2FtbGRnZHdxenlzc291a3psIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY4NzEzMDUsImV4cCI6MjA4MjQ0NzMwNX0.UVyo0c0BHslB7mCU74Qx8rdo42HA0WPAyDQ6J-FIakE';
         
@@ -828,418 +1103,515 @@
             const { createClient } = supabase;
             supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
             useSupabase = true;
-            console.log('✅ Supabase conectado!');
         } catch (e) {
-            console.log('⚠️ Usando localStorage', e);
+            console.log('Usando localStorage');
         }
 
         const USER_ID = 'default_user';
 
-        let financeiro = JSON.parse(localStorage.getItem('financeiro')) || {
+        // Estrutura de dados
+        let financeiro = JSON.parse(localStorage.getItem('financeiro_v2')) || {
             receitas: [],
-            despesas: []
+            despesasFixas: [],
+            despesasVariaveis: [],
+            emprestimos: [],
+            economias: [],
+            historicoPagamentos: []
         };
 
         let mesSelecionado = '';
+        let itemEditando = null;
+        let emprestimoSelecionado = null;
 
+        // ========== UTILITÁRIOS ==========
         function initMes() {
-            const hoje = new Date();
-            const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+            const mes = String(new Date().getMonth() + 1).padStart(2, '0');
             document.getElementById('mesSelect').value = mes;
             mesSelecionado = mes;
         }
 
-        function formatarMoeda(valor) {
-            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor || 0);
+        function formatarMoeda(v) {
+            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v || 0);
         }
 
-        function formatarData(data) {
-            if (!data) return '-';
-            return new Date(data + 'T00:00:00').toLocaleDateString('pt-BR');
+        function formatarData(d) {
+            return d ? new Date(d + 'T00:00:00').toLocaleDateString('pt-BR') : '-';
         }
 
         function getStatusVencimento(dataStr, pago) {
             if (pago) return { status: 'ok', texto: '' };
-            
-            const hoje = new Date();
-            hoje.setHours(0, 0, 0, 0);
-            const vencimento = new Date(dataStr + 'T00:00:00');
-            const diffDias = Math.ceil((vencimento - hoje) / (1000 * 60 * 60 * 24));
-            
-            if (diffDias < 0) {
-                return { status: 'vencido', texto: `Vencido há ${Math.abs(diffDias)} dia(s)` };
-            } else if (diffDias <= 3) {
-                return { status: 'proximo', texto: diffDias === 0 ? 'Vence hoje!' : `Vence em ${diffDias} dia(s)` };
-            }
+            const hoje = new Date(); hoje.setHours(0,0,0,0);
+            const venc = new Date(dataStr + 'T00:00:00');
+            const diff = Math.ceil((venc - hoje) / 86400000);
+            if (diff < 0) return { status: 'vencido', texto: `Vencido há ${Math.abs(diff)}d` };
+            if (diff <= 3) return { status: 'proximo', texto: diff === 0 ? 'Vence hoje!' : `Vence em ${diff}d` };
             return { status: 'ok', texto: '' };
         }
 
-        function selecionarCategoria(tipo) {
-            const select = document.getElementById(tipo + 'Categoria');
-            const input = document.getElementById(tipo + 'CategoriaCustom');
-            if (select.value) {
-                input.value = select.value;
-            }
-        }
-
-        function mostrarForm(tipo) {
-            const formId = 'form' + tipo.charAt(0).toUpperCase() + tipo.slice(1);
-            document.getElementById(formId).style.display = 'block';
-            const dataInput = document.getElementById(tipo + 'Data');
-            if (dataInput) {
-                dataInput.value = new Date().toISOString().split('T')[0];
-            }
-        }
-
-        function esconderForm(tipo) {
-            const formId = 'form' + tipo.charAt(0).toUpperCase() + tipo.slice(1);
-            document.getElementById(formId).style.display = 'none';
-            document.querySelectorAll(`#${formId} input`).forEach(input => {
-                if (input.type === 'checkbox' || input.type === 'radio') {
-                    if (input.value === 'normal' || input.value === 'juros') input.checked = true;
-                    else if (input.type === 'checkbox') input.checked = false;
-                }
-                else input.value = '';
-            });
-            document.querySelectorAll(`#${formId} select`).forEach(s => s.value = '');
-            if (tipo === 'despesa') {
-                document.getElementById('parceladaFields').classList.remove('active');
-                document.getElementById('emprestimoFields').classList.remove('active');
-                document.getElementById('labelValorDespesa').textContent = 'Valor';
-            }
-        }
-
-        function mudarTipoDespesa() {
-            const tipo = document.querySelector('input[name="tipoDespesa"]:checked').value;
-            document.getElementById('parceladaFields').classList.remove('active');
-            document.getElementById('emprestimoFields').classList.remove('active');
-            
-            if (tipo === 'parcelada') {
-                document.getElementById('parceladaFields').classList.add('active');
-                document.getElementById('labelValorDespesa').textContent = 'Valor da Parcela';
-            } else if (tipo === 'emprestimo') {
-                document.getElementById('emprestimoFields').classList.add('active');
-                document.getElementById('labelValorDespesa').textContent = 'Valor a Pagar';
-            } else {
-                document.getElementById('labelValorDespesa').textContent = 'Valor';
-            }
-        }
-
-        // Receitas
-        function salvarReceita() {
-            const descricao = document.getElementById('receitaDescricao').value.trim();
-            const valor = parseFloat(document.getElementById('receitaValor').value) || 0;
-            const categoria = document.getElementById('receitaCategoriaCustom').value.trim() || 'Outros';
-            const data = document.getElementById('receitaData').value;
-
-            if (!descricao || !valor || !data) {
-                alert('Preencha todos os campos!');
-                return;
-            }
-
-            financeiro.receitas.push({
-                id: Date.now(),
-                descricao,
-                valor,
-                categoria,
-                data,
-                recebido: false
-            });
-
-            salvarDados();
-            esconderForm('receita');
-            renderizar();
-        }
-
-        function toggleRecebido(id) {
-            const r = financeiro.receitas.find(x => x.id === id);
-            if (r) {
-                r.recebido = !r.recebido;
-                salvarDados();
-                renderizar();
-            }
-        }
-
-        function deletarReceita(id) {
-            financeiro.receitas = financeiro.receitas.filter(x => x.id !== id);
-            salvarDados();
-            renderizar();
-        }
-
-        // Despesas
-        function salvarDespesa() {
-            const descricao = document.getElementById('despesaDescricao').value.trim();
-            const valor = parseFloat(document.getElementById('despesaValor').value) || 0;
-            const categoria = document.getElementById('despesaCategoriaCustom').value.trim() || 'Outros';
-            const dataInicio = document.getElementById('despesaData').value;
-            const tipoDespesa = document.querySelector('input[name="tipoDespesa"]:checked').value;
-
-            if (!descricao || !valor || !dataInicio) {
-                alert('Preencha todos os campos!');
-                return;
-            }
-
-            if (tipoDespesa === 'parcelada') {
-                const totalParcelas = parseInt(document.getElementById('despesaTotalParcelas').value) || 1;
-                const grupoId = Date.now();
-                const valorTotal = valor * totalParcelas;
-                
-                for (let i = 0; i < totalParcelas; i++) {
-                    const dataVencimento = new Date(dataInicio + 'T00:00:00');
-                    dataVencimento.setMonth(dataVencimento.getMonth() + i);
-                    
-                    financeiro.despesas.push({
-                        id: grupoId + i,
-                        grupoId,
-                        descricao,
-                        valor,
-                        valorTotal,
-                        categoria,
-                        data: dataVencimento.toISOString().split('T')[0],
-                        pago: false,
-                        tipo: 'parcelada',
-                        parcelaAtual: i + 1,
-                        totalParcelas
-                    });
-                }
-            } else if (tipoDespesa === 'emprestimo') {
-                const valorTotalDivida = parseFloat(document.getElementById('emprestimoValorTotal').value) || 0;
-                const juros = parseFloat(document.getElementById('emprestimoJuros').value) || 0;
-                const tipoPagamento = document.querySelector('input[name="tipoPagamento"]:checked').value;
-
-                financeiro.despesas.push({
-                    id: Date.now(),
-                    descricao,
-                    valor,
-                    categoria,
-                    data: dataInicio,
-                    pago: false,
-                    tipo: 'emprestimo',
-                    valorTotalDivida,
-                    valorPagoDivida: 0,
-                    juros,
-                    tipoPagamento
-                });
-            } else {
-                financeiro.despesas.push({
-                    id: Date.now(),
-                    descricao,
-                    valor,
-                    categoria,
-                    data: dataInicio,
-                    pago: false,
-                    tipo: 'normal'
-                });
-            }
-
-            salvarDados();
-            esconderForm('despesa');
-            renderizar();
-        }
-
-        function togglePago(id) {
-            const d = financeiro.despesas.find(x => x.id === id);
-            if (d) {
-                d.pago = !d.pago;
-                
-                // Se for empréstimo e está pagando, abater da dívida
-                if (d.tipo === 'emprestimo' && d.pago && d.tipoPagamento === 'divida') {
-                    d.valorPagoDivida = (d.valorPagoDivida || 0) + d.valor;
-                } else if (d.tipo === 'emprestimo' && !d.pago && d.tipoPagamento === 'divida') {
-                    d.valorPagoDivida = Math.max(0, (d.valorPagoDivida || 0) - d.valor);
-                }
-                
-                salvarDados();
-                renderizar();
-            }
-        }
-
-        function deletarDespesa(id) {
-            const d = financeiro.despesas.find(x => x.id === id);
-            if (d && d.grupoId) {
-                if (confirm('Excluir todas as parcelas desta conta?')) {
-                    financeiro.despesas = financeiro.despesas.filter(x => x.grupoId !== d.grupoId);
-                } else {
-                    financeiro.despesas = financeiro.despesas.filter(x => x.id !== id);
-                }
-            } else {
-                financeiro.despesas = financeiro.despesas.filter(x => x.id !== id);
-            }
-            salvarDados();
-            renderizar();
-        }
-
-        function calcularDadosParcelas(grupoId) {
-            const parcelas = financeiro.despesas.filter(d => d.grupoId === grupoId);
-            const pagas = parcelas.filter(d => d.pago);
-            const valorPago = pagas.reduce((s, p) => s + p.valor, 0);
-            const valorTotal = parcelas[0]?.valorTotal || 0;
-            const valorRestante = valorTotal - valorPago;
-            const percentual = Math.round((pagas.length / parcelas.length) * 100);
-            
-            return { pagas: pagas.length, total: parcelas.length, valorPago, valorTotal, valorRestante, percentual };
-        }
-
         function filtrarPorMes(lista) {
-            if (!lista) return [];
-            return lista.filter(item => {
-                if (!item.data) return false;
-                const mes = item.data.substring(5, 7);
-                return mes === mesSelecionado;
-            });
+            return (lista || []).filter(i => i.data?.substring(5,7) === mesSelecionado);
         }
 
         function mudarMes() {
             mesSelecionado = document.getElementById('mesSelect').value;
+            verificarMigracaoVencidos();
             renderizar();
+        }
+
+        // ========== FORMULÁRIOS ==========
+        function mostrarForm(tipo) {
+            const id = 'form' + tipo.charAt(0).toUpperCase() + tipo.slice(1);
+            document.getElementById(id).style.display = 'block';
+            const dataInput = document.getElementById(tipo + 'Data');
+            if (dataInput) dataInput.value = new Date().toISOString().split('T')[0];
+        }
+
+        function esconderForm(tipo) {
+            const id = 'form' + tipo.charAt(0).toUpperCase() + tipo.slice(1);
+            const form = document.getElementById(id);
+            form.style.display = 'none';
+            form.querySelectorAll('input').forEach(i => {
+                if (i.type === 'radio') i.checked = i.value === 'normal' || i.value === 'juros';
+                else i.value = '';
+            });
+            form.querySelectorAll('select').forEach(s => s.value = '');
+            const extra = form.querySelector('.extra-fields');
+            if (extra) extra.classList.remove('active');
+        }
+
+        function mudarTipoDespesaVar() {
+            const tipo = document.querySelector('input[name="tipoDespesaVar"]:checked').value;
+            document.getElementById('parceladaFieldsVar').classList.toggle('active', tipo === 'parcelada');
+            document.getElementById('labelValorVar').textContent = tipo === 'parcelada' ? 'Valor da Parcela' : 'Valor';
+        }
+
+        // ========== CRUD RECEITAS ==========
+        function salvarReceita() {
+            const desc = document.getElementById('receitaDescricao').value.trim();
+            const valor = parseFloat(document.getElementById('receitaValor').value) || 0;
+            const cat = document.getElementById('receitaCategoria').value || 'Outros';
+            const data = document.getElementById('receitaData').value;
+            if (!desc || !valor || !data) return alert('Preencha todos os campos!');
+            
+            financeiro.receitas.push({ id: Date.now(), descricao: desc, valor, categoria: cat, data, recebido: false });
+            salvarDados(); esconderForm('receita'); renderizar();
+        }
+
+        function toggleRecebido(id) {
+            const r = financeiro.receitas.find(x => x.id === id);
+            if (r) { r.recebido = !r.recebido; salvarDados(); renderizar(); }
+        }
+
+        function deletarReceita(id) {
+            financeiro.receitas = financeiro.receitas.filter(x => x.id !== id);
+            salvarDados(); renderizar();
+        }
+
+        // ========== CRUD DESPESAS FIXAS ==========
+        function salvarDespesaFixa() {
+            const desc = document.getElementById('despesaFixaDescricao').value.trim();
+            const valor = parseFloat(document.getElementById('despesaFixaValor').value) || 0;
+            const cat = document.getElementById('despesaFixaCategoria').value || 'Outros';
+            const data = document.getElementById('despesaFixaData').value;
+            if (!desc || !valor || !data) return alert('Preencha todos os campos!');
+            
+            financeiro.despesasFixas.push({ id: Date.now(), descricao: desc, valor, categoria: cat, data, pago: false });
+            salvarDados(); esconderForm('despesaFixa'); renderizar();
+        }
+
+        function togglePagoFixa(id) {
+            const d = financeiro.despesasFixas.find(x => x.id === id);
+            if (d) { d.pago = !d.pago; salvarDados(); renderizar(); }
+        }
+
+        function deletarDespesaFixa(id) {
+            financeiro.despesasFixas = financeiro.despesasFixas.filter(x => x.id !== id);
+            salvarDados(); renderizar();
+        }
+
+        // ========== CRUD DESPESAS VARIÁVEIS ==========
+        function salvarDespesaVariavel() {
+            const desc = document.getElementById('despesaVariavelDescricao').value.trim();
+            const valor = parseFloat(document.getElementById('despesaVariavelValor').value) || 0;
+            const cat = document.getElementById('despesaVariavelCategoria').value || 'Outros';
+            const data = document.getElementById('despesaVariavelData').value;
+            const tipo = document.querySelector('input[name="tipoDespesaVar"]:checked').value;
+            if (!desc || !valor || !data) return alert('Preencha todos os campos!');
+
+            if (tipo === 'parcelada') {
+                const totalParcelas = parseInt(document.getElementById('despesaVariavelParcelas').value) || 1;
+                const grupoId = Date.now();
+                for (let i = 0; i < totalParcelas; i++) {
+                    const dataVenc = new Date(data + 'T00:00:00');
+                    dataVenc.setMonth(dataVenc.getMonth() + i);
+                    financeiro.despesasVariaveis.push({
+                        id: grupoId + i, grupoId, descricao: desc, valor, valorTotal: valor * totalParcelas,
+                        categoria: cat, data: dataVenc.toISOString().split('T')[0], pago: false,
+                        tipo: 'parcelada', parcelaAtual: i + 1, totalParcelas
+                    });
+                }
+            } else {
+                financeiro.despesasVariaveis.push({ id: Date.now(), descricao: desc, valor, categoria: cat, data, pago: false, tipo: 'normal' });
+            }
+            salvarDados(); esconderForm('despesaVariavel'); renderizar();
+        }
+
+        function togglePagoVariavel(id) {
+            const d = financeiro.despesasVariaveis.find(x => x.id === id);
+            if (d) { d.pago = !d.pago; salvarDados(); renderizar(); }
+        }
+
+        function deletarDespesaVariavel(id) {
+            const d = financeiro.despesasVariaveis.find(x => x.id === id);
+            if (d?.grupoId && confirm('Excluir todas as parcelas?')) {
+                financeiro.despesasVariaveis = financeiro.despesasVariaveis.filter(x => x.grupoId !== d.grupoId);
+            } else {
+                financeiro.despesasVariaveis = financeiro.despesasVariaveis.filter(x => x.id !== id);
+            }
+            salvarDados(); renderizar();
+        }
+
+        // ========== CRUD EMPRÉSTIMOS ==========
+        function salvarEmprestimo() {
+            const desc = document.getElementById('emprestimoDescricao').value.trim();
+            const principal = parseFloat(document.getElementById('emprestimoPrincipal').value) || 0;
+            const juros = parseFloat(document.getElementById('emprestimoJuros').value) || 0;
+            const cat = document.getElementById('emprestimoCategoria').value || 'Outros';
+            const data = document.getElementById('emprestimoData').value;
+            if (!desc || !principal) return alert('Preencha os campos obrigatórios!');
+
+            financeiro.emprestimos.push({
+                id: Date.now(), descricao: desc, principal, saldoDevedor: principal,
+                juros, categoria: cat, data, totalPagoJuros: 0, totalPagoAmortizacao: 0,
+                pagamentos: []
+            });
+            salvarDados(); esconderForm('emprestimo'); renderizar();
+        }
+
+        function abrirModalPagamento(id) {
+            emprestimoSelecionado = id;
+            document.getElementById('pagamentoValor').value = '';
+            document.getElementById('pagamentoData').value = new Date().toISOString().split('T')[0];
+            document.getElementById('modalPagarEmprestimo').classList.add('active');
+        }
+
+        function fecharModalPagamento() {
+            document.getElementById('modalPagarEmprestimo').classList.remove('active');
+            emprestimoSelecionado = null;
+        }
+
+        function confirmarPagamentoEmprestimo() {
+            const emp = financeiro.emprestimos.find(x => x.id === emprestimoSelecionado);
+            if (!emp) return;
+
+            const valor = parseFloat(document.getElementById('pagamentoValor').value) || 0;
+            const tipo = document.querySelector('input[name="tipoPagamentoEmp"]:checked').value;
+            const data = document.getElementById('pagamentoData').value;
+            if (!valor) return alert('Informe o valor!');
+
+            const pagamento = { data, valor, tipo, dataRegistro: new Date().toISOString() };
+            emp.pagamentos = emp.pagamentos || [];
+            emp.pagamentos.push(pagamento);
+
+            if (tipo === 'juros') {
+                emp.totalPagoJuros = (emp.totalPagoJuros || 0) + valor;
+            } else {
+                emp.totalPagoAmortizacao = (emp.totalPagoAmortizacao || 0) + valor;
+                emp.saldoDevedor = Math.max(0, emp.saldoDevedor - valor);
+            }
+
+            financeiro.historicoPagamentos.push({ ...pagamento, emprestimoId: emp.id, descricao: emp.descricao });
+            salvarDados(); fecharModalPagamento(); renderizar();
+        }
+
+        function deletarEmprestimo(id) {
+            if (!confirm('Excluir este empréstimo?')) return;
+            financeiro.emprestimos = financeiro.emprestimos.filter(x => x.id !== id);
+            salvarDados(); renderizar();
+        }
+
+        // ========== CRUD ECONOMIAS ==========
+        function salvarEconomia() {
+            const desc = document.getElementById('economiaDescricao').value.trim();
+            const valor = parseFloat(document.getElementById('economiaValor').value) || 0;
+            const cat = document.getElementById('economiaCategoria').value || 'Outros';
+            const data = document.getElementById('economiaData').value;
+            if (!desc || !valor || !data) return alert('Preencha todos os campos!');
+
+            financeiro.economias.push({ id: Date.now(), descricao: desc, valor, categoria: cat, data });
+            salvarDados(); esconderForm('economia'); renderizar();
+        }
+
+        function deletarEconomia(id) {
+            financeiro.economias = financeiro.economias.filter(x => x.id !== id);
+            salvarDados(); renderizar();
+        }
+
+        // ========== EDIÇÃO GENÉRICA ==========
+        function abrirModalEditar(tipo, id) {
+            let item;
+            if (tipo === 'receita') item = financeiro.receitas.find(x => x.id === id);
+            else if (tipo === 'despesaFixa') item = financeiro.despesasFixas.find(x => x.id === id);
+            else if (tipo === 'despesaVariavel') item = financeiro.despesasVariaveis.find(x => x.id === id);
+            else if (tipo === 'economia') item = financeiro.economias.find(x => x.id === id);
+            if (!item) return;
+
+            itemEditando = { tipo, id };
+            document.getElementById('editDescricao').value = item.descricao;
+            document.getElementById('editValor').value = item.valor;
+            document.getElementById('editCategoria').value = item.categoria;
+            document.getElementById('editData').value = item.data;
+            document.getElementById('modalEditar').classList.add('active');
+        }
+
+        function fecharModal() {
+            document.getElementById('modalEditar').classList.remove('active');
+            itemEditando = null;
+        }
+
+        function salvarEdicao() {
+            if (!itemEditando) return;
+            let lista;
+            if (itemEditando.tipo === 'receita') lista = financeiro.receitas;
+            else if (itemEditando.tipo === 'despesaFixa') lista = financeiro.despesasFixas;
+            else if (itemEditando.tipo === 'despesaVariavel') lista = financeiro.despesasVariaveis;
+            else if (itemEditando.tipo === 'economia') lista = financeiro.economias;
+
+            const item = lista.find(x => x.id === itemEditando.id);
+            if (item) {
+                item.descricao = document.getElementById('editDescricao').value.trim();
+                item.valor = parseFloat(document.getElementById('editValor').value) || item.valor;
+                item.categoria = document.getElementById('editCategoria').value;
+                item.data = document.getElementById('editData').value;
+            }
+            salvarDados(); fecharModal(); renderizar();
+        }
+
+        // ========== DUPLICAR ==========
+        function duplicar(tipo, id) {
+            let item, lista;
+            if (tipo === 'receita') { lista = financeiro.receitas; item = lista.find(x => x.id === id); }
+            else if (tipo === 'despesaFixa') { lista = financeiro.despesasFixas; item = lista.find(x => x.id === id); }
+            else if (tipo === 'despesaVariavel') { lista = financeiro.despesasVariaveis; item = lista.find(x => x.id === id); }
+            else if (tipo === 'economia') { lista = financeiro.economias; item = lista.find(x => x.id === id); }
+            if (!item) return;
+
+            const novoItem = { ...item, id: Date.now(), pago: false, recebido: false };
+            delete novoItem.grupoId;
+            lista.push(novoItem);
+            salvarDados(); renderizar();
+        }
+
+        // ========== MIGRAÇÃO VENCIDOS ==========
+        function verificarMigracaoVencidos() {
+            const hoje = new Date();
+            const mesAtual = String(hoje.getMonth() + 1).padStart(2, '0');
+            
+            // Migrar despesas fixas não pagas do mês anterior
+            financeiro.despesasFixas.forEach(d => {
+                if (!d.pago && d.data) {
+                    const mesDespesa = d.data.substring(5, 7);
+                    if (mesDespesa < mesAtual && !d.migrado) {
+                        const novaData = new Date(d.data + 'T00:00:00');
+                        novaData.setMonth(novaData.getMonth() + 1);
+                        financeiro.despesasFixas.push({
+                            ...d, id: Date.now() + Math.random(), data: novaData.toISOString().split('T')[0],
+                            pago: false, migrado: false, origemMigrada: d.id
+                        });
+                        d.migrado = true;
+                    }
+                }
+            });
+        }
+
+        // ========== RENDERIZAÇÃO ==========
+        function calcularDadosParcelas(grupoId) {
+            const parcelas = financeiro.despesasVariaveis.filter(d => d.grupoId === grupoId);
+            const pagas = parcelas.filter(d => d.pago);
+            return {
+                pagas: pagas.length, total: parcelas.length,
+                valorPago: pagas.reduce((s, p) => s + p.valor, 0),
+                valorTotal: parcelas[0]?.valorTotal || 0,
+                percentual: Math.round((pagas.length / parcelas.length) * 100)
+            };
+        }
+
+        function renderBadgeVencimento(data, pago) {
+            const v = getStatusVencimento(data, pago);
+            if (v.status === 'vencido') return `<span class="badge vencido">⚠️ ${v.texto}</span>`;
+            if (v.status === 'proximo') return `<span class="badge proximo">⏰ ${v.texto}</span>`;
+            return '';
+        }
+
+        function renderAcoes(tipo, id, semDuplicar = false) {
+            return `
+                <button onclick="abrirModalEditar('${tipo}', ${id})" title="Editar">✏️</button>
+                ${semDuplicar ? '' : `<button onclick="duplicar('${tipo}', ${id})" title="Duplicar">📋</button>`}
+                <button class="delete" onclick="deletar${tipo.charAt(0).toUpperCase() + tipo.slice(1)}(${id})" title="Excluir">🗑️</button>
+            `;
         }
 
         function renderizar() {
             const receitasMes = filtrarPorMes(financeiro.receitas);
-            const despesasMes = filtrarPorMes(financeiro.despesas);
+            const fixasMes = filtrarPorMes(financeiro.despesasFixas);
+            const variaveisMes = filtrarPorMes(financeiro.despesasVariaveis);
+            const economiasMes = filtrarPorMes(financeiro.economias);
 
             // Totais do mês
-            const totalRecebido = receitasMes.filter(r => r.recebido).reduce((s, r) => s + (r.valor || 0), 0);
-            const totalPago = despesasMes.filter(d => d.pago).reduce((s, d) => s + (d.valor || 0), 0);
+            const totalRecebido = receitasMes.filter(r => r.recebido).reduce((s, r) => s + r.valor, 0);
+            const totalPagoFixas = fixasMes.filter(d => d.pago).reduce((s, d) => s + d.valor, 0);
+            const totalPagoVariaveis = variaveisMes.filter(d => d.pago).reduce((s, d) => s + d.valor, 0);
+            const totalPago = totalPagoFixas + totalPagoVariaveis;
+            const totalEconomiaMes = economiasMes.reduce((s, e) => s + e.valor, 0);
 
             document.getElementById('totalRecebido').textContent = formatarMoeda(totalRecebido);
             document.getElementById('totalPago').textContent = formatarMoeda(totalPago);
+            document.getElementById('totalEconomia').textContent = formatarMoeda(totalEconomiaMes);
 
-            // Totais gerais (todos os meses)
-            const totalRecebidoGeral = financeiro.receitas.filter(r => r.recebido).reduce((s, r) => s + (r.valor || 0), 0);
-            const totalPagoGeral = financeiro.despesas.filter(d => d.pago).reduce((s, d) => s + (d.valor || 0), 0);
+            // Subtotais
+            document.getElementById('subtotalFixas').textContent = `(${formatarMoeda(totalPagoFixas)})`;
+            document.getElementById('subtotalVariaveis').textContent = `(${formatarMoeda(totalPagoVariaveis)})`;
+            const saldoDevedorTotal = financeiro.emprestimos.reduce((s, e) => s + e.saldoDevedor, 0);
+            document.getElementById('subtotalEmprestimos').textContent = `(Saldo: ${formatarMoeda(saldoDevedorTotal)})`;
+            document.getElementById('subtotalEconomias').textContent = `(${formatarMoeda(totalEconomiaMes)})`;
+
+            // Totais gerais
+            const totalRecebidoGeral = financeiro.receitas.filter(r => r.recebido).reduce((s, r) => s + r.valor, 0);
+            const totalPagoGeralFixas = financeiro.despesasFixas.filter(d => d.pago).reduce((s, d) => s + d.valor, 0);
+            const totalPagoGeralVar = financeiro.despesasVariaveis.filter(d => d.pago).reduce((s, d) => s + d.valor, 0);
+            const totalPagoGeral = totalPagoGeralFixas + totalPagoGeralVar;
+            const totalEconomiaGeral = financeiro.economias.reduce((s, e) => s + e.valor, 0);
 
             document.getElementById('totalRecebidoFinal').textContent = formatarMoeda(totalRecebidoGeral);
             document.getElementById('totalPagoFinal').textContent = formatarMoeda(totalPagoGeral);
+            document.getElementById('totalEconomiaFinal').textContent = formatarMoeda(totalEconomiaGeral);
 
             // Tabela Receitas
             const receitasTable = document.getElementById('receitasTable');
-            const emptyReceitas = document.getElementById('emptyReceitas');
-            
-            if (receitasMes.length === 0) {
-                receitasTable.innerHTML = '';
-                emptyReceitas.style.display = 'block';
-            } else {
-                emptyReceitas.style.display = 'none';
-                receitasTable.innerHTML = receitasMes.map(r => `
-                    <tr class="${r.recebido ? 'done' : ''}">
-                        <td><input type="checkbox" class="checkbox-status" ${r.recebido ? 'checked' : ''} onchange="toggleRecebido(${r.id})"></td>
-                        <td>${r.descricao}</td>
-                        <td><span class="categoria">${r.categoria}</span></td>
-                        <td>${formatarData(r.data)}</td>
-                        <td class="valor-positivo">+ ${formatarMoeda(r.valor)}</td>
-                        <td class="acoes"><button onclick="deletarReceita(${r.id})">🗑️</button></td>
+            document.getElementById('emptyReceitas').style.display = receitasMes.length ? 'none' : 'block';
+            receitasTable.innerHTML = receitasMes.map(r => `
+                <tr class="${r.recebido ? 'done' : ''}">
+                    <td><input type="checkbox" class="checkbox-status" ${r.recebido ? 'checked' : ''} onchange="toggleRecebido(${r.id})"></td>
+                    <td>${r.descricao}</td>
+                    <td><span class="categoria">${r.categoria}</span></td>
+                    <td>${formatarData(r.data)}</td>
+                    <td class="valor-positivo">+ ${formatarMoeda(r.valor)}</td>
+                    <td class="acoes">${renderAcoes('receita', r.id)}</td>
+                </tr>
+            `).join('');
+
+            // Tabela Despesas Fixas
+            const fixasTable = document.getElementById('despesasFixasTable');
+            document.getElementById('emptyDespesasFixas').style.display = fixasMes.length ? 'none' : 'block';
+            fixasTable.innerHTML = fixasMes.map(d => {
+                const rowClass = d.pago ? 'done' : (getStatusVencimento(d.data, d.pago).status === 'vencido' ? 'vencido' : getStatusVencimento(d.data, d.pago).status === 'proximo' ? 'proximo' : '');
+                return `
+                    <tr class="${rowClass}">
+                        <td><input type="checkbox" class="checkbox-status" ${d.pago ? 'checked' : ''} onchange="togglePagoFixa(${d.id})"></td>
+                        <td>${d.descricao}</td>
+                        <td><span class="categoria">${d.categoria}</span></td>
+                        <td>${formatarData(d.data)} ${renderBadgeVencimento(d.data, d.pago)}</td>
+                        <td class="valor-negativo">- ${formatarMoeda(d.valor)}</td>
+                        <td class="acoes">${renderAcoes('despesaFixa', d.id)}</td>
                     </tr>
-                `).join('');
-            }
+                `;
+            }).join('');
 
-            // Tabela Despesas
-            const despesasTable = document.getElementById('despesasTable');
-            const emptyDespesas = document.getElementById('emptyDespesas');
-            
-            if (despesasMes.length === 0) {
-                despesasTable.innerHTML = '';
-                emptyDespesas.style.display = 'block';
-            } else {
-                emptyDespesas.style.display = 'none';
-                despesasTable.innerHTML = despesasMes.map(d => {
-                    const vencimento = getStatusVencimento(d.data, d.pago);
-                    let vencimentoBadge = '';
-                    let rowClass = d.pago ? 'done' : '';
-                    
-                    if (vencimento.status === 'vencido') {
-                        vencimentoBadge = `<span class="vencimento-badge vencido">⚠️ ${vencimento.texto}</span>`;
-                        if (!d.pago) rowClass = 'vencido';
-                    } else if (vencimento.status === 'proximo') {
-                        vencimentoBadge = `<span class="vencimento-badge proximo">⏰ ${vencimento.texto}</span>`;
-                        if (!d.pago) rowClass = 'proximo';
-                    }
+            // Tabela Despesas Variáveis
+            const variaveisTable = document.getElementById('despesasVariaveisTable');
+            document.getElementById('emptyDespesasVariaveis').style.display = variaveisMes.length ? 'none' : 'block';
+            variaveisTable.innerHTML = variaveisMes.map(d => {
+                let extraInfo = '';
+                if (d.tipo === 'parcelada') {
+                    const dados = calcularDadosParcelas(d.grupoId);
+                    extraInfo = `<span class="badge parcela">${d.parcelaAtual}/${d.totalParcelas}</span>
+                        <div class="info-extra">Pago: ${formatarMoeda(dados.valorPago)} de ${formatarMoeda(dados.valorTotal)}
+                        <div class="progress-bar"><div class="progress-bar-fill" style="width:${dados.percentual}%"></div></div></div>`;
+                }
+                const rowClass = d.pago ? 'done' : (getStatusVencimento(d.data, d.pago).status === 'vencido' ? 'vencido' : getStatusVencimento(d.data, d.pago).status === 'proximo' ? 'proximo' : '');
+                return `
+                    <tr class="${rowClass}">
+                        <td><input type="checkbox" class="checkbox-status" ${d.pago ? 'checked' : ''} onchange="togglePagoVariavel(${d.id})"></td>
+                        <td>${d.descricao}${extraInfo}</td>
+                        <td><span class="categoria">${d.categoria}</span></td>
+                        <td>${formatarData(d.data)} ${renderBadgeVencimento(d.data, d.pago)}</td>
+                        <td class="valor-negativo">- ${formatarMoeda(d.valor)}</td>
+                        <td class="acoes">${renderAcoes('despesaVariavel', d.id)}</td>
+                    </tr>
+                `;
+            }).join('');
 
-                    let extraInfo = '';
-                    
-                    if (d.tipo === 'parcelada') {
-                        const dados = calcularDadosParcelas(d.grupoId);
-                        extraInfo = `
-                            <span class="parcela-badge">${d.parcelaAtual}/${d.totalParcelas}</span>
-                            <div class="parcela-info">
-                                Pago: <span class="destaque">${formatarMoeda(dados.valorPago)}</span> de ${formatarMoeda(dados.valorTotal)}<br>
-                                Falta: <span class="destaque">${formatarMoeda(dados.valorRestante)}</span>
-                                <div class="progress-bar">
-                                    <div class="progress-bar-fill" style="width: ${dados.percentual}%"></div>
-                                </div>
+            // Tabela Empréstimos
+            const emprestimosTable = document.getElementById('emprestimosTable');
+            document.getElementById('emptyEmprestimos').style.display = financeiro.emprestimos.length ? 'none' : 'block';
+            emprestimosTable.innerHTML = financeiro.emprestimos.map(e => {
+                const percentQuitado = e.principal > 0 ? Math.round(((e.principal - e.saldoDevedor) / e.principal) * 100) : 0;
+                return `
+                    <tr>
+                        <td>
+                            ${e.descricao}
+                            <div class="info-extra">
+                                Juros pagos: <span class="destaque">${formatarMoeda(e.totalPagoJuros)}</span><br>
+                                Amortizado: <span class="destaque">${formatarMoeda(e.totalPagoAmortizacao)}</span>
+                                <div class="progress-bar"><div class="progress-bar-fill" style="width:${percentQuitado}%"></div></div>
                             </div>
-                        `;
-                    } else if (d.tipo === 'emprestimo') {
-                        const valorRestante = (d.valorTotalDivida || 0) - (d.valorPagoDivida || 0);
-                        const percentual = d.valorTotalDivida > 0 ? Math.round((d.valorPagoDivida / d.valorTotalDivida) * 100) : 0;
-                        const tipoLabel = d.tipoPagamento === 'juros' ? 'Juros' : 'Abatimento';
-                        
-                        extraInfo = `
-                            <span class="emprestimo-badge">🏦 ${tipoLabel} ${d.juros}%</span>
-                            <div class="parcela-info">
-                                Dívida: <span class="destaque">${formatarMoeda(d.valorTotalDivida)}</span><br>
-                                Pago: <span class="destaque">${formatarMoeda(d.valorPagoDivida || 0)}</span><br>
-                                Resta: <span class="destaque">${formatarMoeda(valorRestante)}</span>
-                                <div class="progress-bar">
-                                    <div class="progress-bar-fill" style="width: ${percentual}%"></div>
-                                </div>
-                            </div>
-                        `;
-                    }
-                    
-                    return `
-                        <tr class="${rowClass}">
-                            <td><input type="checkbox" class="checkbox-status" ${d.pago ? 'checked' : ''} onchange="togglePago(${d.id})"></td>
-                            <td>
-                                ${d.descricao}${extraInfo}
-                            </td>
-                            <td><span class="categoria">${d.categoria}</span></td>
-                            <td>${formatarData(d.data)}${vencimentoBadge}</td>
-                            <td class="valor-negativo">- ${formatarMoeda(d.valor)}</td>
-                            <td class="acoes"><button onclick="deletarDespesa(${d.id})">🗑️</button></td>
-                        </tr>
-                    `;
-                }).join('');
-            }
+                        </td>
+                        <td><span class="categoria">${e.categoria}</span></td>
+                        <td>${formatarMoeda(e.principal)}</td>
+                        <td>${e.juros}%</td>
+                        <td class="valor-negativo">${formatarMoeda(e.saldoDevedor)}</td>
+                        <td class="acoes">
+                            <button onclick="abrirModalPagamento(${e.id})" title="Pagar">💰</button>
+                            <button class="delete" onclick="deletarEmprestimo(${e.id})" title="Excluir">🗑️</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Tabela Economias
+            const economiasTable = document.getElementById('economiasTable');
+            document.getElementById('emptyEconomias').style.display = economiasMes.length ? 'none' : 'block';
+            economiasTable.innerHTML = economiasMes.map(e => `
+                <tr>
+                    <td>${e.descricao}</td>
+                    <td><span class="categoria">${e.categoria}</span></td>
+                    <td>${formatarData(e.data)}</td>
+                    <td class="valor-economia">${formatarMoeda(e.valor)}</td>
+                    <td class="acoes">${renderAcoes('economia', e.id)}</td>
+                </tr>
+            `).join('');
         }
 
+        // ========== PERSISTÊNCIA ==========
         function salvarDados() {
-            localStorage.setItem('financeiro', JSON.stringify(financeiro));
-            salvarFinanceiroSupabase();
+            localStorage.setItem('financeiro_v2', JSON.stringify(financeiro));
+            salvarSupabase();
         }
 
-        async function salvarFinanceiroSupabase() {
+        async function salvarSupabase() {
             if (!useSupabase) return;
             try {
                 await supabaseClient.from('financeiro').upsert({
-                    id: USER_ID,
-                    user_id: USER_ID,
-                    dados: financeiro,
-                    updated_at: new Date().toISOString()
+                    id: USER_ID, user_id: USER_ID, dados: financeiro, updated_at: new Date().toISOString()
                 });
-                console.log('✅ Sincronizado!');
-            } catch (e) { console.error('Erro:', e); }
+            } catch (e) { console.error(e); }
         }
 
-        async function carregarFinanceiroSupabase() {
+        async function carregarSupabase() {
             if (!useSupabase) return;
             try {
-                const { data } = await supabaseClient
-                    .from('financeiro')
-                    .select('*')
-                    .eq('user_id', USER_ID)
-                    .single();
+                const { data } = await supabaseClient.from('financeiro').select('*').eq('user_id', USER_ID).single();
                 if (data?.dados) {
-                    financeiro = data.dados;
-                    localStorage.setItem('financeiro', JSON.stringify(financeiro));
-                    console.log('✅ Carregado!');
+                    financeiro = { ...financeiro, ...data.dados };
+                    localStorage.setItem('financeiro_v2', JSON.stringify(financeiro));
                 }
-            } catch (e) { console.error('Erro:', e); }
+            } catch (e) { console.error(e); }
         }
 
         async function init() {
             initMes();
-            if (useSupabase) await carregarFinanceiroSupabase();
+            await carregarSupabase();
+            verificarMigracaoVencidos();
             renderizar();
         }
 
