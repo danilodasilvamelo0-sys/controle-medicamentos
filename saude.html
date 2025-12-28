@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Medicamentos</title>
+    <title>ZARA | Saúde</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -17,24 +18,48 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
             min-height: 100vh;
             padding: 20px;
             padding-left: 80px;
             transition: padding-left 0.3s;
         }
 
-        /* Menu Lateral Fixo - Recolhível */
+        /* Linha decorativa dourada */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4af7d, transparent);
+            z-index: 9999;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4af7d, transparent);
+            z-index: 9999;
+        }
+
+        /* Menu Lateral Fixo - Premium Dark */
         .sidebar {
             position: fixed;
             top: 0;
             left: 0;
             width: 60px;
             height: 100vh;
-            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+            border-right: 1px solid rgba(212, 175, 125, 0.15);
             z-index: 1000;
-            box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+            box-shadow: 4px 0 20px rgba(0,0,0,0.5);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -58,15 +83,22 @@
         .sidebar-logo {
             width: 40px;
             height: 40px;
-            background: white;
-            border-radius: 10px;
+            background: transparent;
+            border: 1px solid rgba(212, 175, 125, 0.3);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-family: 'Playfair Display', serif;
             font-size: 1.2em;
+            color: #d4af7d;
             margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             flex-shrink: 0;
+            text-decoration: none;
+        }
+
+        .sidebar-logo:hover {
+            background: rgba(212, 175, 125, 0.1);
         }
 
         .sidebar-menu {
@@ -82,22 +114,24 @@
             align-items: center;
             gap: 12px;
             padding: 12px 10px;
-            color: white;
+            color: rgba(255,255,255,0.6);
             text-decoration: none;
             font-size: 0.85em;
             transition: all 0.3s;
-            border-left: 3px solid transparent;
+            border-left: 2px solid transparent;
             white-space: nowrap;
         }
 
         .sidebar-menu a:hover {
-            background: rgba(255,255,255,0.15);
-            border-left-color: white;
+            background: rgba(212, 175, 125, 0.1);
+            border-left-color: #d4af7d;
+            color: #fff;
         }
 
         .sidebar-menu a.active {
-            background: rgba(255,255,255,0.2);
-            border-left-color: white;
+            background: rgba(212, 175, 125, 0.15);
+            border-left-color: #d4af7d;
+            color: #d4af7d;
         }
 
         .sidebar-menu a svg {
@@ -124,7 +158,7 @@
 
         .sidebar-divider {
             height: 1px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(212, 175, 125, 0.2);
             margin: 8px 10px;
             width: calc(100% - 20px);
         }
@@ -132,26 +166,25 @@
         .sidebar-footer {
             padding: 15px 10px;
             text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.2);
+            border-top: 1px solid rgba(212, 175, 125, 0.2);
             width: 100%;
-            background: rgba(0,0,0,0.1);
+            background: rgba(0,0,0,0.3);
         }
 
         .sidebar-footer p {
-            color: white;
+            color: rgba(255,255,255,0.6);
             font-size: 0.7em;
-            font-weight: 700;
+            font-weight: 400;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             line-height: 1.6;
             opacity: 0;
             transition: opacity 0.3s;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
         .sidebar-footer .instituto {
             font-size: 0.85em;
-            color: #ffd700;
+            color: #d4af7d;
             display: block;
             margin-bottom: 3px;
         }
@@ -163,14 +196,16 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
+            background: #141414;
+            border: 1px solid rgba(212, 175, 125, 0.15);
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
             overflow: hidden;
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            border-bottom: 1px solid rgba(212, 175, 125, 0.2);
             color: white;
             padding: 30px;
             text-align: center;
@@ -178,22 +213,27 @@
         }
 
         .header h1 {
-            font-size: 2.5em;
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
             margin-bottom: 10px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            color: #fff;
         }
 
         .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
+            font-size: 0.9em;
+            color: rgba(212, 175, 125, 0.8);
+            letter-spacing: 1px;
         }
 
         .week-selector {
-            background: #f8f9fa;
+            background: #1a1a1a;
             padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #e9ecef;
+            border-bottom: 1px solid rgba(212, 175, 125, 0.1);
             flex-wrap: wrap;
             gap: 10px;
         }
@@ -206,24 +246,23 @@
 
         .btn-new-week {
             background: transparent;
-            color: #28a745;
+            color: #d4af7d;
             padding: 8px 16px;
-            border: 2px solid #28a745;
+            border: 1px solid rgba(212, 175, 125, 0.5);
             border-radius: 8px;
-            font-weight: 600;
-            font-size: 1em;
+            font-weight: 500;
+            font-size: 0.9em;
             cursor: pointer;
             transition: all 0.3s;
         }
 
         .btn-new-week:hover {
-            background: #28a745;
-            color: white;
-            transform: scale(1.05);
+            background: rgba(212, 175, 125, 0.15);
+            border-color: #d4af7d;
         }
 
         .btn-delete-week {
-            color: #adb5bd;
+            color: rgba(255,255,255,0.3);
             cursor: pointer;
             transition: all 0.3s;
             display: inline-flex;
@@ -242,7 +281,7 @@
 
         .btn-clear {
             background: transparent;
-            color: #adb5bd;
+            color: rgba(255,255,255,0.3);
             padding: 8px;
             border: none;
             border-radius: 8px;
@@ -259,24 +298,29 @@
 
         .week-selector select {
             padding: 8px 16px;
-            font-size: 1em;
-            border: 2px solid #667eea;
+            font-size: 0.9em;
+            border: 1px solid rgba(212, 175, 125, 0.3);
             border-radius: 8px;
-            background: transparent;
-            color: #667eea;
-            font-weight: 600;
+            background: #1a1a1a;
+            color: #d4af7d;
+            font-weight: 500;
             cursor: pointer;
             outline: none;
             transition: all 0.3s;
         }
 
         .week-selector select:hover {
-            background: #667eea;
-            color: white;
+            border-color: #d4af7d;
+        }
+
+        .week-selector select option {
+            background: #1a1a1a;
+            color: #fff;
         }
 
         .content {
             padding: 30px;
+            background: #141414;
         }
 
         .table-container {
@@ -287,17 +331,22 @@
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-            background: white;
+            background: #1a1a1a;
             border-radius: 15px;
             overflow: hidden;
+            border: 1px solid rgba(212, 175, 125, 0.1);
         }
 
         th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: linear-gradient(135deg, #1f1f1f 0%, #151515 100%);
+            color: #d4af7d;
             padding: 15px;
             text-align: center;
-            font-weight: 600;
+            font-weight: 500;
+            font-size: 0.85em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(212, 175, 125, 0.2);
         }
 
         th:first-child {
@@ -310,9 +359,10 @@
 
         td {
             padding: 15px;
-            border-bottom: 1px solid #e9ecef;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             text-align: center;
             vertical-align: middle;
+            color: rgba(255,255,255,0.8);
         }
 
         th {
@@ -328,32 +378,33 @@
         }
 
         tr:hover {
-            background: #f8f9fa;
+            background: rgba(212, 175, 125, 0.05);
         }
 
         .btn-delete {
             background: transparent;
-            color: #dc3545;
+            color: rgba(220, 53, 69, 0.7);
             padding: 5px;
             border: none;
             cursor: pointer;
             font-size: 1.3em;
-            transition: transform 0.2s;
+            transition: all 0.2s;
         }
 
         .btn-delete:hover {
             transform: scale(1.2);
+            color: #dc3545;
         }
 
         .btn-add {
             background: transparent;
-            color: #28a745;
+            color: #d4af7d;
             padding: 5px;
             border: none;
             cursor: pointer;
             font-size: 1.5em;
             font-weight: bold;
-            transition: transform 0.2s;
+            transition: all 0.2s;
         }
 
         .btn-add:hover {
@@ -362,7 +413,7 @@
 
         .btn-edit {
             background: transparent;
-            color: #ffc107;
+            color: #d4af7d;
             padding: 5px;
             border: none;
             cursor: pointer;
@@ -376,7 +427,7 @@
 
         .btn-duplicate {
             background: transparent;
-            color: #17a2b8;
+            color: rgba(212, 175, 125, 0.6);
             padding: 5px;
             border: none;
             cursor: pointer;
@@ -388,12 +439,12 @@
 
         .btn-duplicate:hover {
             transform: scale(1.2);
-            color: #138496;
+            color: #d4af7d;
         }
 
         .btn-clone {
             background: transparent;
-            color: #28a745;
+            color: rgba(212, 175, 125, 0.6);
             padding: 5px;
             border: none;
             cursor: pointer;
@@ -405,7 +456,7 @@
 
         .btn-clone:hover {
             transform: scale(1.2);
-            color: #1e7e34;
+            color: #d4af7d;
         }
 
         .checkbox-status {
@@ -413,23 +464,23 @@
             -webkit-appearance: none;
             width: 24px;
             height: 24px;
-            border: 2px solid #28a745;
+            border: 2px solid #d4af7d;
             border-radius: 50%;
             cursor: pointer;
             position: relative;
-            background: white;
+            background: transparent;
             transition: all 0.3s;
         }
 
         .checkbox-status:checked {
-            background: #28a745;
-            border-color: #28a745;
+            background: #d4af7d;
+            border-color: #d4af7d;
         }
 
         .checkbox-status:checked::after {
             content: '✓';
             position: absolute;
-            color: white;
+            color: #0a0a0a;
             font-size: 16px;
             font-weight: bold;
             top: 50%;
@@ -438,7 +489,7 @@
         }
 
         .checkbox-status:hover {
-            box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+            box-shadow: 0 0 5px rgba(212, 175, 125, 0.5);
         }
 
         .inline-form {
@@ -446,22 +497,30 @@
             grid-template-columns: 1.5fr 1fr 70px 70px 80px 70px 90px auto;
             gap: 8px;
             padding: 15px;
-            background: #f8f9fa;
+            background: #1f1f1f;
             border-radius: 8px;
             align-items: center;
+            border: 1px solid rgba(212, 175, 125, 0.1);
         }
 
         .inline-form input, .inline-form select {
             padding: 8px;
-            border: 2px solid #e9ecef;
+            border: 1px solid rgba(212, 175, 125, 0.2);
             border-radius: 6px;
             font-size: 0.85em;
             width: 100%;
+            background: #141414;
+            color: #fff;
         }
 
         .inline-form input:focus, .inline-form select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #d4af7d;
+        }
+
+        .inline-form select option {
+            background: #141414;
+            color: #fff;
         }
 
         .form-buttons {
@@ -470,33 +529,33 @@
         }
 
         .btn-save {
-            background: #28a745;
-            color: white;
+            background: #d4af7d;
+            color: #0a0a0a;
             padding: 10px 15px;
             border: none;
             border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
 
         .btn-save:hover {
-            background: #218838;
+            background: #c9a066;
         }
 
         .btn-cancel {
-            background: #6c757d;
-            color: white;
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
             padding: 10px 15px;
             border: none;
             border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
 
         .btn-cancel:hover {
-            background: #5a6268;
+            background: rgba(255,255,255,0.15);
         }
 
         .med-row {
@@ -531,39 +590,44 @@
             justify-content: space-between;
             margin-bottom: 8px;
             font-size: 0.9em;
-            color: #495057;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .progress-label strong {
+            color: #fff;
         }
 
         .progress-bar-bg {
             width: 100%;
             height: 25px;
-            background: #e9ecef;
+            background: #1f1f1f;
             border-radius: 12px;
             overflow: hidden;
             position: relative;
+            border: 1px solid rgba(212, 175, 125, 0.1);
         }
 
         .progress-bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, #28a745 0%, #20c997 100%);
+            background: linear-gradient(90deg, #d4af7d 0%, #c9a066 100%);
             transition: width 0.5s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: #0a0a0a;
             font-weight: 600;
             font-size: 0.85em;
             min-width: 40px;
         }
 
         .estoque-ok {
-            color: #28a745;
+            color: #d4af7d;
             font-weight: 600;
         }
 
         .estoque-baixo {
-            background: #fff3cd;
-            color: #856404;
+            background: rgba(212, 175, 125, 0.2);
+            color: #d4af7d;
             padding: 3px 8px;
             border-radius: 5px;
             font-weight: 600;
@@ -571,8 +635,8 @@
         }
 
         .estoque-critico {
-            background: #f8d7da;
-            color: #721c24;
+            background: rgba(220, 53, 69, 0.2);
+            color: #ff6b6b;
             padding: 3px 8px;
             border-radius: 5px;
             font-weight: 600;
@@ -585,29 +649,31 @@
         }
 
         .alerta-compra {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
-            border-left: 4px solid #ffc107;
+            background: linear-gradient(135deg, rgba(212, 175, 125, 0.15) 0%, rgba(212, 175, 125, 0.1) 100%);
+            border-left: 3px solid #d4af7d;
             padding: 15px 20px;
             margin-bottom: 20px;
             border-radius: 0 8px 8px 0;
+            color: rgba(255,255,255,0.8);
         }
 
         .alerta-compra.critico {
-            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            background: linear-gradient(135deg, rgba(220, 53, 69, 0.15) 0%, rgba(220, 53, 69, 0.1) 100%);
             border-left-color: #dc3545;
         }
 
         .alerta-compra strong {
             display: block;
             margin-bottom: 3px;
+            color: #fff;
         }
 
         .tipo-badge {
             font-size: 0.75em;
             padding: 2px 6px;
             border-radius: 4px;
-            background: #e9ecef;
-            color: #495057;
+            background: rgba(212, 175, 125, 0.15);
+            color: #d4af7d;
             margin-left: 5px;
         }
 
@@ -618,7 +684,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.8);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -629,16 +695,20 @@
         }
 
         .modal {
-            background: white;
+            background: #1a1a1a;
+            border: 1px solid rgba(212, 175, 125, 0.2);
             border-radius: 15px;
             padding: 30px;
             width: 90%;
             max-width: 500px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
         }
 
         .modal h3 {
             margin-bottom: 20px;
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
             color: #667eea;
             font-size: 1.3em;
         }
@@ -650,23 +720,31 @@
         .modal-field label {
             display: block;
             margin-bottom: 5px;
-            font-weight: 600;
-            color: #495057;
+            font-weight: 500;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85em;
         }
 
         .modal-field input,
         .modal-field select {
             width: 100%;
             padding: 10px;
-            border: 2px solid #e9ecef;
+            border: 1px solid rgba(212, 175, 125, 0.2);
             border-radius: 8px;
             font-size: 1em;
+            background: #141414;
+            color: #fff;
         }
 
         .modal-field input:focus,
         .modal-field select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #d4af7d;
+        }
+
+        .modal-field select option {
+            background: #141414;
+            color: #fff;
         }
 
         .modal-row {
@@ -692,21 +770,21 @@
         }
 
         .modal-btn-save {
-            background: #28a745;
-            color: white;
+            background: #d4af7d;
+            color: #0a0a0a;
         }
 
         .modal-btn-save:hover {
-            background: #218838;
+            background: #c9a066;
         }
 
         .modal-btn-cancel {
-            background: #6c757d;
-            color: white;
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
         }
 
         .modal-btn-cancel:hover {
-            background: #5a6268;
+            background: rgba(255,255,255,0.15);
         }
 
         /* Página de Dieta */
@@ -720,10 +798,12 @@
 
         .dieta-container {
             padding: 20px;
+            background: #141414;
         }
 
         .dieta-header {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            border: 1px solid rgba(212, 175, 125, 0.2);
             color: white;
             padding: 25px;
             border-radius: 15px;
@@ -732,24 +812,29 @@
         }
 
         .dieta-header h2 {
-            font-size: 1.8em;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
             margin-bottom: 5px;
+            font-weight: 400;
+            letter-spacing: 2px;
         }
 
         .dieta-header p {
-            opacity: 0.9;
+            color: rgba(212, 175, 125, 0.8);
+            font-size: 0.9em;
         }
 
         .refeicao-card {
-            background: #f8f9fa;
+            background: #1a1a1a;
+            border: 1px solid rgba(212, 175, 125, 0.1);
             border-radius: 12px;
             margin-bottom: 15px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .refeicao-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1f1f1f 0%, #151515 100%);
+            border-bottom: 1px solid rgba(212, 175, 125, 0.2);
             color: white;
             padding: 12px 20px;
             display: flex;
@@ -766,23 +851,23 @@
         }
 
         .refeicao-header-left input {
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white;
+            background: rgba(212, 175, 125, 0.1);
+            border: 1px solid rgba(212, 175, 125, 0.2);
+            color: #d4af7d;
             padding: 8px 12px;
             border-radius: 8px;
             font-size: 1em;
-            font-weight: 600;
+            font-weight: 500;
             width: 200px;
         }
 
         .refeicao-header-left input::placeholder {
-            color: rgba(255,255,255,0.7);
+            color: rgba(212, 175, 125, 0.5);
         }
 
         .refeicao-header-left input:focus {
             outline: none;
-            background: rgba(255,255,255,0.3);
+            background: rgba(212, 175, 125, 0.2);
         }
 
         .refeicao-header-right {
@@ -792,9 +877,9 @@
         }
 
         .refeicao-header-right input[type="time"] {
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white;
+            background: rgba(212, 175, 125, 0.1);
+            border: 1px solid rgba(212, 175, 125, 0.2);
+            color: #d4af7d;
             padding: 6px 10px;
             border-radius: 6px;
             font-size: 0.9em;
@@ -802,13 +887,13 @@
 
         .refeicao-header-right input[type="time"]:focus {
             outline: none;
-            background: rgba(255,255,255,0.3);
+            border-color: #d4af7d;
         }
 
         .btn-delete-refeicao {
-            background: rgba(220, 53, 69, 0.8);
+            background: rgba(220, 53, 69, 0.3);
             border: none;
-            color: white;
+            color: #ff6b6b;
             width: 32px;
             height: 32px;
             border-radius: 6px;
@@ -816,15 +901,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
 
         .btn-delete-refeicao:hover {
-            background: #dc3545;
+            background: rgba(220, 53, 69, 0.5);
         }
 
         .refeicao-content {
             padding: 20px;
+            background: #141414;
         }
 
         .alimentos-container {
@@ -840,26 +926,26 @@
         }
 
         .categoria-box {
-            background: white;
+            background: #1a1a1a;
             border-radius: 8px;
             padding: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .categoria-box.carbo {
-            border-top: 3px solid #ffc107;
+            border-top: 2px solid #d4af7d;
         }
 
         .categoria-box.proteina {
-            border-top: 3px solid #dc3545;
+            border-top: 2px solid #c9a066;
         }
 
         .categoria-box.gordura {
-            border-top: 3px solid #28a745;
+            border-top: 2px solid #b8956a;
         }
 
         .categoria-box.substituicao {
-            border-top: 3px solid #17a2b8;
+            border-top: 2px solid rgba(212, 175, 125, 0.5);
         }
 
         .categoria-header {
@@ -868,21 +954,21 @@
             align-items: center;
             margin-bottom: 8px;
             padding-bottom: 6px;
-            border-bottom: 1px solid #e9ecef;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .categoria-header label {
             font-size: 0.8em;
             text-transform: uppercase;
-            color: #6c757d;
-            font-weight: 700;
-            letter-spacing: 0.3px;
+            color: rgba(255,255,255,0.5);
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
         .btn-add-item {
-            background: #e9ecef;
+            background: rgba(212, 175, 125, 0.15);
             border: none;
-            color: #667eea;
+            color: #d4af7d;
             width: 50px;
             height: 22px;
             border-radius: 4px;
@@ -896,8 +982,7 @@
         }
 
         .btn-add-item:hover {
-            background: #667eea;
-            color: white;
+            background: rgba(212, 175, 125, 0.25);
         }
 
         .categoria-items {
@@ -915,15 +1000,17 @@
         .item-row input[type="text"] {
             flex: 1;
             padding: 8px 10px;
-            border: 1px solid #e9ecef;
+            border: 1px solid rgba(212, 175, 125, 0.15);
             border-radius: 4px;
             font-size: 0.9em;
             transition: border-color 0.3s;
+            background: #141414;
+            color: #fff;
         }
 
         .item-row input[type="text"]:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #d4af7d;
         }
 
         .item-row input[type="text"].qtd {
@@ -936,22 +1023,29 @@
             width: 50px;
             flex: none;
             padding: 6px 4px;
-            border: 1px solid #e9ecef;
+            border: 1px solid rgba(212, 175, 125, 0.15);
             border-radius: 4px;
             font-size: 0.8em;
             text-align: center;
             cursor: pointer;
+            background: #141414;
+            color: #fff;
+        }
+
+        .item-row select.unidade option {
+            background: #141414;
+            color: #fff;
         }
 
         .item-row select.unidade:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #d4af7d;
         }
 
         .btn-remove-item {
-            background: #dc3545;
+            background: rgba(220, 53, 69, 0.3);
             border: none;
-            color: white;
+            color: #ff6b6b;
             width: 22px;
             height: 22px;
             border-radius: 4px;
@@ -960,16 +1054,16 @@
             align-items: center;
             justify-content: center;
             font-size: 0.9em;
-            transition: background 0.3s;
+            transition: all 0.3s;
             flex-shrink: 0;
         }
 
         .btn-remove-item:hover {
-            background: #c82333;
+            background: rgba(220, 53, 69, 0.5);
         }
 
         .item-empty {
-            color: #adb5bd;
+            color: rgba(255,255,255,0.3);
             font-size: 0.75em;
             text-align: center;
             padding: 8px;
@@ -982,15 +1076,15 @@
             align-items: center;
             margin-bottom: 8px;
             padding-bottom: 6px;
-            border-bottom: 1px solid #e9ecef;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .categoria-header label {
             font-size: 0.65em;
             text-transform: uppercase;
-            color: #6c757d;
-            font-weight: 700;
-            letter-spacing: 0.3px;
+            color: rgba(255,255,255,0.5);
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
         .categoria-add-row {
@@ -1000,9 +1094,9 @@
         }
 
         .btn-add-item {
-            background: #e9ecef;
+            background: rgba(212, 175, 125, 0.15);
             border: none;
-            color: #667eea;
+            color: #d4af7d;
             width: 40px;
             height: 16px;
             border-radius: 3px;
@@ -1016,63 +1110,64 @@
         }
 
         .btn-add-item:hover {
-            background: #667eea;
-            color: white;
+            background: rgba(212, 175, 125, 0.25);
         }
 
         .refeicao-item {
-            background: white;
+            background: #1a1a1a;
             border-radius: 10px;
             padding: 12px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .refeicao-item label {
             display: block;
             font-size: 0.7em;
             text-transform: uppercase;
-            color: #6c757d;
+            color: rgba(255,255,255,0.5);
             margin-bottom: 6px;
-            font-weight: 600;
+            font-weight: 500;
             letter-spacing: 0.5px;
         }
 
         .refeicao-item input {
             width: 100%;
             padding: 8px;
-            border: 2px solid #e9ecef;
+            border: 1px solid rgba(212, 175, 125, 0.15);
             border-radius: 6px;
             font-size: 0.85em;
             text-align: center;
             transition: border-color 0.3s;
+            background: #141414;
+            color: #fff;
         }
 
         .refeicao-item input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #d4af7d;
         }
 
         .refeicao-item.carbo {
-            border-top: 3px solid #ffc107;
+            border-top: 2px solid #d4af7d;
         }
 
         .refeicao-item.proteina {
-            border-top: 3px solid #dc3545;
+            border-top: 2px solid #c9a066;
         }
 
         .refeicao-item.gordura {
-            border-top: 3px solid #28a745;
+            border-top: 2px solid #b8956a;
         }
 
         .refeicao-item.substituicao {
-            border-top: 3px solid #17a2b8;
+            border-top: 2px solid rgba(212, 175, 125, 0.5);
         }
 
         .btn-delete-alimento {
-            background: #dc3545;
+            background: rgba(220, 53, 69, 0.3);
             border: none;
-            color: white;
+            color: #ff6b6b;
             width: 36px;
             height: 36px;
             border-radius: 8px;
@@ -1080,44 +1175,44 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.3s;
+            transition: all 0.3s;
             align-self: end;
             margin-bottom: 2px;
         }
 
         .btn-delete-alimento:hover {
-            background: #c82333;
+            background: rgba(220, 53, 69, 0.5);
         }
 
         .btn-add-alimento {
-            background: #28a745;
-            border: none;
-            color: white;
+            background: rgba(212, 175, 125, 0.15);
+            border: 1px solid rgba(212, 175, 125, 0.3);
+            color: #d4af7d;
             padding: 10px 20px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.9em;
-            font-weight: 600;
+            font-weight: 500;
             display: flex;
             align-items: center;
             gap: 8px;
             margin-top: 10px;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
 
         .btn-add-alimento:hover {
-            background: #218838;
+            background: rgba(212, 175, 125, 0.25);
         }
 
         .btn-add-refeicao {
             background: transparent;
-            border: 2px solid #667eea;
-            color: #667eea;
+            border: 1px solid rgba(212, 175, 125, 0.5);
+            color: #d4af7d;
             padding: 12px 25px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.95em;
-            font-weight: 600;
+            font-weight: 500;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1126,14 +1221,13 @@
         }
 
         .btn-add-refeicao:hover {
-            background: #667eea;
-            color: white;
+            background: rgba(212, 175, 125, 0.15);
         }
 
         .btn-salvar-dieta {
-            background: transparent;
-            color: #28a745;
-            border: 2px solid #28a745;
+            background: #d4af7d;
+            color: #0a0a0a;
+            border: none;
             padding: 12px 30px;
             border-radius: 8px;
             font-size: 0.95em;
@@ -1143,8 +1237,7 @@
         }
 
         .btn-salvar-dieta:hover {
-            background: #28a745;
-            color: white;
+            background: #c9a066;
         }
 
         .dieta-buttons {
@@ -1594,7 +1687,7 @@
 <body>
     <!-- Menu Lateral Fixo -->
     <nav class="sidebar">
-        <div class="sidebar-logo">💊</div>
+        <a href="index.html" class="sidebar-logo" title="Voltar ao Menu">Z</a>
         
         <div class="sidebar-menu">
             <a href="#" class="active menu-medicamentos" onclick="navigateTo('medicamentos', this)">
@@ -1628,19 +1721,19 @@
                     <circle cx="8.5" cy="8.5" r="1.5"></circle>
                     <polyline points="21 15 16 10 5 21"></polyline>
                 </svg>
-                <span>Fotos Comparativas</span>
+                <span>Fotos</span>
             </a>
         </div>
         
         <div class="sidebar-footer">
-            <p><span class="instituto">INSTITUTO ZARA</span>SAÚDE E BEM-ESTAR</p>
+            <p><span class="instituto">ZARA</span>Private Access</p>
         </div>
     </nav>
 
     <div class="container page-section active" id="page-medicamentos">
         <div class="header">
 
-            <h1>💊 Controle de Medicamentos</h1>
+            <h1>Controle de Medicamentos</h1>
             <p>Gerencie seus medicamentos de forma simples e organizada</p>
         </div>
 
