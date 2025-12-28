@@ -97,7 +97,7 @@
 
         .resumo-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
             margin-bottom: 30px;
         }
@@ -125,6 +125,7 @@
         .resumo-card.despesas::before { background: linear-gradient(90deg, #e74c3c, #c0392b); }
         .resumo-card.pago::before { background: linear-gradient(90deg, #c0392b, #922b21); }
         .resumo-card.saldo::before { background: linear-gradient(90deg, #d4af7d, #c9a066); }
+        .resumo-card.investimentos::before { background: linear-gradient(90deg, #3498db, #2980b9); }
 
         .resumo-card label {
             display: block;
@@ -146,6 +147,7 @@
         .resumo-card.despesas .valor { color: #e74c3c; }
         .resumo-card.pago .valor { color: #c0392b; }
         .resumo-card.saldo .valor { color: #d4af7d; }
+        .resumo-card.investimentos .valor { color: #3498db; }
 
         .mes-selector {
             display: flex;
@@ -226,12 +228,12 @@
         .transacoes-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 700px;
+            min-width: 600px;
         }
 
         .transacoes-table th {
             text-align: left;
-            padding: 12px 10px;
+            padding: 12px 8px;
             color: rgba(255,255,255,0.5);
             font-size: 0.7em;
             text-transform: uppercase;
@@ -240,10 +242,11 @@
         }
 
         .transacoes-table td {
-            padding: 12px 10px;
+            padding: 12px 8px;
             color: #fff;
             border-bottom: 1px solid rgba(255,255,255,0.05);
             font-size: 0.85em;
+            vertical-align: top;
         }
 
         .transacoes-table tr:hover {
@@ -273,6 +276,11 @@
             font-weight: 500;
         }
 
+        .transacoes-table .valor-investimento {
+            color: #3498db;
+            font-weight: 500;
+        }
+
         .transacoes-table .acoes button {
             background: transparent;
             border: none;
@@ -288,13 +296,35 @@
         }
 
         .parcelas-info {
-            font-size: 0.75em;
-            color: rgba(255,255,255,0.6);
-            line-height: 1.4;
+            font-size: 0.8em;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5;
         }
 
         .parcelas-info strong {
             color: #d4af7d;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #1a1a1a;
+            border-radius: 4px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            font-size: 0.7em;
+            color: #2ecc71;
+            margin-top: 4px;
         }
 
         .empty-state {
@@ -371,6 +401,7 @@
             display: flex;
             gap: 10px;
             justify-content: flex-end;
+            margin-top: 15px;
         }
 
         .btn-salvar {
@@ -415,14 +446,15 @@
         .checkbox-status {
             appearance: none;
             -webkit-appearance: none;
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             border: 2px solid #2ecc71;
             border-radius: 50%;
             cursor: pointer;
             position: relative;
             background: transparent;
             transition: all 0.3s;
+            flex-shrink: 0;
         }
 
         .checkbox-status:checked {
@@ -444,10 +476,6 @@
         @media (max-width: 768px) {
             .resumo-grid {
                 grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .resumo-card:last-child {
-                grid-column: span 2;
             }
         }
 
@@ -491,7 +519,7 @@
 
             .btn-add {
                 width: 100%;
-                justify-content: center;
+                text-align: center;
             }
 
             .form-row {
@@ -551,13 +579,17 @@
                 <label>Saldo Atual</label>
                 <div class="valor" id="saldoAtual">R$ 0,00</div>
             </div>
+            <div class="resumo-card investimentos">
+                <label>Investimentos</label>
+                <div class="valor" id="totalInvestimentos">R$ 0,00</div>
+            </div>
         </div>
 
         <!-- Receitas -->
         <div class="section">
             <div class="section-header">
                 <h2>📈 Receitas</h2>
-                <button class="btn-add" onclick="mostrarFormReceita()">+ Adicionar</button>
+                <button class="btn-add" onclick="mostrarForm('receita')">+ Adicionar</button>
             </div>
             <div class="section-content">
                 <div id="formReceita" class="form-container" style="display: none;">
@@ -585,7 +617,7 @@
                         </div>
                     </div>
                     <div class="form-buttons">
-                        <button class="btn-cancelar" onclick="esconderFormReceita()">Cancelar</button>
+                        <button class="btn-cancelar" onclick="esconderForm('receita')">Cancelar</button>
                         <button class="btn-salvar" onclick="salvarReceita()">Salvar</button>
                     </div>
                 </div>
@@ -614,7 +646,7 @@
         <div class="section">
             <div class="section-header">
                 <h2>📉 Despesas</h2>
-                <button class="btn-add" onclick="mostrarFormDespesa()">+ Adicionar</button>
+                <button class="btn-add" onclick="mostrarForm('despesa')">+ Adicionar</button>
             </div>
             <div class="section-content">
                 <div id="formDespesa" class="form-container" style="display: none;">
@@ -669,7 +701,7 @@
                         </div>
                     </div>
                     <div class="form-buttons">
-                        <button class="btn-cancelar" onclick="esconderFormDespesa()">Cancelar</button>
+                        <button class="btn-cancelar" onclick="esconderForm('despesa')">Cancelar</button>
                         <button class="btn-salvar" onclick="salvarDespesa()">Salvar</button>
                     </div>
                 </div>
@@ -691,6 +723,64 @@
                 </div>
                 <div id="emptyDespesas" class="empty-state">
                     <p>Nenhuma despesa cadastrada</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investimentos -->
+        <div class="section">
+            <div class="section-header">
+                <h2>💎 Investimentos</h2>
+                <button class="btn-add" onclick="mostrarForm('investimento')">+ Adicionar</button>
+            </div>
+            <div class="section-content">
+                <div id="formInvestimento" class="form-container" style="display: none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Descrição</label>
+                            <input type="text" id="investimentoDescricao" placeholder="Ex: Tesouro Direto">
+                        </div>
+                        <div class="form-group">
+                            <label>Valor</label>
+                            <input type="number" id="investimentoValor" placeholder="0,00" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Categoria</label>
+                            <select id="investimentoCategoria">
+                                <option value="Renda Fixa">Renda Fixa</option>
+                                <option value="Ações">Ações</option>
+                                <option value="FIIs">FIIs</option>
+                                <option value="Crypto">Crypto</option>
+                                <option value="Poupança">Poupança</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Data</label>
+                            <input type="date" id="investimentoData">
+                        </div>
+                    </div>
+                    <div class="form-buttons">
+                        <button class="btn-cancelar" onclick="esconderForm('investimento')">Cancelar</button>
+                        <button class="btn-salvar" onclick="salvarInvestimento()">Salvar</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="transacoes-table">
+                        <thead>
+                            <tr>
+                                <th>Descrição</th>
+                                <th>Categoria</th>
+                                <th>Data</th>
+                                <th>Valor</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="investimentosTable"></tbody>
+                    </table>
+                </div>
+                <div id="emptyInvestimentos" class="empty-state">
+                    <p>Nenhum investimento cadastrado</p>
                 </div>
             </div>
         </div>
@@ -717,13 +807,14 @@
 
         let financeiro = JSON.parse(localStorage.getItem('financeiro')) || {
             receitas: [],
-            despesas: []
+            despesas: [],
+            investimentos: []
         };
 
         let mesSelecionado = '2026-01';
 
         function formatarMoeda(valor) {
-            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
+            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor || 0);
         }
 
         function formatarData(data) {
@@ -731,39 +822,42 @@
             return new Date(data + 'T00:00:00').toLocaleDateString('pt-BR');
         }
 
+        // Formulários
+        function mostrarForm(tipo) {
+            document.getElementById('form' + tipo.charAt(0).toUpperCase() + tipo.slice(1)).style.display = 'block';
+            const dataInput = document.getElementById(tipo + 'Data');
+            if (dataInput) {
+                dataInput.value = new Date().toISOString().split('T')[0];
+            }
+        }
+
+        function esconderForm(tipo) {
+            document.getElementById('form' + tipo.charAt(0).toUpperCase() + tipo.slice(1)).style.display = 'none';
+            // Limpar campos
+            const inputs = document.querySelectorAll('#form' + tipo.charAt(0).toUpperCase() + tipo.slice(1) + ' input');
+            inputs.forEach(input => {
+                if (input.type === 'checkbox') {
+                    input.checked = false;
+                } else {
+                    input.value = '';
+                }
+            });
+            if (tipo === 'despesa') {
+                document.getElementById('parcelasFields').classList.remove('active');
+            }
+        }
+
         function toggleParcelas() {
             const checkbox = document.getElementById('despesaParcelada');
             const fields = document.getElementById('parcelasFields');
-            fields.classList.toggle('active', checkbox.checked);
+            if (checkbox.checked) {
+                fields.classList.add('active');
+            } else {
+                fields.classList.remove('active');
+            }
         }
 
-        function mostrarFormReceita() {
-            document.getElementById('formReceita').style.display = 'block';
-            document.getElementById('receitaData').value = new Date().toISOString().split('T')[0];
-        }
-
-        function esconderFormReceita() {
-            document.getElementById('formReceita').style.display = 'none';
-            document.getElementById('receitaDescricao').value = '';
-            document.getElementById('receitaValor').value = '';
-        }
-
-        function mostrarFormDespesa() {
-            document.getElementById('formDespesa').style.display = 'block';
-            document.getElementById('despesaData').value = new Date().toISOString().split('T')[0];
-        }
-
-        function esconderFormDespesa() {
-            document.getElementById('formDespesa').style.display = 'none';
-            document.getElementById('despesaDescricao').value = '';
-            document.getElementById('despesaValor').value = '';
-            document.getElementById('despesaParcelada').checked = false;
-            document.getElementById('parcelasFields').classList.remove('active');
-            document.getElementById('despesaTotalParcelas').value = '';
-            document.getElementById('despesaParcelaAtual').value = '';
-            document.getElementById('despesaValorTotal').value = '';
-        }
-
+        // CRUD Receitas
         function salvarReceita() {
             const descricao = document.getElementById('receitaDescricao').value.trim();
             const valor = parseFloat(document.getElementById('receitaValor').value) || 0;
@@ -777,15 +871,15 @@
 
             financeiro.receitas.push({
                 id: Date.now(),
-                descricao,
-                valor,
-                categoria,
-                data,
+                descricao: descricao,
+                valor: valor,
+                categoria: categoria,
+                data: data,
                 recebido: false
             });
 
             salvarDados();
-            esconderFormReceita();
+            esconderForm('receita');
             renderizar();
         }
 
@@ -804,6 +898,7 @@
             renderizar();
         }
 
+        // CRUD Despesas
         function salvarDespesa() {
             const descricao = document.getElementById('despesaDescricao').value.trim();
             const valor = parseFloat(document.getElementById('despesaValor').value) || 0;
@@ -818,37 +913,39 @@
 
             const despesa = {
                 id: Date.now(),
-                descricao,
-                valor,
-                categoria,
-                data,
+                descricao: descricao,
+                valor: valor,
+                categoria: categoria,
+                data: data,
                 pago: false,
-                parcelada: false
+                parcelada: parcelada
             };
 
             if (parcelada) {
-                despesa.parcelada = true;
                 despesa.totalParcelas = parseInt(document.getElementById('despesaTotalParcelas').value) || 1;
                 despesa.parcelaAtual = parseInt(document.getElementById('despesaParcelaAtual').value) || 1;
                 despesa.parcelasPagas = 0;
-                despesa.valorTotal = parseFloat(document.getElementById('despesaValorTotal').value) || valor * despesa.totalParcelas;
+                despesa.valorTotal = parseFloat(document.getElementById('despesaValorTotal').value) || (valor * despesa.totalParcelas);
             }
 
             financeiro.despesas.push(despesa);
             salvarDados();
-            esconderFormDespesa();
+            esconderForm('despesa');
             renderizar();
         }
 
         function togglePago(id) {
             const despesa = financeiro.despesas.find(d => d.id === id);
             if (despesa) {
-                despesa.pago = !despesa.pago;
-                if (despesa.parcelada) {
-                    if (despesa.pago) {
+                if (!despesa.pago) {
+                    despesa.pago = true;
+                    if (despesa.parcelada) {
                         despesa.parcelasPagas = (despesa.parcelasPagas || 0) + 1;
-                    } else {
-                        despesa.parcelasPagas = Math.max(0, (despesa.parcelasPagas || 0) - 1);
+                    }
+                } else {
+                    despesa.pago = false;
+                    if (despesa.parcelada && despesa.parcelasPagas > 0) {
+                        despesa.parcelasPagas = despesa.parcelasPagas - 1;
                     }
                 }
                 salvarDados();
@@ -862,7 +959,40 @@
             renderizar();
         }
 
+        // CRUD Investimentos
+        function salvarInvestimento() {
+            const descricao = document.getElementById('investimentoDescricao').value.trim();
+            const valor = parseFloat(document.getElementById('investimentoValor').value) || 0;
+            const categoria = document.getElementById('investimentoCategoria').value;
+            const data = document.getElementById('investimentoData').value;
+
+            if (!descricao || !valor || !data) {
+                alert('Preencha todos os campos!');
+                return;
+            }
+
+            financeiro.investimentos.push({
+                id: Date.now(),
+                descricao: descricao,
+                valor: valor,
+                categoria: categoria,
+                data: data
+            });
+
+            salvarDados();
+            esconderForm('investimento');
+            renderizar();
+        }
+
+        function deletarInvestimento(id) {
+            financeiro.investimentos = financeiro.investimentos.filter(i => i.id !== id);
+            salvarDados();
+            renderizar();
+        }
+
+        // Filtrar
         function filtrarPorMes(lista) {
+            if (!lista) return [];
             return lista.filter(item => item.data && item.data.startsWith(mesSelecionado));
         }
 
@@ -871,23 +1001,28 @@
             renderizar();
         }
 
+        // Renderização
         function renderizar() {
             const receitasMes = filtrarPorMes(financeiro.receitas);
             const despesasMes = filtrarPorMes(financeiro.despesas);
+            const investimentosMes = filtrarPorMes(financeiro.investimentos);
 
-            const totalReceitas = receitasMes.reduce((sum, r) => sum + r.valor, 0);
-            const totalRecebido = receitasMes.filter(r => r.recebido).reduce((sum, r) => sum + r.valor, 0);
-            const totalDespesas = despesasMes.reduce((sum, d) => sum + d.valor, 0);
-            const totalPago = despesasMes.filter(d => d.pago).reduce((sum, d) => sum + d.valor, 0);
+            // Totais
+            const totalReceitas = receitasMes.reduce((sum, r) => sum + (r.valor || 0), 0);
+            const totalRecebido = receitasMes.filter(r => r.recebido).reduce((sum, r) => sum + (r.valor || 0), 0);
+            const totalDespesas = despesasMes.reduce((sum, d) => sum + (d.valor || 0), 0);
+            const totalPago = despesasMes.filter(d => d.pago).reduce((sum, d) => sum + (d.valor || 0), 0);
+            const totalInvestimentos = investimentosMes.reduce((sum, i) => sum + (i.valor || 0), 0);
             const saldoAtual = totalRecebido - totalPago;
 
             document.getElementById('totalReceitas').textContent = formatarMoeda(totalReceitas);
             document.getElementById('totalRecebido').textContent = formatarMoeda(totalRecebido);
             document.getElementById('totalDespesas').textContent = formatarMoeda(totalDespesas);
             document.getElementById('totalPago').textContent = formatarMoeda(totalPago);
+            document.getElementById('totalInvestimentos').textContent = formatarMoeda(totalInvestimentos);
             document.getElementById('saldoAtual').textContent = formatarMoeda(saldoAtual);
 
-            // Receitas
+            // Tabela Receitas
             const receitasTable = document.getElementById('receitasTable');
             const emptyReceitas = document.getElementById('emptyReceitas');
             
@@ -908,7 +1043,7 @@
                 `).join('');
             }
 
-            // Despesas
+            // Tabela Despesas
             const despesasTable = document.getElementById('despesasTable');
             const emptyDespesas = document.getElementById('emptyDespesas');
             
@@ -918,33 +1053,62 @@
             } else {
                 emptyDespesas.style.display = 'none';
                 despesasTable.innerHTML = despesasMes.map(d => {
-                    let parcelasInfo = '-';
+                    let parcelasHtml = '-';
                     if (d.parcelada) {
-                        const faltam = d.totalParcelas - (d.parcelasPagas || 0);
-                        parcelasInfo = `
+                        const pagas = d.parcelasPagas || 0;
+                        const total = d.totalParcelas || 1;
+                        const faltam = total - pagas;
+                        const percentual = Math.round((pagas / total) * 100);
+                        
+                        parcelasHtml = `
                             <div class="parcelas-info">
-                                <strong>${d.parcelaAtual}/${d.totalParcelas}</strong><br>
-                                Pagas: ${d.parcelasPagas || 0}<br>
-                                Faltam: ${faltam}<br>
+                                <strong>${d.parcelaAtual}/${total}</strong><br>
+                                Pagas: ${pagas} | Faltam: ${faltam}<br>
                                 Total: ${formatarMoeda(d.valorTotal)}
+                                <div class="progress-bar">
+                                    <div class="progress-bar-fill" style="width: ${percentual}%"></div>
+                                </div>
+                                <div class="progress-text">${percentual}% quitado</div>
                             </div>
                         `;
                     }
+                    
                     return `
                         <tr class="${d.pago ? 'done' : ''}">
                             <td><input type="checkbox" class="checkbox-status" ${d.pago ? 'checked' : ''} onchange="togglePago(${d.id})"></td>
                             <td>${d.descricao}</td>
                             <td><span class="categoria">${d.categoria}</span></td>
                             <td>${formatarData(d.data)}</td>
-                            <td>${parcelasInfo}</td>
+                            <td>${parcelasHtml}</td>
                             <td class="valor-negativo">- ${formatarMoeda(d.valor)}</td>
                             <td class="acoes"><button onclick="deletarDespesa(${d.id})">🗑️</button></td>
                         </tr>
                     `;
                 }).join('');
             }
+
+            // Tabela Investimentos
+            const investimentosTable = document.getElementById('investimentosTable');
+            const emptyInvestimentos = document.getElementById('emptyInvestimentos');
+            
+            if (investimentosMes.length === 0) {
+                investimentosTable.innerHTML = '';
+                emptyInvestimentos.style.display = 'block';
+            } else {
+                emptyInvestimentos.style.display = 'none';
+                investimentosTable.innerHTML = investimentosMes.map(i => `
+                    <tr>
+                        <td>${i.descricao}</td>
+                        <td><span class="categoria">${i.categoria}</span></td>
+                        <td>${formatarData(i.data)}</td>
+                        <td class="valor-investimento">${formatarMoeda(i.valor)}</td>
+                        <td class="acoes"><button onclick="deletarInvestimento(${i.id})">🗑️</button></td>
+                    </tr>
+                `).join('');
+            }
         }
 
+        // Salvar e Carregar
         function salvarDados() {
             localStorage.setItem('financeiro', JSON.stringify(financeiro));
             salvarFinanceiroSupabase();
@@ -975,6 +1139,10 @@
                     .single();
                 if (data && data.dados) {
                     financeiro = data.dados;
+                    // Garantir que investimentos existe
+                    if (!financeiro.investimentos) {
+                        financeiro.investimentos = [];
+                    }
                     localStorage.setItem('financeiro', JSON.stringify(financeiro));
                     console.log('✅ Financeiro carregado!');
                 }
@@ -984,6 +1152,10 @@
         }
 
         async function init() {
+            // Garantir estrutura correta
+            if (!financeiro.investimentos) {
+                financeiro.investimentos = [];
+            }
             if (useSupabase) {
                 await carregarFinanceiroSupabase();
             }
