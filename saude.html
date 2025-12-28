@@ -464,7 +464,7 @@
             -webkit-appearance: none;
             width: 24px;
             height: 24px;
-            border: 2px solid #d4af7d;
+            border: 2px solid #2ecc71;
             border-radius: 50%;
             cursor: pointer;
             position: relative;
@@ -473,8 +473,8 @@
         }
 
         .checkbox-status:checked {
-            background: #d4af7d;
-            border-color: #d4af7d;
+            background: #2ecc71;
+            border-color: #2ecc71;
         }
 
         .checkbox-status:checked::after {
@@ -489,7 +489,7 @@
         }
 
         .checkbox-status:hover {
-            box-shadow: 0 0 5px rgba(212, 175, 125, 0.5);
+            box-shadow: 0 0 5px rgba(46, 204, 113, 0.5);
         }
 
         .inline-form {
@@ -590,7 +590,7 @@
             justify-content: space-between;
             margin-bottom: 8px;
             font-size: 0.9em;
-            color: rgba(255,255,255,0.6);
+            color: #fff;
         }
 
         .progress-label strong {
@@ -604,30 +604,30 @@
             border-radius: 12px;
             overflow: hidden;
             position: relative;
-            border: 1px solid rgba(212, 175, 125, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.2);
         }
 
         .progress-bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, #d4af7d 0%, #c9a066 100%);
+            background: linear-gradient(90deg, #27ae60 0%, #2ecc71 100%);
             transition: width 0.5s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #0a0a0a;
+            color: #fff;
             font-weight: 600;
             font-size: 0.85em;
             min-width: 40px;
         }
 
         .estoque-ok {
-            color: #d4af7d;
+            color: #2ecc71;
             font-weight: 600;
         }
 
         .estoque-baixo {
-            background: rgba(212, 175, 125, 0.2);
-            color: #d4af7d;
+            background: rgba(241, 196, 15, 0.2);
+            color: #f1c40f;
             padding: 3px 8px;
             border-radius: 5px;
             font-weight: 600;
@@ -817,10 +817,11 @@
             margin-bottom: 5px;
             font-weight: 400;
             letter-spacing: 2px;
+            color: #fff;
         }
 
         .dieta-header p {
-            color: rgba(212, 175, 125, 0.8);
+            color: rgba(255, 255, 255, 0.7);
             font-size: 0.9em;
         }
 
@@ -851,9 +852,9 @@
         }
 
         .refeicao-header-left input {
-            background: rgba(212, 175, 125, 0.1);
-            border: 1px solid rgba(212, 175, 125, 0.2);
-            color: #d4af7d;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
             padding: 8px 12px;
             border-radius: 8px;
             font-size: 1em;
@@ -862,12 +863,12 @@
         }
 
         .refeicao-header-left input::placeholder {
-            color: rgba(212, 175, 125, 0.5);
+            color: rgba(255, 255, 255, 0.5);
         }
 
         .refeicao-header-left input:focus {
             outline: none;
-            background: rgba(212, 175, 125, 0.2);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .refeicao-header-right {
@@ -960,7 +961,7 @@
         .categoria-header label {
             font-size: 0.8em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
+            color: #fff;
             font-weight: 500;
             letter-spacing: 0.5px;
         }
@@ -1000,7 +1001,7 @@
         .item-row input[type="text"] {
             flex: 1;
             padding: 8px 10px;
-            border: 1px solid rgba(212, 175, 125, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 4px;
             font-size: 0.9em;
             transition: border-color 0.3s;
@@ -1864,10 +1865,198 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        // ========== CONFIGURAÇÃO SUPABASE ==========
+        const SUPABASE_URL = 'https://ltwamldgdwqzyssoukzl.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0d2FtbGRnZHdxenlzc291a3psIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY4NzEzMDUsImV4cCI6MjA4MjQ0NzMwNX0.UVyo0c0BHslB7mCU74Qx8rdo42HA0WPAyDQ6J-FIakE';
+        
+        let supabaseClient = null;
+        let useSupabase = false;
+        
+        try {
+            const { createClient } = supabase;
+            supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+            useSupabase = true;
+            console.log('✅ Supabase conectado!');
+        } catch (e) {
+            console.log('⚠️ Usando localStorage (offline)', e);
+        }
+
+        const USER_ID = 'default_user';
+
         let medicamentos = JSON.parse(localStorage.getItem('medicamentos')) || {};
         let currentWeek = 1;
         let weekDates = JSON.parse(localStorage.getItem('weekDates')) || {};
+
+        // ========== FUNÇÕES DE SINCRONIZAÇÃO ==========
+        
+        async function salvarMedicamentosSupabase() {
+            if (!useSupabase) return;
+            try {
+                await supabaseClient.from('medicamentos').delete().eq('user_id', USER_ID);
+                const medsParaInserir = [];
+                Object.keys(medicamentos).forEach(semana => {
+                    (medicamentos[semana] || []).forEach(med => {
+                        medsParaInserir.push({
+                            id: String(med.id),
+                            user_id: USER_ID,
+                            semana: semana,
+                            dia: med.dia,
+                            medicamento: med.medicamento,
+                            dosagem: med.dosagem,
+                            estoque: med.estoque,
+                            aviso_compra: med.avisoCompra || 5,
+                            tipo: med.tipo,
+                            dose_por_toma: med.dosePorToma,
+                            hora: med.hora,
+                            status: med.status
+                        });
+                    });
+                });
+                if (medsParaInserir.length > 0) {
+                    await supabaseClient.from('medicamentos').insert(medsParaInserir);
+                }
+                console.log('✅ Medicamentos sincronizados!');
+            } catch (e) {
+                console.error('Erro ao salvar medicamentos:', e);
+            }
+        }
+        
+        async function carregarMedicamentosSupabase() {
+            if (!useSupabase) return;
+            try {
+                const { data, error } = await supabaseClient
+                    .from('medicamentos')
+                    .select('*')
+                    .eq('user_id', USER_ID);
+                if (error) throw error;
+                if (data && data.length > 0) {
+                    medicamentos = {};
+                    data.forEach(med => {
+                        if (!medicamentos[med.semana]) {
+                            medicamentos[med.semana] = [];
+                        }
+                        medicamentos[med.semana].push({
+                            id: med.id,
+                            dia: med.dia,
+                            medicamento: med.medicamento,
+                            dosagem: med.dosagem,
+                            estoque: med.estoque,
+                            avisoCompra: med.aviso_compra,
+                            tipo: med.tipo,
+                            dosePorToma: med.dose_por_toma,
+                            hora: med.hora,
+                            status: med.status
+                        });
+                    });
+                    localStorage.setItem('medicamentos', JSON.stringify(medicamentos));
+                    console.log('✅ Medicamentos carregados do Supabase!');
+                }
+            } catch (e) {
+                console.error('Erro ao carregar medicamentos:', e);
+            }
+        }
+        
+        async function salvarSemanasSupabase() {
+            if (!useSupabase) return;
+            try {
+                await supabaseClient.from('semanas').delete().eq('user_id', USER_ID);
+                const semanasParaInserir = [];
+                Object.keys(weekDates).forEach(semana => {
+                    semanasParaInserir.push({
+                        id: `${USER_ID}_${semana}`,
+                        user_id: USER_ID,
+                        semana: semana,
+                        start_date: weekDates[semana].startDate,
+                        week_number: weekDates[semana].weekNumber
+                    });
+                });
+                if (semanasParaInserir.length > 0) {
+                    await supabaseClient.from('semanas').insert(semanasParaInserir);
+                }
+                console.log('✅ Semanas sincronizadas!');
+            } catch (e) {
+                console.error('Erro ao salvar semanas:', e);
+            }
+        }
+        
+        async function carregarSemanasSupabase() {
+            if (!useSupabase) return;
+            try {
+                const { data, error } = await supabaseClient
+                    .from('semanas')
+                    .select('*')
+                    .eq('user_id', USER_ID);
+                if (error) throw error;
+                if (data && data.length > 0) {
+                    weekDates = {};
+                    data.forEach(sem => {
+                        weekDates[sem.semana] = {
+                            startDate: sem.start_date,
+                            weekNumber: sem.week_number
+                        };
+                    });
+                    localStorage.setItem('weekDates', JSON.stringify(weekDates));
+                    console.log('✅ Semanas carregadas do Supabase!');
+                }
+            } catch (e) {
+                console.error('Erro ao carregar semanas:', e);
+            }
+        }
+        
+        async function salvarDietaSupabase() {
+            if (!useSupabase) return;
+            try {
+                const { error } = await supabaseClient
+                    .from('dieta')
+                    .upsert({
+                        id: USER_ID,
+                        user_id: USER_ID,
+                        dados: dietaData,
+                        updated_at: new Date().toISOString()
+                    });
+                if (error) throw error;
+                console.log('✅ Dieta sincronizada!');
+            } catch (e) {
+                console.error('Erro ao salvar dieta:', e);
+            }
+        }
+        
+        async function carregarDietaSupabase() {
+            if (!useSupabase) return;
+            try {
+                const { data, error } = await supabaseClient
+                    .from('dieta')
+                    .select('*')
+                    .eq('user_id', USER_ID)
+                    .single();
+                if (error && error.code !== 'PGRST116') throw error;
+                if (data && data.dados) {
+                    dietaData = data.dados;
+                    localStorage.setItem('dietaData', JSON.stringify(dietaData));
+                    console.log('✅ Dieta carregada do Supabase!');
+                }
+            } catch (e) {
+                console.error('Erro ao carregar dieta:', e);
+            }
+        }
+        
+        async function sincronizarTudo() {
+            if (!useSupabase) return;
+            await carregarMedicamentosSupabase();
+            await carregarSemanasSupabase();
+            await carregarDietaSupabase();
+            updateWeekSelector();
+            renderMedicamentos();
+            updateStats();
+            checkEstoqueAlertas();
+        }
+        
+        // Iniciar sincronização ao carregar
+        if (useSupabase) {
+            sincronizarTudo();
+        }
 
         // Funções do Menu Lateral Fixo
         function navigateTo(section, element) {
@@ -2087,10 +2276,12 @@
 
         function salvarDietaAuto() {
             localStorage.setItem('dietaData', JSON.stringify(dietaData));
+            salvarDietaSupabase();
         }
 
         function salvarDieta() {
             localStorage.setItem('dietaData', JSON.stringify(dietaData));
+            salvarDietaSupabase();
             alert('✅ Dieta salva com sucesso!');
         }
 
@@ -2163,9 +2354,11 @@
                     status: 'pendente' // Reset do status
                 }));
                 localStorage.setItem('medicamentos', JSON.stringify(medicamentos));
+                salvarMedicamentosSupabase();
             }
             
             localStorage.setItem('weekDates', JSON.stringify(weekDates));
+            salvarSemanasSupabase();
             updateWeekSelector();
             
             document.getElementById('weekSelect').value = newWeekNum;
@@ -2227,6 +2420,8 @@
             
             localStorage.setItem('weekDates', JSON.stringify(weekDates));
             localStorage.setItem('medicamentos', JSON.stringify(medicamentos));
+            salvarSemanasSupabase();
+            salvarMedicamentosSupabase();
             
             // Voltar para semana 1
             currentWeek = 1;
@@ -2299,6 +2494,7 @@
                 atualizarEstoqueCompartilhado(med.medicamento, novoEstoque);
             }
 
+            salvarMedicamentosSupabase();
             renderMedicamentos();
             updateStats();
             checkEstoqueAlertas();
@@ -2414,6 +2610,7 @@
 
             medicamentos[weekKey].push(novoMedicamento);
             localStorage.setItem('medicamentos', JSON.stringify(medicamentos));
+            salvarMedicamentosSupabase();
             
             renderMedicamentos();
             updateStats();
@@ -2495,6 +2692,7 @@
             }
             
             localStorage.setItem('medicamentos', JSON.stringify(medicamentos));
+            salvarMedicamentosSupabase();
             
             fecharModal();
             renderMedicamentos();
@@ -2524,6 +2722,7 @@
             }
             
             localStorage.setItem('medicamentos', JSON.stringify(medicamentos));
+            salvarMedicamentosSupabase();
             renderMedicamentos();
             updateStats();
             checkEstoqueAlertas();
