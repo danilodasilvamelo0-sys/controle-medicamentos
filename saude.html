@@ -922,7 +922,7 @@
 
         .categoria-row {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 12px;
         }
 
@@ -2172,33 +2172,6 @@
                                             `).join('')}
                                         </div>
                                     </div>
-                                    <div class="categoria-box substituicao">
-                                        <div class="categoria-header">
-                                            <label>Substituição</label>
-                                            <button class="btn-add-item" onclick="adicionarItemCategoria(${rIndex}, '${cat}_sub')" title="Adicionar">+</button>
-                                        </div>
-                                        <div class="categoria-items">
-                                            ${(refeicao.categorias[cat + '_sub'] || [{nome: '', qtd: '', unidade: 'g'}]).map((item, iIndex) => `
-                                                <div class="item-row">
-                                                    <input type="text" value="${item.nome || ''}" 
-                                                        onchange="atualizarItemCategoria(${rIndex}, '${cat}_sub', ${iIndex}, 'nome', this.value)"
-                                                        placeholder="Substituto">
-                                                    <input type="text" class="qtd" value="${item.qtd || ''}" 
-                                                        onchange="atualizarItemCategoria(${rIndex}, '${cat}_sub', ${iIndex}, 'qtd', this.value)"
-                                                        placeholder="Qtd">
-                                                    <select class="unidade" onchange="atualizarItemCategoria(${rIndex}, '${cat}_sub', ${iIndex}, 'unidade', this.value)">
-                                                        <option value="g" ${item.unidade === 'g' ? 'selected' : ''}>g</option>
-                                                        <option value="kg" ${item.unidade === 'kg' ? 'selected' : ''}>kg</option>
-                                                        <option value="ml" ${item.unidade === 'ml' ? 'selected' : ''}>ml</option>
-                                                        <option value="un" ${item.unidade === 'un' ? 'selected' : ''}>un</option>
-                                                    </select>
-                                                    ${(refeicao.categorias[cat + '_sub'] || []).length > 1 ? `
-                                                        <button class="btn-remove-item" onclick="removerItemCategoria(${rIndex}, '${cat}_sub', ${iIndex})" title="Remover">×</button>
-                                                    ` : '<div style="width: 22px;"></div>'}
-                                                </div>
-                                            `).join('')}
-                                        </div>
-                                    </div>
                                 </div>
                             `).join('')}
                         </div>
@@ -2701,25 +2674,13 @@
         }
 
         function deleteMedicamento(id) {
-            if (!confirm('Tem certeza que deseja excluir este medicamento?')) {
-                return;
-            }
-            
             const weekKey = `week${currentWeek}`;
             
             if (!medicamentos[weekKey]) {
-                alert('Nenhum medicamento encontrado para esta semana!');
                 return;
             }
             
-            const indexAntes = medicamentos[weekKey].length;
             medicamentos[weekKey] = medicamentos[weekKey].filter(m => String(m.id) !== String(id));
-            const indexDepois = medicamentos[weekKey].length;
-            
-            if (indexAntes === indexDepois) {
-                alert('Medicamento não encontrado!');
-                return;
-            }
             
             localStorage.setItem('medicamentos', JSON.stringify(medicamentos));
             salvarMedicamentosSupabase();
