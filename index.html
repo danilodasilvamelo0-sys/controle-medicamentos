@@ -1407,7 +1407,7 @@
                 padding: 12px;
             }
 
-            /* Dieta Mobile */
+            /* Dieta Mobile - Manter formato desktop com scroll */
             .dieta-header {
                 padding: 15px;
             }
@@ -1416,24 +1416,34 @@
                 font-size: 1.3em;
             }
 
+            #page-dieta .container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            #page-dieta .container > div {
+                min-width: 600px;
+            }
+
             .refeicao-card {
                 margin: 10px;
                 border-radius: 12px;
+                min-width: 580px;
             }
 
             .refeicao-header {
-                flex-direction: column;
+                flex-direction: row;
                 gap: 10px;
                 padding: 12px;
             }
 
             .refeicao-header-left,
             .refeicao-header-right {
-                width: 100%;
+                width: auto;
             }
 
             .refeicao-header-left input {
-                font-size: 1em;
+                font-size: 0.9em;
             }
 
             .refeicao-content {
@@ -1441,49 +1451,56 @@
             }
 
             .categoria-row {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-
-            .categoria-box {
-                padding: 10px;
-            }
-
-            .categoria-header label {
-                font-size: 0.75em;
-            }
-
-            .item-row {
-                flex-wrap: wrap;
+                grid-template-columns: 1fr 1fr;
                 gap: 8px;
             }
 
+            .categoria-box {
+                padding: 8px;
+            }
+
+            .categoria-header label {
+                font-size: 0.7em;
+            }
+
+            .item-row {
+                flex-wrap: nowrap;
+                gap: 5px;
+            }
+
             .item-row input[type="text"] {
-                flex: 1 1 100%;
-                padding: 10px;
-                font-size: 0.95em;
+                flex: 1;
+                padding: 6px;
+                font-size: 0.85em;
+                min-width: 80px;
             }
 
             .item-row input[type="text"].qtd {
-                flex: 1 1 40%;
-                width: auto;
+                flex: 0 0 50px;
+                width: 50px;
             }
 
             .item-row select.unidade {
-                flex: 1 1 30%;
-                width: auto;
-                padding: 10px;
+                flex: 0 0 45px;
+                width: 45px;
+                padding: 6px 2px;
+                font-size: 0.75em;
+            }
+
+            .item-row button {
+                padding: 4px 6px;
+                font-size: 0.8em;
             }
 
             .dieta-buttons {
-                flex-direction: column;
+                flex-direction: row;
                 gap: 10px;
                 padding: 15px;
             }
 
             .dieta-buttons button {
-                width: 100%;
-                padding: 15px;
+                flex: 1;
+                padding: 12px;
             }
 
             /* Modal Mobile */
