@@ -207,7 +207,7 @@
         .transacoes-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 500px;
+            min-width: 600px;
         }
 
         .transacoes-table th {
@@ -236,6 +236,14 @@
             opacity: 0.5;
         }
 
+        .transacoes-table tr.vencido {
+            background: rgba(231, 76, 60, 0.1);
+        }
+
+        .transacoes-table tr.proximo {
+            background: rgba(241, 196, 15, 0.1);
+        }
+
         .transacoes-table .categoria {
             display: inline-block;
             padding: 3px 8px;
@@ -262,6 +270,17 @@
             color: #e74c3c;
         }
 
+        .parcela-info {
+            font-size: 0.75em;
+            color: rgba(255,255,255,0.6);
+            margin-top: 4px;
+        }
+
+        .parcela-info .destaque {
+            color: #d4af7d;
+            font-weight: 500;
+        }
+
         .parcela-badge {
             display: inline-block;
             padding: 2px 8px;
@@ -273,14 +292,12 @@
         }
 
         .progress-bar {
-            width: 80px;
+            width: 100%;
             height: 6px;
             background: #1a1a1a;
             border-radius: 3px;
             overflow: hidden;
-            display: inline-block;
-            vertical-align: middle;
-            margin-left: 8px;
+            margin-top: 6px;
         }
 
         .progress-bar-fill {
@@ -288,6 +305,30 @@
             background: linear-gradient(90deg, #27ae60, #2ecc71);
             border-radius: 3px;
             transition: width 0.5s ease;
+        }
+
+        .vencimento-badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7em;
+            font-weight: 500;
+            margin-left: 5px;
+        }
+
+        .vencimento-badge.vencido {
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+        }
+
+        .vencimento-badge.proximo {
+            background: rgba(241, 196, 15, 0.2);
+            color: #f1c40f;
+        }
+
+        .vencimento-badge.ok {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
         }
 
         .empty-state {
@@ -457,7 +498,20 @@
 
         <div class="mes-selector">
             <span style="color: rgba(255,255,255,0.5); font-size: 0.85em;">Período:</span>
-            <select id="mesSelect" onchange="mudarMes()"></select>
+            <select id="mesSelect" onchange="mudarMes()">
+                <option value="01">Janeiro</option>
+                <option value="02">Fevereiro</option>
+                <option value="03">Março</option>
+                <option value="04">Abril</option>
+                <option value="05">Maio</option>
+                <option value="06">Junho</option>
+                <option value="07">Julho</option>
+                <option value="08">Agosto</option>
+                <option value="09">Setembro</option>
+                <option value="10">Outubro</option>
+                <option value="11">Novembro</option>
+                <option value="12">Dezembro</option>
+            </select>
         </div>
 
         <div class="resumo-grid">
@@ -554,7 +608,7 @@
                             <input type="text" id="despesaDescricao" placeholder="Ex: Aluguel">
                         </div>
                         <div class="form-group">
-                            <label>Valor</label>
+                            <label>Valor da Parcela</label>
                             <input type="number" id="despesaValor" placeholder="0,00" step="0.01">
                         </div>
                         <div class="form-group">
@@ -572,7 +626,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Data Início</label>
+                            <label>Data Vencimento</label>
                             <input type="date" id="despesaData">
                         </div>
                     </div>
@@ -642,31 +696,14 @@
         };
 
         let mesSelecionado = '';
+        let anoAtual = new Date().getFullYear();
 
-        // Gerar calendário dinâmico
-        function gerarCalendario() {
-            const select = document.getElementById('mesSelect');
+        // Inicializar mês
+        function initMes() {
             const hoje = new Date();
-            const anoAtual = hoje.getFullYear();
-            const mesAtual = hoje.getMonth();
-            
-            const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
-                          'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-            
-            // Gerar 2 anos: atual e próximo
-            for (let ano = anoAtual; ano <= anoAtual + 1; ano++) {
-                for (let mes = 0; mes < 12; mes++) {
-                    const valor = `${ano}-${String(mes + 1).padStart(2, '0')}`;
-                    const option = document.createElement('option');
-                    option.value = valor;
-                    option.textContent = `${meses[mes]} ${ano}`;
-                    if (ano === anoAtual && mes === mesAtual) {
-                        option.selected = true;
-                        mesSelecionado = valor;
-                    }
-                    select.appendChild(option);
-                }
-            }
+            const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+            document.getElementById('mesSelect').value = mes;
+            mesSelecionado = mes;
         }
 
         function formatarMoeda(valor) {
@@ -676,6 +713,23 @@
         function formatarData(data) {
             if (!data) return '-';
             return new Date(data + 'T00:00:00').toLocaleDateString('pt-BR');
+        }
+
+        // Verificar status do vencimento
+        function getStatusVencimento(dataStr, pago) {
+            if (pago) return { status: 'ok', texto: '' };
+            
+            const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
+            const vencimento = new Date(dataStr + 'T00:00:00');
+            const diffDias = Math.ceil((vencimento - hoje) / (1000 * 60 * 60 * 24));
+            
+            if (diffDias < 0) {
+                return { status: 'vencido', texto: `Vencido há ${Math.abs(diffDias)} dia(s)` };
+            } else if (diffDias <= 3) {
+                return { status: 'proximo', texto: diffDias === 0 ? 'Vence hoje!' : `Vence em ${diffDias} dia(s)` };
+            }
+            return { status: 'ok', texto: '' };
         }
 
         // Formulários
@@ -746,7 +800,7 @@
             renderizar();
         }
 
-        // Despesas - com parcelas mês a mês
+        // Despesas
         function salvarDespesa() {
             const descricao = document.getElementById('despesaDescricao').value.trim();
             const valor = parseFloat(document.getElementById('despesaValor').value) || 0;
@@ -762,24 +816,24 @@
             if (parcelada) {
                 const totalParcelas = parseInt(document.getElementById('despesaTotalParcelas').value) || 1;
                 const grupoId = Date.now();
+                const valorTotal = valor * totalParcelas;
                 
-                // Criar uma despesa para cada parcela
                 for (let i = 0; i < totalParcelas; i++) {
                     const dataVencimento = new Date(dataInicio + 'T00:00:00');
                     dataVencimento.setMonth(dataVencimento.getMonth() + i);
                     
                     financeiro.despesas.push({
                         id: grupoId + i,
-                        grupoId: grupoId,
+                        grupoId,
                         descricao,
                         valor,
+                        valorTotal,
                         categoria,
                         data: dataVencimento.toISOString().split('T')[0],
                         pago: false,
                         parcelada: true,
                         parcelaAtual: i + 1,
-                        totalParcelas: totalParcelas,
-                        valorTotal: valor * totalParcelas
+                        totalParcelas
                     });
                 }
             } else {
@@ -811,7 +865,6 @@
         function deletarDespesa(id) {
             const d = financeiro.despesas.find(x => x.id === id);
             if (d && d.grupoId) {
-                // Perguntar se quer excluir todas as parcelas
                 if (confirm('Excluir todas as parcelas desta conta?')) {
                     financeiro.despesas = financeiro.despesas.filter(x => x.grupoId !== d.grupoId);
                 } else {
@@ -824,15 +877,24 @@
             renderizar();
         }
 
-        function calcularProgressoParcelas(grupoId) {
+        function calcularDadosParcelas(grupoId) {
             const parcelas = financeiro.despesas.filter(d => d.grupoId === grupoId);
-            const pagas = parcelas.filter(d => d.pago).length;
-            return Math.round((pagas / parcelas.length) * 100);
+            const pagas = parcelas.filter(d => d.pago);
+            const valorPago = pagas.reduce((s, p) => s + p.valor, 0);
+            const valorTotal = parcelas[0]?.valorTotal || 0;
+            const valorRestante = valorTotal - valorPago;
+            const percentual = Math.round((pagas.length / parcelas.length) * 100);
+            
+            return { pagas: pagas.length, total: parcelas.length, valorPago, valorTotal, valorRestante, percentual };
         }
 
         function filtrarPorMes(lista) {
             if (!lista) return [];
-            return lista.filter(item => item.data && item.data.startsWith(mesSelecionado));
+            return lista.filter(item => {
+                if (!item.data) return false;
+                const mes = item.data.substring(5, 7);
+                return mes === mesSelecionado;
+            });
         }
 
         function mudarMes() {
@@ -888,21 +950,41 @@
             } else {
                 emptyDespesas.style.display = 'none';
                 despesasTable.innerHTML = despesasMes.map(d => {
-                    let parcelaInfo = '';
-                    let progressBar = '';
+                    const vencimento = getStatusVencimento(d.data, d.pago);
+                    let vencimentoBadge = '';
+                    let rowClass = d.pago ? 'done' : '';
                     
+                    if (vencimento.status === 'vencido') {
+                        vencimentoBadge = `<span class="vencimento-badge vencido">⚠️ ${vencimento.texto}</span>`;
+                        if (!d.pago) rowClass = 'vencido';
+                    } else if (vencimento.status === 'proximo') {
+                        vencimentoBadge = `<span class="vencimento-badge proximo">⏰ ${vencimento.texto}</span>`;
+                        if (!d.pago) rowClass = 'proximo';
+                    }
+
+                    let parcelaHtml = '';
                     if (d.parcelada) {
-                        parcelaInfo = `<span class="parcela-badge">${d.parcelaAtual}/${d.totalParcelas}</span>`;
-                        const progresso = calcularProgressoParcelas(d.grupoId);
-                        progressBar = `<div class="progress-bar"><div class="progress-bar-fill" style="width: ${progresso}%"></div></div>`;
+                        const dados = calcularDadosParcelas(d.grupoId);
+                        parcelaHtml = `
+                            <span class="parcela-badge">${d.parcelaAtual}/${d.totalParcelas}</span>
+                            <div class="parcela-info">
+                                Pago: <span class="destaque">${formatarMoeda(dados.valorPago)}</span> de ${formatarMoeda(dados.valorTotal)}<br>
+                                Falta: <span class="destaque">${formatarMoeda(dados.valorRestante)}</span>
+                                <div class="progress-bar">
+                                    <div class="progress-bar-fill" style="width: ${dados.percentual}%"></div>
+                                </div>
+                            </div>
+                        `;
                     }
                     
                     return `
-                        <tr class="${d.pago ? 'done' : ''}">
+                        <tr class="${rowClass}">
                             <td><input type="checkbox" class="checkbox-status" ${d.pago ? 'checked' : ''} onchange="togglePago(${d.id})"></td>
-                            <td>${d.descricao}${parcelaInfo}${progressBar}</td>
+                            <td>
+                                ${d.descricao}${parcelaHtml}
+                            </td>
                             <td><span class="categoria">${d.categoria}</span></td>
-                            <td>${formatarData(d.data)}</td>
+                            <td>${formatarData(d.data)}${vencimentoBadge}</td>
                             <td class="valor-negativo">- ${formatarMoeda(d.valor)}</td>
                             <td class="acoes"><button onclick="deletarDespesa(${d.id})">🗑️</button></td>
                         </tr>
@@ -946,7 +1028,7 @@
         }
 
         async function init() {
-            gerarCalendario();
+            initMes();
             if (useSupabase) await carregarFinanceiroSupabase();
             renderizar();
         }
