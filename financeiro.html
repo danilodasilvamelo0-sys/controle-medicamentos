@@ -47,7 +47,6 @@
             margin: 0 auto;
         }
 
-        /* Header */
         .header {
             display: flex;
             align-items: center;
@@ -96,11 +95,10 @@
             font-size: 0.85em;
         }
 
-        /* Cards de Resumo */
         .resumo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
             margin-bottom: 30px;
         }
 
@@ -108,7 +106,7 @@
             background: #141414;
             border: 1px solid rgba(212, 175, 125, 0.15);
             border-radius: 15px;
-            padding: 25px;
+            padding: 20px;
             position: relative;
             overflow: hidden;
         }
@@ -122,43 +120,33 @@
             height: 3px;
         }
 
-        .resumo-card.receitas::before {
-            background: linear-gradient(90deg, #2ecc71, #27ae60);
-        }
-
-        .resumo-card.despesas::before {
-            background: linear-gradient(90deg, #e74c3c, #c0392b);
-        }
-
-        .resumo-card.saldo::before {
-            background: linear-gradient(90deg, #d4af7d, #c9a066);
-        }
-
-        .resumo-card.investimentos::before {
-            background: linear-gradient(90deg, #3498db, #2980b9);
-        }
+        .resumo-card.receitas::before { background: linear-gradient(90deg, #2ecc71, #27ae60); }
+        .resumo-card.recebido::before { background: linear-gradient(90deg, #27ae60, #1e8449); }
+        .resumo-card.despesas::before { background: linear-gradient(90deg, #e74c3c, #c0392b); }
+        .resumo-card.pago::before { background: linear-gradient(90deg, #c0392b, #922b21); }
+        .resumo-card.saldo::before { background: linear-gradient(90deg, #d4af7d, #c9a066); }
 
         .resumo-card label {
             display: block;
             color: rgba(255,255,255,0.5);
-            font-size: 0.8em;
+            font-size: 0.7em;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .resumo-card .valor {
-            font-size: 1.8em;
+            font-size: 1.3em;
             font-weight: 600;
             color: #fff;
         }
 
         .resumo-card.receitas .valor { color: #2ecc71; }
+        .resumo-card.recebido .valor { color: #27ae60; }
         .resumo-card.despesas .valor { color: #e74c3c; }
+        .resumo-card.pago .valor { color: #c0392b; }
         .resumo-card.saldo .valor { color: #d4af7d; }
-        .resumo-card.investimentos .valor { color: #3498db; }
 
-        /* Seletor de Mês */
         .mes-selector {
             display: flex;
             align-items: center;
@@ -185,7 +173,6 @@
             color: #fff;
         }
 
-        /* Seções */
         .section {
             background: #141414;
             border: 1px solid rgba(212, 175, 125, 0.15);
@@ -213,10 +200,6 @@
             gap: 10px;
         }
 
-        .section-header h2 .icon {
-            color: #d4af7d;
-        }
-
         .btn-add {
             background: rgba(212, 175, 125, 0.15);
             border: 1px solid rgba(212, 175, 125, 0.3);
@@ -226,9 +209,6 @@
             font-size: 0.85em;
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 5px;
         }
 
         .btn-add:hover {
@@ -239,39 +219,47 @@
             padding: 20px;
         }
 
-        /* Tabela de Transações */
+        .table-container {
+            overflow-x: auto;
+        }
+
         .transacoes-table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 700px;
         }
 
         .transacoes-table th {
             text-align: left;
-            padding: 12px 15px;
+            padding: 12px 10px;
             color: rgba(255,255,255,0.5);
-            font-size: 0.75em;
+            font-size: 0.7em;
             text-transform: uppercase;
             letter-spacing: 1px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .transacoes-table td {
-            padding: 15px;
+            padding: 12px 10px;
             color: #fff;
             border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: 0.9em;
+            font-size: 0.85em;
         }
 
         .transacoes-table tr:hover {
             background: rgba(212, 175, 125, 0.05);
         }
 
+        .transacoes-table tr.done {
+            opacity: 0.5;
+        }
+
         .transacoes-table .categoria {
             display: inline-block;
-            padding: 4px 10px;
+            padding: 3px 8px;
             background: rgba(212, 175, 125, 0.15);
             border-radius: 20px;
-            font-size: 0.8em;
+            font-size: 0.75em;
             color: #d4af7d;
         }
 
@@ -285,27 +273,28 @@
             font-weight: 500;
         }
 
-        .transacoes-table .acoes {
-            display: flex;
-            gap: 8px;
-        }
-
         .transacoes-table .acoes button {
             background: transparent;
             border: none;
             color: rgba(255,255,255,0.4);
             cursor: pointer;
             padding: 5px;
-            font-size: 1em;
+            font-size: 0.9em;
             transition: color 0.3s;
         }
 
         .transacoes-table .acoes button:hover {
-            color: #d4af7d;
+            color: #e74c3c;
         }
 
-        .transacoes-table .acoes button.delete:hover {
-            color: #e74c3c;
+        .parcelas-info {
+            font-size: 0.75em;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.4;
+        }
+
+        .parcelas-info strong {
+            color: #d4af7d;
         }
 
         .empty-state {
@@ -314,24 +303,34 @@
             color: rgba(255,255,255,0.3);
         }
 
-        .empty-state p {
-            margin-bottom: 15px;
-        }
-
-        /* Formulário Inline */
-        .form-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr auto;
-            gap: 10px;
-            padding: 15px;
+        .form-container {
             background: #1a1a1a;
             border-radius: 10px;
-            margin-bottom: 15px;
-            align-items: center;
+            padding: 20px;
+            margin-bottom: 20px;
         }
 
-        .form-row input,
-        .form-row select {
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.75em;
+            text-transform: uppercase;
+        }
+
+        .form-group input,
+        .form-group select {
             padding: 12px;
             background: #141414;
             border: 1px solid rgba(212, 175, 125, 0.2);
@@ -340,119 +339,115 @@
             font-size: 0.9em;
         }
 
-        .form-row input:focus,
-        .form-row select:focus {
+        .form-group input:focus,
+        .form-group select:focus {
             outline: none;
             border-color: #d4af7d;
         }
 
-        .form-row select option {
+        .form-group select option {
             background: #141414;
         }
 
-        .form-row .btn-salvar {
+        .form-group.checkbox-group {
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group.checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #d4af7d;
+        }
+
+        .form-group.checkbox-group label {
+            color: #fff;
+            text-transform: none;
+            font-size: 0.9em;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn-salvar {
             background: #d4af7d;
             color: #0a0a0a;
             border: none;
-            padding: 12px 20px;
+            padding: 12px 25px;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.3s;
         }
 
-        .form-row .btn-salvar:hover {
+        .btn-salvar:hover {
             background: #c9a066;
         }
 
-        .form-row .btn-cancelar {
+        .btn-cancelar {
             background: rgba(255,255,255,0.1);
             color: rgba(255,255,255,0.6);
             border: none;
-            padding: 12px 15px;
+            padding: 12px 20px;
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
         }
 
-        .form-row .btn-cancelar:hover {
+        .btn-cancelar:hover {
             background: rgba(255,255,255,0.15);
         }
 
-        /* Gráfico Simples */
-        .grafico-container {
-            padding: 20px;
+        .parcelas-fields {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        .grafico-barra {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
+        .parcelas-fields.active {
+            display: block;
         }
 
-        .grafico-barra label {
-            width: 120px;
-            color: rgba(255,255,255,0.6);
-            font-size: 0.85em;
+        .checkbox-status {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border: 2px solid #2ecc71;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            background: transparent;
+            transition: all 0.3s;
         }
 
-        .grafico-barra .barra-bg {
-            flex: 1;
-            height: 25px;
-            background: #1a1a1a;
-            border-radius: 5px;
-            overflow: hidden;
-            margin-right: 15px;
+        .checkbox-status:checked {
+            background: #2ecc71;
+            border-color: #2ecc71;
         }
 
-        .grafico-barra .barra-fill {
-            height: 100%;
-            border-radius: 5px;
-            transition: width 0.5s ease;
+        .checkbox-status:checked::after {
+            content: '✓';
+            position: absolute;
+            color: #0a0a0a;
+            font-size: 14px;
+            font-weight: bold;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
-        .grafico-barra .barra-fill.receita {
-            background: linear-gradient(90deg, #27ae60, #2ecc71);
-        }
-
-        .grafico-barra .barra-fill.despesa {
-            background: linear-gradient(90deg, #c0392b, #e74c3c);
-        }
-
-        .grafico-barra .valor {
-            width: 100px;
-            text-align: right;
-            color: #fff;
-            font-weight: 500;
-        }
-
-        /* Mobile */
         @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-
             .resumo-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
-
-            .resumo-card {
-                padding: 20px;
-            }
-
-            .resumo-card .valor {
-                font-size: 1.4em;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .transacoes-table {
-                display: block;
-                overflow-x: auto;
+            
+            .resumo-card:last-child {
+                grid-column: span 2;
             }
         }
 
@@ -466,7 +461,20 @@
             }
 
             .resumo-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .resumo-card {
+                padding: 12px;
+            }
+
+            .resumo-card label {
+                font-size: 0.6em;
+            }
+
+            .resumo-card .valor {
+                font-size: 1em;
             }
 
             .mes-selector {
@@ -485,12 +493,15 @@
                 width: 100%;
                 justify-content: center;
             }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <div class="header-left">
                 <a href="index.html" class="btn-voltar">←</a>
@@ -501,175 +512,185 @@
             </div>
         </div>
 
-        <!-- Seletor de Mês -->
         <div class="mes-selector">
-            <div>
-                <span style="color: rgba(255,255,255,0.5); font-size: 0.85em;">Período:</span>
-            </div>
+            <span style="color: rgba(255,255,255,0.5); font-size: 0.85em;">Período:</span>
             <select id="mesSelect" onchange="mudarMes()">
-                <option value="2025-01">Janeiro 2025</option>
-                <option value="2025-02">Fevereiro 2025</option>
-                <option value="2025-03">Março 2025</option>
-                <option value="2025-04">Abril 2025</option>
-                <option value="2025-05">Maio 2025</option>
-                <option value="2025-06">Junho 2025</option>
-                <option value="2025-07">Julho 2025</option>
-                <option value="2025-08">Agosto 2025</option>
-                <option value="2025-09">Setembro 2025</option>
-                <option value="2025-10">Outubro 2025</option>
-                <option value="2025-11">Novembro 2025</option>
-                <option value="2025-12" selected>Dezembro 2025</option>
+                <option value="2026-01">Janeiro 2026</option>
+                <option value="2026-02">Fevereiro 2026</option>
+                <option value="2026-03">Março 2026</option>
+                <option value="2026-04">Abril 2026</option>
+                <option value="2026-05">Maio 2026</option>
+                <option value="2026-06">Junho 2026</option>
+                <option value="2026-07">Julho 2026</option>
+                <option value="2026-08">Agosto 2026</option>
+                <option value="2026-09">Setembro 2026</option>
+                <option value="2026-10">Outubro 2026</option>
+                <option value="2026-11">Novembro 2026</option>
+                <option value="2026-12">Dezembro 2026</option>
             </select>
         </div>
 
-        <!-- Cards de Resumo -->
         <div class="resumo-grid">
             <div class="resumo-card receitas">
-                <label>Receitas</label>
+                <label>Receitas Previstas</label>
                 <div class="valor" id="totalReceitas">R$ 0,00</div>
             </div>
+            <div class="resumo-card recebido">
+                <label>Recebido</label>
+                <div class="valor" id="totalRecebido">R$ 0,00</div>
+            </div>
             <div class="resumo-card despesas">
-                <label>Despesas</label>
+                <label>Despesas Previstas</label>
                 <div class="valor" id="totalDespesas">R$ 0,00</div>
             </div>
-            <div class="resumo-card saldo">
-                <label>Saldo</label>
-                <div class="valor" id="saldoMes">R$ 0,00</div>
+            <div class="resumo-card pago">
+                <label>Pago</label>
+                <div class="valor" id="totalPago">R$ 0,00</div>
             </div>
-            <div class="resumo-card investimentos">
-                <label>Investimentos</label>
-                <div class="valor" id="totalInvestimentos">R$ 0,00</div>
+            <div class="resumo-card saldo">
+                <label>Saldo Atual</label>
+                <div class="valor" id="saldoAtual">R$ 0,00</div>
             </div>
         </div>
 
-        <!-- Seção Receitas -->
+        <!-- Receitas -->
         <div class="section">
             <div class="section-header">
-                <h2><span class="icon">📈</span> Receitas</h2>
+                <h2>📈 Receitas</h2>
                 <button class="btn-add" onclick="mostrarFormReceita()">+ Adicionar</button>
             </div>
             <div class="section-content">
-                <div id="formReceita" style="display: none;">
+                <div id="formReceita" class="form-container" style="display: none;">
                     <div class="form-row">
-                        <input type="text" id="receitaDescricao" placeholder="Descrição">
-                        <input type="number" id="receitaValor" placeholder="Valor" step="0.01">
-                        <select id="receitaCategoria">
-                            <option value="Salário">Salário</option>
-                            <option value="Freelance">Freelance</option>
-                            <option value="Investimentos">Investimentos</option>
-                            <option value="Outros">Outros</option>
-                        </select>
-                        <input type="date" id="receitaData">
-                        <div style="display: flex; gap: 5px;">
-                            <button class="btn-salvar" onclick="salvarReceita()">Salvar</button>
-                            <button class="btn-cancelar" onclick="esconderFormReceita()">✕</button>
+                        <div class="form-group">
+                            <label>Descrição</label>
+                            <input type="text" id="receitaDescricao" placeholder="Ex: Salário">
+                        </div>
+                        <div class="form-group">
+                            <label>Valor</label>
+                            <input type="number" id="receitaValor" placeholder="0,00" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Categoria</label>
+                            <select id="receitaCategoria">
+                                <option value="Salário">Salário</option>
+                                <option value="Freelance">Freelance</option>
+                                <option value="Investimentos">Investimentos</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Data</label>
+                            <input type="date" id="receitaData">
                         </div>
                     </div>
+                    <div class="form-buttons">
+                        <button class="btn-cancelar" onclick="esconderFormReceita()">Cancelar</button>
+                        <button class="btn-salvar" onclick="salvarReceita()">Salvar</button>
+                    </div>
                 </div>
-                <table class="transacoes-table">
-                    <thead>
-                        <tr>
-                            <th>Descrição</th>
-                            <th>Categoria</th>
-                            <th>Data</th>
-                            <th>Valor</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="receitasTable"></tbody>
-                </table>
+                <div class="table-container">
+                    <table class="transacoes-table">
+                        <thead>
+                            <tr>
+                                <th>Recebido</th>
+                                <th>Descrição</th>
+                                <th>Categoria</th>
+                                <th>Data</th>
+                                <th>Valor</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="receitasTable"></tbody>
+                    </table>
+                </div>
                 <div id="emptyReceitas" class="empty-state">
                     <p>Nenhuma receita cadastrada</p>
                 </div>
             </div>
         </div>
 
-        <!-- Seção Despesas -->
+        <!-- Despesas -->
         <div class="section">
             <div class="section-header">
-                <h2><span class="icon">📉</span> Despesas</h2>
+                <h2>📉 Despesas</h2>
                 <button class="btn-add" onclick="mostrarFormDespesa()">+ Adicionar</button>
             </div>
             <div class="section-content">
-                <div id="formDespesa" style="display: none;">
+                <div id="formDespesa" class="form-container" style="display: none;">
                     <div class="form-row">
-                        <input type="text" id="despesaDescricao" placeholder="Descrição">
-                        <input type="number" id="despesaValor" placeholder="Valor" step="0.01">
-                        <select id="despesaCategoria">
-                            <option value="Moradia">Moradia</option>
-                            <option value="Alimentação">Alimentação</option>
-                            <option value="Transporte">Transporte</option>
-                            <option value="Saúde">Saúde</option>
-                            <option value="Educação">Educação</option>
-                            <option value="Lazer">Lazer</option>
-                            <option value="Contas">Contas</option>
-                            <option value="Outros">Outros</option>
-                        </select>
-                        <input type="date" id="despesaData">
-                        <div style="display: flex; gap: 5px;">
-                            <button class="btn-salvar" onclick="salvarDespesa()">Salvar</button>
-                            <button class="btn-cancelar" onclick="esconderFormDespesa()">✕</button>
+                        <div class="form-group">
+                            <label>Descrição</label>
+                            <input type="text" id="despesaDescricao" placeholder="Ex: Aluguel">
+                        </div>
+                        <div class="form-group">
+                            <label>Valor da Parcela</label>
+                            <input type="number" id="despesaValor" placeholder="0,00" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Categoria</label>
+                            <select id="despesaCategoria">
+                                <option value="Moradia">Moradia</option>
+                                <option value="Alimentação">Alimentação</option>
+                                <option value="Transporte">Transporte</option>
+                                <option value="Saúde">Saúde</option>
+                                <option value="Educação">Educação</option>
+                                <option value="Lazer">Lazer</option>
+                                <option value="Contas">Contas</option>
+                                <option value="Cartão">Cartão</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Vencimento</label>
+                            <input type="date" id="despesaData">
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="despesaParcelada" onchange="toggleParcelas()">
+                            <label>Conta Parcelada</label>
+                        </div>
+                    </div>
+                    <div id="parcelasFields" class="parcelas-fields">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Total de Parcelas</label>
+                                <input type="number" id="despesaTotalParcelas" placeholder="12" min="1">
+                            </div>
+                            <div class="form-group">
+                                <label>Parcela Atual</label>
+                                <input type="number" id="despesaParcelaAtual" placeholder="1" min="1">
+                            </div>
+                            <div class="form-group">
+                                <label>Valor Total da Dívida</label>
+                                <input type="number" id="despesaValorTotal" placeholder="0,00" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-buttons">
+                        <button class="btn-cancelar" onclick="esconderFormDespesa()">Cancelar</button>
+                        <button class="btn-salvar" onclick="salvarDespesa()">Salvar</button>
+                    </div>
                 </div>
-                <table class="transacoes-table">
-                    <thead>
-                        <tr>
-                            <th>Descrição</th>
-                            <th>Categoria</th>
-                            <th>Data</th>
-                            <th>Valor</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="despesasTable"></tbody>
-                </table>
+                <div class="table-container">
+                    <table class="transacoes-table">
+                        <thead>
+                            <tr>
+                                <th>Pago</th>
+                                <th>Descrição</th>
+                                <th>Categoria</th>
+                                <th>Vencimento</th>
+                                <th>Parcelas</th>
+                                <th>Valor</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="despesasTable"></tbody>
+                    </table>
+                </div>
                 <div id="emptyDespesas" class="empty-state">
                     <p>Nenhuma despesa cadastrada</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Seção Investimentos -->
-        <div class="section">
-            <div class="section-header">
-                <h2><span class="icon">💎</span> Investimentos</h2>
-                <button class="btn-add" onclick="mostrarFormInvestimento()">+ Adicionar</button>
-            </div>
-            <div class="section-content">
-                <div id="formInvestimento" style="display: none;">
-                    <div class="form-row">
-                        <input type="text" id="investimentoDescricao" placeholder="Descrição">
-                        <input type="number" id="investimentoValor" placeholder="Valor" step="0.01">
-                        <select id="investimentoCategoria">
-                            <option value="Renda Fixa">Renda Fixa</option>
-                            <option value="Ações">Ações</option>
-                            <option value="FIIs">FIIs</option>
-                            <option value="Crypto">Crypto</option>
-                            <option value="Poupança">Poupança</option>
-                            <option value="Outros">Outros</option>
-                        </select>
-                        <input type="date" id="investimentoData">
-                        <div style="display: flex; gap: 5px;">
-                            <button class="btn-salvar" onclick="salvarInvestimento()">Salvar</button>
-                            <button class="btn-cancelar" onclick="esconderFormInvestimento()">✕</button>
-                        </div>
-                    </div>
-                </div>
-                <table class="transacoes-table">
-                    <thead>
-                        <tr>
-                            <th>Descrição</th>
-                            <th>Categoria</th>
-                            <th>Data</th>
-                            <th>Valor</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="investimentosTable"></tbody>
-                </table>
-                <div id="emptyInvestimentos" class="empty-state">
-                    <p>Nenhum investimento cadastrado</p>
                 </div>
             </div>
         </div>
@@ -677,7 +698,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // ========== CONFIGURAÇÃO SUPABASE ==========
         const SUPABASE_URL = 'https://ltwamldgdwqzyssoukzl.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0d2FtbGRnZHdxenlzc291a3psIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY4NzEzMDUsImV4cCI6MjA4MjQ0NzMwNX0.UVyo0c0BHslB7mCU74Qx8rdo42HA0WPAyDQ6J-FIakE';
         
@@ -690,33 +710,33 @@
             useSupabase = true;
             console.log('✅ Supabase conectado!');
         } catch (e) {
-            console.log('⚠️ Usando localStorage (offline)', e);
+            console.log('⚠️ Usando localStorage', e);
         }
 
         const USER_ID = 'default_user';
 
-        // Dados
         let financeiro = JSON.parse(localStorage.getItem('financeiro')) || {
             receitas: [],
-            despesas: [],
-            investimentos: []
+            despesas: []
         };
 
-        let mesSelecionado = '2025-12';
+        let mesSelecionado = '2026-01';
 
-        // Funções de formatação
         function formatarMoeda(valor) {
-            return new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-            }).format(valor);
+            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
         }
 
         function formatarData(data) {
+            if (!data) return '-';
             return new Date(data + 'T00:00:00').toLocaleDateString('pt-BR');
         }
 
-        // Funções de formulário
+        function toggleParcelas() {
+            const checkbox = document.getElementById('despesaParcelada');
+            const fields = document.getElementById('parcelasFields');
+            fields.classList.toggle('active', checkbox.checked);
+        }
+
         function mostrarFormReceita() {
             document.getElementById('formReceita').style.display = 'block';
             document.getElementById('receitaData').value = new Date().toISOString().split('T')[0];
@@ -724,13 +744,8 @@
 
         function esconderFormReceita() {
             document.getElementById('formReceita').style.display = 'none';
-            limparFormReceita();
-        }
-
-        function limparFormReceita() {
             document.getElementById('receitaDescricao').value = '';
             document.getElementById('receitaValor').value = '';
-            document.getElementById('receitaCategoria').value = 'Salário';
         }
 
         function mostrarFormDespesa() {
@@ -740,32 +755,15 @@
 
         function esconderFormDespesa() {
             document.getElementById('formDespesa').style.display = 'none';
-            limparFormDespesa();
-        }
-
-        function limparFormDespesa() {
             document.getElementById('despesaDescricao').value = '';
             document.getElementById('despesaValor').value = '';
-            document.getElementById('despesaCategoria').value = 'Moradia';
+            document.getElementById('despesaParcelada').checked = false;
+            document.getElementById('parcelasFields').classList.remove('active');
+            document.getElementById('despesaTotalParcelas').value = '';
+            document.getElementById('despesaParcelaAtual').value = '';
+            document.getElementById('despesaValorTotal').value = '';
         }
 
-        function mostrarFormInvestimento() {
-            document.getElementById('formInvestimento').style.display = 'block';
-            document.getElementById('investimentoData').value = new Date().toISOString().split('T')[0];
-        }
-
-        function esconderFormInvestimento() {
-            document.getElementById('formInvestimento').style.display = 'none';
-            limparFormInvestimento();
-        }
-
-        function limparFormInvestimento() {
-            document.getElementById('investimentoDescricao').value = '';
-            document.getElementById('investimentoValor').value = '';
-            document.getElementById('investimentoCategoria').value = 'Renda Fixa';
-        }
-
-        // CRUD Receitas
         function salvarReceita() {
             const descricao = document.getElementById('receitaDescricao').value.trim();
             const valor = parseFloat(document.getElementById('receitaValor').value) || 0;
@@ -782,12 +780,22 @@
                 descricao,
                 valor,
                 categoria,
-                data
+                data,
+                recebido: false
             });
 
             salvarDados();
             esconderFormReceita();
             renderizar();
+        }
+
+        function toggleRecebido(id) {
+            const receita = financeiro.receitas.find(r => r.id === id);
+            if (receita) {
+                receita.recebido = !receita.recebido;
+                salvarDados();
+                renderizar();
+            }
         }
 
         function deletarReceita(id) {
@@ -796,29 +804,56 @@
             renderizar();
         }
 
-        // CRUD Despesas
         function salvarDespesa() {
             const descricao = document.getElementById('despesaDescricao').value.trim();
             const valor = parseFloat(document.getElementById('despesaValor').value) || 0;
             const categoria = document.getElementById('despesaCategoria').value;
             const data = document.getElementById('despesaData').value;
+            const parcelada = document.getElementById('despesaParcelada').checked;
 
             if (!descricao || !valor || !data) {
                 alert('Preencha todos os campos!');
                 return;
             }
 
-            financeiro.despesas.push({
+            const despesa = {
                 id: Date.now(),
                 descricao,
                 valor,
                 categoria,
-                data
-            });
+                data,
+                pago: false,
+                parcelada: false
+            };
 
+            if (parcelada) {
+                despesa.parcelada = true;
+                despesa.totalParcelas = parseInt(document.getElementById('despesaTotalParcelas').value) || 1;
+                despesa.parcelaAtual = parseInt(document.getElementById('despesaParcelaAtual').value) || 1;
+                despesa.parcelasPagas = 0;
+                despesa.valorTotal = parseFloat(document.getElementById('despesaValorTotal').value) || valor * despesa.totalParcelas;
+            }
+
+            financeiro.despesas.push(despesa);
             salvarDados();
             esconderFormDespesa();
             renderizar();
+        }
+
+        function togglePago(id) {
+            const despesa = financeiro.despesas.find(d => d.id === id);
+            if (despesa) {
+                despesa.pago = !despesa.pago;
+                if (despesa.parcelada) {
+                    if (despesa.pago) {
+                        despesa.parcelasPagas = (despesa.parcelasPagas || 0) + 1;
+                    } else {
+                        despesa.parcelasPagas = Math.max(0, (despesa.parcelasPagas || 0) - 1);
+                    }
+                }
+                salvarDados();
+                renderizar();
+            }
         }
 
         function deletarDespesa(id) {
@@ -827,38 +862,6 @@
             renderizar();
         }
 
-        // CRUD Investimentos
-        function salvarInvestimento() {
-            const descricao = document.getElementById('investimentoDescricao').value.trim();
-            const valor = parseFloat(document.getElementById('investimentoValor').value) || 0;
-            const categoria = document.getElementById('investimentoCategoria').value;
-            const data = document.getElementById('investimentoData').value;
-
-            if (!descricao || !valor || !data) {
-                alert('Preencha todos os campos!');
-                return;
-            }
-
-            financeiro.investimentos.push({
-                id: Date.now(),
-                descricao,
-                valor,
-                categoria,
-                data
-            });
-
-            salvarDados();
-            esconderFormInvestimento();
-            renderizar();
-        }
-
-        function deletarInvestimento(id) {
-            financeiro.investimentos = financeiro.investimentos.filter(i => i.id !== id);
-            salvarDados();
-            renderizar();
-        }
-
-        // Filtrar por mês
         function filtrarPorMes(lista) {
             return lista.filter(item => item.data && item.data.startsWith(mesSelecionado));
         }
@@ -868,24 +871,23 @@
             renderizar();
         }
 
-        // Renderização
         function renderizar() {
             const receitasMes = filtrarPorMes(financeiro.receitas);
             const despesasMes = filtrarPorMes(financeiro.despesas);
-            const investimentosMes = filtrarPorMes(financeiro.investimentos);
 
-            // Totais
             const totalReceitas = receitasMes.reduce((sum, r) => sum + r.valor, 0);
+            const totalRecebido = receitasMes.filter(r => r.recebido).reduce((sum, r) => sum + r.valor, 0);
             const totalDespesas = despesasMes.reduce((sum, d) => sum + d.valor, 0);
-            const totalInvestimentos = investimentosMes.reduce((sum, i) => sum + i.valor, 0);
-            const saldo = totalReceitas - totalDespesas - totalInvestimentos;
+            const totalPago = despesasMes.filter(d => d.pago).reduce((sum, d) => sum + d.valor, 0);
+            const saldoAtual = totalRecebido - totalPago;
 
             document.getElementById('totalReceitas').textContent = formatarMoeda(totalReceitas);
+            document.getElementById('totalRecebido').textContent = formatarMoeda(totalRecebido);
             document.getElementById('totalDespesas').textContent = formatarMoeda(totalDespesas);
-            document.getElementById('totalInvestimentos').textContent = formatarMoeda(totalInvestimentos);
-            document.getElementById('saldoMes').textContent = formatarMoeda(saldo);
+            document.getElementById('totalPago').textContent = formatarMoeda(totalPago);
+            document.getElementById('saldoAtual').textContent = formatarMoeda(saldoAtual);
 
-            // Tabela Receitas
+            // Receitas
             const receitasTable = document.getElementById('receitasTable');
             const emptyReceitas = document.getElementById('emptyReceitas');
             
@@ -895,19 +897,18 @@
             } else {
                 emptyReceitas.style.display = 'none';
                 receitasTable.innerHTML = receitasMes.map(r => `
-                    <tr>
+                    <tr class="${r.recebido ? 'done' : ''}">
+                        <td><input type="checkbox" class="checkbox-status" ${r.recebido ? 'checked' : ''} onchange="toggleRecebido(${r.id})"></td>
                         <td>${r.descricao}</td>
                         <td><span class="categoria">${r.categoria}</span></td>
                         <td>${formatarData(r.data)}</td>
                         <td class="valor-positivo">+ ${formatarMoeda(r.valor)}</td>
-                        <td class="acoes">
-                            <button class="delete" onclick="deletarReceita(${r.id})" title="Excluir">🗑️</button>
-                        </td>
+                        <td class="acoes"><button onclick="deletarReceita(${r.id})">🗑️</button></td>
                     </tr>
                 `).join('');
             }
 
-            // Tabela Despesas
+            // Despesas
             const despesasTable = document.getElementById('despesasTable');
             const emptyDespesas = document.getElementById('emptyDespesas');
             
@@ -916,43 +917,34 @@
                 emptyDespesas.style.display = 'block';
             } else {
                 emptyDespesas.style.display = 'none';
-                despesasTable.innerHTML = despesasMes.map(d => `
-                    <tr>
-                        <td>${d.descricao}</td>
-                        <td><span class="categoria">${d.categoria}</span></td>
-                        <td>${formatarData(d.data)}</td>
-                        <td class="valor-negativo">- ${formatarMoeda(d.valor)}</td>
-                        <td class="acoes">
-                            <button class="delete" onclick="deletarDespesa(${d.id})" title="Excluir">🗑️</button>
-                        </td>
-                    </tr>
-                `).join('');
-            }
-
-            // Tabela Investimentos
-            const investimentosTable = document.getElementById('investimentosTable');
-            const emptyInvestimentos = document.getElementById('emptyInvestimentos');
-            
-            if (investimentosMes.length === 0) {
-                investimentosTable.innerHTML = '';
-                emptyInvestimentos.style.display = 'block';
-            } else {
-                emptyInvestimentos.style.display = 'none';
-                investimentosTable.innerHTML = investimentosMes.map(i => `
-                    <tr>
-                        <td>${i.descricao}</td>
-                        <td><span class="categoria">${i.categoria}</span></td>
-                        <td>${formatarData(i.data)}</td>
-                        <td style="color: #3498db; font-weight: 500;">${formatarMoeda(i.valor)}</td>
-                        <td class="acoes">
-                            <button class="delete" onclick="deletarInvestimento(${i.id})" title="Excluir">🗑️</button>
-                        </td>
-                    </tr>
-                `).join('');
+                despesasTable.innerHTML = despesasMes.map(d => {
+                    let parcelasInfo = '-';
+                    if (d.parcelada) {
+                        const faltam = d.totalParcelas - (d.parcelasPagas || 0);
+                        parcelasInfo = `
+                            <div class="parcelas-info">
+                                <strong>${d.parcelaAtual}/${d.totalParcelas}</strong><br>
+                                Pagas: ${d.parcelasPagas || 0}<br>
+                                Faltam: ${faltam}<br>
+                                Total: ${formatarMoeda(d.valorTotal)}
+                            </div>
+                        `;
+                    }
+                    return `
+                        <tr class="${d.pago ? 'done' : ''}">
+                            <td><input type="checkbox" class="checkbox-status" ${d.pago ? 'checked' : ''} onchange="togglePago(${d.id})"></td>
+                            <td>${d.descricao}</td>
+                            <td><span class="categoria">${d.categoria}</span></td>
+                            <td>${formatarData(d.data)}</td>
+                            <td>${parcelasInfo}</td>
+                            <td class="valor-negativo">- ${formatarMoeda(d.valor)}</td>
+                            <td class="acoes"><button onclick="deletarDespesa(${d.id})">🗑️</button></td>
+                        </tr>
+                    `;
+                }).join('');
             }
         }
 
-        // Salvar e Carregar
         function salvarDados() {
             localStorage.setItem('financeiro', JSON.stringify(financeiro));
             salvarFinanceiroSupabase();
@@ -961,18 +953,15 @@
         async function salvarFinanceiroSupabase() {
             if (!useSupabase) return;
             try {
-                const { error } = await supabaseClient
-                    .from('financeiro')
-                    .upsert({
-                        id: USER_ID,
-                        user_id: USER_ID,
-                        dados: financeiro,
-                        updated_at: new Date().toISOString()
-                    });
-                if (error) throw error;
+                await supabaseClient.from('financeiro').upsert({
+                    id: USER_ID,
+                    user_id: USER_ID,
+                    dados: financeiro,
+                    updated_at: new Date().toISOString()
+                });
                 console.log('✅ Financeiro sincronizado!');
             } catch (e) {
-                console.error('Erro ao salvar financeiro:', e);
+                console.error('Erro:', e);
             }
         }
 
@@ -984,18 +973,16 @@
                     .select('*')
                     .eq('user_id', USER_ID)
                     .single();
-                if (error && error.code !== 'PGRST116') throw error;
                 if (data && data.dados) {
                     financeiro = data.dados;
                     localStorage.setItem('financeiro', JSON.stringify(financeiro));
-                    console.log('✅ Financeiro carregado do Supabase!');
+                    console.log('✅ Financeiro carregado!');
                 }
             } catch (e) {
-                console.error('Erro ao carregar financeiro:', e);
+                console.error('Erro:', e);
             }
         }
 
-        // Inicialização
         async function init() {
             if (useSupabase) {
                 await carregarFinanceiroSupabase();
