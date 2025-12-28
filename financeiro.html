@@ -82,7 +82,7 @@
 
         .resumo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 15px;
             margin-bottom: 30px;
         }
@@ -91,7 +91,7 @@
             background: #141414;
             border: 1px solid rgba(212, 175, 125, 0.15);
             border-radius: 15px;
-            padding: 20px;
+            padding: 25px;
             position: relative;
             overflow: hidden;
         }
@@ -105,31 +105,25 @@
             height: 3px;
         }
 
-        .resumo-card.receitas::before { background: linear-gradient(90deg, #2ecc71, #27ae60); }
-        .resumo-card.recebido::before { background: linear-gradient(90deg, #27ae60, #1e8449); }
-        .resumo-card.despesas::before { background: linear-gradient(90deg, #e74c3c, #c0392b); }
-        .resumo-card.pago::before { background: linear-gradient(90deg, #c0392b, #922b21); }
-        .resumo-card.saldo::before { background: linear-gradient(90deg, #d4af7d, #c9a066); }
+        .resumo-card.recebido::before { background: linear-gradient(90deg, #27ae60, #2ecc71); }
+        .resumo-card.pago::before { background: linear-gradient(90deg, #e74c3c, #c0392b); }
 
         .resumo-card label {
             display: block;
             color: rgba(255,255,255,0.5);
-            font-size: 0.7em;
+            font-size: 0.75em;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .resumo-card .valor {
-            font-size: 1.4em;
+            font-size: 1.8em;
             font-weight: 600;
         }
 
-        .resumo-card.receitas .valor { color: #2ecc71; }
-        .resumo-card.recebido .valor { color: #27ae60; }
-        .resumo-card.despesas .valor { color: #e74c3c; }
-        .resumo-card.pago .valor { color: #c0392b; }
-        .resumo-card.saldo .valor { color: #d4af7d; }
+        .resumo-card.recebido .valor { color: #2ecc71; }
+        .resumo-card.pago .valor { color: #e74c3c; }
 
         .mes-selector {
             display: flex;
@@ -291,6 +285,16 @@
             margin-left: 5px;
         }
 
+        .emprestimo-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: rgba(155, 89, 182, 0.2);
+            border-radius: 10px;
+            font-size: 0.7em;
+            color: #9b59b6;
+            margin-left: 5px;
+        }
+
         .progress-bar {
             width: 100%;
             height: 6px;
@@ -324,11 +328,6 @@
         .vencimento-badge.proximo {
             background: rgba(241, 196, 15, 0.2);
             color: #f1c40f;
-        }
-
-        .vencimento-badge.ok {
-            background: rgba(46, 204, 113, 0.2);
-            color: #2ecc71;
         }
 
         .empty-state {
@@ -389,9 +388,10 @@
             gap: 10px;
         }
 
-        .form-group.checkbox-group input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
+        .form-group.checkbox-group input[type="checkbox"],
+        .form-group.checkbox-group input[type="radio"] {
+            width: 18px;
+            height: 18px;
             accent-color: #d4af7d;
         }
 
@@ -431,14 +431,14 @@
 
         .btn-cancelar:hover { background: rgba(255,255,255,0.15); }
 
-        .parcelas-fields {
+        .extra-fields {
             display: none;
             margin-top: 15px;
             padding-top: 15px;
             border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        .parcelas-fields.active { display: block; }
+        .extra-fields.active { display: block; }
 
         .checkbox-status {
             appearance: none;
@@ -470,19 +470,116 @@
             transform: translate(-50%, -50%);
         }
 
+        .tipo-selector {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tipo-selector label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background: #141414;
+            border: 1px solid rgba(212, 175, 125, 0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tipo-selector label:hover {
+            border-color: #d4af7d;
+        }
+
+        .tipo-selector input:checked + span {
+            color: #d4af7d;
+        }
+
+        .tipo-selector span {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9em;
+        }
+
+        .categoria-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .categoria-input-group input {
+            flex: 1;
+        }
+
+        .categoria-input-group select {
+            width: 200px;
+        }
+
+        /* Resumo Final */
+        .resumo-final {
+            background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+            border: 1px solid rgba(212, 175, 125, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .resumo-final h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em;
+            color: #d4af7d;
+            margin-bottom: 25px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .resumo-final-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .resumo-final-item {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+
+        .resumo-final-item label {
+            display: block;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .resumo-final-item .valor {
+            font-size: 2em;
+            font-weight: 600;
+        }
+
+        .resumo-final-item.recebido .valor { color: #2ecc71; }
+        .resumo-final-item.pago .valor { color: #e74c3c; }
+
         @media (max-width: 768px) {
-            .resumo-grid { grid-template-columns: repeat(2, 1fr); }
+            .resumo-grid { grid-template-columns: 1fr 1fr; }
+            .resumo-final-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 480px) {
             body { padding: 15px; }
             .header-title h1 { font-size: 1.4em; }
-            .resumo-card { padding: 12px; }
-            .resumo-card .valor { font-size: 1.1em; }
+            .resumo-card { padding: 15px; }
+            .resumo-card .valor { font-size: 1.4em; }
             .mes-selector { flex-direction: column; gap: 15px; align-items: stretch; }
             .section-header { flex-direction: column; gap: 15px; align-items: flex-start; }
             .btn-add { width: 100%; text-align: center; }
             .form-row { grid-template-columns: 1fr; }
+            .tipo-selector { flex-direction: column; }
+            .categoria-input-group { flex-direction: column; }
+            .categoria-input-group select { width: 100%; }
         }
     </style>
 </head>
@@ -515,25 +612,13 @@
         </div>
 
         <div class="resumo-grid">
-            <div class="resumo-card receitas">
-                <label>Receitas Previstas</label>
-                <div class="valor" id="totalReceitas">R$ 0,00</div>
-            </div>
             <div class="resumo-card recebido">
-                <label>Recebido</label>
+                <label>💰 Total Recebido</label>
                 <div class="valor" id="totalRecebido">R$ 0,00</div>
             </div>
-            <div class="resumo-card despesas">
-                <label>Despesas Previstas</label>
-                <div class="valor" id="totalDespesas">R$ 0,00</div>
-            </div>
             <div class="resumo-card pago">
-                <label>Pago</label>
+                <label>💸 Total Pago</label>
                 <div class="valor" id="totalPago">R$ 0,00</div>
-            </div>
-            <div class="resumo-card saldo">
-                <label>Saldo Atual</label>
-                <div class="valor" id="saldoAtual">R$ 0,00</div>
             </div>
         </div>
 
@@ -556,12 +641,16 @@
                         </div>
                         <div class="form-group">
                             <label>Categoria</label>
-                            <select id="receitaCategoria">
-                                <option value="Salário">Salário</option>
-                                <option value="Freelance">Freelance</option>
-                                <option value="Investimentos">Investimentos</option>
-                                <option value="Outros">Outros</option>
-                            </select>
+                            <div class="categoria-input-group">
+                                <input type="text" id="receitaCategoriaCustom" placeholder="Digite ou escolha">
+                                <select id="receitaCategoria" onchange="selecionarCategoria('receita')">
+                                    <option value="">Escolher...</option>
+                                    <option value="Salário">Salário</option>
+                                    <option value="Freelance">Freelance</option>
+                                    <option value="Investimentos">Investimentos</option>
+                                    <option value="Outros">Outros</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Data</label>
@@ -602,41 +691,57 @@
             </div>
             <div class="section-content">
                 <div id="formDespesa" class="form-container" style="display: none;">
+                    <div class="tipo-selector">
+                        <label>
+                            <input type="radio" name="tipoDespesa" value="normal" checked onchange="mudarTipoDespesa()">
+                            <span>💳 Normal</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="tipoDespesa" value="parcelada" onchange="mudarTipoDespesa()">
+                            <span>📅 Parcelada</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="tipoDespesa" value="emprestimo" onchange="mudarTipoDespesa()">
+                            <span>🏦 Empréstimo/Agiota</span>
+                        </label>
+                    </div>
+
                     <div class="form-row">
                         <div class="form-group">
                             <label>Descrição</label>
                             <input type="text" id="despesaDescricao" placeholder="Ex: Aluguel">
                         </div>
                         <div class="form-group">
-                            <label>Valor da Parcela</label>
+                            <label id="labelValorDespesa">Valor</label>
                             <input type="number" id="despesaValor" placeholder="0,00" step="0.01">
                         </div>
                         <div class="form-group">
                             <label>Categoria</label>
-                            <select id="despesaCategoria">
-                                <option value="Moradia">Moradia</option>
-                                <option value="Alimentação">Alimentação</option>
-                                <option value="Transporte">Transporte</option>
-                                <option value="Saúde">Saúde</option>
-                                <option value="Educação">Educação</option>
-                                <option value="Lazer">Lazer</option>
-                                <option value="Contas">Contas</option>
-                                <option value="Cartão">Cartão</option>
-                                <option value="Outros">Outros</option>
-                            </select>
+                            <div class="categoria-input-group">
+                                <input type="text" id="despesaCategoriaCustom" placeholder="Digite ou escolha">
+                                <select id="despesaCategoria" onchange="selecionarCategoria('despesa')">
+                                    <option value="">Escolher...</option>
+                                    <option value="Moradia">Moradia</option>
+                                    <option value="Alimentação">Alimentação</option>
+                                    <option value="Transporte">Transporte</option>
+                                    <option value="Saúde">Saúde</option>
+                                    <option value="Educação">Educação</option>
+                                    <option value="Lazer">Lazer</option>
+                                    <option value="Contas">Contas</option>
+                                    <option value="Cartão">Cartão</option>
+                                    <option value="Empréstimo">Empréstimo</option>
+                                    <option value="Outros">Outros</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Data Vencimento</label>
                             <input type="date" id="despesaData">
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group checkbox-group">
-                            <input type="checkbox" id="despesaParcelada" onchange="toggleParcelas()">
-                            <label>Conta Parcelada</label>
-                        </div>
-                    </div>
-                    <div id="parcelasFields" class="parcelas-fields">
+
+                    <!-- Campos Parcelada -->
+                    <div id="parceladaFields" class="extra-fields">
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Quantidade de Parcelas</label>
@@ -644,6 +749,31 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Campos Empréstimo/Agiota -->
+                    <div id="emprestimoFields" class="extra-fields">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Valor Total da Dívida</label>
+                                <input type="number" id="emprestimoValorTotal" placeholder="0,00" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label>Taxa de Juros (%)</label>
+                                <input type="number" id="emprestimoJuros" placeholder="10" step="0.1">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group checkbox-group">
+                                <input type="radio" name="tipoPagamento" value="juros" checked>
+                                <label>Pagar apenas Juros</label>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <input type="radio" name="tipoPagamento" value="divida">
+                                <label>Abater da Dívida</label>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-buttons">
                         <button class="btn-cancelar" onclick="esconderForm('despesa')">Cancelar</button>
                         <button class="btn-salvar" onclick="salvarDespesa()">Salvar</button>
@@ -666,6 +796,21 @@
                 </div>
                 <div id="emptyDespesas" class="empty-state">
                     <p>Nenhuma despesa cadastrada</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resumo Final -->
+        <div class="resumo-final">
+            <h3>📊 RESUMO GERAL</h3>
+            <div class="resumo-final-grid">
+                <div class="resumo-final-item recebido">
+                    <label>Total que Recebi</label>
+                    <div class="valor" id="totalRecebidoFinal">R$ 0,00</div>
+                </div>
+                <div class="resumo-final-item pago">
+                    <label>Total que Paguei</label>
+                    <div class="valor" id="totalPagoFinal">R$ 0,00</div>
                 </div>
             </div>
         </div>
@@ -696,9 +841,7 @@
         };
 
         let mesSelecionado = '';
-        let anoAtual = new Date().getFullYear();
 
-        // Inicializar mês
         function initMes() {
             const hoje = new Date();
             const mes = String(hoje.getMonth() + 1).padStart(2, '0');
@@ -715,7 +858,6 @@
             return new Date(data + 'T00:00:00').toLocaleDateString('pt-BR');
         }
 
-        // Verificar status do vencimento
         function getStatusVencimento(dataStr, pago) {
             if (pago) return { status: 'ok', texto: '' };
             
@@ -732,7 +874,14 @@
             return { status: 'ok', texto: '' };
         }
 
-        // Formulários
+        function selecionarCategoria(tipo) {
+            const select = document.getElementById(tipo + 'Categoria');
+            const input = document.getElementById(tipo + 'CategoriaCustom');
+            if (select.value) {
+                input.value = select.value;
+            }
+        }
+
         function mostrarForm(tipo) {
             const formId = 'form' + tipo.charAt(0).toUpperCase() + tipo.slice(1);
             document.getElementById(formId).style.display = 'block';
@@ -746,24 +895,41 @@
             const formId = 'form' + tipo.charAt(0).toUpperCase() + tipo.slice(1);
             document.getElementById(formId).style.display = 'none';
             document.querySelectorAll(`#${formId} input`).forEach(input => {
-                if (input.type === 'checkbox') input.checked = false;
+                if (input.type === 'checkbox' || input.type === 'radio') {
+                    if (input.value === 'normal' || input.value === 'juros') input.checked = true;
+                    else if (input.type === 'checkbox') input.checked = false;
+                }
                 else input.value = '';
             });
+            document.querySelectorAll(`#${formId} select`).forEach(s => s.value = '');
             if (tipo === 'despesa') {
-                document.getElementById('parcelasFields').classList.remove('active');
+                document.getElementById('parceladaFields').classList.remove('active');
+                document.getElementById('emprestimoFields').classList.remove('active');
+                document.getElementById('labelValorDespesa').textContent = 'Valor';
             }
         }
 
-        function toggleParcelas() {
-            const fields = document.getElementById('parcelasFields');
-            fields.classList.toggle('active', document.getElementById('despesaParcelada').checked);
+        function mudarTipoDespesa() {
+            const tipo = document.querySelector('input[name="tipoDespesa"]:checked').value;
+            document.getElementById('parceladaFields').classList.remove('active');
+            document.getElementById('emprestimoFields').classList.remove('active');
+            
+            if (tipo === 'parcelada') {
+                document.getElementById('parceladaFields').classList.add('active');
+                document.getElementById('labelValorDespesa').textContent = 'Valor da Parcela';
+            } else if (tipo === 'emprestimo') {
+                document.getElementById('emprestimoFields').classList.add('active');
+                document.getElementById('labelValorDespesa').textContent = 'Valor a Pagar';
+            } else {
+                document.getElementById('labelValorDespesa').textContent = 'Valor';
+            }
         }
 
         // Receitas
         function salvarReceita() {
             const descricao = document.getElementById('receitaDescricao').value.trim();
             const valor = parseFloat(document.getElementById('receitaValor').value) || 0;
-            const categoria = document.getElementById('receitaCategoria').value;
+            const categoria = document.getElementById('receitaCategoriaCustom').value.trim() || 'Outros';
             const data = document.getElementById('receitaData').value;
 
             if (!descricao || !valor || !data) {
@@ -804,16 +970,16 @@
         function salvarDespesa() {
             const descricao = document.getElementById('despesaDescricao').value.trim();
             const valor = parseFloat(document.getElementById('despesaValor').value) || 0;
-            const categoria = document.getElementById('despesaCategoria').value;
+            const categoria = document.getElementById('despesaCategoriaCustom').value.trim() || 'Outros';
             const dataInicio = document.getElementById('despesaData').value;
-            const parcelada = document.getElementById('despesaParcelada').checked;
+            const tipoDespesa = document.querySelector('input[name="tipoDespesa"]:checked').value;
 
             if (!descricao || !valor || !dataInicio) {
                 alert('Preencha todos os campos!');
                 return;
             }
 
-            if (parcelada) {
+            if (tipoDespesa === 'parcelada') {
                 const totalParcelas = parseInt(document.getElementById('despesaTotalParcelas').value) || 1;
                 const grupoId = Date.now();
                 const valorTotal = valor * totalParcelas;
@@ -831,11 +997,29 @@
                         categoria,
                         data: dataVencimento.toISOString().split('T')[0],
                         pago: false,
-                        parcelada: true,
+                        tipo: 'parcelada',
                         parcelaAtual: i + 1,
                         totalParcelas
                     });
                 }
+            } else if (tipoDespesa === 'emprestimo') {
+                const valorTotalDivida = parseFloat(document.getElementById('emprestimoValorTotal').value) || 0;
+                const juros = parseFloat(document.getElementById('emprestimoJuros').value) || 0;
+                const tipoPagamento = document.querySelector('input[name="tipoPagamento"]:checked').value;
+
+                financeiro.despesas.push({
+                    id: Date.now(),
+                    descricao,
+                    valor,
+                    categoria,
+                    data: dataInicio,
+                    pago: false,
+                    tipo: 'emprestimo',
+                    valorTotalDivida,
+                    valorPagoDivida: 0,
+                    juros,
+                    tipoPagamento
+                });
             } else {
                 financeiro.despesas.push({
                     id: Date.now(),
@@ -844,7 +1028,7 @@
                     categoria,
                     data: dataInicio,
                     pago: false,
-                    parcelada: false
+                    tipo: 'normal'
                 });
             }
 
@@ -857,6 +1041,14 @@
             const d = financeiro.despesas.find(x => x.id === id);
             if (d) {
                 d.pago = !d.pago;
+                
+                // Se for empréstimo e está pagando, abater da dívida
+                if (d.tipo === 'emprestimo' && d.pago && d.tipoPagamento === 'divida') {
+                    d.valorPagoDivida = (d.valorPagoDivida || 0) + d.valor;
+                } else if (d.tipo === 'emprestimo' && !d.pago && d.tipoPagamento === 'divida') {
+                    d.valorPagoDivida = Math.max(0, (d.valorPagoDivida || 0) - d.valor);
+                }
+                
                 salvarDados();
                 renderizar();
             }
@@ -906,18 +1098,19 @@
             const receitasMes = filtrarPorMes(financeiro.receitas);
             const despesasMes = filtrarPorMes(financeiro.despesas);
 
-            // Totais
-            const totalReceitas = receitasMes.reduce((s, r) => s + (r.valor || 0), 0);
+            // Totais do mês
             const totalRecebido = receitasMes.filter(r => r.recebido).reduce((s, r) => s + (r.valor || 0), 0);
-            const totalDespesas = despesasMes.reduce((s, d) => s + (d.valor || 0), 0);
             const totalPago = despesasMes.filter(d => d.pago).reduce((s, d) => s + (d.valor || 0), 0);
-            const saldoAtual = totalRecebido - totalPago;
 
-            document.getElementById('totalReceitas').textContent = formatarMoeda(totalReceitas);
             document.getElementById('totalRecebido').textContent = formatarMoeda(totalRecebido);
-            document.getElementById('totalDespesas').textContent = formatarMoeda(totalDespesas);
             document.getElementById('totalPago').textContent = formatarMoeda(totalPago);
-            document.getElementById('saldoAtual').textContent = formatarMoeda(saldoAtual);
+
+            // Totais gerais (todos os meses)
+            const totalRecebidoGeral = financeiro.receitas.filter(r => r.recebido).reduce((s, r) => s + (r.valor || 0), 0);
+            const totalPagoGeral = financeiro.despesas.filter(d => d.pago).reduce((s, d) => s + (d.valor || 0), 0);
+
+            document.getElementById('totalRecebidoFinal').textContent = formatarMoeda(totalRecebidoGeral);
+            document.getElementById('totalPagoFinal').textContent = formatarMoeda(totalPagoGeral);
 
             // Tabela Receitas
             const receitasTable = document.getElementById('receitasTable');
@@ -962,10 +1155,11 @@
                         if (!d.pago) rowClass = 'proximo';
                     }
 
-                    let parcelaHtml = '';
-                    if (d.parcelada) {
+                    let extraInfo = '';
+                    
+                    if (d.tipo === 'parcelada') {
                         const dados = calcularDadosParcelas(d.grupoId);
-                        parcelaHtml = `
+                        extraInfo = `
                             <span class="parcela-badge">${d.parcelaAtual}/${d.totalParcelas}</span>
                             <div class="parcela-info">
                                 Pago: <span class="destaque">${formatarMoeda(dados.valorPago)}</span> de ${formatarMoeda(dados.valorTotal)}<br>
@@ -975,13 +1169,29 @@
                                 </div>
                             </div>
                         `;
+                    } else if (d.tipo === 'emprestimo') {
+                        const valorRestante = (d.valorTotalDivida || 0) - (d.valorPagoDivida || 0);
+                        const percentual = d.valorTotalDivida > 0 ? Math.round((d.valorPagoDivida / d.valorTotalDivida) * 100) : 0;
+                        const tipoLabel = d.tipoPagamento === 'juros' ? 'Juros' : 'Abatimento';
+                        
+                        extraInfo = `
+                            <span class="emprestimo-badge">🏦 ${tipoLabel} ${d.juros}%</span>
+                            <div class="parcela-info">
+                                Dívida: <span class="destaque">${formatarMoeda(d.valorTotalDivida)}</span><br>
+                                Pago: <span class="destaque">${formatarMoeda(d.valorPagoDivida || 0)}</span><br>
+                                Resta: <span class="destaque">${formatarMoeda(valorRestante)}</span>
+                                <div class="progress-bar">
+                                    <div class="progress-bar-fill" style="width: ${percentual}%"></div>
+                                </div>
+                            </div>
+                        `;
                     }
                     
                     return `
                         <tr class="${rowClass}">
                             <td><input type="checkbox" class="checkbox-status" ${d.pago ? 'checked' : ''} onchange="togglePago(${d.id})"></td>
                             <td>
-                                ${d.descricao}${parcelaHtml}
+                                ${d.descricao}${extraInfo}
                             </td>
                             <td><span class="categoria">${d.categoria}</span></td>
                             <td>${formatarData(d.data)}${vencimentoBadge}</td>
