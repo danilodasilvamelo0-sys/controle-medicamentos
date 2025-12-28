@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZARA | Financeiro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4af7d, transparent);
+            z-index: 9999;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4af7d, transparent);
+            z-index: 9999;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(212, 175, 125, 0.15);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-voltar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid rgba(212, 175, 125, 0.3);
+            background: transparent;
+            color: #d4af7d;
+            font-size: 1.2em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-voltar:hover {
+            background: rgba(212, 175, 125, 0.1);
+        }
+
+        .header-title h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            font-weight: 400;
+            color: #fff;
+            letter-spacing: 2px;
+        }
+
+        .header-title p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85em;
+        }
+
+        /* Cards de Resumo */
+        .resumo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .resumo-card {
+            background: #141414;
+            border: 1px solid rgba(212, 175, 125, 0.15);
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resumo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .resumo-card.receitas::before {
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+        }
+
+        .resumo-card.despesas::before {
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+        }
+
+        .resumo-card.saldo::before {
+            background: linear-gradient(90deg, #d4af7d, #c9a066);
+        }
+
+        .resumo-card.investimentos::before {
+            background: linear-gradient(90deg, #3498db, #2980b9);
+        }
+
+        .resumo-card label {
+            display: block;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .resumo-card .valor {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .resumo-card.receitas .valor { color: #2ecc71; }
+        .resumo-card.despesas .valor { color: #e74c3c; }
+        .resumo-card.saldo .valor { color: #d4af7d; }
+        .resumo-card.investimentos .valor { color: #3498db; }
+
+        /* Seletor de Mês */
+        .mes-selector {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #141414;
+            border: 1px solid rgba(212, 175, 125, 0.15);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+        }
+
+        .mes-selector select {
+            background: #1a1a1a;
+            border: 1px solid rgba(212, 175, 125, 0.3);
+            color: #d4af7d;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.95em;
+            cursor: pointer;
+        }
+
+        .mes-selector select option {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        /* Seções */
+        .section {
+            background: #141414;
+            border: 1px solid rgba(212, 175, 125, 0.15);
+            border-radius: 15px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            border-bottom: 1px solid rgba(212, 175, 125, 0.15);
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2em;
+            font-weight: 400;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-header h2 .icon {
+            color: #d4af7d;
+        }
+
+        .btn-add {
+            background: rgba(212, 175, 125, 0.15);
+            border: 1px solid rgba(212, 175, 125, 0.3);
+            color: #d4af7d;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-add:hover {
+            background: rgba(212, 175, 125, 0.25);
+        }
+
+        .section-content {
+            padding: 20px;
+        }
+
+        /* Tabela de Transações */
+        .transacoes-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .transacoes-table th {
+            text-align: left;
+            padding: 12px 15px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .transacoes-table td {
+            padding: 15px;
+            color: #fff;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.9em;
+        }
+
+        .transacoes-table tr:hover {
+            background: rgba(212, 175, 125, 0.05);
+        }
+
+        .transacoes-table .categoria {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(212, 175, 125, 0.15);
+            border-radius: 20px;
+            font-size: 0.8em;
+            color: #d4af7d;
+        }
+
+        .transacoes-table .valor-positivo {
+            color: #2ecc71;
+            font-weight: 500;
+        }
+
+        .transacoes-table .valor-negativo {
+            color: #e74c3c;
+            font-weight: 500;
+        }
+
+        .transacoes-table .acoes {
+            display: flex;
+            gap: 8px;
+        }
+
+        .transacoes-table .acoes button {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.4);
+            cursor: pointer;
+            padding: 5px;
+            font-size: 1em;
+            transition: color 0.3s;
+        }
+
+        .transacoes-table .acoes button:hover {
+            color: #d4af7d;
+        }
+
+        .transacoes-table .acoes button.delete:hover {
+            color: #e74c3c;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .empty-state p {
+            margin-bottom: 15px;
+        }
+
+        /* Formulário Inline */
+        .form-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr auto;
+            gap: 10px;
+            padding: 15px;
+            background: #1a1a1a;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .form-row input,
+        .form-row select {
+            padding: 12px;
+            background: #141414;
+            border: 1px solid rgba(212, 175, 125, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9em;
+        }
+
+        .form-row input:focus,
+        .form-row select:focus {
+            outline: none;
+            border-color: #d4af7d;
+        }
+
+        .form-row select option {
+            background: #141414;
+        }
+
+        .form-row .btn-salvar {
+            background: #d4af7d;
+            color: #0a0a0a;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .form-row .btn-salvar:hover {
+            background: #c9a066;
+        }
+
+        .form-row .btn-cancelar {
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+            border: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .form-row .btn-cancelar:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* Gráfico Simples */
+        .grafico-container {
+            padding: 20px;
+        }
+
+        .grafico-barra {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .grafico-barra label {
+            width: 120px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85em;
+        }
+
+        .grafico-barra .barra-bg {
+            flex: 1;
+            height: 25px;
+            background: #1a1a1a;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+        .grafico-barra .barra-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .grafico-barra .barra-fill.receita {
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+        }
+
+        .grafico-barra .barra-fill.despesa {
+            background: linear-gradient(90deg, #c0392b, #e74c3c);
+        }
+
+        .grafico-barra .valor {
+            width: 100px;
+            text-align: right;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .resumo-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .resumo-card {
+                padding: 20px;
+            }
+
+            .resumo-card .valor {
+                font-size: 1.4em;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .transacoes-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            .header-title h1 {
+                font-size: 1.4em;
+            }
+
+            .resumo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mes-selector {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+
+            .section-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .btn-add {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <a href="index.html" class="btn-voltar">←</a>
+                <div class="header-title">
+                    <h1>Planejamento Financeiro</h1>
+                    <p>Controle suas finanças</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seletor de Mês -->
+        <div class="mes-selector">
+            <div>
+                <span style="color: rgba(255,255,255,0.5); font-size: 0.85em;">Período:</span>
+            </div>
+            <select id="mesSelect" onchange="mudarMes()">
+                <option value="2025-01">Janeiro 2025</option>
+                <option value="2025-02">Fevereiro 2025</option>
+                <option value="2025-03">Março 2025</option>
+                <option value="2025-04">Abril 2025</option>
+                <option value="2025-05">Maio 2025</option>
+                <option value="2025-06">Junho 2025</option>
+                <option value="2025-07">Julho 2025</option>
+                <option value="2025-08">Agosto 2025</option>
+                <option value="2025-09">Setembro 2025</option>
+                <option value="2025-10">Outubro 2025</option>
+                <option value="2025-11">Novembro 2025</option>
+                <option value="2025-12" selected>Dezembro 2025</option>
+            </select>
+        </div>
+
+        <!-- Cards de Resumo -->
+        <div class="resumo-grid">
+            <div class="resumo-card receitas">
+                <label>Receitas</label>
+                <div class="valor" id="totalReceitas">R$ 0,00</div>
+            </div>
+            <div class="resumo-card despesas">
+                <label>Despesas</label>
+                <div class="valor" id="totalDespesas">R$ 0,00</div>
+            </div>
+            <div class="resumo-card saldo">
+                <label>Saldo</label>
+                <div class="valor" id="saldoMes">R$ 0,00</div>
+            </div>
+            <div class="resumo-card investimentos">
+                <label>Investimentos</label>
+                <div class="valor" id="totalInvestimentos">R$ 0,00</div>
+            </div>
+        </div>
+
+        <!-- Seção Receitas -->
+        <div class="section">
+            <div class="section-header">
+                <h2><span class="icon">📈</span> Receitas</h2>
+                <button class="btn-add" onclick="mostrarFormReceita()">+ Adicionar</button>
+            </div>
+            <div class="section-content">
+                <div id="formReceita" style="display: none;">
+                    <div class="form-row">
+                        <input type="text" id="receitaDescricao" placeholder="Descrição">
+                        <input type="number" id="receitaValor" placeholder="Valor" step="0.01">
+                        <select id="receitaCategoria">
+                            <option value="Salário">Salário</option>
+                            <option value="Freelance">Freelance</option>
+                            <option value="Investimentos">Investimentos</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                        <input type="date" id="receitaData">
+                        <div style="display: flex; gap: 5px;">
+                            <button class="btn-salvar" onclick="salvarReceita()">Salvar</button>
+                            <button class="btn-cancelar" onclick="esconderFormReceita()">✕</button>
+                        </div>
+                    </div>
+                </div>
+                <table class="transacoes-table">
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Categoria</th>
+                            <th>Data</th>
+                            <th>Valor</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="receitasTable"></tbody>
+                </table>
+                <div id="emptyReceitas" class="empty-state">
+                    <p>Nenhuma receita cadastrada</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção Despesas -->
+        <div class="section">
+            <div class="section-header">
+                <h2><span class="icon">📉</span> Despesas</h2>
+                <button class="btn-add" onclick="mostrarFormDespesa()">+ Adicionar</button>
+            </div>
+            <div class="section-content">
+                <div id="formDespesa" style="display: none;">
+                    <div class="form-row">
+                        <input type="text" id="despesaDescricao" placeholder="Descrição">
+                        <input type="number" id="despesaValor" placeholder="Valor" step="0.01">
+                        <select id="despesaCategoria">
+                            <option value="Moradia">Moradia</option>
+                            <option value="Alimentação">Alimentação</option>
+                            <option value="Transporte">Transporte</option>
+                            <option value="Saúde">Saúde</option>
+                            <option value="Educação">Educação</option>
+                            <option value="Lazer">Lazer</option>
+                            <option value="Contas">Contas</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                        <input type="date" id="despesaData">
+                        <div style="display: flex; gap: 5px;">
+                            <button class="btn-salvar" onclick="salvarDespesa()">Salvar</button>
+                            <button class="btn-cancelar" onclick="esconderFormDespesa()">✕</button>
+                        </div>
+                    </div>
+                </div>
+                <table class="transacoes-table">
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Categoria</th>
+                            <th>Data</th>
+                            <th>Valor</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="despesasTable"></tbody>
+                </table>
+                <div id="emptyDespesas" class="empty-state">
+                    <p>Nenhuma despesa cadastrada</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção Investimentos -->
+        <div class="section">
+            <div class="section-header">
+                <h2><span class="icon">💎</span> Investimentos</h2>
+                <button class="btn-add" onclick="mostrarFormInvestimento()">+ Adicionar</button>
+            </div>
+            <div class="section-content">
+                <div id="formInvestimento" style="display: none;">
+                    <div class="form-row">
+                        <input type="text" id="investimentoDescricao" placeholder="Descrição">
+                        <input type="number" id="investimentoValor" placeholder="Valor" step="0.01">
+                        <select id="investimentoCategoria">
+                            <option value="Renda Fixa">Renda Fixa</option>
+                            <option value="Ações">Ações</option>
+                            <option value="FIIs">FIIs</option>
+                            <option value="Crypto">Crypto</option>
+                            <option value="Poupança">Poupança</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                        <input type="date" id="investimentoData">
+                        <div style="display: flex; gap: 5px;">
+                            <button class="btn-salvar" onclick="salvarInvestimento()">Salvar</button>
+                            <button class="btn-cancelar" onclick="esconderFormInvestimento()">✕</button>
+                        </div>
+                    </div>
+                </div>
+                <table class="transacoes-table">
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Categoria</th>
+                            <th>Data</th>
+                            <th>Valor</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="investimentosTable"></tbody>
+                </table>
+                <div id="emptyInvestimentos" class="empty-state">
+                    <p>Nenhum investimento cadastrado</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // ========== CONFIGURAÇÃO SUPABASE ==========
+        const SUPABASE_URL = 'https://ltwamldgdwqzyssoukzl.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0d2FtbGRnZHdxenlzc291a3psIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY4NzEzMDUsImV4cCI6MjA4MjQ0NzMwNX0.UVyo0c0BHslB7mCU74Qx8rdo42HA0WPAyDQ6J-FIakE';
+        
+        let supabaseClient = null;
+        let useSupabase = false;
+        
+        try {
+            const { createClient } = supabase;
+            supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+            useSupabase = true;
+            console.log('✅ Supabase conectado!');
+        } catch (e) {
+            console.log('⚠️ Usando localStorage (offline)', e);
+        }
+
+        const USER_ID = 'default_user';
+
+        // Dados
+        let financeiro = JSON.parse(localStorage.getItem('financeiro')) || {
+            receitas: [],
+            despesas: [],
+            investimentos: []
+        };
+
+        let mesSelecionado = '2025-12';
+
+        // Funções de formatação
+        function formatarMoeda(valor) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(valor);
+        }
+
+        function formatarData(data) {
+            return new Date(data + 'T00:00:00').toLocaleDateString('pt-BR');
+        }
+
+        // Funções de formulário
+        function mostrarFormReceita() {
+            document.getElementById('formReceita').style.display = 'block';
+            document.getElementById('receitaData').value = new Date().toISOString().split('T')[0];
+        }
+
+        function esconderFormReceita() {
+            document.getElementById('formReceita').style.display = 'none';
+            limparFormReceita();
+        }
+
+        function limparFormReceita() {
+            document.getElementById('receitaDescricao').value = '';
+            document.getElementById('receitaValor').value = '';
+            document.getElementById('receitaCategoria').value = 'Salário';
+        }
+
+        function mostrarFormDespesa() {
+            document.getElementById('formDespesa').style.display = 'block';
+            document.getElementById('despesaData').value = new Date().toISOString().split('T')[0];
+        }
+
+        function esconderFormDespesa() {
+            document.getElementById('formDespesa').style.display = 'none';
+            limparFormDespesa();
+        }
+
+        function limparFormDespesa() {
+            document.getElementById('despesaDescricao').value = '';
+            document.getElementById('despesaValor').value = '';
+            document.getElementById('despesaCategoria').value = 'Moradia';
+        }
+
+        function mostrarFormInvestimento() {
+            document.getElementById('formInvestimento').style.display = 'block';
+            document.getElementById('investimentoData').value = new Date().toISOString().split('T')[0];
+        }
+
+        function esconderFormInvestimento() {
+            document.getElementById('formInvestimento').style.display = 'none';
+            limparFormInvestimento();
+        }
+
+        function limparFormInvestimento() {
+            document.getElementById('investimentoDescricao').value = '';
+            document.getElementById('investimentoValor').value = '';
+            document.getElementById('investimentoCategoria').value = 'Renda Fixa';
+        }
+
+        // CRUD Receitas
+        function salvarReceita() {
+            const descricao = document.getElementById('receitaDescricao').value.trim();
+            const valor = parseFloat(document.getElementById('receitaValor').value) || 0;
+            const categoria = document.getElementById('receitaCategoria').value;
+            const data = document.getElementById('receitaData').value;
+
+            if (!descricao || !valor || !data) {
+                alert('Preencha todos os campos!');
+                return;
+            }
+
+            financeiro.receitas.push({
+                id: Date.now(),
+                descricao,
+                valor,
+                categoria,
+                data
+            });
+
+            salvarDados();
+            esconderFormReceita();
+            renderizar();
+        }
+
+        function deletarReceita(id) {
+            financeiro.receitas = financeiro.receitas.filter(r => r.id !== id);
+            salvarDados();
+            renderizar();
+        }
+
+        // CRUD Despesas
+        function salvarDespesa() {
+            const descricao = document.getElementById('despesaDescricao').value.trim();
+            const valor = parseFloat(document.getElementById('despesaValor').value) || 0;
+            const categoria = document.getElementById('despesaCategoria').value;
+            const data = document.getElementById('despesaData').value;
+
+            if (!descricao || !valor || !data) {
+                alert('Preencha todos os campos!');
+                return;
+            }
+
+            financeiro.despesas.push({
+                id: Date.now(),
+                descricao,
+                valor,
+                categoria,
+                data
+            });
+
+            salvarDados();
+            esconderFormDespesa();
+            renderizar();
+        }
+
+        function deletarDespesa(id) {
+            financeiro.despesas = financeiro.despesas.filter(d => d.id !== id);
+            salvarDados();
+            renderizar();
+        }
+
+        // CRUD Investimentos
+        function salvarInvestimento() {
+            const descricao = document.getElementById('investimentoDescricao').value.trim();
+            const valor = parseFloat(document.getElementById('investimentoValor').value) || 0;
+            const categoria = document.getElementById('investimentoCategoria').value;
+            const data = document.getElementById('investimentoData').value;
+
+            if (!descricao || !valor || !data) {
+                alert('Preencha todos os campos!');
+                return;
+            }
+
+            financeiro.investimentos.push({
+                id: Date.now(),
+                descricao,
+                valor,
+                categoria,
+                data
+            });
+
+            salvarDados();
+            esconderFormInvestimento();
+            renderizar();
+        }
+
+        function deletarInvestimento(id) {
+            financeiro.investimentos = financeiro.investimentos.filter(i => i.id !== id);
+            salvarDados();
+            renderizar();
+        }
+
+        // Filtrar por mês
+        function filtrarPorMes(lista) {
+            return lista.filter(item => item.data && item.data.startsWith(mesSelecionado));
+        }
+
+        function mudarMes() {
+            mesSelecionado = document.getElementById('mesSelect').value;
+            renderizar();
+        }
+
+        // Renderização
+        function renderizar() {
+            const receitasMes = filtrarPorMes(financeiro.receitas);
+            const despesasMes = filtrarPorMes(financeiro.despesas);
+            const investimentosMes = filtrarPorMes(financeiro.investimentos);
+
+            // Totais
+            const totalReceitas = receitasMes.reduce((sum, r) => sum + r.valor, 0);
+            const totalDespesas = despesasMes.reduce((sum, d) => sum + d.valor, 0);
+            const totalInvestimentos = investimentosMes.reduce((sum, i) => sum + i.valor, 0);
+            const saldo = totalReceitas - totalDespesas - totalInvestimentos;
+
+            document.getElementById('totalReceitas').textContent = formatarMoeda(totalReceitas);
+            document.getElementById('totalDespesas').textContent = formatarMoeda(totalDespesas);
+            document.getElementById('totalInvestimentos').textContent = formatarMoeda(totalInvestimentos);
+            document.getElementById('saldoMes').textContent = formatarMoeda(saldo);
+
+            // Tabela Receitas
+            const receitasTable = document.getElementById('receitasTable');
+            const emptyReceitas = document.getElementById('emptyReceitas');
+            
+            if (receitasMes.length === 0) {
+                receitasTable.innerHTML = '';
+                emptyReceitas.style.display = 'block';
+            } else {
+                emptyReceitas.style.display = 'none';
+                receitasTable.innerHTML = receitasMes.map(r => `
+                    <tr>
+                        <td>${r.descricao}</td>
+                        <td><span class="categoria">${r.categoria}</span></td>
+                        <td>${formatarData(r.data)}</td>
+                        <td class="valor-positivo">+ ${formatarMoeda(r.valor)}</td>
+                        <td class="acoes">
+                            <button class="delete" onclick="deletarReceita(${r.id})" title="Excluir">🗑️</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            // Tabela Despesas
+            const despesasTable = document.getElementById('despesasTable');
+            const emptyDespesas = document.getElementById('emptyDespesas');
+            
+            if (despesasMes.length === 0) {
+                despesasTable.innerHTML = '';
+                emptyDespesas.style.display = 'block';
+            } else {
+                emptyDespesas.style.display = 'none';
+                despesasTable.innerHTML = despesasMes.map(d => `
+                    <tr>
+                        <td>${d.descricao}</td>
+                        <td><span class="categoria">${d.categoria}</span></td>
+                        <td>${formatarData(d.data)}</td>
+                        <td class="valor-negativo">- ${formatarMoeda(d.valor)}</td>
+                        <td class="acoes">
+                            <button class="delete" onclick="deletarDespesa(${d.id})" title="Excluir">🗑️</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            // Tabela Investimentos
+            const investimentosTable = document.getElementById('investimentosTable');
+            const emptyInvestimentos = document.getElementById('emptyInvestimentos');
+            
+            if (investimentosMes.length === 0) {
+                investimentosTable.innerHTML = '';
+                emptyInvestimentos.style.display = 'block';
+            } else {
+                emptyInvestimentos.style.display = 'none';
+                investimentosTable.innerHTML = investimentosMes.map(i => `
+                    <tr>
+                        <td>${i.descricao}</td>
+                        <td><span class="categoria">${i.categoria}</span></td>
+                        <td>${formatarData(i.data)}</td>
+                        <td style="color: #3498db; font-weight: 500;">${formatarMoeda(i.valor)}</td>
+                        <td class="acoes">
+                            <button class="delete" onclick="deletarInvestimento(${i.id})" title="Excluir">🗑️</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // Salvar e Carregar
+        function salvarDados() {
+            localStorage.setItem('financeiro', JSON.stringify(financeiro));
+            salvarFinanceiroSupabase();
+        }
+
+        async function salvarFinanceiroSupabase() {
+            if (!useSupabase) return;
+            try {
+                const { error } = await supabaseClient
+                    .from('financeiro')
+                    .upsert({
+                        id: USER_ID,
+                        user_id: USER_ID,
+                        dados: financeiro,
+                        updated_at: new Date().toISOString()
+                    });
+                if (error) throw error;
+                console.log('✅ Financeiro sincronizado!');
+            } catch (e) {
+                console.error('Erro ao salvar financeiro:', e);
+            }
+        }
+
+        async function carregarFinanceiroSupabase() {
+            if (!useSupabase) return;
+            try {
+                const { data, error } = await supabaseClient
+                    .from('financeiro')
+                    .select('*')
+                    .eq('user_id', USER_ID)
+                    .single();
+                if (error && error.code !== 'PGRST116') throw error;
+                if (data && data.dados) {
+                    financeiro = data.dados;
+                    localStorage.setItem('financeiro', JSON.stringify(financeiro));
+                    console.log('✅ Financeiro carregado do Supabase!');
+                }
+            } catch (e) {
+                console.error('Erro ao carregar financeiro:', e);
+            }
+        }
+
+        // Inicialização
+        async function init() {
+            if (useSupabase) {
+                await carregarFinanceiroSupabase();
+            }
+            renderizar();
+        }
+
+        init();
+    </script>
+</body>
+</html>
