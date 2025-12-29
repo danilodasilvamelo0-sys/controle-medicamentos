@@ -80,7 +80,6 @@
             font-size: 0.85em;
         }
 
-        /* Resumo Grid */
         .resumo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -128,7 +127,6 @@
         .resumo-card.pago .valor { color: #e74c3c; }
         .resumo-card.economia .valor { color: #3498db; }
 
-        /* Mês Selector */
         .mes-selector {
             display: flex;
             align-items: center;
@@ -155,7 +153,6 @@
             color: #fff;
         }
 
-        /* Sections */
         .section {
             background: #141414;
             border: 1px solid rgba(212, 175, 125, 0.15);
@@ -208,7 +205,6 @@
             padding: 15px;
         }
 
-        /* Table */
         .table-container {
             overflow-x: auto;
         }
@@ -265,10 +261,12 @@
         .transacoes-table .valor-positivo { color: #2ecc71; font-weight: 500; }
         .transacoes-table .valor-negativo { color: #e74c3c; font-weight: 500; }
         .transacoes-table .valor-economia { color: #3498db; font-weight: 500; }
+        .transacoes-table .valor-juros { color: #f39c12; font-weight: 500; }
 
         .transacoes-table .acoes {
             display: flex;
             gap: 3px;
+            flex-wrap: wrap;
         }
 
         .transacoes-table .acoes button {
@@ -289,7 +287,6 @@
             color: #e74c3c;
         }
 
-        /* Badges e Info */
         .info-extra {
             font-size: 0.7em;
             color: rgba(255,255,255,0.5);
@@ -298,6 +295,14 @@
 
         .info-extra .destaque {
             color: #d4af7d;
+        }
+
+        .info-extra .juros-acumulados {
+            color: #f39c12;
+        }
+
+        .info-extra .amortizado {
+            color: #2ecc71;
         }
 
         .badge {
@@ -328,6 +333,11 @@
             color: #f1c40f;
         }
 
+        .badge.juros-pendente {
+            background: rgba(243, 156, 18, 0.2);
+            color: #f39c12;
+        }
+
         .progress-bar {
             width: 100%;
             height: 4px;
@@ -351,7 +361,6 @@
             font-size: 0.85em;
         }
 
-        /* Forms */
         .form-container {
             background: #1a1a1a;
             border-radius: 10px;
@@ -519,6 +528,155 @@
             transform: translate(-50%, -50%);
         }
 
+        /* Empréstimos Card */
+        .emprestimo-card {
+            background: #1a1a1a;
+            border: 1px solid rgba(155, 89, 182, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .emprestimo-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .emprestimo-card-title {
+            font-size: 1em;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .emprestimo-card-title small {
+            display: block;
+            font-size: 0.75em;
+            color: rgba(255,255,255,0.5);
+            font-weight: normal;
+            margin-top: 3px;
+        }
+
+        .emprestimo-card-acoes {
+            display: flex;
+            gap: 5px;
+        }
+
+        .emprestimo-card-acoes button {
+            background: rgba(212, 175, 125, 0.15);
+            border: 1px solid rgba(212, 175, 125, 0.3);
+            color: #d4af7d;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.75em;
+            cursor: pointer;
+        }
+
+        .emprestimo-card-acoes button:hover {
+            background: rgba(212, 175, 125, 0.25);
+        }
+
+        .emprestimo-card-acoes button.delete {
+            border-color: rgba(231, 76, 60, 0.3);
+            color: #e74c3c;
+        }
+
+        .emprestimo-valores {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .emprestimo-valor-item {
+            background: rgba(0,0,0,0.3);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .emprestimo-valor-item label {
+            display: block;
+            font-size: 0.65em;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .emprestimo-valor-item .valor {
+            font-size: 1em;
+            font-weight: 600;
+        }
+
+        .emprestimo-valor-item .valor.principal { color: #9b59b6; }
+        .emprestimo-valor-item .valor.juros-acum { color: #f39c12; }
+        .emprestimo-valor-item .valor.juros-pagos { color: #27ae60; }
+        .emprestimo-valor-item .valor.amortizado { color: #3498db; }
+        .emprestimo-valor-item .valor.saldo { color: #e74c3c; }
+
+        .emprestimo-progress {
+            margin-top: 10px;
+        }
+
+        .emprestimo-progress label {
+            font-size: 0.7em;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .emprestimo-progress .progress-bar {
+            height: 8px;
+            margin-top: 5px;
+        }
+
+        .emprestimo-acoes-rapidas {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .emprestimo-acoes-rapidas button {
+            flex: 1;
+            min-width: 120px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.8em;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .emprestimo-acoes-rapidas .btn-juros {
+            background: rgba(243, 156, 18, 0.2);
+            color: #f39c12;
+            border: 1px solid rgba(243, 156, 18, 0.3);
+        }
+
+        .emprestimo-acoes-rapidas .btn-juros:hover {
+            background: rgba(243, 156, 18, 0.3);
+        }
+
+        .emprestimo-acoes-rapidas .btn-amortizar {
+            background: rgba(52, 152, 219, 0.2);
+            color: #3498db;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+        }
+
+        .emprestimo-acoes-rapidas .btn-amortizar:hover {
+            background: rgba(52, 152, 219, 0.3);
+        }
+
+        .emprestimo-acoes-rapidas .btn-gerar-juros {
+            background: rgba(155, 89, 182, 0.2);
+            color: #9b59b6;
+            border: 1px solid rgba(155, 89, 182, 0.3);
+        }
+
+        .emprestimo-acoes-rapidas .btn-gerar-juros:hover {
+            background: rgba(155, 89, 182, 0.3);
+        }
+
         /* Resumo Final */
         .resumo-final {
             background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
@@ -625,9 +783,24 @@
             color: #fff;
         }
 
+        .info-box {
+            background: rgba(212, 175, 125, 0.1);
+            border: 1px solid rgba(212, 175, 125, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .info-box strong {
+            color: #d4af7d;
+        }
+
         @media (max-width: 768px) {
             .resumo-grid { grid-template-columns: repeat(3, 1fr); }
             .resumo-final-grid { grid-template-columns: 1fr; }
+            .emprestimo-valores { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 480px) {
@@ -641,6 +814,8 @@
             .btn-add { width: 100%; text-align: center; }
             .form-row { grid-template-columns: 1fr; }
             .tipo-selector { flex-direction: column; }
+            .emprestimo-acoes-rapidas { flex-direction: column; }
+            .emprestimo-acoes-rapidas button { min-width: auto; }
         }
     </style>
 </head>
@@ -727,14 +902,7 @@
                 <div class="table-container">
                     <table class="transacoes-table">
                         <thead>
-                            <tr>
-                                <th>✓</th>
-                                <th>Descrição</th>
-                                <th>Categoria</th>
-                                <th>Data</th>
-                                <th>Valor</th>
-                                <th></th>
-                            </tr>
+                            <tr><th>✓</th><th>Descrição</th><th>Categoria</th><th>Data</th><th>Valor</th><th></th></tr>
                         </thead>
                         <tbody id="receitasTable"></tbody>
                     </table>
@@ -787,14 +955,7 @@
                 <div class="table-container">
                     <table class="transacoes-table">
                         <thead>
-                            <tr>
-                                <th>✓</th>
-                                <th>Descrição</th>
-                                <th>Categoria</th>
-                                <th>Vencimento</th>
-                                <th>Valor</th>
-                                <th></th>
-                            </tr>
+                            <tr><th>✓</th><th>Descrição</th><th>Categoria</th><th>Vencimento</th><th>Valor</th><th></th></tr>
                         </thead>
                         <tbody id="despesasFixasTable"></tbody>
                     </table>
@@ -864,14 +1025,7 @@
                 <div class="table-container">
                     <table class="transacoes-table">
                         <thead>
-                            <tr>
-                                <th>✓</th>
-                                <th>Descrição</th>
-                                <th>Categoria</th>
-                                <th>Data</th>
-                                <th>Valor</th>
-                                <th></th>
-                            </tr>
+                            <tr><th>✓</th><th>Descrição</th><th>Categoria</th><th>Data</th><th>Valor</th><th></th></tr>
                         </thead>
                         <tbody id="despesasVariaveisTable"></tbody>
                     </table>
@@ -883,14 +1037,14 @@
         <!-- EMPRÉSTIMOS / DÍVIDAS -->
         <div class="section">
             <div class="section-header">
-                <h2>🏦 Empréstimos / Dívidas <span class="subtotal" id="subtotalEmprestimos"></span></h2>
+                <h2>🏦 Empréstimos / Dívidas</h2>
                 <button class="btn-add" onclick="mostrarForm('emprestimo')">+ Adicionar</button>
             </div>
             <div class="section-content">
                 <div id="formEmprestimo" class="form-container" style="display: none;">
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Descrição / Credor</label>
+                            <label>Credor / Descrição</label>
                             <input type="text" id="emprestimoDescricao">
                         </div>
                         <div class="form-group">
@@ -898,7 +1052,7 @@
                             <input type="number" id="emprestimoPrincipal" step="0.01">
                         </div>
                         <div class="form-group">
-                            <label>Taxa de Juros (%)</label>
+                            <label>Taxa de Juros Mensal (%)</label>
                             <input type="number" id="emprestimoJuros" step="0.1">
                         </div>
                         <div class="form-group">
@@ -914,32 +1068,12 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Data Vencimento Juros</label>
-                            <input type="date" id="emprestimoData">
-                        </div>
-                    </div>
                     <div class="form-buttons">
                         <button class="btn-cancelar" onclick="esconderForm('emprestimo')">Cancelar</button>
                         <button class="btn-salvar" onclick="salvarEmprestimo()">Salvar</button>
                     </div>
                 </div>
-                <div class="table-container">
-                    <table class="transacoes-table">
-                        <thead>
-                            <tr>
-                                <th>Credor</th>
-                                <th>Categoria</th>
-                                <th>Dívida</th>
-                                <th>Juros</th>
-                                <th>Saldo</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="emprestimosTable"></tbody>
-                    </table>
-                </div>
+                <div id="emprestimosContainer"></div>
                 <div id="emptyEmprestimos" class="empty-state">Nenhum empréstimo cadastrado</div>
             </div>
         </div>
@@ -985,13 +1119,7 @@
                 <div class="table-container">
                     <table class="transacoes-table">
                         <thead>
-                            <tr>
-                                <th>Descrição</th>
-                                <th>Categoria</th>
-                                <th>Data</th>
-                                <th>Valor</th>
-                                <th></th>
-                            </tr>
+                            <tr><th>Descrição</th><th>Categoria</th><th>Data</th><th>Valor</th><th></th></tr>
                         </thead>
                         <tbody id="economiasTable"></tbody>
                     </table>
@@ -1025,7 +1153,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3>Editar Item</h3>
-                <button class="modal-close" onclick="fecharModal()">&times;</button>
+                <button class="modal-close" onclick="fecharModal('modalEditar')">&times;</button>
             </div>
             <div class="form-row">
                 <div class="form-group">
@@ -1048,44 +1176,103 @@
                 </div>
             </div>
             <div class="form-buttons">
-                <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+                <button class="btn-cancelar" onclick="fecharModal('modalEditar')">Cancelar</button>
                 <button class="btn-salvar" onclick="salvarEdicao()">Salvar</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal Pagar Empréstimo -->
-    <div class="modal" id="modalPagarEmprestimo">
+    <!-- Modal Editar Empréstimo -->
+    <div class="modal" id="modalEditarEmprestimo">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Registrar Pagamento</h3>
-                <button class="modal-close" onclick="fecharModalPagamento()">&times;</button>
+                <h3>Editar Empréstimo</h3>
+                <button class="modal-close" onclick="fecharModal('modalEditarEmprestimo')">&times;</button>
+            </div>
+            <div class="info-box">
+                ⚠️ O <strong>Valor Principal</strong> pode ser editado, mas isso não altera o histórico de pagamentos já realizados.
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label>Valor do Pagamento</label>
-                    <input type="number" id="pagamentoValor" step="0.01">
+                    <label>Credor / Descrição</label>
+                    <input type="text" id="editEmpDescricao">
+                </div>
+                <div class="form-group">
+                    <label>Valor Principal</label>
+                    <input type="number" id="editEmpPrincipal" step="0.01">
                 </div>
             </div>
-            <div class="tipo-selector">
-                <label>
-                    <input type="radio" name="tipoPagamentoEmp" value="juros" checked>
-                    <span>💰 Apenas Juros</span>
-                </label>
-                <label>
-                    <input type="radio" name="tipoPagamentoEmp" value="amortizacao">
-                    <span>📉 Amortização (Abate Dívida)</span>
-                </label>
-            </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label>Data do Pagamento</label>
-                    <input type="date" id="pagamentoData">
+                    <label>Taxa de Juros (%)</label>
+                    <input type="number" id="editEmpJuros" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label>Categoria</label>
+                    <input type="text" id="editEmpCategoria">
                 </div>
             </div>
             <div class="form-buttons">
-                <button class="btn-cancelar" onclick="fecharModalPagamento()">Cancelar</button>
-                <button class="btn-salvar" onclick="confirmarPagamentoEmprestimo()">Confirmar</button>
+                <button class="btn-cancelar" onclick="fecharModal('modalEditarEmprestimo')">Cancelar</button>
+                <button class="btn-salvar" onclick="salvarEdicaoEmprestimo()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Pagar Juros -->
+    <div class="modal" id="modalPagarJuros">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>💰 Pagar Juros</h3>
+                <button class="modal-close" onclick="fecharModal('modalPagarJuros')">&times;</button>
+            </div>
+            <div class="info-box">
+                Este pagamento <strong>NÃO</strong> reduz o valor da dívida principal.<br>
+                Apenas quita os juros acumulados.
+            </div>
+            <div id="infoPagarJuros"></div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Valor a Pagar</label>
+                    <input type="number" id="pagarJurosValor" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label>Data do Pagamento</label>
+                    <input type="date" id="pagarJurosData">
+                </div>
+            </div>
+            <div class="form-buttons">
+                <button class="btn-cancelar" onclick="fecharModal('modalPagarJuros')">Cancelar</button>
+                <button class="btn-salvar" onclick="confirmarPagarJuros()">Confirmar Pagamento</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Amortizar -->
+    <div class="modal" id="modalAmortizar">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📉 Amortizar Dívida</h3>
+                <button class="modal-close" onclick="fecharModal('modalAmortizar')">&times;</button>
+            </div>
+            <div class="info-box">
+                Este pagamento <strong>REDUZ</strong> o valor da dívida principal.<br>
+                O saldo devedor será diminuído pelo valor informado.
+            </div>
+            <div id="infoAmortizar"></div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Valor a Amortizar</label>
+                    <input type="number" id="amortizarValor" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label>Data do Pagamento</label>
+                    <input type="date" id="amortizarData">
+                </div>
+            </div>
+            <div class="form-buttons">
+                <button class="btn-cancelar" onclick="fecharModal('modalAmortizar')">Cancelar</button>
+                <button class="btn-salvar" onclick="confirmarAmortizar()">Confirmar Amortização</button>
             </div>
         </div>
     </div>
@@ -1110,13 +1297,12 @@
         const USER_ID = 'default_user';
 
         // Estrutura de dados
-        let financeiro = JSON.parse(localStorage.getItem('financeiro_v2')) || {
+        let financeiro = JSON.parse(localStorage.getItem('financeiro_v3')) || {
             receitas: [],
             despesasFixas: [],
             despesasVariaveis: [],
             emprestimos: [],
-            economias: [],
-            historicoPagamentos: []
+            economias: []
         };
 
         let mesSelecionado = '';
@@ -1154,8 +1340,11 @@
 
         function mudarMes() {
             mesSelecionado = document.getElementById('mesSelect').value;
-            verificarMigracaoVencidos();
             renderizar();
+        }
+
+        function fecharModal(id) {
+            document.getElementById(id).classList.remove('active');
         }
 
         // ========== FORMULÁRIOS ==========
@@ -1171,7 +1360,7 @@
             const form = document.getElementById(id);
             form.style.display = 'none';
             form.querySelectorAll('input').forEach(i => {
-                if (i.type === 'radio') i.checked = i.value === 'normal' || i.value === 'juros';
+                if (i.type === 'radio') i.checked = i.value === 'normal';
                 else i.value = '';
             });
             form.querySelectorAll('select').forEach(s => s.value = '');
@@ -1271,61 +1460,185 @@
             salvarDados(); renderizar();
         }
 
-        // ========== CRUD EMPRÉSTIMOS ==========
+        // ========== EMPRÉSTIMOS - LÓGICA FINANCEIRA CORRETA ==========
         function salvarEmprestimo() {
             const desc = document.getElementById('emprestimoDescricao').value.trim();
             const principal = parseFloat(document.getElementById('emprestimoPrincipal').value) || 0;
             const juros = parseFloat(document.getElementById('emprestimoJuros').value) || 0;
             const cat = document.getElementById('emprestimoCategoria').value || 'Outros';
-            const data = document.getElementById('emprestimoData').value;
             if (!desc || !principal) return alert('Preencha os campos obrigatórios!');
 
             financeiro.emprestimos.push({
-                id: Date.now(), descricao: desc, principal, saldoDevedor: principal,
-                juros, categoria: cat, data, totalPagoJuros: 0, totalPagoAmortizacao: 0,
-                pagamentos: []
+                id: Date.now(),
+                descricao: desc,
+                categoria: cat,
+                // Valores fixos (não mudam automaticamente)
+                principalOriginal: principal,    // Valor original da dívida
+                principal: principal,            // Valor atual da dívida (reduz com amortização)
+                taxaJuros: juros,               // Taxa de juros mensal (%)
+                // Juros separados
+                jurosAcumulados: 0,             // Juros não pagos (acumulam)
+                totalJurosPagos: 0,             // Total de juros já pagos
+                // Amortização
+                totalAmortizado: 0,             // Total já amortizado
+                // Histórico
+                historico: [],                   // Registro de todas as operações
+                dataCriacao: new Date().toISOString()
             });
             salvarDados(); esconderForm('emprestimo'); renderizar();
         }
 
-        function abrirModalPagamento(id) {
+        // Gerar juros do mês (ação manual)
+        function gerarJurosMes(id) {
+            const emp = financeiro.emprestimos.find(x => x.id === id);
+            if (!emp) return;
+
+            const valorJuros = (emp.principal * emp.taxaJuros) / 100;
+            emp.jurosAcumulados = (emp.jurosAcumulados || 0) + valorJuros;
+            
+            emp.historico.push({
+                tipo: 'juros_gerado',
+                valor: valorJuros,
+                data: new Date().toISOString(),
+                descricao: `Juros de ${emp.taxaJuros}% sobre ${formatarMoeda(emp.principal)}`
+            });
+
+            salvarDados(); renderizar();
+            alert(`Juros de ${formatarMoeda(valorJuros)} adicionados aos juros acumulados.`);
+        }
+
+        // Abrir modal para pagar juros
+        function abrirModalPagarJuros(id) {
+            const emp = financeiro.emprestimos.find(x => x.id === id);
+            if (!emp) return;
+
             emprestimoSelecionado = id;
-            document.getElementById('pagamentoValor').value = '';
-            document.getElementById('pagamentoData').value = new Date().toISOString().split('T')[0];
-            document.getElementById('modalPagarEmprestimo').classList.add('active');
+            document.getElementById('infoPagarJuros').innerHTML = `
+                <div class="info-box" style="background: rgba(243,156,18,0.1); border-color: rgba(243,156,18,0.3);">
+                    <strong>Juros Acumulados:</strong> ${formatarMoeda(emp.jurosAcumulados || 0)}
+                </div>
+            `;
+            document.getElementById('pagarJurosValor').value = emp.jurosAcumulados || '';
+            document.getElementById('pagarJurosData').value = new Date().toISOString().split('T')[0];
+            document.getElementById('modalPagarJuros').classList.add('active');
         }
 
-        function fecharModalPagamento() {
-            document.getElementById('modalPagarEmprestimo').classList.remove('active');
-            emprestimoSelecionado = null;
-        }
-
-        function confirmarPagamentoEmprestimo() {
+        // Confirmar pagamento de juros
+        function confirmarPagarJuros() {
             const emp = financeiro.emprestimos.find(x => x.id === emprestimoSelecionado);
             if (!emp) return;
 
-            const valor = parseFloat(document.getElementById('pagamentoValor').value) || 0;
-            const tipo = document.querySelector('input[name="tipoPagamentoEmp"]:checked').value;
-            const data = document.getElementById('pagamentoData').value;
+            const valor = parseFloat(document.getElementById('pagarJurosValor').value) || 0;
+            const data = document.getElementById('pagarJurosData').value;
             if (!valor) return alert('Informe o valor!');
 
-            const pagamento = { data, valor, tipo, dataRegistro: new Date().toISOString() };
-            emp.pagamentos = emp.pagamentos || [];
-            emp.pagamentos.push(pagamento);
+            // Registrar pagamento de juros
+            emp.jurosAcumulados = Math.max(0, (emp.jurosAcumulados || 0) - valor);
+            emp.totalJurosPagos = (emp.totalJurosPagos || 0) + valor;
 
-            if (tipo === 'juros') {
-                emp.totalPagoJuros = (emp.totalPagoJuros || 0) + valor;
-            } else {
-                emp.totalPagoAmortizacao = (emp.totalPagoAmortizacao || 0) + valor;
-                emp.saldoDevedor = Math.max(0, emp.saldoDevedor - valor);
+            emp.historico.push({
+                tipo: 'pagamento_juros',
+                valor: valor,
+                data: data,
+                descricao: `Pagamento de juros`,
+                jurosRestantes: emp.jurosAcumulados
+            });
+
+            salvarDados();
+            fecharModal('modalPagarJuros');
+            renderizar();
+        }
+
+        // Abrir modal para amortizar
+        function abrirModalAmortizar(id) {
+            const emp = financeiro.emprestimos.find(x => x.id === id);
+            if (!emp) return;
+
+            emprestimoSelecionado = id;
+            document.getElementById('infoAmortizar').innerHTML = `
+                <div class="info-box" style="background: rgba(52,152,219,0.1); border-color: rgba(52,152,219,0.3);">
+                    <strong>Dívida Principal Atual:</strong> ${formatarMoeda(emp.principal)}
+                </div>
+            `;
+            document.getElementById('amortizarValor').value = '';
+            document.getElementById('amortizarData').value = new Date().toISOString().split('T')[0];
+            document.getElementById('modalAmortizar').classList.add('active');
+        }
+
+        // Confirmar amortização
+        function confirmarAmortizar() {
+            const emp = financeiro.emprestimos.find(x => x.id === emprestimoSelecionado);
+            if (!emp) return;
+
+            const valor = parseFloat(document.getElementById('amortizarValor').value) || 0;
+            const data = document.getElementById('amortizarData').value;
+            if (!valor) return alert('Informe o valor!');
+            if (valor > emp.principal) return alert('Valor maior que a dívida atual!');
+
+            // Amortizar - reduz o principal
+            emp.principal = emp.principal - valor;
+            emp.totalAmortizado = (emp.totalAmortizado || 0) + valor;
+
+            emp.historico.push({
+                tipo: 'amortizacao',
+                valor: valor,
+                data: data,
+                descricao: `Amortização da dívida`,
+                saldoRestante: emp.principal
+            });
+
+            salvarDados();
+            fecharModal('modalAmortizar');
+            renderizar();
+
+            if (emp.principal <= 0) {
+                alert('🎉 Parabéns! Dívida quitada!');
+            }
+        }
+
+        // Editar empréstimo
+        function abrirModalEditarEmprestimo(id) {
+            const emp = financeiro.emprestimos.find(x => x.id === id);
+            if (!emp) return;
+
+            emprestimoSelecionado = id;
+            document.getElementById('editEmpDescricao').value = emp.descricao;
+            document.getElementById('editEmpPrincipal').value = emp.principal;
+            document.getElementById('editEmpJuros').value = emp.taxaJuros;
+            document.getElementById('editEmpCategoria').value = emp.categoria;
+            document.getElementById('modalEditarEmprestimo').classList.add('active');
+        }
+
+        function salvarEdicaoEmprestimo() {
+            const emp = financeiro.emprestimos.find(x => x.id === emprestimoSelecionado);
+            if (!emp) return;
+
+            const novoDesc = document.getElementById('editEmpDescricao').value.trim();
+            const novoPrincipal = parseFloat(document.getElementById('editEmpPrincipal').value) || emp.principal;
+            const novoJuros = parseFloat(document.getElementById('editEmpJuros').value) || emp.taxaJuros;
+            const novaCat = document.getElementById('editEmpCategoria').value;
+
+            // Registrar alteração no histórico
+            if (novoPrincipal !== emp.principal) {
+                emp.historico.push({
+                    tipo: 'edicao',
+                    data: new Date().toISOString(),
+                    descricao: `Principal alterado de ${formatarMoeda(emp.principal)} para ${formatarMoeda(novoPrincipal)}`
+                });
             }
 
-            financeiro.historicoPagamentos.push({ ...pagamento, emprestimoId: emp.id, descricao: emp.descricao });
-            salvarDados(); fecharModalPagamento(); renderizar();
+            emp.descricao = novoDesc;
+            emp.principal = novoPrincipal;
+            emp.taxaJuros = novoJuros;
+            emp.categoria = novaCat;
+
+            salvarDados();
+            fecharModal('modalEditarEmprestimo');
+            renderizar();
         }
 
         function deletarEmprestimo(id) {
-            if (!confirm('Excluir este empréstimo?')) return;
+            if (!confirm('Excluir este empréstimo e todo seu histórico?')) return;
             financeiro.emprestimos = financeiro.emprestimos.filter(x => x.id !== id);
             salvarDados(); renderizar();
         }
@@ -1364,11 +1677,6 @@
             document.getElementById('modalEditar').classList.add('active');
         }
 
-        function fecharModal() {
-            document.getElementById('modalEditar').classList.remove('active');
-            itemEditando = null;
-        }
-
         function salvarEdicao() {
             if (!itemEditando) return;
             let lista;
@@ -1384,7 +1692,7 @@
                 item.categoria = document.getElementById('editCategoria').value;
                 item.data = document.getElementById('editData').value;
             }
-            salvarDados(); fecharModal(); renderizar();
+            salvarDados(); fecharModal('modalEditar'); renderizar();
         }
 
         // ========== DUPLICAR ==========
@@ -1400,28 +1708,6 @@
             delete novoItem.grupoId;
             lista.push(novoItem);
             salvarDados(); renderizar();
-        }
-
-        // ========== MIGRAÇÃO VENCIDOS ==========
-        function verificarMigracaoVencidos() {
-            const hoje = new Date();
-            const mesAtual = String(hoje.getMonth() + 1).padStart(2, '0');
-            
-            // Migrar despesas fixas não pagas do mês anterior
-            financeiro.despesasFixas.forEach(d => {
-                if (!d.pago && d.data) {
-                    const mesDespesa = d.data.substring(5, 7);
-                    if (mesDespesa < mesAtual && !d.migrado) {
-                        const novaData = new Date(d.data + 'T00:00:00');
-                        novaData.setMonth(novaData.getMonth() + 1);
-                        financeiro.despesasFixas.push({
-                            ...d, id: Date.now() + Math.random(), data: novaData.toISOString().split('T')[0],
-                            pago: false, migrado: false, origemMigrada: d.id
-                        });
-                        d.migrado = true;
-                    }
-                }
-            });
         }
 
         // ========== RENDERIZAÇÃO ==========
@@ -1443,10 +1729,10 @@
             return '';
         }
 
-        function renderAcoes(tipo, id, semDuplicar = false) {
+        function renderAcoes(tipo, id) {
             return `
                 <button onclick="abrirModalEditar('${tipo}', ${id})" title="Editar">✏️</button>
-                ${semDuplicar ? '' : `<button onclick="duplicar('${tipo}', ${id})" title="Duplicar">📋</button>`}
+                <button onclick="duplicar('${tipo}', ${id})" title="Duplicar">📋</button>
                 <button class="delete" onclick="deletar${tipo.charAt(0).toUpperCase() + tipo.slice(1)}(${id})" title="Excluir">🗑️</button>
             `;
         }
@@ -1471,8 +1757,6 @@
             // Subtotais
             document.getElementById('subtotalFixas').textContent = `(${formatarMoeda(totalPagoFixas)})`;
             document.getElementById('subtotalVariaveis').textContent = `(${formatarMoeda(totalPagoVariaveis)})`;
-            const saldoDevedorTotal = financeiro.emprestimos.reduce((s, e) => s + e.saldoDevedor, 0);
-            document.getElementById('subtotalEmprestimos').textContent = `(Saldo: ${formatarMoeda(saldoDevedorTotal)})`;
             document.getElementById('subtotalEconomias').textContent = `(${formatarMoeda(totalEconomiaMes)})`;
 
             // Totais gerais
@@ -1541,30 +1825,70 @@
                 `;
             }).join('');
 
-            // Tabela Empréstimos
-            const emprestimosTable = document.getElementById('emprestimosTable');
+            // Cards de Empréstimos
+            const emprestimosContainer = document.getElementById('emprestimosContainer');
             document.getElementById('emptyEmprestimos').style.display = financeiro.emprestimos.length ? 'none' : 'block';
-            emprestimosTable.innerHTML = financeiro.emprestimos.map(e => {
-                const percentQuitado = e.principal > 0 ? Math.round(((e.principal - e.saldoDevedor) / e.principal) * 100) : 0;
+            
+            emprestimosContainer.innerHTML = financeiro.emprestimos.map(e => {
+                const percentQuitado = e.principalOriginal > 0 ? Math.round(((e.principalOriginal - e.principal) / e.principalOriginal) * 100) : 0;
+                const temJurosPendentes = (e.jurosAcumulados || 0) > 0;
+
                 return `
-                    <tr>
-                        <td>
-                            ${e.descricao}
-                            <div class="info-extra">
-                                Juros pagos: <span class="destaque">${formatarMoeda(e.totalPagoJuros)}</span><br>
-                                Amortizado: <span class="destaque">${formatarMoeda(e.totalPagoAmortizacao)}</span>
-                                <div class="progress-bar"><div class="progress-bar-fill" style="width:${percentQuitado}%"></div></div>
+                    <div class="emprestimo-card">
+                        <div class="emprestimo-card-header">
+                            <div class="emprestimo-card-title">
+                                ${e.descricao}
+                                ${temJurosPendentes ? '<span class="badge juros-pendente">Juros Pendentes</span>' : ''}
+                                <small><span class="categoria">${e.categoria}</span> • Taxa: ${e.taxaJuros}% a.m.</small>
                             </div>
-                        </td>
-                        <td><span class="categoria">${e.categoria}</span></td>
-                        <td>${formatarMoeda(e.principal)}</td>
-                        <td>${e.juros}%</td>
-                        <td class="valor-negativo">${formatarMoeda(e.saldoDevedor)}</td>
-                        <td class="acoes">
-                            <button onclick="abrirModalPagamento(${e.id})" title="Pagar">💰</button>
-                            <button class="delete" onclick="deletarEmprestimo(${e.id})" title="Excluir">🗑️</button>
-                        </td>
-                    </tr>
+                            <div class="emprestimo-card-acoes">
+                                <button onclick="abrirModalEditarEmprestimo(${e.id})">✏️ Editar</button>
+                                <button class="delete" onclick="deletarEmprestimo(${e.id})">🗑️</button>
+                            </div>
+                        </div>
+
+                        <div class="emprestimo-valores">
+                            <div class="emprestimo-valor-item">
+                                <label>Dívida Original</label>
+                                <div class="valor principal">${formatarMoeda(e.principalOriginal)}</div>
+                            </div>
+                            <div class="emprestimo-valor-item">
+                                <label>Saldo Devedor</label>
+                                <div class="valor saldo">${formatarMoeda(e.principal)}</div>
+                            </div>
+                            <div class="emprestimo-valor-item">
+                                <label>Juros Acumulados</label>
+                                <div class="valor juros-acum">${formatarMoeda(e.jurosAcumulados || 0)}</div>
+                            </div>
+                            <div class="emprestimo-valor-item">
+                                <label>Juros Pagos</label>
+                                <div class="valor juros-pagos">${formatarMoeda(e.totalJurosPagos || 0)}</div>
+                            </div>
+                            <div class="emprestimo-valor-item">
+                                <label>Total Amortizado</label>
+                                <div class="valor amortizado">${formatarMoeda(e.totalAmortizado || 0)}</div>
+                            </div>
+                        </div>
+
+                        <div class="emprestimo-progress">
+                            <label>Progresso de Quitação: ${percentQuitado}%</label>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: ${percentQuitado}%"></div>
+                            </div>
+                        </div>
+
+                        <div class="emprestimo-acoes-rapidas">
+                            <button class="btn-gerar-juros" onclick="gerarJurosMes(${e.id})">
+                                📊 Gerar Juros do Mês
+                            </button>
+                            <button class="btn-juros" onclick="abrirModalPagarJuros(${e.id})">
+                                💰 Pagar Juros
+                            </button>
+                            <button class="btn-amortizar" onclick="abrirModalAmortizar(${e.id})">
+                                📉 Amortizar Dívida
+                            </button>
+                        </div>
+                    </div>
                 `;
             }).join('');
 
@@ -1584,7 +1908,7 @@
 
         // ========== PERSISTÊNCIA ==========
         function salvarDados() {
-            localStorage.setItem('financeiro_v2', JSON.stringify(financeiro));
+            localStorage.setItem('financeiro_v3', JSON.stringify(financeiro));
             salvarSupabase();
         }
 
@@ -1603,7 +1927,7 @@
                 const { data } = await supabaseClient.from('financeiro').select('*').eq('user_id', USER_ID).single();
                 if (data?.dados) {
                     financeiro = { ...financeiro, ...data.dados };
-                    localStorage.setItem('financeiro_v2', JSON.stringify(financeiro));
+                    localStorage.setItem('financeiro_v3', JSON.stringify(financeiro));
                 }
             } catch (e) { console.error(e); }
         }
@@ -1611,7 +1935,6 @@
         async function init() {
             initMes();
             await carregarSupabase();
-            verificarMigracaoVencidos();
             renderizar();
         }
 
