@@ -1913,29 +1913,119 @@
         }
 
         async function salvarSupabase() {
-            if (!useSupabase) return;
+            if (!useSupabase) {
+                console.log('⚠️ Supabase não disponível, salvando apenas local');
+                return;
+            }
             try {
-                await supabaseClient.from('financeiro').upsert({
-                    id: USER_ID, user_id: USER_ID, dados: financeiro, updated_at: new Date().toISOString()
+                const { error } = await supabaseClient.from('financeiro').upsert({
+                    id: USER_ID, 
+                    user_id: USER_ID, 
+                    dados: financeiro, 
+                    updated_at: new Date().toISOString()
                 });
-            } catch (e) { console.error(e); }
+                if (error) {
+                    console.error('❌ Erro ao salvar no Supabase:', error);
+                    mostrarStatus('Erro ao sincronizar', 'error');
+                } else {
+                    console.log('✅ Salvo no Supabase com sucesso!');
+                    mostrarStatus('Sincronizado ✓', 'success');
+                }
+            } catch (e) { 
+                console.error('❌ Exceção ao salvar:', e); 
+                mostrarStatus('Erro de conexão', 'error');
+            }
         }
 
         async function carregarSupabase() {
-            if (!useSupabase) return;
+            if (!useSupabase) {
+                console.log('⚠️ Supabase não disponível, usando localStorage');
+                return false;
+            }
             try {
-                const { data } = await supabaseClient.from('financeiro').select('*').eq('user_id', USER_ID).single();
-                if (data?.dados) {
-                    financeiro = { ...financeiro, ...data.dados };
-                    localStorage.setItem('financeiro_v3', JSON.stringify(financeiro));
+                console.log('🔄 Carregando dados do Supabase...');
+                const { data, error } = await supabaseClient
+                    .from('financeiro')
+                    .select('*')
+                    .eq('user_id', USER_ID)
+                    .maybeSingle();
+                
+                if (error) {
+                    console.error('❌ Erro ao carregar:', error);
+                    return false;
                 }
-            } catch (e) { console.error(e); }
+                
+                if (data?.dados) {
+                    // Supabase tem dados - usar eles (prioridade da nuvem)
+                    financeiro = {
+                        receitas: data.dados.receitas || [],
+                        despesasFixas: data.dados.despesasFixas || [],
+                        despesasVariaveis: data.dados.despesasVariaveis || [],
+                        emprestimos: data.dados.emprestimos || [],
+                        economias: data.dados.economias || []
+                    };
+                    localStorage.setItem('financeiro_v3', JSON.stringify(financeiro));
+                    console.log('✅ Dados carregados do Supabase!', financeiro);
+                    mostrarStatus('Dados sincronizados ✓', 'success');
+                    return true;
+                } else {
+                    console.log('ℹ️ Nenhum dado no Supabase ainda');
+                    // Se não tem no Supabase mas tem no localStorage, enviar para nuvem
+                    const local = localStorage.getItem('financeiro_v3');
+                    if (local) {
+                        const dadosLocal = JSON.parse(local);
+                        const temDados = dadosLocal.receitas?.length > 0 || 
+                                        dadosLocal.despesasFixas?.length > 0 ||
+                                        dadosLocal.despesasVariaveis?.length > 0 ||
+                                        dadosLocal.emprestimos?.length > 0 ||
+                                        dadosLocal.economias?.length > 0;
+                        if (temDados) {
+                            financeiro = dadosLocal;
+                            await salvarSupabase(); // Enviar dados locais para nuvem
+                            console.log('📤 Dados locais enviados para o Supabase');
+                        }
+                    }
+                    return false;
+                }
+            } catch (e) { 
+                console.error('❌ Exceção ao carregar:', e);
+                return false;
+            }
+        }
+
+        function mostrarStatus(msg, tipo) {
+            // Criar ou atualizar indicador de status
+            let status = document.getElementById('syncStatus');
+            if (!status) {
+                status = document.createElement('div');
+                status.id = 'syncStatus';
+                status.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    font-size: 0.8em;
+                    z-index: 10001;
+                    transition: opacity 0.3s;
+                `;
+                document.body.appendChild(status);
+            }
+            status.textContent = msg;
+            status.style.background = tipo === 'success' ? 'rgba(39, 174, 96, 0.9)' : 'rgba(231, 76, 60, 0.9)';
+            status.style.color = '#fff';
+            status.style.opacity = '1';
+            
+            setTimeout(() => {
+                status.style.opacity = '0';
+            }, 3000);
         }
 
         async function init() {
             initMes();
             await carregarSupabase();
             renderizar();
+            console.log('🚀 Sistema inicializado!');
         }
 
         init();
