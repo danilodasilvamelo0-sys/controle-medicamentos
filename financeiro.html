@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZARA | Financeiro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* ========== RESET E BASE ========== */
         * {
             margin: 0;
             padding: 0;
@@ -18,8 +19,10 @@
             background: #0a0a0a;
             min-height: 100vh;
             padding: 20px;
+            color: #fff;
         }
 
+        /* Linhas decorativas superior/inferior */
         body::before, body::after {
             content: '';
             position: fixed;
@@ -29,7 +32,6 @@
             background: linear-gradient(90deg, transparent, #d4af7d, transparent);
             z-index: 9999;
         }
-
         body::before { top: 0; }
         body::after { bottom: 0; }
 
@@ -38,6 +40,7 @@
             margin: 0 auto;
         }
 
+        /* ========== HEADER ========== */
         .header {
             display: flex;
             align-items: center;
@@ -48,13 +51,13 @@
         }
 
         .btn-voltar {
-            width: 45px;
-            height: 45px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             border: 1px solid rgba(212, 175, 125, 0.3);
             background: transparent;
             color: #d4af7d;
-            font-size: 1.2em;
+            font-size: 1.3em;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -65,24 +68,97 @@
 
         .btn-voltar:hover {
             background: rgba(212, 175, 125, 0.1);
+            transform: scale(1.05);
         }
 
         .header-title h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8em;
+            font-size: 1.9em;
             font-weight: 400;
             color: #fff;
             letter-spacing: 2px;
         }
 
         .header-title p {
-            color: rgba(255,255,255,0.5);
-            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9em;
+            margin-top: 4px;
         }
 
+        /* ========== SELETOR DE MÊS ========== */
+        .mes-selector {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #141414;
+            border: 1px solid rgba(212, 175, 125, 0.15);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+        }
+
+        .mes-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mes-label {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9em;
+        }
+
+        .mes-selector select {
+            background: #1a1a1a;
+            border: 1px solid rgba(212, 175, 125, 0.3);
+            color: #d4af7d;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .mes-selector select:focus {
+            border-color: #d4af7d;
+        }
+
+        .mes-selector select option {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-toggle button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+
+        .view-toggle button:hover {
+            background: rgba(212, 175, 125, 0.1);
+            border-color: rgba(212, 175, 125, 0.3);
+        }
+
+        .view-toggle button.active {
+            background: rgba(212, 175, 125, 0.15);
+            border-color: #d4af7d;
+            color: #d4af7d;
+        }
+
+        /* ========== RESUMO GRID ========== */
         .resumo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 15px;
             margin-bottom: 30px;
         }
@@ -91,7 +167,8 @@
             background: #141414;
             border: 1px solid rgba(212, 175, 125, 0.15);
             border-radius: 15px;
-            padding: 20px;
+            padding: 22px;
+            text-align: center;
             position: relative;
             overflow: hidden;
         }
@@ -107,52 +184,30 @@
 
         .resumo-card.recebido::before { background: linear-gradient(90deg, #27ae60, #2ecc71); }
         .resumo-card.pago::before { background: linear-gradient(90deg, #e74c3c, #c0392b); }
+        .resumo-card.despesas-mes::before { background: linear-gradient(90deg, #9b59b6, #8e44ad); }
         .resumo-card.economia::before { background: linear-gradient(90deg, #3498db, #2980b9); }
 
         .resumo-card label {
             display: block;
-            color: rgba(255,255,255,0.5);
-            font-size: 0.7em;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8em;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
         .resumo-card .valor {
-            font-size: 1.5em;
+            font-size: 1.7em;
             font-weight: 600;
+            color: #fff;
         }
 
         .resumo-card.recebido .valor { color: #2ecc71; }
         .resumo-card.pago .valor { color: #e74c3c; }
+        .resumo-card.despesas-mes .valor { color: #9b59b6; }
         .resumo-card.economia .valor { color: #3498db; }
 
-        .mes-selector {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #141414;
-            border: 1px solid rgba(212, 175, 125, 0.15);
-            border-radius: 12px;
-            padding: 15px 20px;
-            margin-bottom: 25px;
-        }
-
-        .mes-selector select {
-            background: #1a1a1a;
-            border: 1px solid rgba(212, 175, 125, 0.3);
-            color: #d4af7d;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 0.95em;
-            cursor: pointer;
-        }
-
-        .mes-selector select option {
-            background: #1a1a1a;
-            color: #fff;
-        }
-
+        /* ========== SEÇÕES ========== */
         .section {
             background: #141414;
             border: 1px solid rgba(212, 175, 125, 0.15);
@@ -165,14 +220,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            padding: 20px 25px;
             background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
             border-bottom: 1px solid rgba(212, 175, 125, 0.15);
         }
 
         .section-header h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.1em;
+            font-size: 1.25em;
             font-weight: 400;
             color: #fff;
             display: flex;
@@ -181,30 +236,33 @@
         }
 
         .section-header .subtotal {
-            font-size: 0.8em;
-            color: rgba(255,255,255,0.5);
-            margin-left: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7em;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 400;
         }
 
         .btn-add {
-            background: rgba(212, 175, 125, 0.15);
+            background: rgba(212, 175, 125, 0.12);
             border: 1px solid rgba(212, 175, 125, 0.3);
             color: #d4af7d;
-            padding: 8px 15px;
+            padding: 10px 20px;
             border-radius: 8px;
-            font-size: 0.8em;
+            font-size: 0.9em;
             cursor: pointer;
             transition: all 0.3s;
         }
 
         .btn-add:hover {
             background: rgba(212, 175, 125, 0.25);
+            transform: translateY(-1px);
         }
 
         .section-content {
-            padding: 15px;
+            padding: 20px 25px;
         }
 
+        /* ========== TABELAS ========== */
         .table-container {
             overflow-x: auto;
         }
@@ -212,189 +270,213 @@
         .transacoes-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 550px;
+            min-width: 600px;
         }
 
         .transacoes-table th {
-            text-align: left;
-            padding: 10px 8px;
-            color: rgba(255,255,255,0.5);
-            font-size: 0.65em;
+            text-align: center;
+            padding: 14px 12px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.75em;
+            font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .transacoes-table td {
-            padding: 10px 8px;
+            padding: 16px 12px;
             color: #fff;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: 0.8em;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 1em;
+            text-align: center;
             vertical-align: middle;
         }
 
+        /* Colunas específicas */
+        .col-status { width: 50px; }
+        .col-descricao { text-align: left !important; }
+        .col-acoes { width: 140px; }
+
         .transacoes-table tr:hover {
-            background: rgba(212, 175, 125, 0.05);
+            background: rgba(212, 175, 125, 0.04);
         }
 
         .transacoes-table tr.done {
-            opacity: 0.5;
+            opacity: 0.45;
         }
 
         .transacoes-table tr.vencido {
-            background: rgba(231, 76, 60, 0.1);
+            background: rgba(231, 76, 60, 0.08);
         }
 
         .transacoes-table tr.proximo {
-            background: rgba(241, 196, 15, 0.1);
+            background: rgba(241, 196, 15, 0.08);
         }
 
-        .transacoes-table .categoria {
+        /* Célula de descrição */
+        .transacoes-table .descricao {
+            text-align: left;
+            font-weight: 500;
+            font-size: 1em;
+            color: #fff;
+        }
+
+        /* Categoria badge */
+        .categoria {
             display: inline-block;
-            padding: 2px 8px;
-            background: rgba(212, 175, 125, 0.15);
-            border-radius: 15px;
-            font-size: 0.7em;
-            color: #d4af7d;
-        }
-
-        .transacoes-table .valor-positivo { color: #2ecc71; font-weight: 500; }
-        .transacoes-table .valor-negativo { color: #e74c3c; font-weight: 500; }
-        .transacoes-table .valor-economia { color: #3498db; font-weight: 500; }
-        .transacoes-table .valor-juros { color: #f39c12; font-weight: 500; }
-
-        .transacoes-table .acoes {
-            display: flex;
-            gap: 3px;
-            flex-wrap: wrap;
-        }
-
-        .transacoes-table .acoes button {
-            background: transparent;
-            border: none;
-            color: rgba(255,255,255,0.4);
-            cursor: pointer;
-            padding: 4px;
+            padding: 6px 14px;
+            background: rgba(212, 175, 125, 0.12);
+            border-radius: 20px;
             font-size: 0.85em;
-            transition: color 0.3s;
-        }
-
-        .transacoes-table .acoes button:hover {
             color: #d4af7d;
         }
 
-        .transacoes-table .acoes button.delete:hover {
+        /* Valores coloridos */
+        .valor-positivo { color: #2ecc71 !important; font-weight: 600; font-size: 1.05em; }
+        .valor-negativo { color: #e74c3c !important; font-weight: 600; font-size: 1.05em; }
+        .valor-economia { color: #3498db !important; font-weight: 600; font-size: 1.05em; }
+
+        /* Ações */
+        .acoes {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .acoes button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            padding: 9px 11px;
+            border-radius: 8px;
+            font-size: 1.05em;
+            transition: all 0.3s;
+        }
+
+        .acoes button:hover {
+            background: rgba(212, 175, 125, 0.15);
+            border-color: rgba(212, 175, 125, 0.4);
+            color: #d4af7d;
+            transform: scale(1.08);
+        }
+
+        .acoes button.delete:hover {
+            background: rgba(231, 76, 60, 0.15);
+            border-color: rgba(231, 76, 60, 0.4);
             color: #e74c3c;
         }
 
-        .info-extra {
-            font-size: 0.7em;
-            color: rgba(255,255,255,0.5);
-            margin-top: 3px;
-        }
-
-        .info-extra .destaque {
-            color: #d4af7d;
-        }
-
-        .info-extra .juros-acumulados {
-            color: #f39c12;
-        }
-
-        .info-extra .amortizado {
+        .acoes button.comprovante:hover {
+            background: rgba(46, 204, 113, 0.15);
+            border-color: rgba(46, 204, 113, 0.4);
             color: #2ecc71;
         }
 
+        /* ========== BADGES ========== */
         .badge {
             display: inline-block;
-            padding: 2px 6px;
-            border-radius: 10px;
-            font-size: 0.65em;
-            margin-left: 5px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: 500;
+            margin-left: 10px;
+            vertical-align: middle;
         }
 
-        .badge.parcela {
-            background: rgba(52, 152, 219, 0.2);
-            color: #3498db;
+        .badge.recorrente { background: rgba(155, 89, 182, 0.2); color: #9b59b6; }
+        .badge.parcela { background: rgba(52, 152, 219, 0.2); color: #3498db; }
+        .badge.vencido { background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
+        .badge.proximo { background: rgba(241, 196, 15, 0.2); color: #f1c40f; }
+        .badge.arquivado { background: rgba(149, 165, 166, 0.2); color: #95a5a6; }
+        .badge.comprovante { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
+        .badge.juros-pendente { background: rgba(243, 156, 18, 0.2); color: #f39c12; }
+
+        /* ========== CHECKBOX STATUS ========== */
+        .checkbox-status {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 28px;
+            height: 28px;
+            border: 2px solid #2ecc71;
+            border-radius: 50%;
+            cursor: pointer;
+            background: transparent;
+            transition: all 0.3s;
+            position: relative;
         }
 
-        .badge.emprestimo {
-            background: rgba(155, 89, 182, 0.2);
-            color: #9b59b6;
+        .checkbox-status:hover {
+            background: rgba(46, 204, 113, 0.1);
         }
 
-        .badge.vencido {
-            background: rgba(231, 76, 60, 0.2);
-            color: #e74c3c;
+        .checkbox-status:checked {
+            background: #2ecc71;
         }
 
-        .badge.proximo {
-            background: rgba(241, 196, 15, 0.2);
-            color: #f1c40f;
+        .checkbox-status:checked::after {
+            content: '✓';
+            position: absolute;
+            color: #0a0a0a;
+            font-size: 14px;
+            font-weight: bold;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
-        .badge.juros-pendente {
-            background: rgba(243, 156, 18, 0.2);
-            color: #f39c12;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: #1a1a1a;
-            border-radius: 2px;
-            overflow: hidden;
-            margin-top: 4px;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #27ae60, #2ecc71);
-            border-radius: 2px;
-            transition: width 0.5s ease;
-        }
-
+        /* ========== EMPTY STATE ========== */
         .empty-state {
             text-align: center;
-            padding: 30px;
-            color: rgba(255,255,255,0.3);
-            font-size: 0.85em;
+            padding: 45px 20px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.95em;
         }
 
+        /* ========== FORMULÁRIOS ========== */
         .form-container {
+            display: none;
             background: #1a1a1a;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 15px;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(212, 175, 125, 0.1);
+        }
+
+        .form-container.active {
+            display: block;
         }
 
         .form-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 12px;
-            margin-bottom: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 18px;
+            margin-bottom: 18px;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 8px;
         }
 
         .form-group label {
-            color: rgba(255,255,255,0.5);
-            font-size: 0.7em;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8em;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .form-group input,
         .form-group select {
-            padding: 10px;
+            padding: 13px 16px;
             background: #141414;
             border: 1px solid rgba(212, 175, 125, 0.2);
-            border-radius: 6px;
+            border-radius: 8px;
             color: #fff;
-            font-size: 0.85em;
+            font-size: 1em;
+            transition: border-color 0.3s;
         }
 
         .form-group input:focus,
@@ -403,149 +485,99 @@
             border-color: #d4af7d;
         }
 
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
         .form-group select option {
             background: #141414;
-        }
-
-        .form-group.checkbox-group {
-            flex-direction: row;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .form-group.checkbox-group input {
-            width: 16px;
-            height: 16px;
-            accent-color: #d4af7d;
-        }
-
-        .form-group.checkbox-group label {
             color: #fff;
-            text-transform: none;
-            font-size: 0.85em;
+        }
+
+        .form-group input[type="file"] {
+            padding: 11px;
+            font-size: 0.9em;
         }
 
         .form-buttons {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             justify-content: flex-end;
-            margin-top: 12px;
+            margin-top: 22px;
         }
 
         .btn-salvar {
             background: #d4af7d;
             color: #0a0a0a;
             border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
+            padding: 13px 28px;
+            border-radius: 8px;
             font-weight: 600;
-            font-size: 0.85em;
+            font-size: 0.95em;
             cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .btn-salvar:hover { background: #c9a066; }
+        .btn-salvar:hover {
+            background: #c9a066;
+            transform: translateY(-1px);
+        }
 
         .btn-cancelar {
-            background: rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.6);
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.6);
             border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
-            font-size: 0.85em;
-            cursor: pointer;
-        }
-
-        .btn-cancelar:hover { background: rgba(255,255,255,0.15); }
-
-        .extra-fields {
-            display: none;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .extra-fields.active { display: block; }
-
-        .tipo-selector {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-        }
-
-        .tipo-selector label {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 12px;
-            background: #141414;
-            border: 1px solid rgba(212, 175, 125, 0.2);
-            border-radius: 6px;
+            padding: 13px 22px;
+            border-radius: 8px;
+            font-size: 0.95em;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 0.8em;
         }
 
-        .tipo-selector label:hover {
-            border-color: #d4af7d;
+        .btn-cancelar:hover {
+            background: rgba(255, 255, 255, 0.12);
         }
 
-        .tipo-selector input:checked + span {
-            color: #d4af7d;
+        /* ========== PROGRESS BAR ========== */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
         }
 
-        .tipo-selector span {
-            color: rgba(255,255,255,0.7);
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            border-radius: 4px;
+            transition: width 0.5s ease;
         }
 
-        .checkbox-status {
-            appearance: none;
-            -webkit-appearance: none;
-            width: 22px;
-            height: 22px;
-            border: 2px solid #2ecc71;
-            border-radius: 50%;
-            cursor: pointer;
-            position: relative;
-            background: transparent;
-            transition: all 0.3s;
-            flex-shrink: 0;
-        }
-
-        .checkbox-status:checked {
-            background: #2ecc71;
-            border-color: #2ecc71;
-        }
-
-        .checkbox-status:checked::after {
-            content: '✓';
-            position: absolute;
-            color: #0a0a0a;
-            font-size: 12px;
-            font-weight: bold;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        /* Empréstimos Card */
+        /* ========== EMPRÉSTIMOS CARD ========== */
         .emprestimo-card {
             background: #1a1a1a;
-            border: 1px solid rgba(155, 89, 182, 0.3);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
+            border: 1px solid rgba(155, 89, 182, 0.25);
+            border-radius: 15px;
+            padding: 22px;
+            margin-bottom: 20px;
+        }
+
+        .emprestimo-card.arquivado {
+            opacity: 0.5;
+            border-color: rgba(149, 165, 166, 0.25);
         }
 
         .emprestimo-card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .emprestimo-card-title {
-            font-size: 1em;
+            font-size: 1.15em;
             color: #fff;
             font-weight: 500;
         }
@@ -553,59 +585,57 @@
         .emprestimo-card-title small {
             display: block;
             font-size: 0.75em;
-            color: rgba(255,255,255,0.5);
-            font-weight: normal;
-            margin-top: 3px;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 400;
+            margin-top: 6px;
         }
 
         .emprestimo-card-acoes {
             display: flex;
-            gap: 5px;
+            gap: 8px;
         }
 
         .emprestimo-card-acoes button {
-            background: rgba(212, 175, 125, 0.15);
-            border: 1px solid rgba(212, 175, 125, 0.3);
-            color: #d4af7d;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.75em;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.6);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.95em;
             cursor: pointer;
+            transition: all 0.3s;
         }
 
         .emprestimo-card-acoes button:hover {
-            background: rgba(212, 175, 125, 0.25);
-        }
-
-        .emprestimo-card-acoes button.delete {
-            border-color: rgba(231, 76, 60, 0.3);
-            color: #e74c3c;
+            background: rgba(212, 175, 125, 0.15);
+            color: #d4af7d;
         }
 
         .emprestimo-valores {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 10px;
-            margin-bottom: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .emprestimo-valor-item {
-            background: rgba(0,0,0,0.3);
-            padding: 10px;
-            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 16px;
+            border-radius: 10px;
             text-align: center;
         }
 
         .emprestimo-valor-item label {
             display: block;
-            font-size: 0.65em;
-            color: rgba(255,255,255,0.5);
+            font-size: 0.7em;
+            color: rgba(255, 255, 255, 0.5);
             text-transform: uppercase;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
         }
 
         .emprestimo-valor-item .valor {
-            font-size: 1em;
+            font-size: 1.15em;
             font-weight: 600;
         }
 
@@ -615,82 +645,63 @@
         .emprestimo-valor-item .valor.amortizado { color: #3498db; }
         .emprestimo-valor-item .valor.saldo { color: #e74c3c; }
 
-        .emprestimo-progress {
-            margin-top: 10px;
-        }
-
         .emprestimo-progress label {
-            font-size: 0.7em;
-            color: rgba(255,255,255,0.5);
-        }
-
-        .emprestimo-progress .progress-bar {
-            height: 8px;
-            margin-top: 5px;
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.5);
         }
 
         .emprestimo-acoes-rapidas {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 18px;
         }
 
         .emprestimo-acoes-rapidas button {
-            flex: 1;
-            min-width: 120px;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.8em;
+            padding: 13px;
+            border-radius: 10px;
+            font-size: 0.9em;
             cursor: pointer;
             border: none;
+            font-weight: 500;
             transition: all 0.3s;
         }
 
-        .emprestimo-acoes-rapidas .btn-juros {
-            background: rgba(243, 156, 18, 0.2);
-            color: #f39c12;
-            border: 1px solid rgba(243, 156, 18, 0.3);
-        }
-
-        .emprestimo-acoes-rapidas .btn-juros:hover {
-            background: rgba(243, 156, 18, 0.3);
-        }
-
-        .emprestimo-acoes-rapidas .btn-amortizar {
-            background: rgba(52, 152, 219, 0.2);
-            color: #3498db;
-            border: 1px solid rgba(52, 152, 219, 0.3);
-        }
-
-        .emprestimo-acoes-rapidas .btn-amortizar:hover {
-            background: rgba(52, 152, 219, 0.3);
-        }
-
-        .emprestimo-acoes-rapidas .btn-gerar-juros {
-            background: rgba(155, 89, 182, 0.2);
+        .btn-gerar-juros {
+            background: rgba(155, 89, 182, 0.15);
             color: #9b59b6;
-            border: 1px solid rgba(155, 89, 182, 0.3);
+            border: 1px solid rgba(155, 89, 182, 0.3) !important;
         }
+        .btn-gerar-juros:hover { background: rgba(155, 89, 182, 0.25); }
 
-        .emprestimo-acoes-rapidas .btn-gerar-juros:hover {
-            background: rgba(155, 89, 182, 0.3);
+        .btn-juros {
+            background: rgba(243, 156, 18, 0.15);
+            color: #f39c12;
+            border: 1px solid rgba(243, 156, 18, 0.3) !important;
         }
+        .btn-juros:hover { background: rgba(243, 156, 18, 0.25); }
 
-        /* Resumo Final */
+        .btn-amortizar {
+            background: rgba(52, 152, 219, 0.15);
+            color: #3498db;
+            border: 1px solid rgba(52, 152, 219, 0.3) !important;
+        }
+        .btn-amortizar:hover { background: rgba(52, 152, 219, 0.25); }
+
+        /* ========== RESUMO FINAL ========== */
         .resumo-final {
             background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
             border: 1px solid rgba(212, 175, 125, 0.2);
-            border-radius: 15px;
-            padding: 25px;
+            border-radius: 18px;
+            padding: 28px;
             margin-top: 30px;
         }
 
         .resumo-final h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.2em;
+            font-size: 1.3em;
             color: #d4af7d;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             text-align: center;
             letter-spacing: 2px;
         }
@@ -703,22 +714,22 @@
 
         .resumo-final-item {
             text-align: center;
-            padding: 15px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 10px;
+            padding: 22px;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 12px;
         }
 
         .resumo-final-item label {
             display: block;
-            color: rgba(255,255,255,0.5);
-            font-size: 0.7em;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8em;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
         .resumo-final-item .valor {
-            font-size: 1.6em;
+            font-size: 1.9em;
             font-weight: 600;
         }
 
@@ -726,7 +737,97 @@
         .resumo-final-item.pago .valor { color: #e74c3c; }
         .resumo-final-item.economia .valor { color: #3498db; }
 
-        /* Modal */
+        /* ========== BALANÇO GERAL ========== */
+        .balanco-geral {
+            background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+            border: 1px solid rgba(212, 175, 125, 0.25);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .balanco-geral h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4em;
+            color: #d4af7d;
+            margin-bottom: 25px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .balanco-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .balanco-item {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 3px solid transparent;
+        }
+
+        .balanco-item.alerta { border-left-color: #e74c3c; }
+        .balanco-item.sucesso { border-left-color: #2ecc71; }
+        .balanco-item.info { border-left-color: #3498db; }
+
+        .balanco-item h4 {
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .balanco-item .valor-destaque {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .balanco-item .detalhe {
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .sugestoes-container {
+            background: rgba(212, 175, 125, 0.08);
+            border: 1px solid rgba(212, 175, 125, 0.2);
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .sugestoes-container h4 {
+            font-size: 1em;
+            color: #d4af7d;
+            margin-bottom: 18px;
+        }
+
+        .sugestao-item {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .sugestao-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .sugestao-item .icon {
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+
+        /* ========== MODAIS ========== */
         .modal {
             display: none;
             position: fixed;
@@ -734,7 +835,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.85);
             z-index: 10000;
             align-items: center;
             justify-content: center;
@@ -748,105 +849,151 @@
         .modal-content {
             background: #141414;
             border: 1px solid rgba(212, 175, 125, 0.2);
-            border-radius: 15px;
-            padding: 25px;
-            max-width: 500px;
+            border-radius: 20px;
+            padding: 0;
+            max-width: 550px;
             width: 100%;
-            max-height: 80vh;
-            overflow-y: auto;
+            max-height: 85vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 22px 28px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .modal-header h3 {
             font-family: 'Playfair Display', serif;
             color: #d4af7d;
-            font-size: 1.2em;
+            font-size: 1.3em;
         }
 
         .modal-close {
             background: transparent;
             border: none;
-            color: rgba(255,255,255,0.5);
-            font-size: 1.5em;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.8em;
             cursor: pointer;
+            line-height: 1;
+            padding: 0;
+            transition: color 0.3s;
         }
 
         .modal-close:hover {
             color: #fff;
         }
 
+        .modal-body {
+            padding: 25px 28px;
+            overflow-y: auto;
+        }
+
         .info-box {
             background: rgba(212, 175, 125, 0.1);
             border: 1px solid rgba(212, 175, 125, 0.2);
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 15px;
-            font-size: 0.85em;
-            color: rgba(255,255,255,0.7);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .info-box strong {
             color: #d4af7d;
         }
 
-        @media (max-width: 768px) {
-            .resumo-grid { grid-template-columns: repeat(3, 1fr); }
-            .resumo-final-grid { grid-template-columns: 1fr; }
-            .emprestimo-valores { grid-template-columns: repeat(2, 1fr); }
+        .info-box.warning {
+            background: rgba(243, 156, 18, 0.1);
+            border-color: rgba(243, 156, 18, 0.25);
         }
 
-        @media (max-width: 480px) {
+        .info-box.info {
+            background: rgba(52, 152, 219, 0.1);
+            border-color: rgba(52, 152, 219, 0.25);
+        }
+
+        /* ========== STATUS SYNC ========== */
+        #syncStatus {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            font-weight: 500;
+            z-index: 10001;
+            opacity: 0;
+            transition: opacity 0.3s;
+            color: #fff;
+        }
+
+        /* ========== RESPONSIVO ========== */
+        @media (max-width: 900px) {
+            .resumo-grid { grid-template-columns: repeat(2, 1fr); }
+            .emprestimo-acoes-rapidas { grid-template-columns: 1fr; }
+            .resumo-final-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
             body { padding: 15px; }
-            .header-title h1 { font-size: 1.3em; }
-            .resumo-grid { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-            .resumo-card { padding: 12px; }
-            .resumo-card .valor { font-size: 1.1em; }
-            .mes-selector { flex-direction: column; gap: 12px; align-items: stretch; }
-            .section-header { flex-direction: column; gap: 12px; align-items: flex-start; }
+            .header-title h1 { font-size: 1.5em; }
+            .resumo-grid { gap: 10px; }
+            .resumo-card { padding: 16px; }
+            .resumo-card .valor { font-size: 1.4em; }
+            .mes-selector { flex-direction: column; gap: 15px; align-items: stretch; }
+            .view-toggle { justify-content: center; }
+            .section-header { flex-direction: column; gap: 15px; align-items: stretch; }
             .btn-add { width: 100%; text-align: center; }
+            .section-content { padding: 15px; }
             .form-row { grid-template-columns: 1fr; }
-            .tipo-selector { flex-direction: column; }
-            .emprestimo-acoes-rapidas { flex-direction: column; }
-            .emprestimo-acoes-rapidas button { min-width: auto; }
+            .balanco-grid { grid-template-columns: 1fr; }
+            .acoes { flex-wrap: wrap; }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        
+        <!-- HEADER -->
         <div class="header">
             <a href="index.html" class="btn-voltar">←</a>
             <div class="header-title">
                 <h1>Planejamento Financeiro</h1>
-                <p>Controle suas finanças</p>
+                <p>Controle suas finanças com inteligência</p>
             </div>
         </div>
 
+        <!-- SELETOR DE MÊS E VISUALIZAÇÃO -->
         <div class="mes-selector">
-            <span style="color: rgba(255,255,255,0.5); font-size: 0.85em;">Período:</span>
-            <select id="mesSelect" onchange="mudarMes()">
-                <option value="01">Janeiro</option>
-                <option value="02">Fevereiro</option>
-                <option value="03">Março</option>
-                <option value="04">Abril</option>
-                <option value="05">Maio</option>
-                <option value="06">Junho</option>
-                <option value="07">Julho</option>
-                <option value="08">Agosto</option>
-                <option value="09">Setembro</option>
-                <option value="10">Outubro</option>
-                <option value="11">Novembro</option>
-                <option value="12">Dezembro</option>
-            </select>
+            <div class="mes-controls">
+                <span class="mes-label">Período:</span>
+                <select id="mesSelect">
+                    <option value="01">Janeiro</option>
+                    <option value="02">Fevereiro</option>
+                    <option value="03">Março</option>
+                    <option value="04">Abril</option>
+                    <option value="05">Maio</option>
+                    <option value="06">Junho</option>
+                    <option value="07">Julho</option>
+                    <option value="08">Agosto</option>
+                    <option value="09">Setembro</option>
+                    <option value="10">Outubro</option>
+                    <option value="11">Novembro</option>
+                    <option value="12">Dezembro</option>
+                </select>
+            </div>
+            <div class="view-toggle">
+                <button class="active" id="btnAtivos">📋 Ativos</button>
+                <button id="btnArquivados">📁 Arquivados</button>
+            </div>
         </div>
 
+        <!-- RESUMO DO MÊS -->
         <div class="resumo-grid">
             <div class="resumo-card recebido">
                 <label>💰 Recebido</label>
@@ -856,53 +1003,35 @@
                 <label>💸 Pago</label>
                 <div class="valor" id="totalPago">R$ 0,00</div>
             </div>
+            <div class="resumo-card despesas-mes">
+                <label>📅 Despesas do Mês</label>
+                <div class="valor" id="totalDespesasMes">R$ 0,00</div>
+            </div>
             <div class="resumo-card economia">
                 <label>🏦 Economizado</label>
                 <div class="valor" id="totalEconomia">R$ 0,00</div>
             </div>
         </div>
 
-        <!-- RECEITAS -->
-        <div class="section">
+        <!-- SEÇÃO: RECEITAS -->
+        <div class="section" id="sectionReceitas">
             <div class="section-header">
                 <h2>📈 Receitas</h2>
-                <button class="btn-add" onclick="mostrarForm('receita')">+ Adicionar</button>
+                <button class="btn-add" id="btnAddReceita">+ Adicionar</button>
             </div>
             <div class="section-content">
-                <div id="formReceita" class="form-container" style="display: none;">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Descrição</label>
-                            <input type="text" id="receitaDescricao">
-                        </div>
-                        <div class="form-group">
-                            <label>Valor</label>
-                            <input type="number" id="receitaValor" step="0.01">
-                        </div>
-                        <div class="form-group">
-                            <label>Categoria</label>
-                            <select id="receitaCategoria">
-                                <option value="">Selecione...</option>
-                                <option value="Salário">Salário</option>
-                                <option value="Freelance">Freelance</option>
-                                <option value="Investimentos">Investimentos</option>
-                                <option value="Outros">Outros</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Data</label>
-                            <input type="date" id="receitaData">
-                        </div>
-                    </div>
-                    <div class="form-buttons">
-                        <button class="btn-cancelar" onclick="esconderForm('receita')">Cancelar</button>
-                        <button class="btn-salvar" onclick="salvarReceita()">Salvar</button>
-                    </div>
-                </div>
+                <div id="formReceita" class="form-container"></div>
                 <div class="table-container">
                     <table class="transacoes-table">
                         <thead>
-                            <tr><th>✓</th><th>Descrição</th><th>Categoria</th><th>Data</th><th>Valor</th><th></th></tr>
+                            <tr>
+                                <th class="col-status">✓</th>
+                                <th class="col-descricao">Descrição</th>
+                                <th class="col-categoria">Categoria</th>
+                                <th class="col-data">Data</th>
+                                <th class="col-valor">Valor</th>
+                                <th class="col-acoes">Ações</th>
+                            </tr>
                         </thead>
                         <tbody id="receitasTable"></tbody>
                     </table>
@@ -911,51 +1040,25 @@
             </div>
         </div>
 
-        <!-- DESPESAS FIXAS -->
-        <div class="section">
+        <!-- SEÇÃO: DESPESAS FIXAS -->
+        <div class="section" id="sectionDespesasFixas">
             <div class="section-header">
                 <h2>🏠 Despesas Fixas <span class="subtotal" id="subtotalFixas"></span></h2>
-                <button class="btn-add" onclick="mostrarForm('despesaFixa')">+ Adicionar</button>
+                <button class="btn-add" id="btnAddDespesaFixa">+ Adicionar</button>
             </div>
             <div class="section-content">
-                <div id="formDespesaFixa" class="form-container" style="display: none;">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Descrição</label>
-                            <input type="text" id="despesaFixaDescricao">
-                        </div>
-                        <div class="form-group">
-                            <label>Valor</label>
-                            <input type="number" id="despesaFixaValor" step="0.01">
-                        </div>
-                        <div class="form-group">
-                            <label>Categoria</label>
-                            <select id="despesaFixaCategoria">
-                                <option value="">Selecione...</option>
-                                <option value="Moradia">Moradia</option>
-                                <option value="Internet">Internet</option>
-                                <option value="Energia">Energia</option>
-                                <option value="Água">Água</option>
-                                <option value="Escola">Escola</option>
-                                <option value="Plano de Saúde">Plano de Saúde</option>
-                                <option value="Streaming">Streaming</option>
-                                <option value="Outros">Outros</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Vencimento</label>
-                            <input type="date" id="despesaFixaData">
-                        </div>
-                    </div>
-                    <div class="form-buttons">
-                        <button class="btn-cancelar" onclick="esconderForm('despesaFixa')">Cancelar</button>
-                        <button class="btn-salvar" onclick="salvarDespesaFixa()">Salvar</button>
-                    </div>
-                </div>
+                <div id="formDespesaFixa" class="form-container"></div>
                 <div class="table-container">
                     <table class="transacoes-table">
                         <thead>
-                            <tr><th>✓</th><th>Descrição</th><th>Categoria</th><th>Vencimento</th><th>Valor</th><th></th></tr>
+                            <tr>
+                                <th class="col-status">✓</th>
+                                <th class="col-descricao">Descrição</th>
+                                <th class="col-categoria">Categoria</th>
+                                <th class="col-data">Vencimento</th>
+                                <th class="col-valor">Valor</th>
+                                <th class="col-acoes">Ações</th>
+                            </tr>
                         </thead>
                         <tbody id="despesasFixasTable"></tbody>
                     </table>
@@ -964,68 +1067,25 @@
             </div>
         </div>
 
-        <!-- DESPESAS VARIÁVEIS -->
-        <div class="section">
+        <!-- SEÇÃO: DESPESAS VARIÁVEIS -->
+        <div class="section" id="sectionDespesasVariaveis">
             <div class="section-header">
                 <h2>🛒 Despesas Variáveis <span class="subtotal" id="subtotalVariaveis"></span></h2>
-                <button class="btn-add" onclick="mostrarForm('despesaVariavel')">+ Adicionar</button>
+                <button class="btn-add" id="btnAddDespesaVariavel">+ Adicionar</button>
             </div>
             <div class="section-content">
-                <div id="formDespesaVariavel" class="form-container" style="display: none;">
-                    <div class="tipo-selector">
-                        <label>
-                            <input type="radio" name="tipoDespesaVar" value="normal" checked onchange="mudarTipoDespesaVar()">
-                            <span>💳 Normal</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="tipoDespesaVar" value="parcelada" onchange="mudarTipoDespesaVar()">
-                            <span>📅 Parcelada</span>
-                        </label>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Descrição</label>
-                            <input type="text" id="despesaVariavelDescricao">
-                        </div>
-                        <div class="form-group">
-                            <label id="labelValorVar">Valor</label>
-                            <input type="number" id="despesaVariavelValor" step="0.01">
-                        </div>
-                        <div class="form-group">
-                            <label>Categoria</label>
-                            <select id="despesaVariavelCategoria">
-                                <option value="">Selecione...</option>
-                                <option value="Alimentação">Alimentação</option>
-                                <option value="Transporte">Transporte</option>
-                                <option value="Lazer">Lazer</option>
-                                <option value="Compras">Compras</option>
-                                <option value="Saúde">Saúde</option>
-                                <option value="Cartão">Cartão</option>
-                                <option value="Outros">Outros</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Data</label>
-                            <input type="date" id="despesaVariavelData">
-                        </div>
-                    </div>
-                    <div id="parceladaFieldsVar" class="extra-fields">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Quantidade de Parcelas</label>
-                                <input type="number" id="despesaVariavelParcelas" min="1">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-buttons">
-                        <button class="btn-cancelar" onclick="esconderForm('despesaVariavel')">Cancelar</button>
-                        <button class="btn-salvar" onclick="salvarDespesaVariavel()">Salvar</button>
-                    </div>
-                </div>
+                <div id="formDespesaVariavel" class="form-container"></div>
                 <div class="table-container">
                     <table class="transacoes-table">
                         <thead>
-                            <tr><th>✓</th><th>Descrição</th><th>Categoria</th><th>Data</th><th>Valor</th><th></th></tr>
+                            <tr>
+                                <th class="col-status">✓</th>
+                                <th class="col-descricao">Descrição</th>
+                                <th class="col-categoria">Categoria</th>
+                                <th class="col-data">Data</th>
+                                <th class="col-valor">Valor</th>
+                                <th class="col-acoes">Ações</th>
+                            </tr>
                         </thead>
                         <tbody id="despesasVariaveisTable"></tbody>
                     </table>
@@ -1034,92 +1094,37 @@
             </div>
         </div>
 
-        <!-- EMPRÉSTIMOS / DÍVIDAS -->
-        <div class="section">
+        <!-- SEÇÃO: EMPRÉSTIMOS / DÍVIDAS -->
+        <div class="section" id="sectionEmprestimos">
             <div class="section-header">
                 <h2>🏦 Empréstimos / Dívidas</h2>
-                <button class="btn-add" onclick="mostrarForm('emprestimo')">+ Adicionar</button>
+                <button class="btn-add" id="btnAddEmprestimo">+ Adicionar</button>
             </div>
             <div class="section-content">
-                <div id="formEmprestimo" class="form-container" style="display: none;">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Credor / Descrição</label>
-                            <input type="text" id="emprestimoDescricao">
-                        </div>
-                        <div class="form-group">
-                            <label>Valor Principal (Dívida)</label>
-                            <input type="number" id="emprestimoPrincipal" step="0.01">
-                        </div>
-                        <div class="form-group">
-                            <label>Taxa de Juros Mensal (%)</label>
-                            <input type="number" id="emprestimoJuros" step="0.1">
-                        </div>
-                        <div class="form-group">
-                            <label>Categoria</label>
-                            <select id="emprestimoCategoria">
-                                <option value="">Selecione...</option>
-                                <option value="Agiota">Agiota</option>
-                                <option value="Banco">Banco</option>
-                                <option value="Financeira">Financeira</option>
-                                <option value="Pessoa Física">Pessoa Física</option>
-                                <option value="Cartão">Cartão</option>
-                                <option value="Outros">Outros</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-buttons">
-                        <button class="btn-cancelar" onclick="esconderForm('emprestimo')">Cancelar</button>
-                        <button class="btn-salvar" onclick="salvarEmprestimo()">Salvar</button>
-                    </div>
-                </div>
+                <div id="formEmprestimo" class="form-container"></div>
                 <div id="emprestimosContainer"></div>
                 <div id="emptyEmprestimos" class="empty-state">Nenhum empréstimo cadastrado</div>
             </div>
         </div>
 
-        <!-- ECONOMIAS -->
-        <div class="section">
+        <!-- SEÇÃO: ECONOMIAS -->
+        <div class="section" id="sectionEconomias">
             <div class="section-header">
                 <h2>💎 Economias <span class="subtotal" id="subtotalEconomias"></span></h2>
-                <button class="btn-add" onclick="mostrarForm('economia')">+ Adicionar</button>
+                <button class="btn-add" id="btnAddEconomia">+ Adicionar</button>
             </div>
             <div class="section-content">
-                <div id="formEconomia" class="form-container" style="display: none;">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Descrição</label>
-                            <input type="text" id="economiaDescricao">
-                        </div>
-                        <div class="form-group">
-                            <label>Valor</label>
-                            <input type="number" id="economiaValor" step="0.01">
-                        </div>
-                        <div class="form-group">
-                            <label>Categoria</label>
-                            <select id="economiaCategoria">
-                                <option value="">Selecione...</option>
-                                <option value="Poupança">Poupança</option>
-                                <option value="Investimento">Investimento</option>
-                                <option value="Reserva">Reserva de Emergência</option>
-                                <option value="Objetivo">Objetivo Específico</option>
-                                <option value="Outros">Outros</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Data</label>
-                            <input type="date" id="economiaData">
-                        </div>
-                    </div>
-                    <div class="form-buttons">
-                        <button class="btn-cancelar" onclick="esconderForm('economia')">Cancelar</button>
-                        <button class="btn-salvar" onclick="salvarEconomia()">Salvar</button>
-                    </div>
-                </div>
+                <div id="formEconomia" class="form-container"></div>
                 <div class="table-container">
                     <table class="transacoes-table">
                         <thead>
-                            <tr><th>Descrição</th><th>Categoria</th><th>Data</th><th>Valor</th><th></th></tr>
+                            <tr>
+                                <th class="col-descricao">Descrição</th>
+                                <th class="col-categoria">Categoria</th>
+                                <th class="col-data">Data</th>
+                                <th class="col-valor">Valor</th>
+                                <th class="col-acoes">Ações</th>
+                            </tr>
                         </thead>
                         <tbody id="economiasTable"></tbody>
                     </table>
@@ -1128,7 +1133,7 @@
             </div>
         </div>
 
-        <!-- RESUMO FINAL -->
+        <!-- RESUMO GERAL ACUMULADO -->
         <div class="resumo-final">
             <h3>📊 RESUMO GERAL ACUMULADO</h3>
             <div class="resumo-final-grid">
@@ -1146,352 +1151,678 @@
                 </div>
             </div>
         </div>
+
+        <!-- BALANÇO GERAL INTELIGENTE -->
+        <div class="balanco-geral">
+            <h3>🧠 BALANÇO GERAL</h3>
+            <div class="balanco-grid" id="balancoGrid"></div>
+            <div class="sugestoes-container">
+                <h4>💡 Sugestões Inteligentes</h4>
+                <div id="sugestoesContainer"></div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Modal Editar -->
+    <!-- MODAIS -->
     <div class="modal" id="modalEditar">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Editar Item</h3>
-                <button class="modal-close" onclick="fecharModal('modalEditar')">&times;</button>
+                <h3>✏️ Editar Item</h3>
+                <button class="modal-close">&times;</button>
             </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Descrição</label>
-                    <input type="text" id="editDescricao">
-                </div>
-                <div class="form-group">
-                    <label>Valor</label>
-                    <input type="number" id="editValor" step="0.01">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Categoria</label>
-                    <input type="text" id="editCategoria">
-                </div>
-                <div class="form-group">
-                    <label>Data</label>
-                    <input type="date" id="editData">
-                </div>
-            </div>
-            <div class="form-buttons">
-                <button class="btn-cancelar" onclick="fecharModal('modalEditar')">Cancelar</button>
-                <button class="btn-salvar" onclick="salvarEdicao()">Salvar</button>
-            </div>
+            <div class="modal-body" id="modalEditarBody"></div>
         </div>
     </div>
 
-    <!-- Modal Editar Empréstimo -->
-    <div class="modal" id="modalEditarEmprestimo">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Editar Empréstimo</h3>
-                <button class="modal-close" onclick="fecharModal('modalEditarEmprestimo')">&times;</button>
-            </div>
-            <div class="info-box">
-                ⚠️ O <strong>Valor Principal</strong> pode ser editado, mas isso não altera o histórico de pagamentos já realizados.
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Credor / Descrição</label>
-                    <input type="text" id="editEmpDescricao">
-                </div>
-                <div class="form-group">
-                    <label>Valor Principal</label>
-                    <input type="number" id="editEmpPrincipal" step="0.01">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Taxa de Juros (%)</label>
-                    <input type="number" id="editEmpJuros" step="0.1">
-                </div>
-                <div class="form-group">
-                    <label>Categoria</label>
-                    <input type="text" id="editEmpCategoria">
-                </div>
-            </div>
-            <div class="form-buttons">
-                <button class="btn-cancelar" onclick="fecharModal('modalEditarEmprestimo')">Cancelar</button>
-                <button class="btn-salvar" onclick="salvarEdicaoEmprestimo()">Salvar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Pagar Juros -->
     <div class="modal" id="modalPagarJuros">
         <div class="modal-content">
             <div class="modal-header">
                 <h3>💰 Pagar Juros</h3>
-                <button class="modal-close" onclick="fecharModal('modalPagarJuros')">&times;</button>
+                <button class="modal-close">&times;</button>
             </div>
-            <div class="info-box">
-                Este pagamento <strong>NÃO</strong> reduz o valor da dívida principal.<br>
-                Apenas quita os juros acumulados.
-            </div>
-            <div id="infoPagarJuros"></div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Valor a Pagar</label>
-                    <input type="number" id="pagarJurosValor" step="0.01">
-                </div>
-                <div class="form-group">
-                    <label>Data do Pagamento</label>
-                    <input type="date" id="pagarJurosData">
-                </div>
-            </div>
-            <div class="form-buttons">
-                <button class="btn-cancelar" onclick="fecharModal('modalPagarJuros')">Cancelar</button>
-                <button class="btn-salvar" onclick="confirmarPagarJuros()">Confirmar Pagamento</button>
-            </div>
+            <div class="modal-body" id="modalPagarJurosBody"></div>
         </div>
     </div>
 
-    <!-- Modal Amortizar -->
     <div class="modal" id="modalAmortizar">
         <div class="modal-content">
             <div class="modal-header">
                 <h3>📉 Amortizar Dívida</h3>
-                <button class="modal-close" onclick="fecharModal('modalAmortizar')">&times;</button>
+                <button class="modal-close">&times;</button>
             </div>
-            <div class="info-box">
-                Este pagamento <strong>REDUZ</strong> o valor da dívida principal.<br>
-                O saldo devedor será diminuído pelo valor informado.
-            </div>
-            <div id="infoAmortizar"></div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Valor a Amortizar</label>
-                    <input type="number" id="amortizarValor" step="0.01">
-                </div>
-                <div class="form-group">
-                    <label>Data do Pagamento</label>
-                    <input type="date" id="amortizarData">
-                </div>
-            </div>
-            <div class="form-buttons">
-                <button class="btn-cancelar" onclick="fecharModal('modalAmortizar')">Cancelar</button>
-                <button class="btn-salvar" onclick="confirmarAmortizar()">Confirmar Amortização</button>
-            </div>
+            <div class="modal-body" id="modalAmortizarBody"></div>
         </div>
     </div>
 
+    <div class="modal" id="modalComprovante">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📎 Comprovante</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="modalComprovanteBody"></div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS serão adicionados na ETAPA 3 -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // ========== CONFIGURAÇÃO ==========
+        // ==========================================
+        // CONFIGURAÇÃO E INICIALIZAÇÃO
+        // ==========================================
+        
         const SUPABASE_URL = 'https://ltwamldgdwqzyssoukzl.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0d2FtbGRnZHdxenlzc291a3psIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY4NzEzMDUsImV4cCI6MjA4MjQ0NzMwNX0.UVyo0c0BHslB7mCU74Qx8rdo42HA0WPAyDQ6J-FIakE';
+        const USER_ID = 'default_user';
         
         let supabaseClient = null;
         let useSupabase = false;
         
         try {
-            const { createClient } = supabase;
-            supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+            supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
             useSupabase = true;
         } catch (e) {
-            console.log('Usando localStorage');
+            console.log('Supabase indisponível, usando localStorage');
         }
 
-        const USER_ID = 'default_user';
-
-        // Estrutura de dados
-        let financeiro = JSON.parse(localStorage.getItem('financeiro_v3')) || {
+        // ==========================================
+        // ESTRUTURA DE DADOS
+        // ==========================================
+        
+        const dadosVazios = {
             receitas: [],
-            despesasFixas: [],
+            despesasFixas: [],           // Modelos de despesas recorrentes
+            despesasFixasMes: {},        // Instâncias mensais: {"2025-01": [...]}
             despesasVariaveis: [],
             emprestimos: [],
-            economias: []
+            economias: [],
+            arquivados: {
+                receitas: [],
+                despesasFixas: [],
+                despesasVariaveis: [],
+                emprestimos: [],
+                economias: []
+            }
         };
 
+        let financeiro = JSON.parse(localStorage.getItem('financeiro_v5')) || JSON.parse(JSON.stringify(dadosVazios));
+        
+        // Garantir estrutura completa
+        if (!financeiro.arquivados) financeiro.arquivados = JSON.parse(JSON.stringify(dadosVazios.arquivados));
+        if (!financeiro.despesasFixasMes) financeiro.despesasFixasMes = {};
+
+        // Estado da aplicação
         let mesSelecionado = '';
+        let anoSelecionado = new Date().getFullYear();
+        let viewMode = 'ativos';
         let itemEditando = null;
         let emprestimoSelecionado = null;
 
-        // ========== UTILITÁRIOS ==========
-        function initMes() {
-            const mes = String(new Date().getMonth() + 1).padStart(2, '0');
-            document.getElementById('mesSelect').value = mes;
-            mesSelecionado = mes;
+        // ==========================================
+        // UTILITÁRIOS
+        // ==========================================
+        
+        function getMesAnoKey() {
+            return `${anoSelecionado}-${mesSelecionado}`;
         }
 
-        function formatarMoeda(v) {
-            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v || 0);
+        function formatarMoeda(valor) {
+            return new Intl.NumberFormat('pt-BR', { 
+                style: 'currency', 
+                currency: 'BRL' 
+            }).format(valor || 0);
         }
 
-        function formatarData(d) {
-            return d ? new Date(d + 'T00:00:00').toLocaleDateString('pt-BR') : '-';
+        function formatarData(data) {
+            if (!data) return '-';
+            return new Date(data + 'T00:00:00').toLocaleDateString('pt-BR');
         }
 
-        function getStatusVencimento(dataStr, pago) {
-            if (pago) return { status: 'ok', texto: '' };
-            const hoje = new Date(); hoje.setHours(0,0,0,0);
-            const venc = new Date(dataStr + 'T00:00:00');
-            const diff = Math.ceil((venc - hoje) / 86400000);
-            if (diff < 0) return { status: 'vencido', texto: `Vencido há ${Math.abs(diff)}d` };
-            if (diff <= 3) return { status: 'proximo', texto: diff === 0 ? 'Vence hoje!' : `Vence em ${diff}d` };
-            return { status: 'ok', texto: '' };
+        function getDataVencimento(dia) {
+            const d = String(dia).padStart(2, '0');
+            return `${anoSelecionado}-${mesSelecionado}-${d}`;
         }
 
         function filtrarPorMes(lista) {
-            return (lista || []).filter(i => i.data?.substring(5,7) === mesSelecionado);
+            return (lista || []).filter(item => 
+                item.data?.substring(0, 7) === getMesAnoKey()
+            );
         }
 
-        function mudarMes() {
-            mesSelecionado = document.getElementById('mesSelect').value;
-            renderizar();
+        function getStatusVencimento(dataStr, pago) {
+            if (pago) return { classe: '', badge: '' };
+            
+            const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
+            const vencimento = new Date(dataStr + 'T00:00:00');
+            const diffDias = Math.ceil((vencimento - hoje) / 86400000);
+            
+            if (diffDias < 0) {
+                return { 
+                    classe: 'vencido', 
+                    badge: `<span class="badge vencido">⚠️ ${Math.abs(diffDias)}d atraso</span>` 
+                };
+            }
+            if (diffDias <= 3) {
+                return { 
+                    classe: 'proximo', 
+                    badge: `<span class="badge proximo">⏰ ${diffDias === 0 ? 'Hoje' : diffDias + 'd'}</span>` 
+                };
+            }
+            return { classe: '', badge: '' };
+        }
+
+        function gerarId() {
+            return Date.now() + Math.random();
+        }
+
+        // ==========================================
+        // COMPROVANTES (Base64)
+        // ==========================================
+        
+        async function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                if (!file) { resolve(null); return; }
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function verComprovante(base64) {
+            const viewer = document.getElementById('modalComprovanteBody');
+            if (base64.includes('application/pdf')) {
+                viewer.innerHTML = `<embed src="${base64}" type="application/pdf" width="100%" height="450px" style="border-radius:8px;">`;
+            } else {
+                viewer.innerHTML = `<img src="${base64}" style="max-width:100%; border-radius:8px;">`;
+            }
+            abrirModal('modalComprovante');
+        }
+
+        // ==========================================
+        // MODAIS
+        // ==========================================
+        
+        function abrirModal(id) {
+            document.getElementById(id).classList.add('active');
         }
 
         function fecharModal(id) {
             document.getElementById(id).classList.remove('active');
         }
 
-        // ========== FORMULÁRIOS ==========
+        // Fechar modal ao clicar no X ou fora
+        document.querySelectorAll('.modal-close').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.closest('.modal').classList.remove('active');
+            });
+        });
+
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) this.classList.remove('active');
+            });
+        });
+
+        // ==========================================
+        // FORMULÁRIOS DINÂMICOS
+        // ==========================================
+        
+        function criarFormulario(tipo) {
+            const configs = {
+                receita: {
+                    campos: [
+                        { id: 'receitaDescricao', label: 'Descrição', type: 'text', placeholder: 'Ex: Salário' },
+                        { id: 'receitaValor', label: 'Valor', type: 'number', step: '0.01' },
+                        { id: 'receitaCategoria', label: 'Categoria', type: 'select', options: ['Salário', 'Freelance', 'Investimentos', 'Outros'] },
+                        { id: 'receitaData', label: 'Data', type: 'date' }
+                    ]
+                },
+                despesaFixa: {
+                    campos: [
+                        { id: 'despesaFixaDescricao', label: 'Descrição', type: 'text', placeholder: 'Ex: Aluguel' },
+                        { id: 'despesaFixaValor', label: 'Valor', type: 'number', step: '0.01' },
+                        { id: 'despesaFixaCategoria', label: 'Categoria', type: 'select', options: ['Moradia', 'Internet', 'Energia', 'Água', 'Escola', 'Streaming', 'Plano de Saúde', 'Outros'] },
+                        { id: 'despesaFixaDia', label: 'Dia Vencimento', type: 'number', min: 1, max: 31, placeholder: '10' }
+                    ]
+                },
+                despesaVariavel: {
+                    campos: [
+                        { id: 'despesaVariavelDescricao', label: 'Descrição', type: 'text', placeholder: 'Ex: Supermercado' },
+                        { id: 'despesaVariavelValor', label: 'Valor', type: 'number', step: '0.01' },
+                        { id: 'despesaVariavelCategoria', label: 'Categoria', type: 'select', options: ['Alimentação', 'Transporte', 'Lazer', 'Compras', 'Saúde', 'Cartão', 'Outros'] },
+                        { id: 'despesaVariavelData', label: 'Data', type: 'date' }
+                    ]
+                },
+                emprestimo: {
+                    campos: [
+                        { id: 'emprestimoDescricao', label: 'Credor / Descrição', type: 'text', placeholder: 'Ex: Banco X' },
+                        { id: 'emprestimoPrincipal', label: 'Valor Principal', type: 'number', step: '0.01' },
+                        { id: 'emprestimoJuros', label: 'Taxa Juros (%)', type: 'number', step: '0.1', placeholder: '10' },
+                        { id: 'emprestimoCategoria', label: 'Categoria', type: 'select', options: ['Agiota', 'Banco', 'Financeira', 'Pessoa Física', 'Cartão', 'Outros'] }
+                    ]
+                },
+                economia: {
+                    campos: [
+                        { id: 'economiaDescricao', label: 'Descrição', type: 'text', placeholder: 'Ex: Reserva emergência' },
+                        { id: 'economiaValor', label: 'Valor', type: 'number', step: '0.01' },
+                        { id: 'economiaCategoria', label: 'Categoria', type: 'select', options: ['Poupança', 'Investimento', 'Reserva', 'Objetivo', 'Outros'] },
+                        { id: 'economiaData', label: 'Data', type: 'date' }
+                    ]
+                }
+            };
+
+            const config = configs[tipo];
+            if (!config) return '';
+
+            let html = '<div class="form-row">';
+            config.campos.forEach(campo => {
+                html += `<div class="form-group"><label>${campo.label}</label>`;
+                if (campo.type === 'select') {
+                    html += `<select id="${campo.id}"><option value="">Selecione...</option>`;
+                    campo.options.forEach(opt => html += `<option value="${opt}">${opt}</option>`);
+                    html += '</select>';
+                } else {
+                    html += `<input type="${campo.type}" id="${campo.id}"`;
+                    if (campo.step) html += ` step="${campo.step}"`;
+                    if (campo.min) html += ` min="${campo.min}"`;
+                    if (campo.max) html += ` max="${campo.max}"`;
+                    if (campo.placeholder) html += ` placeholder="${campo.placeholder}"`;
+                    html += '>';
+                }
+                html += '</div>';
+            });
+            html += '</div>';
+            html += `<div class="form-buttons">
+                <button class="btn-cancelar" onclick="esconderForm('${tipo}')">Cancelar</button>
+                <button class="btn-salvar" onclick="salvar${tipo.charAt(0).toUpperCase() + tipo.slice(1)}()">Salvar</button>
+            </div>`;
+            
+            return html;
+        }
+
         function mostrarForm(tipo) {
-            const id = 'form' + tipo.charAt(0).toUpperCase() + tipo.slice(1);
-            document.getElementById(id).style.display = 'block';
+            const container = document.getElementById('form' + tipo.charAt(0).toUpperCase() + tipo.slice(1));
+            if (!container.innerHTML.trim()) {
+                container.innerHTML = criarFormulario(tipo);
+            }
+            container.classList.add('active');
+            
+            // Preencher data atual
             const dataInput = document.getElementById(tipo + 'Data');
             if (dataInput) dataInput.value = new Date().toISOString().split('T')[0];
         }
 
         function esconderForm(tipo) {
-            const id = 'form' + tipo.charAt(0).toUpperCase() + tipo.slice(1);
-            const form = document.getElementById(id);
-            form.style.display = 'none';
-            form.querySelectorAll('input').forEach(i => {
-                if (i.type === 'radio') i.checked = i.value === 'normal';
-                else i.value = '';
-            });
-            form.querySelectorAll('select').forEach(s => s.value = '');
-            const extra = form.querySelector('.extra-fields');
-            if (extra) extra.classList.remove('active');
+            const container = document.getElementById('form' + tipo.charAt(0).toUpperCase() + tipo.slice(1));
+            container.classList.remove('active');
+            container.querySelectorAll('input').forEach(i => i.value = '');
+            container.querySelectorAll('select').forEach(s => s.value = '');
         }
 
-        function mudarTipoDespesaVar() {
-            const tipo = document.querySelector('input[name="tipoDespesaVar"]:checked').value;
-            document.getElementById('parceladaFieldsVar').classList.toggle('active', tipo === 'parcelada');
-            document.getElementById('labelValorVar').textContent = tipo === 'parcelada' ? 'Valor da Parcela' : 'Valor';
-        }
+        // Event listeners dos botões
+        document.getElementById('btnAddReceita').onclick = () => mostrarForm('receita');
+        document.getElementById('btnAddDespesaFixa').onclick = () => mostrarForm('despesaFixa');
+        document.getElementById('btnAddDespesaVariavel').onclick = () => mostrarForm('despesaVariavel');
+        document.getElementById('btnAddEmprestimo').onclick = () => mostrarForm('emprestimo');
+        document.getElementById('btnAddEconomia').onclick = () => mostrarForm('economia');
 
-        // ========== CRUD RECEITAS ==========
+        // ==========================================
+        // RECEITAS
+        // ==========================================
+        
         function salvarReceita() {
             const desc = document.getElementById('receitaDescricao').value.trim();
             const valor = parseFloat(document.getElementById('receitaValor').value) || 0;
             const cat = document.getElementById('receitaCategoria').value || 'Outros';
             const data = document.getElementById('receitaData').value;
+            
             if (!desc || !valor || !data) return alert('Preencha todos os campos!');
             
-            financeiro.receitas.push({ id: Date.now(), descricao: desc, valor, categoria: cat, data, recebido: false });
-            salvarDados(); esconderForm('receita'); renderizar();
+            financeiro.receitas.push({
+                id: gerarId(),
+                descricao: desc,
+                valor: valor,
+                categoria: cat,
+                data: data,
+                recebido: false
+            });
+            
+            salvarDados();
+            esconderForm('receita');
+            renderizar();
         }
 
         function toggleRecebido(id) {
-            const r = financeiro.receitas.find(x => x.id === id);
-            if (r) { r.recebido = !r.recebido; salvarDados(); renderizar(); }
+            const item = financeiro.receitas.find(r => r.id === id);
+            if (item) {
+                item.recebido = !item.recebido;
+                salvarDados();
+                renderizar();
+            }
         }
 
         function deletarReceita(id) {
-            financeiro.receitas = financeiro.receitas.filter(x => x.id !== id);
-            salvarDados(); renderizar();
+            if (!confirm('Excluir esta receita?')) return;
+            financeiro.receitas = financeiro.receitas.filter(r => r.id !== id);
+            salvarDados();
+            renderizar();
         }
 
-        // ========== CRUD DESPESAS FIXAS ==========
+        function arquivarReceita(id) {
+            const idx = financeiro.receitas.findIndex(r => r.id === id);
+            if (idx > -1) {
+                const item = financeiro.receitas.splice(idx, 1)[0];
+                item.arquivadoEm = new Date().toISOString();
+                financeiro.arquivados.receitas.push(item);
+                salvarDados();
+                renderizar();
+                mostrarStatus('Item arquivado', 'success');
+            }
+        }
+
+        // ==========================================
+        // DESPESAS FIXAS (RECORRÊNCIA REAL)
+        // ==========================================
+        
         function salvarDespesaFixa() {
             const desc = document.getElementById('despesaFixaDescricao').value.trim();
             const valor = parseFloat(document.getElementById('despesaFixaValor').value) || 0;
             const cat = document.getElementById('despesaFixaCategoria').value || 'Outros';
-            const data = document.getElementById('despesaFixaData').value;
-            if (!desc || !valor || !data) return alert('Preencha todos os campos!');
+            const dia = parseInt(document.getElementById('despesaFixaDia').value) || 10;
             
-            financeiro.despesasFixas.push({ id: Date.now(), descricao: desc, valor, categoria: cat, data, pago: false });
-            salvarDados(); esconderForm('despesaFixa'); renderizar();
+            if (!desc || !valor) return alert('Preencha todos os campos!');
+            
+            // Criar modelo de despesa recorrente
+            financeiro.despesasFixas.push({
+                id: gerarId(),
+                descricao: desc,
+                valor: valor,
+                categoria: cat,
+                diaVencimento: dia,
+                ativa: true,
+                criadaEm: new Date().toISOString()
+            });
+            
+            salvarDados();
+            gerarInstanciasDespesasFixas();
+            esconderForm('despesaFixa');
+            renderizar();
+        }
+
+        // Gera instâncias mensais das despesas fixas ativas
+        function gerarInstanciasDespesasFixas() {
+            const key = getMesAnoKey();
+            if (!financeiro.despesasFixasMes[key]) {
+                financeiro.despesasFixasMes[key] = [];
+            }
+
+            financeiro.despesasFixas.filter(df => df.ativa).forEach(modelo => {
+                const jaExiste = financeiro.despesasFixasMes[key].some(d => d.modeloId === modelo.id);
+                if (!jaExiste) {
+                    financeiro.despesasFixasMes[key].push({
+                        id: gerarId(),
+                        modeloId: modelo.id,
+                        descricao: modelo.descricao,
+                        valor: modelo.valor,
+                        categoria: modelo.categoria,
+                        data: getDataVencimento(modelo.diaVencimento),
+                        pago: false,
+                        dataPagamento: null,
+                        comprovante: null
+                    });
+                }
+            });
+            salvarDados();
+        }
+
+        function getDespesasFixasMes() {
+            return financeiro.despesasFixasMes[getMesAnoKey()] || [];
         }
 
         function togglePagoFixa(id) {
-            const d = financeiro.despesasFixas.find(x => x.id === id);
-            if (d) { d.pago = !d.pago; salvarDados(); renderizar(); }
+            const key = getMesAnoKey();
+            const item = financeiro.despesasFixasMes[key]?.find(d => d.id === id);
+            if (!item) return;
+
+            if (!item.pago) {
+                // Abrir modal para registrar pagamento com comprovante
+                itemEditando = { tipo: 'despesaFixa', id: id, key: key };
+                const body = document.getElementById('modalEditarBody');
+                body.innerHTML = `
+                    <div class="info-box">
+                        <strong>${item.descricao}</strong> - ${formatarMoeda(item.valor)}
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Data do Pagamento</label>
+                            <input type="date" id="pagamentoData" value="${new Date().toISOString().split('T')[0]}">
+                        </div>
+                        <div class="form-group">
+                            <label>Comprovante (opcional)</label>
+                            <input type="file" id="pagamentoComprovante" accept="image/*,.pdf">
+                        </div>
+                    </div>
+                    <div class="form-buttons">
+                        <button class="btn-cancelar" onclick="fecharModal('modalEditar')">Cancelar</button>
+                        <button class="btn-salvar" onclick="confirmarPagamentoDespesa()">Confirmar</button>
+                    </div>
+                `;
+                document.querySelector('#modalEditar .modal-header h3').textContent = '💳 Registrar Pagamento';
+                abrirModal('modalEditar');
+            } else {
+                // Desmarcar como pago
+                item.pago = false;
+                item.dataPagamento = null;
+                item.comprovante = null;
+                salvarDados();
+                renderizar();
+            }
         }
 
-        function deletarDespesaFixa(id) {
-            financeiro.despesasFixas = financeiro.despesasFixas.filter(x => x.id !== id);
-            salvarDados(); renderizar();
+        async function confirmarPagamentoDespesa() {
+            const data = document.getElementById('pagamentoData').value;
+            const fileInput = document.getElementById('pagamentoComprovante');
+            const comprovante = await fileToBase64(fileInput.files[0]);
+
+            if (itemEditando.tipo === 'despesaFixa') {
+                const item = financeiro.despesasFixasMes[itemEditando.key]?.find(d => d.id === itemEditando.id);
+                if (item) {
+                    item.pago = true;
+                    item.dataPagamento = data;
+                    item.comprovante = comprovante;
+                }
+            } else if (itemEditando.tipo === 'despesaVariavel') {
+                const item = financeiro.despesasVariaveis.find(d => d.id === itemEditando.id);
+                if (item) {
+                    item.pago = true;
+                    item.dataPagamento = data;
+                    item.comprovante = comprovante;
+                }
+            }
+
+            salvarDados();
+            fecharModal('modalEditar');
+            renderizar();
         }
 
-        // ========== CRUD DESPESAS VARIÁVEIS ==========
+        // Editar modelo da despesa fixa (afeta próximos meses)
+        function editarDespesaFixaModelo(modeloId) {
+            const modelo = financeiro.despesasFixas.find(df => df.id === modeloId);
+            if (!modelo) return;
+
+            itemEditando = { tipo: 'despesaFixaModelo', id: modeloId };
+            const body = document.getElementById('modalEditarBody');
+            body.innerHTML = `
+                <div class="info-box warning">
+                    ⚠️ Alterações afetam apenas os <strong>próximos meses</strong>. O histórico é preservado.
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <input type="text" id="editDescricao" value="${modelo.descricao}">
+                    </div>
+                    <div class="form-group">
+                        <label>Valor</label>
+                        <input type="number" id="editValor" step="0.01" value="${modelo.valor}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <input type="text" id="editCategoria" value="${modelo.categoria}">
+                    </div>
+                    <div class="form-group">
+                        <label>Dia Vencimento</label>
+                        <input type="number" id="editDia" min="1" max="31" value="${modelo.diaVencimento}">
+                    </div>
+                </div>
+                <div class="form-buttons">
+                    <button class="btn-cancelar" onclick="fecharModal('modalEditar')">Cancelar</button>
+                    <button class="btn-salvar" onclick="salvarEdicaoModelo()">Salvar</button>
+                </div>
+            `;
+            document.querySelector('#modalEditar .modal-header h3').textContent = '✏️ Editar Despesa Fixa';
+            abrirModal('modalEditar');
+        }
+
+        function salvarEdicaoModelo() {
+            const modelo = financeiro.despesasFixas.find(df => df.id === itemEditando.id);
+            if (modelo) {
+                modelo.descricao = document.getElementById('editDescricao').value.trim();
+                modelo.valor = parseFloat(document.getElementById('editValor').value) || modelo.valor;
+                modelo.categoria = document.getElementById('editCategoria').value;
+                modelo.diaVencimento = parseInt(document.getElementById('editDia').value) || modelo.diaVencimento;
+                salvarDados();
+            }
+            fecharModal('modalEditar');
+            renderizar();
+        }
+
+        // Encerrar despesa fixa (não aparece mais nos próximos meses)
+        function encerrarDespesaFixa(modeloId) {
+            if (!confirm('Encerrar esta despesa fixa?\nEla não aparecerá nos próximos meses, mas o histórico será mantido.')) return;
+            
+            const modelo = financeiro.despesasFixas.find(df => df.id === modeloId);
+            if (modelo) {
+                modelo.ativa = false;
+                modelo.encerradaEm = new Date().toISOString();
+                salvarDados();
+                renderizar();
+                mostrarStatus('Despesa encerrada', 'success');
+            }
+        }
+
+        // ==========================================
+        // DESPESAS VARIÁVEIS
+        // ==========================================
+        
         function salvarDespesaVariavel() {
             const desc = document.getElementById('despesaVariavelDescricao').value.trim();
             const valor = parseFloat(document.getElementById('despesaVariavelValor').value) || 0;
             const cat = document.getElementById('despesaVariavelCategoria').value || 'Outros';
             const data = document.getElementById('despesaVariavelData').value;
-            const tipo = document.querySelector('input[name="tipoDespesaVar"]:checked').value;
+            
             if (!desc || !valor || !data) return alert('Preencha todos os campos!');
-
-            if (tipo === 'parcelada') {
-                const totalParcelas = parseInt(document.getElementById('despesaVariavelParcelas').value) || 1;
-                const grupoId = Date.now();
-                for (let i = 0; i < totalParcelas; i++) {
-                    const dataVenc = new Date(data + 'T00:00:00');
-                    dataVenc.setMonth(dataVenc.getMonth() + i);
-                    financeiro.despesasVariaveis.push({
-                        id: grupoId + i, grupoId, descricao: desc, valor, valorTotal: valor * totalParcelas,
-                        categoria: cat, data: dataVenc.toISOString().split('T')[0], pago: false,
-                        tipo: 'parcelada', parcelaAtual: i + 1, totalParcelas
-                    });
-                }
-            } else {
-                financeiro.despesasVariaveis.push({ id: Date.now(), descricao: desc, valor, categoria: cat, data, pago: false, tipo: 'normal' });
-            }
-            salvarDados(); esconderForm('despesaVariavel'); renderizar();
+            
+            financeiro.despesasVariaveis.push({
+                id: gerarId(),
+                descricao: desc,
+                valor: valor,
+                categoria: cat,
+                data: data,
+                pago: false,
+                dataPagamento: null,
+                comprovante: null
+            });
+            
+            salvarDados();
+            esconderForm('despesaVariavel');
+            renderizar();
         }
 
         function togglePagoVariavel(id) {
-            const d = financeiro.despesasVariaveis.find(x => x.id === id);
-            if (d) { d.pago = !d.pago; salvarDados(); renderizar(); }
+            const item = financeiro.despesasVariaveis.find(d => d.id === id);
+            if (!item) return;
+
+            if (!item.pago) {
+                itemEditando = { tipo: 'despesaVariavel', id: id };
+                const body = document.getElementById('modalEditarBody');
+                body.innerHTML = `
+                    <div class="info-box">
+                        <strong>${item.descricao}</strong> - ${formatarMoeda(item.valor)}
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Data do Pagamento</label>
+                            <input type="date" id="pagamentoData" value="${new Date().toISOString().split('T')[0]}">
+                        </div>
+                        <div class="form-group">
+                            <label>Comprovante (opcional)</label>
+                            <input type="file" id="pagamentoComprovante" accept="image/*,.pdf">
+                        </div>
+                    </div>
+                    <div class="form-buttons">
+                        <button class="btn-cancelar" onclick="fecharModal('modalEditar')">Cancelar</button>
+                        <button class="btn-salvar" onclick="confirmarPagamentoDespesa()">Confirmar</button>
+                    </div>
+                `;
+                document.querySelector('#modalEditar .modal-header h3').textContent = '💳 Registrar Pagamento';
+                abrirModal('modalEditar');
+            } else {
+                item.pago = false;
+                item.dataPagamento = null;
+                item.comprovante = null;
+                salvarDados();
+                renderizar();
+            }
         }
 
         function deletarDespesaVariavel(id) {
-            const d = financeiro.despesasVariaveis.find(x => x.id === id);
-            if (d?.grupoId && confirm('Excluir todas as parcelas?')) {
-                financeiro.despesasVariaveis = financeiro.despesasVariaveis.filter(x => x.grupoId !== d.grupoId);
-            } else {
-                financeiro.despesasVariaveis = financeiro.despesasVariaveis.filter(x => x.id !== id);
-            }
-            salvarDados(); renderizar();
+            if (!confirm('Excluir esta despesa?')) return;
+            financeiro.despesasVariaveis = financeiro.despesasVariaveis.filter(d => d.id !== id);
+            salvarDados();
+            renderizar();
         }
 
-        // ========== EMPRÉSTIMOS - LÓGICA FINANCEIRA CORRETA ==========
+        // ==========================================
+        // EMPRÉSTIMOS / DÍVIDAS
+        // ==========================================
+        
         function salvarEmprestimo() {
             const desc = document.getElementById('emprestimoDescricao').value.trim();
             const principal = parseFloat(document.getElementById('emprestimoPrincipal').value) || 0;
             const juros = parseFloat(document.getElementById('emprestimoJuros').value) || 0;
             const cat = document.getElementById('emprestimoCategoria').value || 'Outros';
+            
             if (!desc || !principal) return alert('Preencha os campos obrigatórios!');
-
+            
             financeiro.emprestimos.push({
-                id: Date.now(),
+                id: gerarId(),
                 descricao: desc,
                 categoria: cat,
-                // Valores fixos (não mudam automaticamente)
-                principalOriginal: principal,    // Valor original da dívida
-                principal: principal,            // Valor atual da dívida (reduz com amortização)
-                taxaJuros: juros,               // Taxa de juros mensal (%)
-                // Juros separados
-                jurosAcumulados: 0,             // Juros não pagos (acumulam)
-                totalJurosPagos: 0,             // Total de juros já pagos
-                // Amortização
-                totalAmortizado: 0,             // Total já amortizado
-                // Histórico
-                historico: [],                   // Registro de todas as operações
+                principalOriginal: principal,
+                principal: principal,
+                taxaJuros: juros,
+                jurosAcumulados: 0,
+                totalJurosPagos: 0,
+                totalAmortizado: 0,
+                historico: [],
+                arquivado: false,
                 dataCriacao: new Date().toISOString()
             });
-            salvarDados(); esconderForm('emprestimo'); renderizar();
+            
+            salvarDados();
+            esconderForm('emprestimo');
+            renderizar();
         }
 
-        // Gerar juros do mês (ação manual)
+        // Gerar juros do mês (manual)
         function gerarJurosMes(id) {
-            const emp = financeiro.emprestimos.find(x => x.id === id);
-            if (!emp) return;
+            const emp = financeiro.emprestimos.find(e => e.id === id);
+            if (!emp || emp.principal <= 0) return;
 
             const valorJuros = (emp.principal * emp.taxaJuros) / 100;
             emp.jurosAcumulados = (emp.jurosAcumulados || 0) + valorJuros;
@@ -1500,39 +1831,62 @@
                 tipo: 'juros_gerado',
                 valor: valorJuros,
                 data: new Date().toISOString(),
-                descricao: `Juros de ${emp.taxaJuros}% sobre ${formatarMoeda(emp.principal)}`
+                mesRef: getMesAnoKey()
             });
 
-            salvarDados(); renderizar();
-            alert(`Juros de ${formatarMoeda(valorJuros)} adicionados aos juros acumulados.`);
+            salvarDados();
+            renderizar();
+            mostrarStatus(`Juros de ${formatarMoeda(valorJuros)} adicionados`, 'success');
         }
 
-        // Abrir modal para pagar juros
+        // Pagar Juros (NÃO reduz principal)
         function abrirModalPagarJuros(id) {
-            const emp = financeiro.emprestimos.find(x => x.id === id);
+            const emp = financeiro.emprestimos.find(e => e.id === id);
             if (!emp) return;
 
             emprestimoSelecionado = id;
-            document.getElementById('infoPagarJuros').innerHTML = `
-                <div class="info-box" style="background: rgba(243,156,18,0.1); border-color: rgba(243,156,18,0.3);">
+            const body = document.getElementById('modalPagarJurosBody');
+            body.innerHTML = `
+                <div class="info-box warning">
+                    Este pagamento <strong>NÃO</strong> reduz a dívida principal. Apenas quita os juros acumulados.
+                </div>
+                <div class="info-box" style="background:rgba(243,156,18,0.1);border-color:rgba(243,156,18,0.3)">
                     <strong>Juros Acumulados:</strong> ${formatarMoeda(emp.jurosAcumulados || 0)}
                 </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Valor a Pagar</label>
+                        <input type="number" id="pagarJurosValor" step="0.01" value="${emp.jurosAcumulados || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label>Data</label>
+                        <input type="date" id="pagarJurosData" value="${new Date().toISOString().split('T')[0]}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Comprovante (opcional)</label>
+                        <input type="file" id="pagarJurosComprovante" accept="image/*,.pdf">
+                    </div>
+                </div>
+                <div class="form-buttons">
+                    <button class="btn-cancelar" onclick="fecharModal('modalPagarJuros')">Cancelar</button>
+                    <button class="btn-salvar" onclick="confirmarPagarJuros()">Confirmar</button>
+                </div>
             `;
-            document.getElementById('pagarJurosValor').value = emp.jurosAcumulados || '';
-            document.getElementById('pagarJurosData').value = new Date().toISOString().split('T')[0];
-            document.getElementById('modalPagarJuros').classList.add('active');
+            abrirModal('modalPagarJuros');
         }
 
-        // Confirmar pagamento de juros
-        function confirmarPagarJuros() {
-            const emp = financeiro.emprestimos.find(x => x.id === emprestimoSelecionado);
+        async function confirmarPagarJuros() {
+            const emp = financeiro.emprestimos.find(e => e.id === emprestimoSelecionado);
             if (!emp) return;
 
             const valor = parseFloat(document.getElementById('pagarJurosValor').value) || 0;
             const data = document.getElementById('pagarJurosData').value;
-            if (!valor) return alert('Informe o valor!');
+            const comprovante = await fileToBase64(document.getElementById('pagarJurosComprovante').files[0]);
 
-            // Registrar pagamento de juros
+            if (!valor || valor <= 0) return alert('Informe o valor!');
+
             emp.jurosAcumulados = Math.max(0, (emp.jurosAcumulados || 0) - valor);
             emp.totalJurosPagos = (emp.totalJurosPagos || 0) + valor;
 
@@ -1540,42 +1894,65 @@
                 tipo: 'pagamento_juros',
                 valor: valor,
                 data: data,
-                descricao: `Pagamento de juros`,
+                comprovante: comprovante,
                 jurosRestantes: emp.jurosAcumulados
             });
 
             salvarDados();
             fecharModal('modalPagarJuros');
             renderizar();
+            mostrarStatus('Juros pagos: ' + formatarMoeda(valor), 'success');
         }
 
-        // Abrir modal para amortizar
+        // Amortizar (REDUZ principal)
         function abrirModalAmortizar(id) {
-            const emp = financeiro.emprestimos.find(x => x.id === id);
+            const emp = financeiro.emprestimos.find(e => e.id === id);
             if (!emp) return;
 
             emprestimoSelecionado = id;
-            document.getElementById('infoAmortizar').innerHTML = `
-                <div class="info-box" style="background: rgba(52,152,219,0.1); border-color: rgba(52,152,219,0.3);">
-                    <strong>Dívida Principal Atual:</strong> ${formatarMoeda(emp.principal)}
+            const body = document.getElementById('modalAmortizarBody');
+            body.innerHTML = `
+                <div class="info-box info">
+                    Este pagamento <strong>REDUZ</strong> o valor da dívida principal.
+                </div>
+                <div class="info-box" style="background:rgba(52,152,219,0.1);border-color:rgba(52,152,219,0.3)">
+                    <strong>Saldo Devedor:</strong> ${formatarMoeda(emp.principal)}
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Valor a Amortizar</label>
+                        <input type="number" id="amortizarValor" step="0.01" placeholder="0,00">
+                    </div>
+                    <div class="form-group">
+                        <label>Data</label>
+                        <input type="date" id="amortizarData" value="${new Date().toISOString().split('T')[0]}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Comprovante (opcional)</label>
+                        <input type="file" id="amortizarComprovante" accept="image/*,.pdf">
+                    </div>
+                </div>
+                <div class="form-buttons">
+                    <button class="btn-cancelar" onclick="fecharModal('modalAmortizar')">Cancelar</button>
+                    <button class="btn-salvar" onclick="confirmarAmortizar()">Confirmar</button>
                 </div>
             `;
-            document.getElementById('amortizarValor').value = '';
-            document.getElementById('amortizarData').value = new Date().toISOString().split('T')[0];
-            document.getElementById('modalAmortizar').classList.add('active');
+            abrirModal('modalAmortizar');
         }
 
-        // Confirmar amortização
-        function confirmarAmortizar() {
-            const emp = financeiro.emprestimos.find(x => x.id === emprestimoSelecionado);
+        async function confirmarAmortizar() {
+            const emp = financeiro.emprestimos.find(e => e.id === emprestimoSelecionado);
             if (!emp) return;
 
             const valor = parseFloat(document.getElementById('amortizarValor').value) || 0;
             const data = document.getElementById('amortizarData').value;
-            if (!valor) return alert('Informe o valor!');
+            const comprovante = await fileToBase64(document.getElementById('amortizarComprovante').files[0]);
+
+            if (!valor || valor <= 0) return alert('Informe o valor!');
             if (valor > emp.principal) return alert('Valor maior que a dívida atual!');
 
-            // Amortizar - reduz o principal
             emp.principal = emp.principal - valor;
             emp.totalAmortizado = (emp.totalAmortizado || 0) + valor;
 
@@ -1583,253 +1960,237 @@
                 tipo: 'amortizacao',
                 valor: valor,
                 data: data,
-                descricao: `Amortização da dívida`,
+                comprovante: comprovante,
                 saldoRestante: emp.principal
             });
+
+            // Arquivar automaticamente se quitado
+            if (emp.principal <= 0 && (emp.jurosAcumulados || 0) <= 0) {
+                emp.arquivado = true;
+                emp.arquivadoEm = new Date().toISOString();
+                financeiro.arquivados.emprestimos.push(emp);
+                mostrarStatus('🎉 Dívida quitada e arquivada!', 'success');
+            } else {
+                mostrarStatus('Amortização: ' + formatarMoeda(valor), 'success');
+            }
 
             salvarDados();
             fecharModal('modalAmortizar');
             renderizar();
-
-            if (emp.principal <= 0) {
-                alert('🎉 Parabéns! Dívida quitada!');
-            }
         }
 
-        // Editar empréstimo
-        function abrirModalEditarEmprestimo(id) {
-            const emp = financeiro.emprestimos.find(x => x.id === id);
+        function editarEmprestimo(id) {
+            const emp = financeiro.emprestimos.find(e => e.id === id);
             if (!emp) return;
 
             emprestimoSelecionado = id;
-            document.getElementById('editEmpDescricao').value = emp.descricao;
-            document.getElementById('editEmpPrincipal').value = emp.principal;
-            document.getElementById('editEmpJuros').value = emp.taxaJuros;
-            document.getElementById('editEmpCategoria').value = emp.categoria;
-            document.getElementById('modalEditarEmprestimo').classList.add('active');
+            const body = document.getElementById('modalEditarBody');
+            body.innerHTML = `
+                <div class="info-box warning">
+                    ⚠️ Alterações no principal não afetam o histórico de pagamentos.
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Credor / Descrição</label>
+                        <input type="text" id="editEmpDescricao" value="${emp.descricao}">
+                    </div>
+                    <div class="form-group">
+                        <label>Valor Principal</label>
+                        <input type="number" id="editEmpPrincipal" step="0.01" value="${emp.principal}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Taxa de Juros (%)</label>
+                        <input type="number" id="editEmpJuros" step="0.1" value="${emp.taxaJuros}">
+                    </div>
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <input type="text" id="editEmpCategoria" value="${emp.categoria}">
+                    </div>
+                </div>
+                <div class="form-buttons">
+                    <button class="btn-cancelar" onclick="fecharModal('modalEditar')">Cancelar</button>
+                    <button class="btn-salvar" onclick="salvarEdicaoEmprestimo()">Salvar</button>
+                </div>
+            `;
+            document.querySelector('#modalEditar .modal-header h3').textContent = '✏️ Editar Empréstimo';
+            abrirModal('modalEditar');
         }
 
         function salvarEdicaoEmprestimo() {
-            const emp = financeiro.emprestimos.find(x => x.id === emprestimoSelecionado);
+            const emp = financeiro.emprestimos.find(e => e.id === emprestimoSelecionado);
             if (!emp) return;
 
-            const novoDesc = document.getElementById('editEmpDescricao').value.trim();
-            const novoPrincipal = parseFloat(document.getElementById('editEmpPrincipal').value) || emp.principal;
-            const novoJuros = parseFloat(document.getElementById('editEmpJuros').value) || emp.taxaJuros;
-            const novaCat = document.getElementById('editEmpCategoria').value;
+            emp.descricao = document.getElementById('editEmpDescricao').value.trim();
+            emp.principal = parseFloat(document.getElementById('editEmpPrincipal').value) || emp.principal;
+            emp.taxaJuros = parseFloat(document.getElementById('editEmpJuros').value) || emp.taxaJuros;
+            emp.categoria = document.getElementById('editEmpCategoria').value;
 
-            // Registrar alteração no histórico
-            if (novoPrincipal !== emp.principal) {
-                emp.historico.push({
-                    tipo: 'edicao',
-                    data: new Date().toISOString(),
-                    descricao: `Principal alterado de ${formatarMoeda(emp.principal)} para ${formatarMoeda(novoPrincipal)}`
-                });
-            }
-
-            emp.descricao = novoDesc;
-            emp.principal = novoPrincipal;
-            emp.taxaJuros = novoJuros;
-            emp.categoria = novaCat;
+            emp.historico.push({
+                tipo: 'edicao',
+                data: new Date().toISOString(),
+                descricao: 'Dados editados manualmente'
+            });
 
             salvarDados();
-            fecharModal('modalEditarEmprestimo');
+            fecharModal('modalEditar');
             renderizar();
         }
 
         function deletarEmprestimo(id) {
             if (!confirm('Excluir este empréstimo e todo seu histórico?')) return;
-            financeiro.emprestimos = financeiro.emprestimos.filter(x => x.id !== id);
-            salvarDados(); renderizar();
+            financeiro.emprestimos = financeiro.emprestimos.filter(e => e.id !== id);
+            salvarDados();
+            renderizar();
         }
 
-        // ========== CRUD ECONOMIAS ==========
+        // ==========================================
+        // ECONOMIAS
+        // ==========================================
+        
         function salvarEconomia() {
             const desc = document.getElementById('economiaDescricao').value.trim();
             const valor = parseFloat(document.getElementById('economiaValor').value) || 0;
             const cat = document.getElementById('economiaCategoria').value || 'Outros';
             const data = document.getElementById('economiaData').value;
+            
             if (!desc || !valor || !data) return alert('Preencha todos os campos!');
-
-            financeiro.economias.push({ id: Date.now(), descricao: desc, valor, categoria: cat, data });
-            salvarDados(); esconderForm('economia'); renderizar();
+            
+            financeiro.economias.push({
+                id: gerarId(),
+                descricao: desc,
+                valor: valor,
+                categoria: cat,
+                data: data
+            });
+            
+            salvarDados();
+            esconderForm('economia');
+            renderizar();
         }
 
         function deletarEconomia(id) {
-            financeiro.economias = financeiro.economias.filter(x => x.id !== id);
-            salvarDados(); renderizar();
+            if (!confirm('Excluir esta economia?')) return;
+            financeiro.economias = financeiro.economias.filter(e => e.id !== id);
+            salvarDados();
+            renderizar();
         }
 
-        // ========== EDIÇÃO GENÉRICA ==========
-        function abrirModalEditar(tipo, id) {
-            let item;
-            if (tipo === 'receita') item = financeiro.receitas.find(x => x.id === id);
-            else if (tipo === 'despesaFixa') item = financeiro.despesasFixas.find(x => x.id === id);
-            else if (tipo === 'despesaVariavel') item = financeiro.despesasVariaveis.find(x => x.id === id);
-            else if (tipo === 'economia') item = financeiro.economias.find(x => x.id === id);
-            if (!item) return;
-
-            itemEditando = { tipo, id };
-            document.getElementById('editDescricao').value = item.descricao;
-            document.getElementById('editValor').value = item.valor;
-            document.getElementById('editCategoria').value = item.categoria;
-            document.getElementById('editData').value = item.data;
-            document.getElementById('modalEditar').classList.add('active');
-        }
-
-        function salvarEdicao() {
-            if (!itemEditando) return;
-            let lista;
-            if (itemEditando.tipo === 'receita') lista = financeiro.receitas;
-            else if (itemEditando.tipo === 'despesaFixa') lista = financeiro.despesasFixas;
-            else if (itemEditando.tipo === 'despesaVariavel') lista = financeiro.despesasVariaveis;
-            else if (itemEditando.tipo === 'economia') lista = financeiro.economias;
-
-            const item = lista.find(x => x.id === itemEditando.id);
-            if (item) {
-                item.descricao = document.getElementById('editDescricao').value.trim();
-                item.valor = parseFloat(document.getElementById('editValor').value) || item.valor;
-                item.categoria = document.getElementById('editCategoria').value;
-                item.data = document.getElementById('editData').value;
-            }
-            salvarDados(); fecharModal('modalEditar'); renderizar();
-        }
-
-        // ========== DUPLICAR ==========
-        function duplicar(tipo, id) {
-            let item, lista;
-            if (tipo === 'receita') { lista = financeiro.receitas; item = lista.find(x => x.id === id); }
-            else if (tipo === 'despesaFixa') { lista = financeiro.despesasFixas; item = lista.find(x => x.id === id); }
-            else if (tipo === 'despesaVariavel') { lista = financeiro.despesasVariaveis; item = lista.find(x => x.id === id); }
-            else if (tipo === 'economia') { lista = financeiro.economias; item = lista.find(x => x.id === id); }
-            if (!item) return;
-
-            const novoItem = { ...item, id: Date.now(), pago: false, recebido: false };
-            delete novoItem.grupoId;
-            lista.push(novoItem);
-            salvarDados(); renderizar();
-        }
-
-        // ========== RENDERIZAÇÃO ==========
-        function calcularDadosParcelas(grupoId) {
-            const parcelas = financeiro.despesasVariaveis.filter(d => d.grupoId === grupoId);
-            const pagas = parcelas.filter(d => d.pago);
-            return {
-                pagas: pagas.length, total: parcelas.length,
-                valorPago: pagas.reduce((s, p) => s + p.valor, 0),
-                valorTotal: parcelas[0]?.valorTotal || 0,
-                percentual: Math.round((pagas.length / parcelas.length) * 100)
-            };
-        }
-
-        function renderBadgeVencimento(data, pago) {
-            const v = getStatusVencimento(data, pago);
-            if (v.status === 'vencido') return `<span class="badge vencido">⚠️ ${v.texto}</span>`;
-            if (v.status === 'proximo') return `<span class="badge proximo">⏰ ${v.texto}</span>`;
-            return '';
-        }
-
-        function renderAcoes(tipo, id) {
-            return `
-                <button onclick="abrirModalEditar('${tipo}', ${id})" title="Editar">✏️</button>
-                <button onclick="duplicar('${tipo}', ${id})" title="Duplicar">📋</button>
-                <button class="delete" onclick="deletar${tipo.charAt(0).toUpperCase() + tipo.slice(1)}(${id})" title="Excluir">🗑️</button>
-            `;
-        }
-
+        // ==========================================
+        // RENDERIZAÇÃO
+        // ==========================================
+        
         function renderizar() {
+            if (viewMode === 'arquivados') {
+                renderizarArquivados();
+                return;
+            }
+
             const receitasMes = filtrarPorMes(financeiro.receitas);
-            const fixasMes = filtrarPorMes(financeiro.despesasFixas);
+            const fixasMes = getDespesasFixasMes();
             const variaveisMes = filtrarPorMes(financeiro.despesasVariaveis);
             const economiasMes = filtrarPorMes(financeiro.economias);
+            const emprestimosAtivos = financeiro.emprestimos.filter(e => !e.arquivado);
 
-            // Totais do mês
+            // Cálculos do mês
             const totalRecebido = receitasMes.filter(r => r.recebido).reduce((s, r) => s + r.valor, 0);
             const totalPagoFixas = fixasMes.filter(d => d.pago).reduce((s, d) => s + d.valor, 0);
-            const totalPagoVariaveis = variaveisMes.filter(d => d.pago).reduce((s, d) => s + d.valor, 0);
-            const totalPago = totalPagoFixas + totalPagoVariaveis;
+            const totalPagoVar = variaveisMes.filter(d => d.pago).reduce((s, d) => s + d.valor, 0);
+            const totalPago = totalPagoFixas + totalPagoVar;
+            const totalDespesasMes = fixasMes.reduce((s, d) => s + d.valor, 0) + variaveisMes.reduce((s, d) => s + d.valor, 0);
             const totalEconomiaMes = economiasMes.reduce((s, e) => s + e.valor, 0);
 
+            // Atualizar resumo do mês
             document.getElementById('totalRecebido').textContent = formatarMoeda(totalRecebido);
             document.getElementById('totalPago').textContent = formatarMoeda(totalPago);
+            document.getElementById('totalDespesasMes').textContent = formatarMoeda(totalDespesasMes);
             document.getElementById('totalEconomia').textContent = formatarMoeda(totalEconomiaMes);
 
             // Subtotais
             document.getElementById('subtotalFixas').textContent = `(${formatarMoeda(totalPagoFixas)})`;
-            document.getElementById('subtotalVariaveis').textContent = `(${formatarMoeda(totalPagoVariaveis)})`;
+            document.getElementById('subtotalVariaveis').textContent = `(${formatarMoeda(totalPagoVar)})`;
             document.getElementById('subtotalEconomias').textContent = `(${formatarMoeda(totalEconomiaMes)})`;
 
-            // Totais gerais
+            // Totais gerais acumulados
             const totalRecebidoGeral = financeiro.receitas.filter(r => r.recebido).reduce((s, r) => s + r.valor, 0);
-            const totalPagoGeralFixas = financeiro.despesasFixas.filter(d => d.pago).reduce((s, d) => s + d.valor, 0);
+            const totalPagoGeralFixas = Object.values(financeiro.despesasFixasMes).flat().filter(d => d.pago).reduce((s, d) => s + d.valor, 0);
             const totalPagoGeralVar = financeiro.despesasVariaveis.filter(d => d.pago).reduce((s, d) => s + d.valor, 0);
-            const totalPagoGeral = totalPagoGeralFixas + totalPagoGeralVar;
             const totalEconomiaGeral = financeiro.economias.reduce((s, e) => s + e.valor, 0);
 
             document.getElementById('totalRecebidoFinal').textContent = formatarMoeda(totalRecebidoGeral);
-            document.getElementById('totalPagoFinal').textContent = formatarMoeda(totalPagoGeral);
+            document.getElementById('totalPagoFinal').textContent = formatarMoeda(totalPagoGeralFixas + totalPagoGeralVar);
             document.getElementById('totalEconomiaFinal').textContent = formatarMoeda(totalEconomiaGeral);
 
-            // Tabela Receitas
+            // === TABELA RECEITAS ===
             const receitasTable = document.getElementById('receitasTable');
             document.getElementById('emptyReceitas').style.display = receitasMes.length ? 'none' : 'block';
             receitasTable.innerHTML = receitasMes.map(r => `
                 <tr class="${r.recebido ? 'done' : ''}">
                     <td><input type="checkbox" class="checkbox-status" ${r.recebido ? 'checked' : ''} onchange="toggleRecebido(${r.id})"></td>
-                    <td>${r.descricao}</td>
+                    <td class="descricao">${r.descricao}</td>
                     <td><span class="categoria">${r.categoria}</span></td>
                     <td>${formatarData(r.data)}</td>
                     <td class="valor-positivo">+ ${formatarMoeda(r.valor)}</td>
-                    <td class="acoes">${renderAcoes('receita', r.id)}</td>
+                    <td class="acoes">
+                        <button onclick="arquivarReceita(${r.id})" title="Arquivar">📁</button>
+                        <button class="delete" onclick="deletarReceita(${r.id})" title="Excluir">🗑️</button>
+                    </td>
                 </tr>
             `).join('');
 
-            // Tabela Despesas Fixas
+            // === TABELA DESPESAS FIXAS ===
             const fixasTable = document.getElementById('despesasFixasTable');
             document.getElementById('emptyDespesasFixas').style.display = fixasMes.length ? 'none' : 'block';
             fixasTable.innerHTML = fixasMes.map(d => {
-                const rowClass = d.pago ? 'done' : (getStatusVencimento(d.data, d.pago).status === 'vencido' ? 'vencido' : getStatusVencimento(d.data, d.pago).status === 'proximo' ? 'proximo' : '');
+                const status = getStatusVencimento(d.data, d.pago);
                 return `
-                    <tr class="${rowClass}">
+                    <tr class="${d.pago ? 'done' : ''} ${status.classe}">
                         <td><input type="checkbox" class="checkbox-status" ${d.pago ? 'checked' : ''} onchange="togglePagoFixa(${d.id})"></td>
-                        <td>${d.descricao}</td>
+                        <td class="descricao">
+                            ${d.descricao}
+                            <span class="badge recorrente">🔄 Recorrente</span>
+                            ${d.comprovante ? '<span class="badge comprovante">📎</span>' : ''}
+                        </td>
                         <td><span class="categoria">${d.categoria}</span></td>
-                        <td>${formatarData(d.data)} ${renderBadgeVencimento(d.data, d.pago)}</td>
+                        <td>${formatarData(d.data)} ${status.badge}</td>
                         <td class="valor-negativo">- ${formatarMoeda(d.valor)}</td>
-                        <td class="acoes">${renderAcoes('despesaFixa', d.id)}</td>
+                        <td class="acoes">
+                            ${d.comprovante ? `<button class="comprovante" onclick="verComprovante('${d.comprovante}')" title="Ver Comprovante">📎</button>` : ''}
+                            <button onclick="editarDespesaFixaModelo(${d.modeloId})" title="Editar">✏️</button>
+                            <button class="delete" onclick="encerrarDespesaFixa(${d.modeloId})" title="Encerrar">⏹️</button>
+                        </td>
                     </tr>
                 `;
             }).join('');
 
-            // Tabela Despesas Variáveis
+            // === TABELA DESPESAS VARIÁVEIS ===
             const variaveisTable = document.getElementById('despesasVariaveisTable');
             document.getElementById('emptyDespesasVariaveis').style.display = variaveisMes.length ? 'none' : 'block';
             variaveisTable.innerHTML = variaveisMes.map(d => {
-                let extraInfo = '';
-                if (d.tipo === 'parcelada') {
-                    const dados = calcularDadosParcelas(d.grupoId);
-                    extraInfo = `<span class="badge parcela">${d.parcelaAtual}/${d.totalParcelas}</span>
-                        <div class="info-extra">Pago: ${formatarMoeda(dados.valorPago)} de ${formatarMoeda(dados.valorTotal)}
-                        <div class="progress-bar"><div class="progress-bar-fill" style="width:${dados.percentual}%"></div></div></div>`;
-                }
-                const rowClass = d.pago ? 'done' : (getStatusVencimento(d.data, d.pago).status === 'vencido' ? 'vencido' : getStatusVencimento(d.data, d.pago).status === 'proximo' ? 'proximo' : '');
+                const status = getStatusVencimento(d.data, d.pago);
                 return `
-                    <tr class="${rowClass}">
+                    <tr class="${d.pago ? 'done' : ''} ${status.classe}">
                         <td><input type="checkbox" class="checkbox-status" ${d.pago ? 'checked' : ''} onchange="togglePagoVariavel(${d.id})"></td>
-                        <td>${d.descricao}${extraInfo}</td>
+                        <td class="descricao">
+                            ${d.descricao}
+                            ${d.comprovante ? '<span class="badge comprovante">📎</span>' : ''}
+                        </td>
                         <td><span class="categoria">${d.categoria}</span></td>
-                        <td>${formatarData(d.data)} ${renderBadgeVencimento(d.data, d.pago)}</td>
+                        <td>${formatarData(d.data)} ${status.badge}</td>
                         <td class="valor-negativo">- ${formatarMoeda(d.valor)}</td>
-                        <td class="acoes">${renderAcoes('despesaVariavel', d.id)}</td>
+                        <td class="acoes">
+                            ${d.comprovante ? `<button class="comprovante" onclick="verComprovante('${d.comprovante}')" title="Comprovante">📎</button>` : ''}
+                            <button class="delete" onclick="deletarDespesaVariavel(${d.id})" title="Excluir">🗑️</button>
+                        </td>
                     </tr>
                 `;
             }).join('');
 
-            // Cards de Empréstimos
-            const emprestimosContainer = document.getElementById('emprestimosContainer');
-            document.getElementById('emptyEmprestimos').style.display = financeiro.emprestimos.length ? 'none' : 'block';
-            
-            emprestimosContainer.innerHTML = financeiro.emprestimos.map(e => {
+            // === CARDS EMPRÉSTIMOS ===
+            const empContainer = document.getElementById('emprestimosContainer');
+            document.getElementById('emptyEmprestimos').style.display = emprestimosAtivos.length ? 'none' : 'block';
+            empContainer.innerHTML = emprestimosAtivos.map(e => {
                 const percentQuitado = e.principalOriginal > 0 ? Math.round(((e.principalOriginal - e.principal) / e.principalOriginal) * 100) : 0;
                 const temJurosPendentes = (e.jurosAcumulados || 0) > 0;
 
@@ -1838,12 +2199,14 @@
                         <div class="emprestimo-card-header">
                             <div class="emprestimo-card-title">
                                 ${e.descricao}
-                                ${temJurosPendentes ? '<span class="badge juros-pendente">Juros Pendentes</span>' : ''}
-                                <small><span class="categoria">${e.categoria}</span> • Taxa: ${e.taxaJuros}% a.m.</small>
+                                ${temJurosPendentes ? '<span class="badge juros-pendente">⚠️ Juros Pendentes</span>' : ''}
+                                <small>
+                                    <span class="categoria">${e.categoria}</span> • Taxa: ${e.taxaJuros}% a.m.
+                                </small>
                             </div>
                             <div class="emprestimo-card-acoes">
-                                <button onclick="abrirModalEditarEmprestimo(${e.id})">✏️ Editar</button>
-                                <button class="delete" onclick="deletarEmprestimo(${e.id})">🗑️</button>
+                                <button onclick="editarEmprestimo(${e.id})" title="Editar">✏️</button>
+                                <button onclick="deletarEmprestimo(${e.id})" title="Excluir">🗑️</button>
                             </div>
                         </div>
 
@@ -1878,221 +2241,462 @@
                         </div>
 
                         <div class="emprestimo-acoes-rapidas">
-                            <button class="btn-gerar-juros" onclick="gerarJurosMes(${e.id})">
-                                📊 Gerar Juros do Mês
-                            </button>
-                            <button class="btn-juros" onclick="abrirModalPagarJuros(${e.id})">
-                                💰 Pagar Juros
-                            </button>
-                            <button class="btn-amortizar" onclick="abrirModalAmortizar(${e.id})">
-                                📉 Amortizar Dívida
-                            </button>
+                            <button class="btn-gerar-juros" onclick="gerarJurosMes(${e.id})">📊 Gerar Juros</button>
+                            <button class="btn-juros" onclick="abrirModalPagarJuros(${e.id})">💰 Pagar Juros</button>
+                            <button class="btn-amortizar" onclick="abrirModalAmortizar(${e.id})">📉 Amortizar</button>
                         </div>
                     </div>
                 `;
             }).join('');
 
-            // Tabela Economias
+            // === TABELA ECONOMIAS ===
             const economiasTable = document.getElementById('economiasTable');
             document.getElementById('emptyEconomias').style.display = economiasMes.length ? 'none' : 'block';
             economiasTable.innerHTML = economiasMes.map(e => `
                 <tr>
-                    <td>${e.descricao}</td>
+                    <td class="descricao">${e.descricao}</td>
                     <td><span class="categoria">${e.categoria}</span></td>
                     <td>${formatarData(e.data)}</td>
                     <td class="valor-economia">${formatarMoeda(e.valor)}</td>
-                    <td class="acoes">${renderAcoes('economia', e.id)}</td>
+                    <td class="acoes">
+                        <button class="delete" onclick="deletarEconomia(${e.id})" title="Excluir">🗑️</button>
+                    </td>
                 </tr>
+            `).join('');
+
+            // Renderizar Balanço Geral (ETAPA 4)
+            renderizarBalanco(totalRecebido, totalDespesasMes, emprestimosAtivos, totalEconomiaGeral);
+        }
+
+        // Renderizar itens arquivados
+        function renderizarArquivados() {
+            // Limpar tabelas ativas
+            document.getElementById('receitasTable').innerHTML = '';
+            document.getElementById('despesasFixasTable').innerHTML = '';
+            document.getElementById('despesasVariaveisTable').innerHTML = '';
+            document.getElementById('economiasTable').innerHTML = '';
+            
+            // Mostrar empréstimos arquivados
+            const empArquivados = financeiro.emprestimos.filter(e => e.arquivado);
+            const empContainer = document.getElementById('emprestimosContainer');
+            
+            if (empArquivados.length === 0) {
+                empContainer.innerHTML = '<div class="empty-state">Nenhum item arquivado</div>';
+                return;
+            }
+
+            empContainer.innerHTML = empArquivados.map(e => `
+                <div class="emprestimo-card arquivado">
+                    <div class="emprestimo-card-header">
+                        <div class="emprestimo-card-title">
+                            ${e.descricao}
+                            <span class="badge arquivado">📁 Quitado</span>
+                            <small>Arquivado em ${formatarData(e.arquivadoEm?.split('T')[0])}</small>
+                        </div>
+                    </div>
+                    <div class="emprestimo-valores">
+                        <div class="emprestimo-valor-item">
+                            <label>Valor Original</label>
+                            <div class="valor">${formatarMoeda(e.principalOriginal)}</div>
+                        </div>
+                        <div class="emprestimo-valor-item">
+                            <label>Total Juros Pagos</label>
+                            <div class="valor">${formatarMoeda(e.totalJurosPagos || 0)}</div>
+                        </div>
+                        <div class="emprestimo-valor-item">
+                            <label>Total Amortizado</label>
+                            <div class="valor">${formatarMoeda(e.totalAmortizado || 0)}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Ocultar empty states
+            document.querySelectorAll('.empty-state').forEach(el => el.style.display = 'none');
+        }
+
+        // Placeholder para Balanço (será implementado na ETAPA 4)
+        function renderizarBalanco(receitaMes, despesaMes, emprestimos, economiaTotal) {
+            const balancoGrid = document.getElementById('balancoGrid');
+            const sugestoesContainer = document.getElementById('sugestoesContainer');
+
+            // ==========================================
+            // CÁLCULOS FINANCEIROS
+            // ==========================================
+            
+            // Folga mensal
+            const folga = receitaMes - despesaMes;
+            
+            // Comprometimento da renda (%)
+            const comprometimento = receitaMes > 0 
+                ? ((despesaMes / receitaMes) * 100).toFixed(1) 
+                : 0;
+            
+            // Total de dívidas ativas
+            const totalDividas = emprestimos.reduce((s, e) => s + e.principal, 0);
+            
+            // Total de juros acumulados
+            const totalJurosAcum = emprestimos.reduce((s, e) => s + (e.jurosAcumulados || 0), 0);
+            
+            // Dívida mais alta (prioridade de quitação)
+            const dividaMaisAlta = emprestimos.length > 0
+                ? emprestimos.reduce((max, e) => e.principal > max.principal ? e : max, emprestimos[0])
+                : null;
+            
+            // Dívida mais baixa (mais fácil de quitar)
+            const dividaMaisBaixa = emprestimos.length > 0
+                ? emprestimos.reduce((min, e) => e.principal < min.principal ? e : min, emprestimos[0])
+                : null;
+            
+            // Dívida com maior taxa de juros (mais cara)
+            const dividaMaisCara = emprestimos.length > 0
+                ? emprestimos.reduce((max, e) => e.taxaJuros > max.taxaJuros ? e : max, emprestimos[0])
+                : null;
+            
+            // Tempo estimado para quitar todas as dívidas (com folga atual)
+            const mesesParaQuitar = folga > 0 && totalDividas > 0
+                ? Math.ceil((totalDividas + totalJurosAcum) / folga)
+                : null;
+            
+            // Margem de segurança (economias vs despesas)
+            const mesesDeReserva = despesaMes > 0 
+                ? (economiaTotal / despesaMes).toFixed(1)
+                : 0;
+
+            // ==========================================
+            // RENDERIZAR INDICADORES
+            // ==========================================
+            
+            let indicadoresHTML = '';
+
+            // Comprometimento da Renda
+            const comprometimentoStatus = comprometimento > 80 ? 'alerta' : comprometimento > 60 ? 'info' : 'sucesso';
+            const comprometimentoMsg = comprometimento > 80 
+                ? '⚠️ Renda muito comprometida' 
+                : comprometimento > 60 
+                    ? '⚡ Atenção moderada' 
+                    : '✅ Boa margem disponível';
+            
+            indicadoresHTML += `
+                <div class="balanco-item ${comprometimentoStatus}">
+                    <h4>📊 Comprometimento da Renda</h4>
+                    <div class="valor-destaque">${comprometimento}%</div>
+                    <div class="detalhe">${comprometimentoMsg}</div>
+                </div>
+            `;
+
+            // Folga Mensal
+            indicadoresHTML += `
+                <div class="balanco-item ${folga >= 0 ? 'sucesso' : 'alerta'}">
+                    <h4>💰 Folga Mensal</h4>
+                    <div class="valor-destaque">${formatarMoeda(folga)}</div>
+                    <div class="detalhe">${folga >= 0 ? 'Disponível após despesas' : 'Déficit - gastos excedem receita'}</div>
+                </div>
+            `;
+
+            // Total em Dívidas
+            if (totalDividas > 0) {
+                indicadoresHTML += `
+                    <div class="balanco-item ${totalDividas > receitaMes * 3 ? 'alerta' : 'info'}">
+                        <h4>🏦 Total em Dívidas</h4>
+                        <div class="valor-destaque">${formatarMoeda(totalDividas)}</div>
+                        <div class="detalhe">+ ${formatarMoeda(totalJurosAcum)} em juros acumulados</div>
+                    </div>
+                `;
+            }
+
+            // Maior Dívida
+            if (dividaMaisAlta && emprestimos.length > 0) {
+                indicadoresHTML += `
+                    <div class="balanco-item alerta">
+                        <h4>📈 Maior Dívida</h4>
+                        <div class="valor-destaque">${formatarMoeda(dividaMaisAlta.principal)}</div>
+                        <div class="detalhe">${dividaMaisAlta.descricao} (${dividaMaisAlta.taxaJuros}% a.m.)</div>
+                    </div>
+                `;
+            }
+
+            // Menor Dívida (se houver mais de uma)
+            if (dividaMaisBaixa && emprestimos.length > 1 && dividaMaisBaixa.id !== dividaMaisAlta.id) {
+                indicadoresHTML += `
+                    <div class="balanco-item sucesso">
+                        <h4>📉 Menor Dívida</h4>
+                        <div class="valor-destaque">${formatarMoeda(dividaMaisBaixa.principal)}</div>
+                        <div class="detalhe">${dividaMaisBaixa.descricao} - Mais fácil de quitar</div>
+                    </div>
+                `;
+            }
+
+            // Tempo para Quitar
+            if (mesesParaQuitar) {
+                const anos = Math.floor(mesesParaQuitar / 12);
+                const meses = mesesParaQuitar % 12;
+                const tempoTexto = anos > 0 
+                    ? `${anos} ano${anos > 1 ? 's' : ''} e ${meses} mês${meses !== 1 ? 'es' : ''}`
+                    : `${meses} mês${meses !== 1 ? 'es' : ''}`;
+                
+                indicadoresHTML += `
+                    <div class="balanco-item ${mesesParaQuitar > 24 ? 'alerta' : 'info'}">
+                        <h4>⏱️ Tempo para Quitar Dívidas</h4>
+                        <div class="valor-destaque">${tempoTexto}</div>
+                        <div class="detalhe">Estimativa com folga mensal atual</div>
+                    </div>
+                `;
+            }
+
+            // Reserva de Emergência
+            indicadoresHTML += `
+                <div class="balanco-item ${mesesDeReserva >= 6 ? 'sucesso' : mesesDeReserva >= 3 ? 'info' : 'alerta'}">
+                    <h4>🛡️ Reserva de Emergência</h4>
+                    <div class="valor-destaque">${mesesDeReserva} meses</div>
+                    <div class="detalhe">${
+                        mesesDeReserva >= 6 
+                            ? '✅ Reserva saudável' 
+                            : mesesDeReserva >= 3 
+                                ? '⚡ Reserva moderada' 
+                                : '⚠️ Construa sua reserva'
+                    }</div>
+                </div>
+            `;
+
+            balancoGrid.innerHTML = indicadoresHTML;
+
+            // ==========================================
+            // SUGESTÕES INTELIGENTES
+            // ==========================================
+            
+            let sugestoes = [];
+
+            // Sugestão: Juros acumulados pendentes
+            if (totalJurosAcum > 0) {
+                sugestoes.push({
+                    icon: '⚠️',
+                    prioridade: 1,
+                    texto: `Você tem <strong>${formatarMoeda(totalJurosAcum)}</strong> em juros acumulados. Priorize quitá-los para evitar o efeito bola de neve!`
+                });
+            }
+
+            // Sugestão: Pode quitar dívida menor
+            if (dividaMaisBaixa && folga >= dividaMaisBaixa.principal) {
+                sugestoes.push({
+                    icon: '🎯',
+                    prioridade: 2,
+                    texto: `Com sua folga atual, você pode <strong>quitar "${dividaMaisBaixa.descricao}"</strong> este mês e eliminar uma dívida!`
+                });
+            }
+
+            // Sugestão: Cobrir juros + amortizar
+            if (folga > 0 && dividaMaisCara && dividaMaisCara.taxaJuros > 0) {
+                const jurosMensal = (dividaMaisCara.principal * dividaMaisCara.taxaJuros) / 100;
+                if (folga > jurosMensal) {
+                    const sobraParaAmortizar = folga - jurosMensal;
+                    sugestoes.push({
+                        icon: '💡',
+                        prioridade: 3,
+                        texto: `Você pode cobrir os juros de "${dividaMaisCara.descricao}" (<strong>${formatarMoeda(jurosMensal)}</strong>) e ainda amortizar <strong>${formatarMoeda(sobraParaAmortizar)}</strong>.`
+                    });
+                }
+            }
+
+            // Sugestão: Dívida mais cara primeiro
+            if (dividaMaisCara && emprestimos.length > 1 && dividaMaisCara.taxaJuros > 5) {
+                sugestoes.push({
+                    icon: '🔥',
+                    prioridade: 4,
+                    texto: `"${dividaMaisCara.descricao}" tem a maior taxa (<strong>${dividaMaisCara.taxaJuros}% a.m.</strong>). Priorize amortizá-la para economizar em juros.`
+                });
+            }
+
+            // Sugestão: Economias superam dívidas
+            if (economiaTotal > totalDividas && totalDividas > 0) {
+                sugestoes.push({
+                    icon: '✨',
+                    prioridade: 2,
+                    texto: `Suas economias (<strong>${formatarMoeda(economiaTotal)}</strong>) superam suas dívidas. Considere quitar e eliminar os juros de uma vez!`
+                });
+            }
+
+            // Sugestão: Renda muito comprometida
+            if (comprometimento > 80) {
+                sugestoes.push({
+                    icon: '🔴',
+                    prioridade: 1,
+                    texto: `Sua renda está <strong>${comprometimento}% comprometida</strong>. Avalie cortar despesas variáveis ou renegociar dívidas.`
+                });
+            }
+
+            // Sugestão: Déficit mensal
+            if (folga < 0) {
+                sugestoes.push({
+                    icon: '🚨',
+                    prioridade: 0,
+                    texto: `Você está no <strong>vermelho</strong> este mês (${formatarMoeda(folga)}). Revise despesas urgentemente ou busque renda extra.`
+                });
+            }
+
+            // Sugestão: Construir reserva
+            if (mesesDeReserva < 3 && folga > 0 && totalDividas === 0) {
+                sugestoes.push({
+                    icon: '🛡️',
+                    prioridade: 3,
+                    texto: `Sua reserva cobre apenas <strong>${mesesDeReserva} meses</strong>. O ideal é ter 6 meses de despesas guardados.`
+                });
+            }
+
+            // Sugestão: Adiantar parcelas
+            if (mesesParaQuitar && mesesParaQuitar > 12 && folga > 0) {
+                const mesesReduzidos = Math.floor(mesesParaQuitar * 0.2);
+                sugestoes.push({
+                    icon: '⚡',
+                    prioridade: 5,
+                    texto: `Aumentando 20% nos pagamentos mensais, você pode reduzir <strong>${mesesReduzidos} meses</strong> do tempo de quitação.`
+                });
+            }
+
+            // Sugestão padrão se tudo estiver bem
+            if (sugestoes.length === 0) {
+                sugestoes.push({
+                    icon: '✅',
+                    prioridade: 10,
+                    texto: 'Suas finanças estão equilibradas! Continue monitorando e mantenha o controle.'
+                });
+            }
+
+            // Ordenar por prioridade e renderizar
+            sugestoes.sort((a, b) => a.prioridade - b.prioridade);
+            
+            sugestoesContainer.innerHTML = sugestoes.slice(0, 5).map(s => `
+                <div class="sugestao-item">
+                    <span class="icon">${s.icon}</span>
+                    <span>${s.texto}</span>
+                </div>
             `).join('');
         }
 
-        // ========== PERSISTÊNCIA ==========
+        // ==========================================
+        // PERSISTÊNCIA (localStorage + Supabase)
+        // ==========================================
+        
         function salvarDados() {
-            localStorage.setItem('financeiro_v3', JSON.stringify(financeiro));
+            localStorage.setItem('financeiro_v5', JSON.stringify(financeiro));
             salvarSupabase();
         }
 
         async function salvarSupabase() {
-            if (!useSupabase) {
-                console.log('⚠️ Supabase não disponível, salvando apenas local');
-                return;
-            }
+            if (!useSupabase) return;
             try {
                 const { error } = await supabaseClient.from('financeiro').upsert({
-                    id: USER_ID, 
-                    user_id: USER_ID, 
-                    dados: financeiro, 
-                    updated_at: new Date().toISOString()
-                });
-                if (error) {
-                    console.error('❌ Erro ao salvar no Supabase:', error);
-                    mostrarStatus('Erro ao sincronizar', 'error');
-                } else {
-                    console.log('✅ Salvo no Supabase com sucesso!');
-                    mostrarStatus('Sincronizado ✓', 'success');
-                }
-            } catch (e) { 
-                console.error('❌ Exceção ao salvar:', e); 
-                mostrarStatus('Erro de conexão', 'error');
-            }
-        }
-
-        async function carregarSupabase() {
-            if (!useSupabase) {
-                console.log('⚠️ Supabase não disponível, usando localStorage');
-                return false;
-            }
-            try {
-                console.log('🔄 Carregando dados do Supabase...');
-                const { data, error } = await supabaseClient
-                    .from('financeiro')
-                    .select('*')
-                    .eq('user_id', USER_ID)
-                    .maybeSingle();
-                
-                if (error) {
-                    console.error('❌ Erro ao carregar:', error.message, error.code, error.details);
-                    
-                    // Se a tabela não existe, tentar criar
-                    if (error.code === '42P01' || error.message?.includes('does not exist')) {
-                        console.log('📋 Tabela não existe. Criando primeiro registro...');
-                        await criarTabelaInicial();
-                        return false;
-                    }
-                    
-                    mostrarStatus('Erro: ' + (error.message || 'Falha na conexão'), 'error');
-                    return false;
-                }
-                
-                if (data?.dados) {
-                    // Supabase tem dados - usar eles (prioridade da nuvem)
-                    financeiro = {
-                        receitas: data.dados.receitas || [],
-                        despesasFixas: data.dados.despesasFixas || [],
-                        despesasVariaveis: data.dados.despesasVariaveis || [],
-                        emprestimos: data.dados.emprestimos || [],
-                        economias: data.dados.economias || []
-                    };
-                    localStorage.setItem('financeiro_v3', JSON.stringify(financeiro));
-                    console.log('✅ Dados carregados do Supabase!', financeiro);
-                    mostrarStatus('Dados sincronizados ✓', 'success');
-                    return true;
-                } else {
-                    console.log('ℹ️ Nenhum dado no Supabase ainda');
-                    // Se não tem no Supabase mas tem no localStorage, enviar para nuvem
-                    const local = localStorage.getItem('financeiro_v3');
-                    if (local) {
-                        const dadosLocal = JSON.parse(local);
-                        const temDados = dadosLocal.receitas?.length > 0 || 
-                                        dadosLocal.despesasFixas?.length > 0 ||
-                                        dadosLocal.despesasVariaveis?.length > 0 ||
-                                        dadosLocal.emprestimos?.length > 0 ||
-                                        dadosLocal.economias?.length > 0;
-                        if (temDados) {
-                            financeiro = dadosLocal;
-                            await salvarSupabase(); // Enviar dados locais para nuvem
-                            console.log('📤 Dados locais enviados para o Supabase');
-                        }
-                    }
-                    return false;
-                }
-            } catch (e) { 
-                console.error('❌ Exceção ao carregar:', e);
-                return false;
-            }
-        }
-
-        function mostrarStatus(msg, tipo) {
-            // Criar ou atualizar indicador de status
-            let status = document.getElementById('syncStatus');
-            if (!status) {
-                status = document.createElement('div');
-                status.id = 'syncStatus';
-                status.style.cssText = `
-                    position: fixed;
-                    bottom: 20px;
-                    right: 20px;
-                    padding: 10px 20px;
-                    border-radius: 8px;
-                    font-size: 0.8em;
-                    z-index: 10001;
-                    transition: opacity 0.3s;
-                `;
-                document.body.appendChild(status);
-            }
-            status.textContent = msg;
-            status.style.background = tipo === 'success' ? 'rgba(39, 174, 96, 0.9)' : 'rgba(231, 76, 60, 0.9)';
-            status.style.color = '#fff';
-            status.style.opacity = '1';
-            
-            setTimeout(() => {
-                status.style.opacity = '0';
-            }, 3000);
-        }
-
-        async function criarTabelaInicial() {
-            // Tenta inserir um registro inicial para verificar se a tabela existe
-            try {
-                const { error } = await supabaseClient.from('financeiro').insert({
                     id: USER_ID,
                     user_id: USER_ID,
                     dados: financeiro,
                     updated_at: new Date().toISOString()
                 });
-                
                 if (error) {
-                    console.error('❌ Não foi possível criar registro:', error.message);
-                    mostrarStatus('Tabela não configurada no Supabase', 'error');
+                    console.error('Erro Supabase:', error);
+                    mostrarStatus('Erro ao sincronizar', 'error');
                 } else {
-                    console.log('✅ Registro inicial criado!');
-                    mostrarStatus('Dados inicializados ✓', 'success');
+                    mostrarStatus('Sincronizado ✓', 'success');
                 }
             } catch (e) {
-                console.error('❌ Exceção:', e);
+                console.error('Exceção Supabase:', e);
             }
         }
 
-        async function testarConexao() {
-            if (!useSupabase) return;
-            
-            console.log('🔍 Testando conexão com Supabase...');
-            console.log('URL:', SUPABASE_URL);
-            
+        async function carregarSupabase() {
+            if (!useSupabase) return false;
             try {
-                // Tenta listar as tabelas disponíveis
-                const { data, error } = await supabaseClient.from('financeiro').select('id').limit(1);
-                
+                const { data, error } = await supabaseClient
+                    .from('financeiro')
+                    .select('*')
+                    .eq('user_id', USER_ID)
+                    .maybeSingle();
+
                 if (error) {
-                    console.log('❌ Erro na tabela financeiro:', error.message, error.code);
-                    console.log('💡 Detalhes:', JSON.stringify(error));
-                    
-                    if (error.code === 'PGRST116') {
-                        console.log('ℹ️ Tabela existe mas está vazia - OK!');
-                        return true;
-                    }
+                    console.error('Erro ao carregar:', error);
                     return false;
                 }
-                
-                console.log('✅ Conexão OK! Dados encontrados:', data);
-                return true;
+
+                if (data?.dados) {
+                    // Mesclar dados preservando estrutura
+                    financeiro = {
+                        ...dadosVazios,
+                        ...data.dados,
+                        arquivados: { ...dadosVazios.arquivados, ...data.dados.arquivados }
+                    };
+                    localStorage.setItem('financeiro_v5', JSON.stringify(financeiro));
+                    mostrarStatus('Dados carregados ✓', 'success');
+                    return true;
+                }
+                return false;
             } catch (e) {
-                console.error('❌ Falha na conexão:', e);
+                console.error('Exceção:', e);
                 return false;
             }
         }
 
-        async function init() {
-            initMes();
+        // ==========================================
+        // STATUS DE SINCRONIZAÇÃO
+        // ==========================================
+        
+        function mostrarStatus(msg, tipo) {
+            let status = document.getElementById('syncStatus');
+            if (!status) {
+                status = document.createElement('div');
+                status.id = 'syncStatus';
+                document.body.appendChild(status);
+            }
             
-            // Testar conexão primeiro
-            const conexaoOk = await testarConexao();
-            console.log('Conexão testada:', conexaoOk);
+            status.textContent = msg;
+            status.style.background = tipo === 'success' ? 'rgba(39, 174, 96, 0.95)' : 'rgba(231, 76, 60, 0.95)';
+            status.style.opacity = '1';
             
-            await carregarSupabase();
-            renderizar();
-            console.log('🚀 Sistema inicializado!');
+            setTimeout(() => { status.style.opacity = '0'; }, 3000);
         }
 
+        // ==========================================
+        // CONTROLES DE MÊS E VISUALIZAÇÃO
+        // ==========================================
+        
+        document.getElementById('mesSelect').addEventListener('change', function() {
+            mesSelecionado = this.value;
+            gerarInstanciasDespesasFixas();
+            renderizar();
+        });
+
+        document.getElementById('btnAtivos').addEventListener('click', function() {
+            viewMode = 'ativos';
+            this.classList.add('active');
+            document.getElementById('btnArquivados').classList.remove('active');
+            renderizar();
+        });
+
+        document.getElementById('btnArquivados').addEventListener('click', function() {
+            viewMode = 'arquivados';
+            this.classList.add('active');
+            document.getElementById('btnAtivos').classList.remove('active');
+            renderizar();
+        });
+
+        // ==========================================
+        // INICIALIZAÇÃO
+        // ==========================================
+        
+        async function init() {
+            // Definir mês atual
+            mesSelecionado = String(new Date().getMonth() + 1).padStart(2, '0');
+            document.getElementById('mesSelect').value = mesSelecionado;
+            
+            // Carregar dados do Supabase (prioridade)
+            await carregarSupabase();
+            
+            // Gerar instâncias de despesas fixas para o mês
+            gerarInstanciasDespesasFixas();
+            
+            // Renderizar interface
+            renderizar();
+        }
+
+        // Iniciar aplicação
         init();
     </script>
 </body>
