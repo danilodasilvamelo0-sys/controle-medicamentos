@@ -1951,7 +1951,16 @@
                     .maybeSingle();
                 
                 if (error) {
-                    console.error('❌ Erro ao carregar:', error);
+                    console.error('❌ Erro ao carregar:', error.message, error.code, error.details);
+                    
+                    // Se a tabela não existe, tentar criar
+                    if (error.code === '42P01' || error.message?.includes('does not exist')) {
+                        console.log('📋 Tabela não existe. Criando primeiro registro...');
+                        await criarTabelaInicial();
+                        return false;
+                    }
+                    
+                    mostrarStatus('Erro: ' + (error.message || 'Falha na conexão'), 'error');
                     return false;
                 }
                 
@@ -2021,8 +2030,64 @@
             }, 3000);
         }
 
+        async function criarTabelaInicial() {
+            // Tenta inserir um registro inicial para verificar se a tabela existe
+            try {
+                const { error } = await supabaseClient.from('financeiro').insert({
+                    id: USER_ID,
+                    user_id: USER_ID,
+                    dados: financeiro,
+                    updated_at: new Date().toISOString()
+                });
+                
+                if (error) {
+                    console.error('❌ Não foi possível criar registro:', error.message);
+                    mostrarStatus('Tabela não configurada no Supabase', 'error');
+                } else {
+                    console.log('✅ Registro inicial criado!');
+                    mostrarStatus('Dados inicializados ✓', 'success');
+                }
+            } catch (e) {
+                console.error('❌ Exceção:', e);
+            }
+        }
+
+        async function testarConexao() {
+            if (!useSupabase) return;
+            
+            console.log('🔍 Testando conexão com Supabase...');
+            console.log('URL:', SUPABASE_URL);
+            
+            try {
+                // Tenta listar as tabelas disponíveis
+                const { data, error } = await supabaseClient.from('financeiro').select('id').limit(1);
+                
+                if (error) {
+                    console.log('❌ Erro na tabela financeiro:', error.message, error.code);
+                    console.log('💡 Detalhes:', JSON.stringify(error));
+                    
+                    if (error.code === 'PGRST116') {
+                        console.log('ℹ️ Tabela existe mas está vazia - OK!');
+                        return true;
+                    }
+                    return false;
+                }
+                
+                console.log('✅ Conexão OK! Dados encontrados:', data);
+                return true;
+            } catch (e) {
+                console.error('❌ Falha na conexão:', e);
+                return false;
+            }
+        }
+
         async function init() {
             initMes();
+            
+            // Testar conexão primeiro
+            const conexaoOk = await testarConexao();
+            console.log('Conexão testada:', conexaoOk);
+            
             await carregarSupabase();
             renderizar();
             console.log('🚀 Sistema inicializado!');
