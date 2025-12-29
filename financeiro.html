@@ -1331,14 +1331,144 @@
             });
         }
 
-        function verComprovante(base64) {
+        // Criar objeto de comprovante com metadados
+        async function criarComprovante(fileInput, tipo, valor, descricao) {
+            const file = fileInput?.files?.[0];
+            if (!file) return null;
+            
+            const base64 = await fileToBase64(file);
+            return {
+                arquivo: base64,
+                nomeArquivo: file.name,
+                tipoArquivo: file.type,
+                dataPagamento: new Date().toISOString(),
+                valorPago: valor,
+                tipoPagamento: tipo, // 'despesa_fixa', 'despesa_variavel', 'juros', 'amortizacao'
+                descricao: descricao
+            };
+        }
+
+        // Visualizar comprovante com informações completas
+        function verComprovante(comprovante) {
             const viewer = document.getElementById('modalComprovanteBody');
-            if (base64.includes('application/pdf')) {
-                viewer.innerHTML = `<embed src="${base64}" type="application/pdf" width="100%" height="450px" style="border-radius:8px;">`;
-            } else {
-                viewer.innerHTML = `<img src="${base64}" style="max-width:100%; border-radius:8px;">`;
+            
+            // Se for string antiga (apenas base64), compatibilidade
+            if (typeof comprovante === 'string') {
+                if (comprovante.includes('application/pdf')) {
+                    viewer.innerHTML = `
+                        <embed src="${comprovante}" type="application/pdf" width="100%" height="450px" style="border-radius:8px;">
+                        <div class="form-buttons" style="margin-top:15px;">
+                            <button class="btn-salvar" onclick="baixarComprovante('${comprovante}', 'comprovante')">⬇️ Baixar</button>
+                        </div>
+                    `;
+                } else {
+                    viewer.innerHTML = `
+                        <img src="${comprovante}" style="max-width:100%; border-radius:8px;">
+                        <div class="form-buttons" style="margin-top:15px;">
+                            <button class="btn-salvar" onclick="baixarComprovante('${comprovante}', 'comprovante')">⬇️ Baixar</button>
+                        </div>
+                    `;
+                }
+                abrirModal('modalComprovante');
+                return;
             }
+
+            // Comprovante com metadados completos
+            const tiposLabel = {
+                'despesa_fixa': '🏠 Despesa Fixa',
+                'despesa_variavel': '🛒 Despesa Variável',
+                'juros': '💰 Pagamento de Juros',
+                'amortizacao': '📉 Amortização'
+            };
+
+            let previewHTML = '';
+            if (comprovante.arquivo.includes('application/pdf')) {
+                previewHTML = `<embed src="${comprovante.arquivo}" type="application/pdf" width="100%" height="350px" style="border-radius:8px;">`;
+            } else {
+                previewHTML = `<img src="${comprovante.arquivo}" style="max-width:100%; border-radius:8px; max-height:350px; object-fit:contain;">`;
+            }
+
+            viewer.innerHTML = `
+                <div class="info-box" style="margin-bottom:15px;">
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                        <div><strong>Tipo:</strong> ${tiposLabel[comprovante.tipoPagamento] || comprovante.tipoPagamento}</div>
+                        <div><strong>Valor:</strong> ${formatarMoeda(comprovante.valorPago)}</div>
+                        <div><strong>Data:</strong> ${formatarData(comprovante.dataPagamento?.split('T')[0])}</div>
+                        <div><strong>Arquivo:</strong> ${comprovante.nomeArquivo || 'comprovante'}</div>
+                    </div>
+                    ${comprovante.descricao ? `<div style="margin-top:8px;"><strong>Ref:</strong> ${comprovante.descricao}</div>` : ''}
+                </div>
+                ${previewHTML}
+                <div class="form-buttons" style="margin-top:15px;">
+                    <button class="btn-salvar" onclick="baixarComprovanteObj(comprovanteAtual)">⬇️ Baixar Arquivo</button>
+                </div>
+            `;
+            
+            // Guardar referência para download
+            window.comprovanteAtual = comprovante;
             abrirModal('modalComprovante');
+        }
+
+        // Baixar comprovante (base64 direto)
+        function baixarComprovante(base64, nome) {
+            const link = document.createElement('a');
+            link.href = base64;
+            link.download = nome + (base64.includes('application/pdf') ? '.pdf' : '.jpg');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Baixar comprovante (objeto com metadados)
+        function baixarComprovanteObj(comprovante) {
+            if (!comprovante?.arquivo) return;
+            const link = document.createElement('a');
+            link.href = comprovante.arquivo;
+            
+            // Determinar extensão
+            let ext = '.jpg';
+            if (comprovante.tipoArquivo?.includes('pdf')) ext = '.pdf';
+            else if (comprovante.tipoArquivo?.includes('png')) ext = '.png';
+            else if (comprovante.nomeArquivo) ext = '.' + comprovante.nomeArquivo.split('.').pop();
+            
+            link.download = (comprovante.nomeArquivo || 'comprovante_' + comprovante.tipoPagamento) ;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Funções auxiliares para visualizar comprovantes por tipo
+        function verComprovanteFixa(id) {
+            const key = getMesAnoKey();
+            const item = financeiro.despesasFixasMes[key]?.find(d => d.id === id);
+            if (item?.comprovante) {
+                verComprovante(item.comprovante);
+            }
+        }
+
+        function verComprovanteVariavel(id) {
+            const item = financeiro.despesasVariaveis.find(d => d.id === id);
+            if (item?.comprovante) {
+                verComprovante(item.comprovante);
+            }
+        }
+
+        function verComprovanteHistorico(emprestimoId, historicoIdx) {
+            const emp = financeiro.emprestimos.find(e => e.id === emprestimoId);
+            if (emp?.historico?.[historicoIdx]?.comprovante) {
+                verComprovante(emp.historico[historicoIdx].comprovante);
+            }
+        }
+
+        function verComprovanteHistoricoArquivado(emprestimoId, historicoIdx) {
+            // Busca tanto em ativos quanto em arquivados
+            let emp = financeiro.emprestimos.find(e => e.id === emprestimoId);
+            if (!emp) {
+                emp = financeiro.arquivados?.emprestimos?.find(e => e.id === emprestimoId);
+            }
+            if (emp?.historico?.[historicoIdx]?.comprovante) {
+                verComprovante(emp.historico[historicoIdx].comprovante);
+            }
         }
 
         // ==========================================
@@ -1625,11 +1755,18 @@
         async function confirmarPagamentoDespesa() {
             const data = document.getElementById('pagamentoData').value;
             const fileInput = document.getElementById('pagamentoComprovante');
-            const comprovante = await fileToBase64(fileInput.files[0]);
 
             if (itemEditando.tipo === 'despesaFixa') {
                 const item = financeiro.despesasFixasMes[itemEditando.key]?.find(d => d.id === itemEditando.id);
                 if (item) {
+                    // Criar comprovante com metadados completos
+                    const comprovante = await criarComprovante(
+                        fileInput, 
+                        'despesa_fixa', 
+                        item.valor, 
+                        item.descricao
+                    );
+                    
                     item.pago = true;
                     item.dataPagamento = data;
                     item.comprovante = comprovante;
@@ -1637,6 +1774,14 @@
             } else if (itemEditando.tipo === 'despesaVariavel') {
                 const item = financeiro.despesasVariaveis.find(d => d.id === itemEditando.id);
                 if (item) {
+                    // Criar comprovante com metadados completos
+                    const comprovante = await criarComprovante(
+                        fileInput, 
+                        'despesa_variavel', 
+                        item.valor, 
+                        item.descricao
+                    );
+                    
                     item.pago = true;
                     item.dataPagamento = data;
                     item.comprovante = comprovante;
@@ -1646,6 +1791,7 @@
             salvarDados();
             fecharModal('modalEditar');
             renderizar();
+            mostrarStatus('Pagamento registrado', 'success');
         }
 
         // Editar modelo da despesa fixa (afeta próximos meses)
@@ -1883,9 +2029,17 @@
 
             const valor = parseFloat(document.getElementById('pagarJurosValor').value) || 0;
             const data = document.getElementById('pagarJurosData').value;
-            const comprovante = await fileToBase64(document.getElementById('pagarJurosComprovante').files[0]);
 
             if (!valor || valor <= 0) return alert('Informe o valor!');
+
+            // Criar comprovante com metadados completos
+            const fileInput = document.getElementById('pagarJurosComprovante');
+            const comprovante = await criarComprovante(
+                fileInput, 
+                'juros', 
+                valor, 
+                emp.descricao + ' - Pagamento de Juros'
+            );
 
             emp.jurosAcumulados = Math.max(0, (emp.jurosAcumulados || 0) - valor);
             emp.totalJurosPagos = (emp.totalJurosPagos || 0) + valor;
@@ -1948,10 +2102,18 @@
 
             const valor = parseFloat(document.getElementById('amortizarValor').value) || 0;
             const data = document.getElementById('amortizarData').value;
-            const comprovante = await fileToBase64(document.getElementById('amortizarComprovante').files[0]);
 
             if (!valor || valor <= 0) return alert('Informe o valor!');
             if (valor > emp.principal) return alert('Valor maior que a dívida atual!');
+
+            // Criar comprovante com metadados completos
+            const fileInput = document.getElementById('amortizarComprovante');
+            const comprovante = await criarComprovante(
+                fileInput, 
+                'amortizacao', 
+                valor, 
+                emp.descricao + ' - Amortização'
+            );
 
             emp.principal = emp.principal - valor;
             emp.totalAmortizado = (emp.totalAmortizado || 0) + valor;
@@ -2142,21 +2304,22 @@
             // === TABELA DESPESAS FIXAS ===
             const fixasTable = document.getElementById('despesasFixasTable');
             document.getElementById('emptyDespesasFixas').style.display = fixasMes.length ? 'none' : 'block';
-            fixasTable.innerHTML = fixasMes.map(d => {
+            fixasTable.innerHTML = fixasMes.map((d, idx) => {
                 const status = getStatusVencimento(d.data, d.pago);
+                const temComprovante = d.comprovante !== null && d.comprovante !== undefined;
                 return `
                     <tr class="${d.pago ? 'done' : ''} ${status.classe}">
                         <td><input type="checkbox" class="checkbox-status" ${d.pago ? 'checked' : ''} onchange="togglePagoFixa(${d.id})"></td>
                         <td class="descricao">
                             ${d.descricao}
                             <span class="badge recorrente">🔄 Recorrente</span>
-                            ${d.comprovante ? '<span class="badge comprovante">📎</span>' : ''}
+                            ${temComprovante ? '<span class="badge comprovante">📎</span>' : ''}
                         </td>
                         <td><span class="categoria">${d.categoria}</span></td>
                         <td>${formatarData(d.data)} ${status.badge}</td>
                         <td class="valor-negativo">- ${formatarMoeda(d.valor)}</td>
                         <td class="acoes">
-                            ${d.comprovante ? `<button class="comprovante" onclick="verComprovante('${d.comprovante}')" title="Ver Comprovante">📎</button>` : ''}
+                            ${temComprovante ? `<button class="comprovante" onclick="verComprovanteFixa(${d.id})" title="Ver Comprovante">📎</button>` : ''}
                             <button onclick="editarDespesaFixaModelo(${d.modeloId})" title="Editar">✏️</button>
                             <button class="delete" onclick="encerrarDespesaFixa(${d.modeloId})" title="Encerrar">⏹️</button>
                         </td>
@@ -2169,18 +2332,19 @@
             document.getElementById('emptyDespesasVariaveis').style.display = variaveisMes.length ? 'none' : 'block';
             variaveisTable.innerHTML = variaveisMes.map(d => {
                 const status = getStatusVencimento(d.data, d.pago);
+                const temComprovante = d.comprovante !== null && d.comprovante !== undefined;
                 return `
                     <tr class="${d.pago ? 'done' : ''} ${status.classe}">
                         <td><input type="checkbox" class="checkbox-status" ${d.pago ? 'checked' : ''} onchange="togglePagoVariavel(${d.id})"></td>
                         <td class="descricao">
                             ${d.descricao}
-                            ${d.comprovante ? '<span class="badge comprovante">📎</span>' : ''}
+                            ${temComprovante ? '<span class="badge comprovante">📎</span>' : ''}
                         </td>
                         <td><span class="categoria">${d.categoria}</span></td>
                         <td>${formatarData(d.data)} ${status.badge}</td>
                         <td class="valor-negativo">- ${formatarMoeda(d.valor)}</td>
                         <td class="acoes">
-                            ${d.comprovante ? `<button class="comprovante" onclick="verComprovante('${d.comprovante}')" title="Comprovante">📎</button>` : ''}
+                            ${temComprovante ? `<button class="comprovante" onclick="verComprovanteVariavel(${d.id})" title="Ver Comprovante">📎</button>` : ''}
                             <button class="delete" onclick="deletarDespesaVariavel(${d.id})" title="Excluir">🗑️</button>
                         </td>
                     </tr>
@@ -2285,31 +2449,51 @@
                 return;
             }
 
-            empContainer.innerHTML = empArquivados.map(e => `
-                <div class="emprestimo-card arquivado">
-                    <div class="emprestimo-card-header">
-                        <div class="emprestimo-card-title">
-                            ${e.descricao}
-                            <span class="badge arquivado">📁 Quitado</span>
-                            <small>Arquivado em ${formatarData(e.arquivadoEm?.split('T')[0])}</small>
+            empContainer.innerHTML = empArquivados.map(e => {
+                // Renderizar histórico com comprovantes
+                const historicoComComprovantes = (e.historico || [])
+                    .filter(h => h.comprovante)
+                    .map((h, idx) => {
+                        const tipoLabel = h.tipo === 'pagamento_juros' ? '💰 Juros' : 
+                                         h.tipo === 'amortizacao' ? '📉 Amortização' : h.tipo;
+                        return `<button class="comprovante" onclick="verComprovanteHistoricoArquivado(${e.id}, ${e.historico.indexOf(h)})" 
+                                title="${tipoLabel} - ${formatarMoeda(h.valor)}" style="margin:2px;">
+                                📎 ${tipoLabel}
+                        </button>`;
+                    }).join('');
+
+                return `
+                    <div class="emprestimo-card arquivado">
+                        <div class="emprestimo-card-header">
+                            <div class="emprestimo-card-title">
+                                ${e.descricao}
+                                <span class="badge arquivado">📁 Quitado</span>
+                                <small>Arquivado em ${formatarData(e.arquivadoEm?.split('T')[0])}</small>
+                            </div>
                         </div>
+                        <div class="emprestimo-valores">
+                            <div class="emprestimo-valor-item">
+                                <label>Valor Original</label>
+                                <div class="valor">${formatarMoeda(e.principalOriginal)}</div>
+                            </div>
+                            <div class="emprestimo-valor-item">
+                                <label>Total Juros Pagos</label>
+                                <div class="valor">${formatarMoeda(e.totalJurosPagos || 0)}</div>
+                            </div>
+                            <div class="emprestimo-valor-item">
+                                <label>Total Amortizado</label>
+                                <div class="valor">${formatarMoeda(e.totalAmortizado || 0)}</div>
+                            </div>
+                        </div>
+                        ${historicoComComprovantes ? `
+                            <div style="margin-top:15px;padding-top:15px;border-top:1px solid rgba(255,255,255,0.1);">
+                                <label style="font-size:0.8em;color:rgba(255,255,255,0.5);display:block;margin-bottom:8px;">📎 Comprovantes Salvos:</label>
+                                ${historicoComComprovantes}
+                            </div>
+                        ` : ''}
                     </div>
-                    <div class="emprestimo-valores">
-                        <div class="emprestimo-valor-item">
-                            <label>Valor Original</label>
-                            <div class="valor">${formatarMoeda(e.principalOriginal)}</div>
-                        </div>
-                        <div class="emprestimo-valor-item">
-                            <label>Total Juros Pagos</label>
-                            <div class="valor">${formatarMoeda(e.totalJurosPagos || 0)}</div>
-                        </div>
-                        <div class="emprestimo-valor-item">
-                            <label>Total Amortizado</label>
-                            <div class="valor">${formatarMoeda(e.totalAmortizado || 0)}</div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
 
             // Ocultar empty states
             document.querySelectorAll('.empty-state').forEach(el => el.style.display = 'none');
