@@ -407,184 +407,210 @@
         font-size: 1em; 
     }
 
-    /* ========== BOTÕES DE AÇÃO (Estilo saude.html) ========== */
-    .acoes {
-        display: flex;
-        gap: 5px;
-        justify-content: center;
-        align-items: center;
+    /* ========== SISTEMA DE ÍCONES SVG (Padrão Medicamentos) ========== */
+    
+    /* Classe base para todos os ícones */
+    .icon {
+        width: 18px;
+        height: 18px;
+        stroke: currentColor;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill: none;
+        flex-shrink: 0;
+        transition: all 0.2s ease;
     }
 
-    .btn-add {
-        background: transparent;
-        color: #d4af7d;
-        padding: 5px;
-        border: none;
-        cursor: pointer;
-        font-size: 1.5em;
-        font-weight: bold;
-        transition: all 0.2s;
-    }
+    /* Tamanhos de ícone */
+    .icon-sm { width: 14px; height: 14px; }
+    .icon-md { width: 18px; height: 18px; }
+    .icon-lg { width: 22px; height: 22px; }
 
-    .btn-add:hover {
-        transform: scale(1.2);
-    }
-
-    .btn-edit {
-        background: transparent;
-        color: #d4af7d;
-        padding: 5px;
-        border: none;
-        cursor: pointer;
-        font-size: 1.3em;
-        transition: transform 0.2s;
-    }
-
-    .btn-edit:hover {
-        transform: scale(1.2);
-    }
-
-    .btn-delete {
-        background: transparent;
-        color: rgba(220, 53, 69, 0.7);
-        padding: 5px;
-        border: none;
-        cursor: pointer;
-        font-size: 1.3em;
-        transition: all 0.2s;
-    }
-
-    .btn-delete:hover {
-        transform: scale(1.2);
-        color: #dc3545;
-    }
-
-    .btn-duplicate {
-        background: transparent;
-        color: rgba(212, 175, 125, 0.6);
-        padding: 5px;
-        border: none;
-        cursor: pointer;
-        transition: all 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .btn-duplicate:hover {
-        transform: scale(1.2);
-        color: #d4af7d;
-    }
-
-    .btn-comprovante {
-        background: transparent;
-        color: rgba(46, 204, 113, 0.7);
-        padding: 5px;
-        border: none;
-        cursor: pointer;
-        transition: all 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .btn-comprovante:hover {
-        transform: scale(1.2);
-        color: #2ecc71;
-    }
-
-    .btn-arquivar {
-        background: transparent;
-        color: rgba(149, 165, 166, 0.7);
-        padding: 5px;
-        border: none;
-        cursor: pointer;
-        transition: all 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .btn-arquivar:hover {
-        transform: scale(1.2);
-        color: #95a5a6;
-    }
-
-    /* Action buttons container */
+    /* ========== BOTÕES DE AÇÃO (Padrão Medicamentos) ========== */
     .action-buttons {
         display: flex;
-        gap: 5px;
+        gap: 2px;
         justify-content: center;
         align-items: center;
     }
 
-    .action-buttons button {
-        background: transparent !important;
-        background-color: transparent !important;
-        border: none;
-        padding: 5px;
-        cursor: pointer;
-        transition: all 0.2s;
+    /* Botão base - área de toque mínima 44px */
+    .action-btn {
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-
-    .action-buttons button:hover {
-        transform: scale(1.2);
-        background: transparent !important;
-    }
-
-    .action-buttons button svg {
-        fill: none;
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        min-height: 36px;
+        padding: 0;
         background: transparent;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        color: rgba(212, 175, 125, 0.7);
     }
 
-    /* Reset geral para botões com SVG */
-    button.btn-edit,
-    button.btn-delete,
-    button.btn-arquivar,
-    button.btn-comprovante {
-        background: transparent !important;
-        background-color: transparent !important;
-        border: none !important;
-        outline: none !important;
+    .action-btn:hover {
+        background: rgba(212, 175, 125, 0.1);
+        color: #d4af7d;
+        transform: none;
     }
 
-    /* ========== BADGES ========== */
+    .action-btn:active {
+        transform: scale(0.95);
+    }
+
+    /* Variantes de cor */
+    .action-btn.btn-edit {
+        color: rgba(212, 175, 125, 0.7);
+    }
+    .action-btn.btn-edit:hover {
+        color: #d4af7d;
+        background: rgba(212, 175, 125, 0.1);
+    }
+
+    .action-btn.btn-delete {
+        color: rgba(180, 80, 80, 0.6);
+    }
+    .action-btn.btn-delete:hover {
+        color: #c0392b;
+        background: rgba(192, 57, 43, 0.1);
+    }
+
+    .action-btn.btn-comprovante {
+        color: rgba(46, 204, 113, 0.6);
+    }
+    .action-btn.btn-comprovante:hover {
+        color: #27ae60;
+        background: rgba(39, 174, 96, 0.1);
+    }
+
+    .action-btn.btn-arquivar {
+        color: rgba(149, 165, 166, 0.6);
+    }
+    .action-btn.btn-arquivar:hover {
+        color: #7f8c8d;
+        background: rgba(127, 140, 141, 0.1);
+    }
+
+    .action-btn.btn-duplicate {
+        color: rgba(212, 175, 125, 0.5);
+    }
+    .action-btn.btn-duplicate:hover {
+        color: #d4af7d;
+        background: rgba(212, 175, 125, 0.1);
+    }
+
+    .action-btn.btn-restaurar {
+        color: rgba(46, 204, 113, 0.6);
+    }
+    .action-btn.btn-restaurar:hover {
+        color: #27ae60;
+        background: rgba(39, 174, 96, 0.1);
+    }
+
+    .action-btn.btn-pagar {
+        color: rgba(52, 152, 219, 0.7);
+    }
+    .action-btn.btn-pagar:hover {
+        color: #3498db;
+        background: rgba(52, 152, 219, 0.1);
+    }
+
+    /* Botão adicionar no header de seção */
+    .btn-add-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        background: rgba(212, 175, 125, 0.15);
+        border: 1px solid rgba(212, 175, 125, 0.3);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        color: #d4af7d;
+    }
+
+    .btn-add-section:hover {
+        background: rgba(212, 175, 125, 0.25);
+        border-color: rgba(212, 175, 125, 0.5);
+    }
+
+    .btn-add-section .icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* ========== BADGES (sem emojis) ========== */
     .badge {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
         padding: 3px 8px;
         border-radius: 10px;
         font-size: 0.7em;
-        font-weight: 400;
+        font-weight: 500;
         margin-left: 8px;
         vertical-align: middle;
     }
 
+    .badge .icon {
+        width: 12px;
+        height: 12px;
+    }
+
     .badge.recorrente { background: rgba(155, 89, 182, 0.15); color: #9b59b6; }
     .badge.parcela { background: rgba(52, 152, 219, 0.15); color: #3498db; }
-    .badge.vencido { background: rgba(231, 76, 60, 0.15); color: #e74c3c; }
-    .badge.proximo { background: rgba(241, 196, 15, 0.15); color: #f1c40f; }
+    .badge.vencido { background: rgba(192, 57, 43, 0.15); color: #c0392b; }
+    .badge.proximo { background: rgba(241, 196, 15, 0.15); color: #d4a307; }
     .badge.arquivado { background: rgba(149, 165, 166, 0.15); color: #95a5a6; }
-    .badge.comprovante { background: rgba(46, 204, 113, 0.15); color: #2ecc71; }
-    .badge.juros-pendente { background: rgba(243, 156, 18, 0.15); color: #f39c12; }
+    .badge.comprovante { background: rgba(46, 204, 113, 0.15); color: #27ae60; }
+    .badge.juros-pendente { background: rgba(243, 156, 18, 0.15); color: #d68910; }
 
-    /* ========== CHECKBOX STATUS (igual saude.html) ========== */
+    /* ========== CHECKBOX STATUS (igual Medicamentos) ========== */
     .checkbox-status {
         appearance: none;
         -webkit-appearance: none;
-        width: 24px;
-        height: 24px;
-        border: 2px solid #2ecc71;
+        width: 22px;
+        height: 22px;
+        border: 2px solid rgba(46, 204, 113, 0.5);
         border-radius: 50%;
         cursor: pointer;
         background: transparent;
-        transition: all 0.2s;
+        transition: all 0.2s ease;
         position: relative;
+        flex-shrink: 0;
     }
 
-    /* Checkbox de formulário (Parcelado?) */
+    .checkbox-status:hover {
+        border-color: #2ecc71;
+        background: rgba(46, 204, 113, 0.1);
+    }
+
+    .checkbox-status:checked {
+        background: #27ae60;
+        border-color: #27ae60;
+    }
+
+    .checkbox-status:checked::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 8px;
+        height: 8px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a0a0a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") center/contain no-repeat;
+        width: 12px;
+        height: 12px;
+    }
+
+    /* Checkbox de formulário */
     .form-group-checkbox {
         display: flex;
         align-items: center;
@@ -856,37 +882,7 @@
 
     .emprestimo-card-acoes {
         display: flex;
-        gap: 8px;
-    }
-
-    .emprestimo-card-acoes button {
-        background: transparent !important;
-        background-color: transparent !important;
-        border: none !important;
-        padding: 5px;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
-
-    .emprestimo-card-acoes button:hover {
-        transform: scale(1.2);
-        background: transparent !important;
-    }
-
-    .emprestimo-card-acoes button svg {
-        fill: none;
-    }
-
-    .emprestimo-card-acoes .btn-edit {
-        color: #d4af7d;
-    }
-
-    .emprestimo-card-acoes .btn-delete {
-        color: rgba(220, 53, 69, 0.7);
-    }
-
-    .emprestimo-card-acoes .btn-delete:hover {
-        color: #dc3545;
+        gap: 2px;
     }
 
     .emprestimo-valores {
@@ -936,13 +932,22 @@
     }
 
     .emprestimo-acoes-rapidas button {
-        padding: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 12px 10px;
         border-radius: 10px;
-        font-size: 0.9em;
+        font-size: 0.85em;
         cursor: pointer;
         border: none;
         font-weight: 500;
         transition: all 0.3s;
+    }
+
+    .emprestimo-acoes-rapidas button .icon {
+        width: 14px;
+        height: 14px;
     }
 
     .btn-gerar-juros {
@@ -1226,11 +1231,42 @@
         .mes-selector { flex-direction: column; gap: 15px; align-items: stretch; }
         .view-toggle { justify-content: center; }
         .section-header { flex-direction: column; gap: 15px; align-items: stretch; }
-        .btn-add { width: 100%; text-align: center; }
+        .btn-add-section { width: 100%; height: 40px; }
         .section-content { padding: 15px; }
         .form-row { grid-template-columns: 1fr; }
         .balanco-grid { grid-template-columns: 1fr; }
-        .acoes { flex-wrap: wrap; }
+        
+        /* Ícones menores no mobile mas área de toque preservada */
+        .icon {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .action-btn {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            min-height: 44px;
+        }
+        
+        .action-buttons {
+            gap: 0;
+        }
+        
+        .badge .icon {
+            width: 10px;
+            height: 10px;
+        }
+        
+        .checkbox-status {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .btn-add-section .icon {
+            width: 14px;
+            height: 14px;
+        }
     }
 </style>
 ```
@@ -1275,27 +1311,41 @@
             <button class="btn-periodo-hoje" onclick="irParaHoje()" title="Ir para mês atual">Hoje</button>
         </div>
         <div class="view-toggle">
-            <button class="active" id="btnAtivos">📋 Ativos</button>
-            <button id="btnArquivados">📁 Arquivados</button>
+            <button class="active" id="btnAtivos">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"></path>
+                    <rect x="9" y="3" width="6" height="4" rx="2"></rect>
+                    <path d="M9 12l2 2 4-4"></path>
+                </svg>
+                Ativos
+            </button>
+            <button id="btnArquivados">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 8v13H3V8"></path>
+                    <path d="M1 3h22v5H1z"></path>
+                    <path d="M10 12h4"></path>
+                </svg>
+                Arquivados
+            </button>
         </div>
     </div>
 
     <!-- RESUMO DO MÊS -->
     <div class="resumo-grid">
         <div class="resumo-card recebido">
-            <label>💰 Recebido</label>
+            <label>Recebido</label>
             <div class="valor" id="totalRecebido">R$ 0,00</div>
         </div>
         <div class="resumo-card pago">
-            <label>💸 Pago</label>
+            <label>Pago</label>
             <div class="valor" id="totalPago">R$ 0,00</div>
         </div>
         <div class="resumo-card despesas-mes">
-            <label>📅 Despesas do Mês</label>
+            <label>Despesas do Mês</label>
             <div class="valor" id="totalDespesasMes">R$ 0,00</div>
         </div>
         <div class="resumo-card economia">
-            <label>🏦 Economizado</label>
+            <label>Economizado</label>
             <div class="valor" id="totalEconomia">R$ 0,00</div>
         </div>
     </div>
@@ -1303,8 +1353,13 @@
     <!-- SEÇÃO: RECEITAS -->
     <div class="section" id="sectionReceitas">
         <div class="section-header">
-            <h2>📈 Receitas</h2>
-            <button class="btn-add" id="btnAddReceita">+ Adicionar</button>
+            <h2>Receitas</h2>
+            <button class="btn-add-section" id="btnAddReceita" title="Adicionar receita">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
         </div>
         <div class="section-content">
             <div id="formReceita" class="form-container"></div>
@@ -1312,7 +1367,7 @@
                 <table class="transacoes-table">
                     <thead>
                         <tr>
-                            <th class="col-status">✓</th>
+                            <th class="col-status"></th>
                             <th class="col-descricao">Descrição</th>
                             <th class="col-categoria">Categoria</th>
                             <th class="col-data">Data</th>
@@ -1330,8 +1385,13 @@
     <!-- SEÇÃO: DESPESAS FIXAS -->
     <div class="section" id="sectionDespesasFixas">
         <div class="section-header">
-            <h2>🏠 Despesas Fixas <span class="subtotal" id="subtotalFixas"></span></h2>
-            <button class="btn-add" id="btnAddDespesaFixa">+ Adicionar</button>
+            <h2>Despesas Fixas <span class="subtotal" id="subtotalFixas"></span></h2>
+            <button class="btn-add-section" id="btnAddDespesaFixa" title="Adicionar despesa fixa">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
         </div>
         <div class="section-content">
             <div id="formDespesaFixa" class="form-container"></div>
@@ -1339,7 +1399,7 @@
                 <table class="transacoes-table">
                     <thead>
                         <tr>
-                            <th class="col-status">✓</th>
+                            <th class="col-status"></th>
                             <th class="col-descricao">Descrição</th>
                             <th class="col-categoria">Categoria</th>
                             <th class="col-data">Vencimento</th>
@@ -1357,8 +1417,13 @@
     <!-- SEÇÃO: DESPESAS VARIÁVEIS -->
     <div class="section" id="sectionDespesasVariaveis">
         <div class="section-header">
-            <h2>🛒 Despesas Variáveis <span class="subtotal" id="subtotalVariaveis"></span></h2>
-            <button class="btn-add" id="btnAddDespesaVariavel">+ Adicionar</button>
+            <h2>Despesas Variáveis <span class="subtotal" id="subtotalVariaveis"></span></h2>
+            <button class="btn-add-section" id="btnAddDespesaVariavel" title="Adicionar despesa variável">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
         </div>
         <div class="section-content">
             <div id="formDespesaVariavel" class="form-container"></div>
@@ -1366,7 +1431,7 @@
                 <table class="transacoes-table">
                     <thead>
                         <tr>
-                            <th class="col-status">✓</th>
+                            <th class="col-status"></th>
                             <th class="col-descricao">Descrição</th>
                             <th class="col-categoria">Categoria</th>
                             <th class="col-data">Data</th>
@@ -1384,8 +1449,13 @@
     <!-- SEÇÃO: EMPRÉSTIMOS / DÍVIDAS -->
     <div class="section" id="sectionEmprestimos">
         <div class="section-header">
-            <h2>🏦 Empréstimos / Dívidas</h2>
-            <button class="btn-add" id="btnAddEmprestimo">+ Adicionar</button>
+            <h2>Empréstimos / Dívidas</h2>
+            <button class="btn-add-section" id="btnAddEmprestimo" title="Adicionar empréstimo">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
         </div>
         <div class="section-content">
             <div id="formEmprestimo" class="form-container"></div>
@@ -1397,8 +1467,13 @@
     <!-- SEÇÃO: ECONOMIAS -->
     <div class="section" id="sectionEconomias">
         <div class="section-header">
-            <h2>💎 Economias <span class="subtotal" id="subtotalEconomias"></span></h2>
-            <button class="btn-add" id="btnAddEconomia">+ Adicionar</button>
+            <h2>Economias <span class="subtotal" id="subtotalEconomias"></span></h2>
+            <button class="btn-add-section" id="btnAddEconomia" title="Adicionar economia">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
         </div>
         <div class="section-content">
             <div id="formEconomia" class="form-container"></div>
@@ -1422,7 +1497,7 @@
 
     <!-- RESUMO GERAL ACUMULADO -->
     <div class="resumo-final">
-        <h3>📊 RESUMO GERAL ACUMULADO</h3>
+        <h3>RESUMO GERAL ACUMULADO</h3>
         <div class="resumo-final-grid">
             <div class="resumo-final-item recebido">
                 <label>Total Recebido</label>
@@ -1441,10 +1516,10 @@
 
     <!-- BALANÇO GERAL INTELIGENTE -->
     <div class="balanco-geral">
-        <h3>🧠 BALANÇO GERAL</h3>
+        <h3>BALANÇO GERAL</h3>
         <div class="balanco-grid" id="balancoGrid"></div>
         <div class="sugestoes-container">
-            <h4>💡 Sugestões Inteligentes</h4>
+            <h4>Sugestões Inteligentes</h4>
             <div id="sugestoesContainer"></div>
         </div>
     </div>
@@ -1455,7 +1530,7 @@
 <div class="modal" id="modalEditar">
     <div class="modal-content">
         <div class="modal-header">
-            <h3>✏️ Editar Item</h3>
+            <h3>Editar Item</h3>
             <button class="modal-close">&times;</button>
         </div>
         <div class="modal-body" id="modalEditarBody"></div>
@@ -1465,7 +1540,7 @@
 <div class="modal" id="modalPagarJuros">
     <div class="modal-content">
         <div class="modal-header">
-            <h3>💰 Pagar Juros</h3>
+            <h3>Pagar Juros</h3>
             <button class="modal-close">&times;</button>
         </div>
         <div class="modal-body" id="modalPagarJurosBody"></div>
@@ -1475,7 +1550,7 @@
 <div class="modal" id="modalAmortizar">
     <div class="modal-content">
         <div class="modal-header">
-            <h3>📉 Amortizar Dívida</h3>
+            <h3>Amortizar Dívida</h3>
             <button class="modal-close">&times;</button>
         </div>
         <div class="modal-body" id="modalAmortizarBody"></div>
@@ -1485,7 +1560,7 @@
 <div class="modal" id="modalComprovante">
     <div class="modal-content">
         <div class="modal-header">
-            <h3>📎 Comprovante</h3>
+            <h3>Comprovante</h3>
             <button class="modal-close">&times;</button>
         </div>
         <div class="modal-body" id="modalComprovanteBody"></div>
@@ -1588,13 +1663,13 @@
         if (diffDias < 0) {
             return { 
                 classe: 'vencido', 
-                badge: `<span class="badge vencido">⚠️ ${Math.abs(diffDias)}d atraso</span>` 
+                badge: `<span class="badge vencido"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> ${Math.abs(diffDias)}d</span>` 
             };
         }
         if (diffDias <= 3) {
             return { 
                 classe: 'proximo', 
-                badge: `<span class="badge proximo">⏰ ${diffDias === 0 ? 'Hoje' : diffDias + 'd'}</span>` 
+                badge: `<span class="badge proximo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> ${diffDias === 0 ? 'Hoje' : diffDias + 'd'}</span>` 
             };
         }
         return { classe: '', badge: '' };
@@ -1662,10 +1737,10 @@
 
         // Comprovante com metadados completos
         const tiposLabel = {
-            'despesa_fixa': '🏠 Despesa Fixa',
-            'despesa_variavel': '🛒 Despesa Variável',
-            'juros': '💰 Pagamento de Juros',
-            'amortizacao': '📉 Amortização'
+            'despesa_fixa': 'Despesa Fixa',
+            'despesa_variavel': 'Despesa Variável',
+            'juros': 'Pagamento de Juros',
+            'amortizacao': 'Amortização'
         };
 
         let previewHTML = '';
@@ -2102,7 +2177,7 @@
                     <button class="btn-salvar" onclick="confirmarPagamentoDespesa()">Confirmar</button>
                 </div>
             `;
-            document.querySelector('#modalEditar .modal-header h3').textContent = '💳 Registrar Pagamento';
+            document.querySelector('#modalEditar .modal-header h3').textContent = 'Registrar Pagamento';
             abrirModal('modalEditar');
         } else {
             // Desmarcar como pago
@@ -2165,7 +2240,7 @@
         const body = document.getElementById('modalEditarBody');
         body.innerHTML = `
             <div class="info-box warning">
-                ⚠️ Alterações afetam apenas os <strong>próximos meses</strong>. O histórico é preservado.
+                Alterações afetam apenas os <strong>próximos meses</strong>. O histórico é preservado.
             </div>
             <div class="form-row">
                 <div class="form-group">
@@ -2320,7 +2395,7 @@
                     <button class="btn-salvar" onclick="confirmarPagamentoDespesa()">Confirmar</button>
                 </div>
             `;
-            document.querySelector('#modalEditar .modal-header h3').textContent = '💳 Registrar Pagamento';
+            document.querySelector('#modalEditar .modal-header h3').textContent = 'Registrar Pagamento';
             abrirModal('modalEditar');
         } else {
             item.pago = false;
@@ -2401,7 +2476,7 @@
             
             body.innerHTML = `
                 <div class="info-box" style="margin-bottom: 15px; padding: 12px; background: rgba(52, 152, 219, 0.1); border-radius: 8px; border-left: 3px solid #3498db;">
-                    <strong>📋 Parcela ${item.parcelaAtual}/${totalAtual}</strong><br>
+                    <strong>Parcela ${item.parcelaAtual}/${totalAtual}</strong><br>
                     <small style="color: rgba(255,255,255,0.6);">
                         ✅ ${parcelasPagas} pagas | ⏳ ${parcelasPendentes} pendentes
                     </small>
@@ -2808,7 +2883,7 @@
         const body = document.getElementById('modalEditarBody');
         body.innerHTML = `
             <div class="info-box warning">
-                ⚠️ Alterações no principal não afetam o histórico de pagamentos.
+                Alterações no principal não afetam o histórico de pagamentos.
             </div>
             <div class="form-row">
                 <div class="form-group">
@@ -3004,21 +3079,21 @@
                 <td class="valor-positivo">${formatarMoeda(r.valor)}</td>
                 <td>
                     <div class="action-buttons">
-                        <button class="btn-edit" onclick="editarReceita(${r.id})" title="Editar">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <button class="action-btn btn-edit" onclick="editarReceita(${r.id})" title="Editar">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                 <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                             </svg>
                         </button>
-                        <button class="btn-arquivar" onclick="arquivarReceita(${r.id})" title="Arquivar">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <button class="action-btn btn-arquivar" onclick="arquivarReceita(${r.id})" title="Arquivar">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M21 8v13H3V8"></path>
                                 <path d="M1 3h22v5H1z"></path>
                                 <path d="M10 12h4"></path>
                             </svg>
                         </button>
-                        <button class="btn-delete" onclick="deletarReceita(${r.id})" title="Excluir">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <button class="action-btn btn-delete" onclick="deletarReceita(${r.id})" title="Excluir">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="3 6 5 6 21 6"></polyline>
                                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                             </svg>
@@ -3039,8 +3114,8 @@
                     <td><input type="checkbox" class="checkbox-status" ${d.pago ? 'checked' : ''} onchange="togglePagoFixa(${d.id})"></td>
                     <td class="descricao">
                         ${d.descricao}
-                        <span class="badge recorrente">🔄</span>
-                        ${temComprovante ? '<span class="badge comprovante">📎</span>' : ''}
+                        <span class="badge recorrente"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4"></path><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><path d="M7 23l-4-4 4-4"></path><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg></span>
+                        ${temComprovante ? '<span class="badge comprovante"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg></span>' : ''}
                     </td>
                     <td><span class="categoria">${d.categoria}</span></td>
                     <td>${formatarData(d.data)} ${status.badge}</td>
@@ -3048,20 +3123,20 @@
                     <td>
                         <div class="action-buttons">
                             ${temComprovante ? `
-                                <button class="btn-comprovante" onclick="verComprovanteFixa(${d.id})" title="Ver Comprovante">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <button class="action-btn btn-comprovante" onclick="verComprovanteFixa(${d.id})" title="Ver Comprovante">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
                                     </svg>
                                 </button>
                             ` : ''}
-                            <button class="btn-edit" onclick="editarDespesaFixaModelo(${d.modeloId})" title="Editar">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <button class="action-btn btn-edit" onclick="editarDespesaFixaModelo(${d.modeloId})" title="Editar">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                                 </svg>
                             </button>
-                            <button class="btn-delete" onclick="encerrarDespesaFixa(${d.modeloId})" title="Encerrar">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <button class="action-btn btn-delete" onclick="encerrarDespesaFixa(${d.modeloId})" title="Encerrar">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="3 6 5 6 21 6"></polyline>
                                     <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                                 </svg>
@@ -3113,7 +3188,7 @@
                         <div class="parcela-bar">
                             <div class="parcela-bar-fill" style="width: ${percentPago}%; background: linear-gradient(90deg, ${barColor} 0%, ${barColor}cc 100%);"></div>
                         </div>
-                        ${percentPago < 100 ? `<small style="color: rgba(255,255,255,0.35); font-size: 0.7em;">Restam: ${formatarMoeda(valorRestante)}</small>` : '<small style="color: #2ecc71; font-size: 0.7em;">✓ Quitado</small>'}
+                        ${percentPago < 100 ? `<small style="color: rgba(255,255,255,0.35); font-size: 0.7em;">Restam: ${formatarMoeda(valorRestante)}</small>` : '<small style="color: #2ecc71; font-size: 0.7em;">Quitado</small>'}
                     </div>
                 `;
             }
@@ -3124,7 +3199,7 @@
                     <td class="descricao">
                         ${d.descricao}
                         ${d.parcelado ? `<span class="badge parcela">${d.parcelaAtual}/${d.totalParcelas}</span>` : ''}
-                        ${temComprovante ? '<span class="badge comprovante">📎</span>' : ''}
+                        ${temComprovante ? '<span class="badge comprovante"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg></span>' : ''}
                         ${parcelaHtml}
                     </td>
                     <td><span class="categoria">${d.categoria}</span></td>
@@ -3136,28 +3211,28 @@
                     <td>
                         <div class="action-buttons">
                             ${temComprovante ? `
-                                <button class="btn-comprovante" onclick="verComprovanteVariavel(${d.id})" title="Ver Comprovante">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <button class="action-btn btn-comprovante" onclick="verComprovanteVariavel(${d.id})" title="Ver Comprovante">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
                                     </svg>
                                 </button>
                             ` : ''}
-                            <button class="btn-edit" onclick="editarDespesaVariavel(${d.id})" title="Editar">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <button class="action-btn btn-edit" onclick="editarDespesaVariavel(${d.id})" title="Editar">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                                 </svg>
                             </button>
                             ${d.parcelado ? `
-                                <button class="btn-delete" onclick="deletarTodasParcelas(${d.id})" title="Excluir todas parcelas">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <button class="action-btn btn-delete" onclick="deletarTodasParcelas(${d.id})" title="Excluir todas parcelas">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="3 6 5 6 21 6"></polyline>
                                         <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                                     </svg>
                                 </button>
                             ` : `
-                                <button class="btn-delete" onclick="deletarDespesaVariavel(${d.id})" title="Excluir">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <button class="action-btn btn-delete" onclick="deletarDespesaVariavel(${d.id})" title="Excluir">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="3 6 5 6 21 6"></polyline>
                                         <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                                     </svg>
@@ -3181,20 +3256,20 @@
                     <div class="emprestimo-card-header">
                         <div class="emprestimo-card-title">
                             ${e.descricao}
-                            ${temJurosPendentes ? '<span class="badge juros-pendente">⚠️ Juros Pendentes</span>' : ''}
+                            ${temJurosPendentes ? '<span class="badge juros-pendente"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Juros</span>' : ''}
                             <small>
                                 <span class="categoria">${e.categoria}</span> • Taxa: ${e.taxaJuros}% a.m.
                             </small>
                         </div>
                         <div class="emprestimo-card-acoes">
-                            <button class="btn-edit" onclick="editarEmprestimo(${e.id})" title="Editar">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <button class="action-btn btn-edit" onclick="editarEmprestimo(${e.id})" title="Editar">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                                 </svg>
                             </button>
-                            <button class="btn-delete" onclick="deletarEmprestimo(${e.id})" title="Excluir">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <button class="action-btn btn-delete" onclick="deletarEmprestimo(${e.id})" title="Excluir">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="3 6 5 6 21 6"></polyline>
                                     <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                                 </svg>
@@ -3233,9 +3308,18 @@
                     </div>
 
                     <div class="emprestimo-acoes-rapidas">
-                        <button class="btn-gerar-juros" onclick="gerarJurosMes(${e.id})">📊 Gerar Juros</button>
-                        <button class="btn-juros" onclick="abrirModalPagarJuros(${e.id})">💰 Pagar Juros</button>
-                        <button class="btn-amortizar" onclick="abrirModalAmortizar(${e.id})">📉 Amortizar</button>
+                        <button class="btn-gerar-juros" onclick="gerarJurosMes(${e.id})">
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                            Gerar Juros
+                        </button>
+                        <button class="btn-juros" onclick="abrirModalPagarJuros(${e.id})">
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                            Pagar Juros
+                        </button>
+                        <button class="btn-amortizar" onclick="abrirModalAmortizar(${e.id})">
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                            Amortizar
+                        </button>
                     </div>
                 </div>
             `;
@@ -3295,11 +3379,11 @@
             const historicoComComprovantes = (e.historico || [])
                 .filter(h => h.comprovante)
                 .map((h, idx) => {
-                    const tipoLabel = h.tipo === 'pagamento_juros' ? '💰 Juros' : 
-                                     h.tipo === 'amortizacao' ? '📉 Amortização' : h.tipo;
+                    const tipoLabel = h.tipo === 'pagamento_juros' ? 'Juros' : 
+                                     h.tipo === 'amortizacao' ? 'Amortização' : h.tipo;
                     return `<button class="comprovante" onclick="verComprovanteHistoricoArquivado(${e.id}, ${e.historico.indexOf(h)})" 
                             title="${tipoLabel} - ${formatarMoeda(h.valor)}" style="margin:2px;">
-                            📎 ${tipoLabel}
+                            Anexo: ${tipoLabel}
                     </button>`;
                 }).join('');
 
@@ -3308,7 +3392,7 @@
                     <div class="emprestimo-card-header">
                         <div class="emprestimo-card-title">
                             ${e.descricao}
-                            <span class="badge arquivado">📁 Quitado</span>
+                            <span class="badge arquivado">Quitado</span>
                             <small>Arquivado em ${formatarData(e.arquivadoEm?.split('T')[0])}</small>
                         </div>
                     </div>
@@ -3328,7 +3412,7 @@
                     </div>
                     ${historicoComComprovantes ? `
                         <div style="margin-top:15px;padding-top:15px;border-top:1px solid rgba(255,255,255,0.1);">
-                            <label style="font-size:0.8em;color:rgba(255,255,255,0.5);display:block;margin-bottom:8px;">📎 Comprovantes Salvos:</label>
+                            <label style="font-size:0.8em;color:rgba(255,255,255,0.5);display:block;margin-bottom:8px;">Anexo: Comprovantes Salvos:</label>
                             ${historicoComComprovantes}
                         </div>
                     ` : ''}
@@ -3397,14 +3481,14 @@
         // Comprometimento da Renda
         const comprometimentoStatus = comprometimento > 80 ? 'alerta' : comprometimento > 60 ? 'info' : 'sucesso';
         const comprometimentoMsg = comprometimento > 80 
-            ? '⚠️ Renda muito comprometida' 
+            ? 'Renda muito comprometida' 
             : comprometimento > 60 
                 ? '⚡ Atenção moderada' 
                 : '✅ Boa margem disponível';
         
         indicadoresHTML += `
             <div class="balanco-item ${comprometimentoStatus}">
-                <h4>📊 Comprometimento da Renda</h4>
+                <h4>Comprometimento da Renda</h4>
                 <div class="valor-destaque">${comprometimento}%</div>
                 <div class="detalhe">${comprometimentoMsg}</div>
             </div>
@@ -3413,7 +3497,7 @@
         // Folga Mensal
         indicadoresHTML += `
             <div class="balanco-item ${folga >= 0 ? 'sucesso' : 'alerta'}">
-                <h4>💰 Folga Mensal</h4>
+                <h4>Folga Mensal</h4>
                 <div class="valor-destaque">${formatarMoeda(folga)}</div>
                 <div class="detalhe">${folga >= 0 ? 'Disponível após despesas' : 'Déficit - gastos excedem receita'}</div>
             </div>
@@ -3423,7 +3507,7 @@
         if (totalDividas > 0) {
             indicadoresHTML += `
                 <div class="balanco-item ${totalDividas > receitaMes * 3 ? 'alerta' : 'info'}">
-                    <h4>🏦 Total em Dívidas</h4>
+                    <h4>Total em Dívidas</h4>
                     <div class="valor-destaque">${formatarMoeda(totalDividas)}</div>
                     <div class="detalhe">+ ${formatarMoeda(totalJurosAcum)} em juros acumulados</div>
                 </div>
@@ -3434,7 +3518,7 @@
         if (dividaMaisAlta && emprestimos.length > 0) {
             indicadoresHTML += `
                 <div class="balanco-item alerta">
-                    <h4>📈 Maior Dívida</h4>
+                    <h4>Maior Dívida</h4>
                     <div class="valor-destaque">${formatarMoeda(dividaMaisAlta.principal)}</div>
                     <div class="detalhe">${dividaMaisAlta.descricao} (${dividaMaisAlta.taxaJuros}% a.m.)</div>
                 </div>
@@ -3445,7 +3529,7 @@
         if (dividaMaisBaixa && emprestimos.length > 1 && dividaMaisBaixa.id !== dividaMaisAlta.id) {
             indicadoresHTML += `
                 <div class="balanco-item sucesso">
-                    <h4>📉 Menor Dívida</h4>
+                    <h4>Menor Dívida</h4>
                     <div class="valor-destaque">${formatarMoeda(dividaMaisBaixa.principal)}</div>
                     <div class="detalhe">${dividaMaisBaixa.descricao} - Mais fácil de quitar</div>
                 </div>
@@ -3479,7 +3563,7 @@
                         ? '✅ Reserva saudável' 
                         : mesesDeReserva >= 3 
                             ? '⚡ Reserva moderada' 
-                            : '⚠️ Construa sua reserva'
+                            : 'Construa sua reserva'
                 }</div>
             </div>
         `;
@@ -3495,7 +3579,7 @@
         // Sugestão: Juros acumulados pendentes
         if (totalJurosAcum > 0) {
             sugestoes.push({
-                icon: '⚠️',
+                icon: '!',
                 prioridade: 1,
                 texto: `Você tem <strong>${formatarMoeda(totalJurosAcum)}</strong> em juros acumulados. Priorize quitá-los para evitar o efeito bola de neve!`
             });
@@ -3504,7 +3588,7 @@
         // Sugestão: Pode quitar dívida menor
         if (dividaMaisBaixa && folga >= dividaMaisBaixa.principal) {
             sugestoes.push({
-                icon: '🎯',
+                icon: '→',
                 prioridade: 2,
                 texto: `Com sua folga atual, você pode <strong>quitar "${dividaMaisBaixa.descricao}"</strong> este mês e eliminar uma dívida!`
             });
@@ -3516,7 +3600,7 @@
             if (folga > jurosMensal) {
                 const sobraParaAmortizar = folga - jurosMensal;
                 sugestoes.push({
-                    icon: '💡',
+                    icon: '→',
                     prioridade: 3,
                     texto: `Você pode cobrir os juros de "${dividaMaisCara.descricao}" (<strong>${formatarMoeda(jurosMensal)}</strong>) e ainda amortizar <strong>${formatarMoeda(sobraParaAmortizar)}</strong>.`
                 });
@@ -3620,7 +3704,7 @@
                 console.error('Erro Supabase:', error);
                 mostrarStatus('Erro ao sincronizar', 'error');
             } else {
-                mostrarStatus('Sincronizado ✓', 'success');
+                mostrarStatus('Sincronizado', 'success');
             }
         } catch (e) {
             console.error('Exceção Supabase:', e);
@@ -3649,7 +3733,7 @@
                     arquivados: { ...dadosVazios.arquivados, ...data.dados.arquivados }
                 };
                 localStorage.setItem('financeiro_v5', JSON.stringify(financeiro));
-                mostrarStatus('Dados carregados ✓', 'success');
+                mostrarStatus('Dados carregados', 'success');
                 return true;
             }
             return false;
