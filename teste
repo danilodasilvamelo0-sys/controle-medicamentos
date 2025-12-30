@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Mobile</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { background: #0a0a0a; }
+        body {
+            font-family: Arial, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .box {
+            background: #1a1a1a;
+            border: 1px solid #d4af7d;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            max-width: 300px;
+        }
+        h1 { color: #d4af7d; margin-bottom: 20px; }
+        p { margin: 10px 0; color: #888; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Teste Mobile</h1>
+        <p>Se voce ve apenas este texto</p>
+        <p>sem pontos extras</p>
+        <p>o arquivo esta limpo</p>
+        <p>---</p>
+        <p>Linha final</p>
+    </div>
+</body>
+</html>
