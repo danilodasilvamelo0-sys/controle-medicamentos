@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="color-scheme" content="dark">
     <title>ZARA | Private Access</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
@@ -14,9 +16,16 @@
         }
 
 ```
+    html {
+        background: #0a0a0a !important;
+        background-color: #0a0a0a !important;
+    }
+
     body {
         font-family: 'Inter', sans-serif;
-        background: #0a0a0a;
+        background: #0a0a0a !important;
+        background-color: #0a0a0a !important;
+        color: #fff;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
@@ -482,7 +491,7 @@
 ```
 
 </head>
-<body>
+<body style="background:#0a0a0a;background-color:#0a0a0a;">
     <div class="gold-line"></div>
     <div class="gold-line-bottom"></div>
 
@@ -580,8 +589,8 @@
     // CONFIGURAÇÃO DE ACESSO
     // ==========================================
     const CREDENCIAIS = {
-        usuario: 'Master',
-        senha: 'Nokian73*'
+        usuario: 'zara',
+        senha: '2025'
     };
 
     const AUTH_KEY = 'zara_authenticated';
