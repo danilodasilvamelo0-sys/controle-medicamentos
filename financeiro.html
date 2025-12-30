@@ -1703,6 +1703,7 @@
         font-size: 0.95em;
         font-weight: 500;
         cursor: not-allowed;
+        pointer-events: none;
         transition: all 0.3s;
     }
 
@@ -1711,6 +1712,7 @@
         border-color: transparent;
         color: #fff;
         cursor: pointer;
+        pointer-events: auto;
     }
 
     .btn-excluir-final.ativo:hover {
@@ -4169,6 +4171,8 @@
         const checkbox = document.getElementById('checkConfirmaExclusao');
         const btn = document.getElementById('btnExcluirFinal');
         
+        if (!checkbox || !btn) return;
+        
         if (checkbox.checked) {
             btn.classList.add('ativo');
         } else {
@@ -4178,12 +4182,21 @@
 
     function confirmarExclusaoEmprestimo() {
         const checkbox = document.getElementById('checkConfirmaExclusao');
-        if (!checkbox.checked) return;
+        if (!checkbox || !checkbox.checked) {
+            console.log('Checkbox não marcado');
+            return;
+        }
 
-        const emp = financeiro.emprestimos.find(e => e.id === itemEditando.id);
-        if (!emp) return;
+        if (!itemEditando || !itemEditando.id) {
+            console.log('itemEditando não definido');
+            return;
+        }
 
-        financeiro.emprestimos = financeiro.emprestimos.filter(e => e.id !== itemEditando.id);
+        const idExcluir = itemEditando.id;
+        console.log('Excluindo empréstimo ID:', idExcluir);
+        
+        financeiro.emprestimos = financeiro.emprestimos.filter(e => e.id !== idExcluir);
+        
         salvarDados();
         fecharModal('modalExcluir');
         renderizar();
