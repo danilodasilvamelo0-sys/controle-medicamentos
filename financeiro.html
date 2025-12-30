@@ -168,6 +168,41 @@
         color: #d4af7d;
     }
 
+    /* Botões de navegação de período */
+    .btn-periodo-nav {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        color: rgba(255, 255, 255, 0.6);
+        padding: 10px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.85em;
+        transition: all 0.3s;
+    }
+
+    .btn-periodo-nav:hover {
+        background: rgba(212, 175, 125, 0.15) !important;
+        border-color: rgba(212, 175, 125, 0.3) !important;
+        color: #d4af7d;
+    }
+
+    .btn-periodo-hoje {
+        background: rgba(212, 175, 125, 0.1) !important;
+        border: 1px solid rgba(212, 175, 125, 0.3) !important;
+        color: #d4af7d;
+        padding: 10px 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.85em;
+        font-weight: 500;
+        transition: all 0.3s;
+    }
+
+    .btn-periodo-hoje:hover {
+        background: rgba(212, 175, 125, 0.2) !important;
+        border-color: #d4af7d !important;
+    }
+
     /* ========== RESUMO GRID ========== */
     .resumo-grid {
         display: grid;
@@ -1214,7 +1249,7 @@
         </div>
     </div>
 
-    <!-- SELETOR DE MÊS E VISUALIZAÇÃO -->
+    <!-- SELETOR DE MÊS/ANO E VISUALIZAÇÃO -->
     <div class="mes-selector">
         <div class="mes-controls">
             <span class="mes-label">Período:</span>
@@ -1232,6 +1267,12 @@
                 <option value="11">Novembro</option>
                 <option value="12">Dezembro</option>
             </select>
+            <select id="anoSelect">
+                <!-- Anos serão gerados dinamicamente -->
+            </select>
+            <button class="btn-periodo-nav" onclick="navegarPeriodo(-1)" title="Mês anterior">◀</button>
+            <button class="btn-periodo-nav" onclick="navegarPeriodo(1)" title="Próximo mês">▶</button>
+            <button class="btn-periodo-hoje" onclick="irParaHoje()" title="Ir para mês atual">Hoje</button>
         </div>
         <div class="view-toggle">
             <button class="active" id="btnAtivos">📋 Ativos</button>
@@ -2190,27 +2231,40 @@
         const desc = document.getElementById('despesaVariavelDescricao').value.trim();
         const valor = parseFloat(document.getElementById('despesaVariavelValor').value) || 0;
         const cat = document.getElementById('despesaVariavelCategoria').value || 'Outros';
-        const data = document.getElementById('despesaVariavelData').value;
+        let data = document.getElementById('despesaVariavelData').value;
         const parcelado = document.getElementById('despesaVariavelParcelado')?.checked || false;
         const totalParcelas = parseInt(document.getElementById('despesaVariavelTotalParcelas')?.value) || 0;
         
-        if (!desc || !valor || !data) return alert('Preencha todos os campos!');
+        if (!desc || !valor) return alert('Preencha descrição e valor!');
+        
+        // Se não informou data, usa o mês/ano selecionado
+        if (!data) {
+            data = `${anoSelecionado}-${mesSelecionado}-01`;
+        }
         
         if (parcelado && totalParcelas >= 2) {
             // Criar despesas parceladas
             const grupoId = gerarId(); // ID único para agrupar parcelas
-            const dataBase = new Date(data);
+            const [ano, mes, dia] = data.split('-').map(Number);
             
             for (let i = 0; i < totalParcelas; i++) {
-                const dataParcela = new Date(dataBase);
-                dataParcela.setMonth(dataParcela.getMonth() + i);
+                // Calcular data de cada parcela (suporta virada de ano)
+                let novaMes = mes + i;
+                let novoAno = ano;
+                
+                while (novaMes > 12) {
+                    novaMes -= 12;
+                    novoAno++;
+                }
+                
+                const dataParcela = `${novoAno}-${String(novaMes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
                 
                 financeiro.despesasVariaveis.push({
                     id: gerarId(),
                     descricao: desc,
                     valor: valor,
                     categoria: cat,
-                    data: dataParcela.toISOString().split('T')[0],
+                    data: dataParcela,
                     pago: false,
                     dataPagamento: null,
                     comprovante: null,
@@ -2288,13 +2342,44 @@
         const despesa = financeiro.despesasVariaveis.find(d => d.id === id);
         if (!despesa || !despesa.grupoParcelaId) return;
         
-        const totalParcelas = financeiro.despesasVariaveis.filter(d => d.grupoParcelaId === despesa.grupoParcelaId).length;
+        const parcelasDoGrupo = financeiro.despesasVariaveis.filter(d => d.grupoParcelaId === despesa.grupoParcelaId);
+        const parcelasPagas = parcelasDoGrupo.filter(p => p.pago).length;
+        const parcelasPendentes = parcelasDoGrupo.filter(p => !p.pago).length;
+        const totalParcelas = parcelasDoGrupo.length;
         
-        if (!confirm(`Excluir TODAS as ${totalParcelas} parcelas de "${despesa.descricao}"?`)) return;
-        
-        financeiro.despesasVariaveis = financeiro.despesasVariaveis.filter(d => d.grupoParcelaId !== despesa.grupoParcelaId);
-        salvarDados();
-        renderizar();
+        // Se houver parcelas pagas, oferecer opções
+        if (parcelasPagas > 0) {
+            const opcao = confirm(
+                `"${despesa.descricao}" - ${totalParcelas} parcelas\n\n` +
+                `✅ ${parcelasPagas} parcelas já pagas\n` +
+                `⏳ ${parcelasPendentes} parcelas pendentes\n\n` +
+                `Clique OK para excluir APENAS as parcelas PENDENTES.\n` +
+                `Clique Cancelar para manter tudo.`
+            );
+            
+            if (opcao) {
+                // Excluir apenas parcelas pendentes
+                financeiro.despesasVariaveis = financeiro.despesasVariaveis.filter(
+                    d => d.grupoParcelaId !== despesa.grupoParcelaId || d.pago
+                );
+                
+                // Renumerar parcelas restantes (pagas)
+                const restantes = financeiro.despesasVariaveis.filter(d => d.grupoParcelaId === despesa.grupoParcelaId);
+                restantes.forEach((p, idx) => {
+                    p.totalParcelas = restantes.length;
+                });
+                
+                salvarDados();
+                renderizar();
+            }
+        } else {
+            // Sem parcelas pagas - pode excluir tudo
+            if (!confirm(`Excluir TODAS as ${totalParcelas} parcelas de "${despesa.descricao}"?`)) return;
+            
+            financeiro.despesasVariaveis = financeiro.despesasVariaveis.filter(d => d.grupoParcelaId !== despesa.grupoParcelaId);
+            salvarDados();
+            renderizar();
+        }
     }
 
     function editarDespesaVariavel(id) {
@@ -2303,34 +2388,195 @@
 
         itemEditando = { tipo: 'despesaVariavelEdit', id: id };
         const body = document.getElementById('modalEditarBody');
-        body.innerHTML = `
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Descrição</label>
-                    <input type="text" id="editDescricao" value="${item.descricao}">
+        
+        // Se for parcelada, mostrar opções de edição de parcelas
+        if (item.parcelado && item.grupoParcelaId) {
+            const parcelasDoGrupo = financeiro.despesasVariaveis
+                .filter(d => d.grupoParcelaId === item.grupoParcelaId)
+                .sort((a, b) => a.parcelaAtual - b.parcelaAtual);
+            
+            const parcelasPagas = parcelasDoGrupo.filter(p => p.pago).length;
+            const parcelasPendentes = parcelasDoGrupo.filter(p => !p.pago).length;
+            const totalAtual = parcelasDoGrupo.length;
+            
+            body.innerHTML = `
+                <div class="info-box" style="margin-bottom: 15px; padding: 12px; background: rgba(52, 152, 219, 0.1); border-radius: 8px; border-left: 3px solid #3498db;">
+                    <strong>📋 Parcela ${item.parcelaAtual}/${totalAtual}</strong><br>
+                    <small style="color: rgba(255,255,255,0.6);">
+                        ✅ ${parcelasPagas} pagas | ⏳ ${parcelasPendentes} pendentes
+                    </small>
                 </div>
-                <div class="form-group">
-                    <label>Valor</label>
-                    <input type="number" id="editValor" step="0.01" value="${item.valor}">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <input type="text" id="editDescricao" value="${item.descricao}">
+                    </div>
+                    <div class="form-group">
+                        <label>Valor da Parcela</label>
+                        <input type="number" id="editValor" step="0.01" value="${item.valor}">
+                    </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Categoria</label>
-                    <input type="text" id="editCategoria" value="${item.categoria}">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <input type="text" id="editCategoria" value="${item.categoria}">
+                    </div>
+                    <div class="form-group">
+                        <label>Total de Parcelas</label>
+                        <input type="number" id="editTotalParcelas" min="${parcelasPagas || 1}" value="${totalAtual}">
+                        <small style="color: rgba(255,255,255,0.4); font-size: 0.75em;">Mínimo: ${parcelasPagas || 1} (parcelas já pagas)</small>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Data</label>
-                    <input type="date" id="editData" value="${item.data}">
+                <div class="form-group form-group-checkbox" style="margin-top: 10px;">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="editAplicarTodasParcelas" checked>
+                        <span>Aplicar alterações em TODAS as parcelas pendentes</span>
+                    </label>
                 </div>
-            </div>
-            <div class="form-buttons">
-                <button class="btn-cancelar" onclick="fecharModal('modalEditar')">Cancelar</button>
-                <button class="btn-salvar" onclick="salvarEdicaoDespesaVariavel()">Salvar</button>
-            </div>
-        `;
-        document.querySelector('#modalEditar .modal-header h3').textContent = '✏️ Editar Despesa';
+                <div class="form-buttons">
+                    <button class="btn-cancelar" onclick="fecharModal('modalEditar')">Cancelar</button>
+                    <button class="btn-salvar" onclick="salvarEdicaoParcelada()">Salvar</button>
+                </div>
+            `;
+            document.querySelector('#modalEditar .modal-header h3').textContent = '✏️ Editar Despesa Parcelada';
+        } else {
+            // Despesa não parcelada - edição simples
+            body.innerHTML = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <input type="text" id="editDescricao" value="${item.descricao}">
+                    </div>
+                    <div class="form-group">
+                        <label>Valor</label>
+                        <input type="number" id="editValor" step="0.01" value="${item.valor}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <input type="text" id="editCategoria" value="${item.categoria}">
+                    </div>
+                    <div class="form-group">
+                        <label>Data</label>
+                        <input type="date" id="editData" value="${item.data}">
+                    </div>
+                </div>
+                <div class="form-buttons">
+                    <button class="btn-cancelar" onclick="fecharModal('modalEditar')">Cancelar</button>
+                    <button class="btn-salvar" onclick="salvarEdicaoDespesaVariavel()">Salvar</button>
+                </div>
+            `;
+            document.querySelector('#modalEditar .modal-header h3').textContent = '✏️ Editar Despesa';
+        }
         abrirModal('modalEditar');
+    }
+
+    // Salvar edição de despesa parcelada
+    function salvarEdicaoParcelada() {
+        const item = financeiro.despesasVariaveis.find(d => d.id === itemEditando.id);
+        if (!item || !item.grupoParcelaId) return;
+
+        const novaDescricao = document.getElementById('editDescricao').value.trim();
+        const novoValor = parseFloat(document.getElementById('editValor').value) || item.valor;
+        const novaCategoria = document.getElementById('editCategoria').value;
+        const novoTotalParcelas = parseInt(document.getElementById('editTotalParcelas').value);
+        const aplicarTodas = document.getElementById('editAplicarTodasParcelas').checked;
+
+        // Pegar todas as parcelas do grupo ordenadas
+        const parcelasDoGrupo = financeiro.despesasVariaveis
+            .filter(d => d.grupoParcelaId === item.grupoParcelaId)
+            .sort((a, b) => a.parcelaAtual - b.parcelaAtual);
+        
+        const totalAtual = parcelasDoGrupo.length;
+        const parcelasPagas = parcelasDoGrupo.filter(p => p.pago);
+        const parcelasPendentes = parcelasDoGrupo.filter(p => !p.pago);
+
+        // Validar: não pode ter menos parcelas que as já pagas
+        if (novoTotalParcelas < parcelasPagas.length) {
+            alert(`Não é possível reduzir para menos de ${parcelasPagas.length} parcelas (já pagas).`);
+            return;
+        }
+
+        // Atualizar parcelas existentes
+        if (aplicarTodas) {
+            // Atualizar TODAS as parcelas pendentes
+            parcelasPendentes.forEach(p => {
+                p.descricao = novaDescricao;
+                p.valor = novoValor;
+                p.categoria = novaCategoria;
+                p.totalParcelas = novoTotalParcelas;
+            });
+            // Atualizar parcelas pagas apenas descrição e categoria (não valor)
+            parcelasPagas.forEach(p => {
+                p.descricao = novaDescricao;
+                p.categoria = novaCategoria;
+                p.totalParcelas = novoTotalParcelas;
+            });
+        } else {
+            // Atualizar apenas a parcela atual
+            item.descricao = novaDescricao;
+            item.valor = novoValor;
+            item.categoria = novaCategoria;
+        }
+
+        // Ajustar número de parcelas
+        if (novoTotalParcelas > totalAtual) {
+            // Adicionar parcelas futuras
+            const ultimaParcela = parcelasDoGrupo[parcelasDoGrupo.length - 1];
+            const [ano, mes, dia] = ultimaParcela.data.split('-').map(Number);
+            
+            for (let i = totalAtual + 1; i <= novoTotalParcelas; i++) {
+                // Calcular quantos meses adicionar
+                const mesesAdicionar = i - totalAtual;
+                let novaMes = mes + mesesAdicionar;
+                let novoAno = ano;
+                
+                while (novaMes > 12) {
+                    novaMes -= 12;
+                    novoAno++;
+                }
+                
+                const dataNova = `${novoAno}-${String(novaMes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+                
+                financeiro.despesasVariaveis.push({
+                    id: gerarId(),
+                    descricao: novaDescricao,
+                    valor: novoValor,
+                    categoria: novaCategoria,
+                    data: dataNova,
+                    pago: false,
+                    dataPagamento: null,
+                    comprovante: null,
+                    parcelado: true,
+                    grupoParcelaId: item.grupoParcelaId,
+                    parcelaAtual: i,
+                    totalParcelas: novoTotalParcelas
+                });
+            }
+        } else if (novoTotalParcelas < totalAtual) {
+            // Remover parcelas pendentes excedentes (apenas as últimas não pagas)
+            const parcelasParaRemover = parcelasPendentes
+                .sort((a, b) => b.parcelaAtual - a.parcelaAtual) // Ordenar decrescente
+                .slice(0, totalAtual - novoTotalParcelas);
+            
+            const idsParaRemover = parcelasParaRemover.map(p => p.id);
+            financeiro.despesasVariaveis = financeiro.despesasVariaveis.filter(d => !idsParaRemover.includes(d.id));
+            
+            // Renumerar parcelas restantes
+            const parcelasRestantes = financeiro.despesasVariaveis
+                .filter(d => d.grupoParcelaId === item.grupoParcelaId)
+                .sort((a, b) => new Date(a.data) - new Date(b.data));
+            
+            parcelasRestantes.forEach((p, idx) => {
+                p.parcelaAtual = idx + 1;
+                p.totalParcelas = novoTotalParcelas;
+            });
+        }
+
+        salvarDados();
+        fecharModal('modalEditar');
+        renderizar();
     }
 
     function salvarEdicaoDespesaVariavel() {
@@ -2835,21 +3081,39 @@
             
             // Calcular progresso de parcelas
             let parcelaHtml = '';
-            if (d.parcelado && d.totalParcelas) {
+            let valorTotalParcelado = '';
+            if (d.parcelado && d.totalParcelas && d.grupoParcelaId) {
                 // Contar parcelas pagas do mesmo grupo
                 const parcelasDoGrupo = financeiro.despesasVariaveis.filter(dv => dv.grupoParcelaId === d.grupoParcelaId);
                 const parcelasPagas = parcelasDoGrupo.filter(p => p.pago).length;
-                const percentPago = Math.round((parcelasPagas / d.totalParcelas) * 100);
+                const totalParcelasAtual = parcelasDoGrupo.length;
+                const percentPago = Math.round((parcelasPagas / totalParcelasAtual) * 100);
+                const valorTotal = d.valor * totalParcelasAtual;
+                const valorPago = d.valor * parcelasPagas;
+                const valorRestante = valorTotal - valorPago;
+                
+                valorTotalParcelado = `<small style="color: rgba(255,255,255,0.4); display: block; font-size: 0.75em;">Total: ${formatarMoeda(valorTotal)}</small>`;
+                
+                // Determinar cor da barra baseado no progresso
+                let barColor = '#3498db'; // Azul padrão
+                if (percentPago >= 100) {
+                    barColor = '#2ecc71'; // Verde quando quitado
+                } else if (percentPago >= 75) {
+                    barColor = '#27ae60'; // Verde mais escuro
+                } else if (percentPago >= 50) {
+                    barColor = '#f39c12'; // Amarelo
+                }
                 
                 parcelaHtml = `
                     <div class="parcela-progress">
                         <div class="parcela-info">
-                            <span class="parcela-label">${d.parcelaAtual}/${d.totalParcelas}</span>
+                            <span class="parcela-label">${parcelasPagas}/${totalParcelasAtual} pagas</span>
                             <span class="parcela-percent">${percentPago}%</span>
                         </div>
                         <div class="parcela-bar">
-                            <div class="parcela-bar-fill" style="width: ${percentPago}%"></div>
+                            <div class="parcela-bar-fill" style="width: ${percentPago}%; background: linear-gradient(90deg, ${barColor} 0%, ${barColor}cc 100%);"></div>
                         </div>
+                        ${percentPago < 100 ? `<small style="color: rgba(255,255,255,0.35); font-size: 0.7em;">Restam: ${formatarMoeda(valorRestante)}</small>` : '<small style="color: #2ecc71; font-size: 0.7em;">✓ Quitado</small>'}
                     </div>
                 `;
             }
@@ -2865,7 +3129,10 @@
                     </td>
                     <td><span class="categoria">${d.categoria}</span></td>
                     <td>${formatarData(d.data)} ${status.badge}</td>
-                    <td class="valor-negativo">${formatarMoeda(d.valor)}</td>
+                    <td class="valor-negativo">
+                        ${formatarMoeda(d.valor)}
+                        ${valorTotalParcelado}
+                    </td>
                     <td>
                         <div class="action-buttons">
                             ${temComprovante ? `
@@ -3412,14 +3679,92 @@
     }
 
     // ==========================================
-    // CONTROLES DE MÊS E VISUALIZAÇÃO
+    // CONTROLES DE MÊS/ANO E VISUALIZAÇÃO
     // ==========================================
     
+    // Gerar opções de ano dinamicamente (10 anos atrás até 30 anos à frente)
+    function gerarOpcoesAno() {
+        const anoAtual = new Date().getFullYear();
+        const select = document.getElementById('anoSelect');
+        select.innerHTML = '';
+        
+        // Range ampliado para suportar planejamento de longo prazo
+        for (let ano = anoAtual - 10; ano <= anoAtual + 30; ano++) {
+            const option = document.createElement('option');
+            option.value = ano;
+            option.textContent = ano;
+            select.appendChild(option);
+        }
+        
+        // Se o ano selecionado não está na lista, adiciona dinamicamente
+        if (!select.querySelector(`option[value="${anoSelecionado}"]`)) {
+            const option = document.createElement('option');
+            option.value = anoSelecionado;
+            option.textContent = anoSelecionado;
+            select.appendChild(option);
+        }
+        
+        select.value = anoSelecionado;
+    }
+
     document.getElementById('mesSelect').addEventListener('change', function() {
         mesSelecionado = this.value;
         gerarInstanciasDespesasFixas();
         renderizar();
     });
+
+    document.getElementById('anoSelect').addEventListener('change', function() {
+        anoSelecionado = parseInt(this.value);
+        gerarInstanciasDespesasFixas();
+        renderizar();
+    });
+
+    // Navegar entre meses (suporta qualquer ano)
+    function navegarPeriodo(direcao) {
+        let mes = parseInt(mesSelecionado);
+        let ano = anoSelecionado;
+        
+        mes += direcao;
+        
+        if (mes > 12) {
+            mes = 1;
+            ano++;
+        } else if (mes < 1) {
+            mes = 12;
+            ano--;
+        }
+        
+        mesSelecionado = String(mes).padStart(2, '0');
+        anoSelecionado = ano;
+        
+        // Atualizar seletor de ano se necessário (para anos fora do range inicial)
+        const selectAno = document.getElementById('anoSelect');
+        if (!selectAno.querySelector(`option[value="${ano}"]`)) {
+            const option = document.createElement('option');
+            option.value = ano;
+            option.textContent = ano;
+            selectAno.appendChild(option);
+        }
+        
+        document.getElementById('mesSelect').value = mesSelecionado;
+        document.getElementById('anoSelect').value = anoSelecionado;
+        
+        gerarInstanciasDespesasFixas();
+        renderizar();
+    }
+
+    // Ir para mês atual
+    function irParaHoje() {
+        const hoje = new Date();
+        mesSelecionado = String(hoje.getMonth() + 1).padStart(2, '0');
+        anoSelecionado = hoje.getFullYear();
+        
+        document.getElementById('mesSelect').value = mesSelecionado;
+        document.getElementById('anoSelect').value = anoSelecionado;
+        
+        gerarInstanciasDespesasFixas();
+        renderizar();
+    }
 
     document.getElementById('btnAtivos').addEventListener('click', function() {
         viewMode = 'ativos';
@@ -3440,9 +3785,15 @@
     // ==========================================
     
     async function init() {
-        // Definir mês atual
-        mesSelecionado = String(new Date().getMonth() + 1).padStart(2, '0');
+        // Definir mês e ano atual
+        const hoje = new Date();
+        mesSelecionado = String(hoje.getMonth() + 1).padStart(2, '0');
+        anoSelecionado = hoje.getFullYear();
+        
+        // Gerar opções de ano e selecionar atual
+        gerarOpcoesAno();
         document.getElementById('mesSelect').value = mesSelecionado;
+        document.getElementById('anoSelect').value = anoSelecionado;
         
         // Carregar dados do Supabase (prioridade)
         await carregarSupabase();
