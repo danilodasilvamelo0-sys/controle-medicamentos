@@ -16,6 +16,17 @@
         }
 
 ```
+    /* Reset global para botões com ícones SVG */
+    button {
+        font-family: inherit;
+        background: transparent;
+    }
+
+    button svg {
+        fill: none;
+        pointer-events: none;
+    }
+
     body {
         font-family: 'Inter', sans-serif;
         background: #0a0a0a;
@@ -473,7 +484,8 @@
     }
 
     .action-buttons button {
-        background: transparent;
+        background: transparent !important;
+        background-color: transparent !important;
         border: none;
         padding: 5px;
         cursor: pointer;
@@ -485,6 +497,23 @@
 
     .action-buttons button:hover {
         transform: scale(1.2);
+        background: transparent !important;
+    }
+
+    .action-buttons button svg {
+        fill: none;
+        background: transparent;
+    }
+
+    /* Reset geral para botões com SVG */
+    button.btn-edit,
+    button.btn-delete,
+    button.btn-arquivar,
+    button.btn-comprovante {
+        background: transparent !important;
+        background-color: transparent !important;
+        border: none !important;
+        outline: none !important;
     }
 
     /* ========== BADGES ========== */
@@ -796,8 +825,9 @@
     }
 
     .emprestimo-card-acoes button {
-        background: transparent;
-        border: none;
+        background: transparent !important;
+        background-color: transparent !important;
+        border: none !important;
         padding: 5px;
         cursor: pointer;
         transition: all 0.2s;
@@ -805,6 +835,11 @@
 
     .emprestimo-card-acoes button:hover {
         transform: scale(1.2);
+        background: transparent !important;
+    }
+
+    .emprestimo-card-acoes button svg {
+        fill: none;
     }
 
     .emprestimo-card-acoes .btn-edit {
