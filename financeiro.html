@@ -1272,6 +1272,452 @@
     }
     .btn-gerar-juros:hover { background: rgba(155, 89, 182, 0.25); }
 
+    .btn-restaurar {
+        background: rgba(52, 152, 219, 0.15);
+        color: #3498db;
+        border: 1px solid rgba(52, 152, 219, 0.3) !important;
+    }
+    .btn-restaurar:hover { background: rgba(52, 152, 219, 0.25); }
+
+    /* Menu de Ações Dropdown */
+    .menu-acoes-container {
+        position: relative;
+    }
+
+    .btn-menu-acoes {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-menu-acoes:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-menu-acoes .icon {
+        width: 18px;
+        height: 18px;
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .menu-acoes-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 8px;
+        background: #1a1a1a;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 8px;
+        min-width: 200px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.2s ease;
+    }
+
+    .menu-acoes-dropdown.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .menu-acao-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        padding: 12px 14px;
+        background: transparent;
+        border: none;
+        border-radius: 8px;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9em;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: left;
+    }
+
+    .menu-acao-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .menu-acao-item .icon {
+        width: 16px;
+        height: 16px;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .menu-acao-divisor {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 8px 0;
+    }
+
+    .menu-acao-danger {
+        color: #e74c3c;
+    }
+
+    .menu-acao-danger:hover {
+        background: rgba(231, 76, 60, 0.1);
+    }
+
+    .menu-acao-danger .icon {
+        color: #e74c3c;
+    }
+
+    /* Modal de Confirmação de Exclusão */
+    .modal-exclusao-content {
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .modal-exclusao-icon {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 20px;
+        background: rgba(231, 76, 60, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-exclusao-icon .icon {
+        width: 30px;
+        height: 30px;
+        color: #e74c3c;
+    }
+
+    .modal-exclusao-titulo {
+        font-size: 1.2em;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 10px;
+    }
+
+    .modal-exclusao-descricao {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.9em;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+
+    .modal-exclusao-aviso {
+        background: rgba(231, 76, 60, 0.1);
+        border: 1px solid rgba(231, 76, 60, 0.2);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .modal-exclusao-aviso p {
+        color: #e74c3c;
+        font-size: 0.85em;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .modal-exclusao-aviso .icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .modal-exclusao-info {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 25px;
+        text-align: left;
+    }
+
+    .modal-exclusao-info-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .modal-exclusao-info-item:last-child {
+        border-bottom: none;
+    }
+
+    .modal-exclusao-info-item label {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.85em;
+    }
+
+    .modal-exclusao-info-item span {
+        color: #fff;
+        font-weight: 500;
+        font-size: 0.9em;
+    }
+
+    .modal-exclusao-confirmar {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .modal-exclusao-confirmar label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9em;
+        cursor: pointer;
+    }
+
+    .modal-exclusao-confirmar input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: #e74c3c;
+    }
+
+    .btn-excluir-final {
+        background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+        color: #fff;
+        border: none;
+        padding: 14px 30px;
+        border-radius: 10px;
+        font-size: 0.95em;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    .btn-excluir-final.enabled {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .btn-excluir-final.enabled:hover {
+        transform: scale(1.02);
+        box-shadow: 0 5px 20px rgba(231, 76, 60, 0.3);
+    }
+
+    /* Menu de ações dropdown */
+    .menu-acoes-container {
+        position: relative;
+    }
+
+    .btn-menu-acoes {
+        background: transparent;
+        border: none;
+        padding: 8px;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: all 0.2s;
+    }
+
+    .btn-menu-acoes:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-menu-acoes .icon {
+        width: 18px;
+        height: 18px;
+        stroke: rgba(255, 255, 255, 0.6);
+    }
+
+    .menu-acoes-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: #1a1a1a;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 8px 0;
+        min-width: 200px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        z-index: 100;
+        display: none;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .menu-acoes-dropdown.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .menu-acao-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        padding: 12px 16px;
+        background: none;
+        border: none;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9em;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: left;
+    }
+
+    .menu-acao-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .menu-acao-item .icon {
+        width: 16px;
+        height: 16px;
+        stroke: currentColor;
+    }
+
+    .menu-acao-divisor {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 8px 0;
+    }
+
+    .menu-acao-danger {
+        color: rgba(231, 76, 60, 0.9);
+    }
+
+    .menu-acao-danger:hover {
+        background: rgba(231, 76, 60, 0.1);
+    }
+
+    /* Modal de Exclusão */
+    .modal-exclusao {
+        max-width: 420px;
+    }
+
+    .modal-header-danger {
+        background: linear-gradient(135deg, rgba(192, 57, 43, 0.2) 0%, rgba(231, 76, 60, 0.1) 100%);
+        border-bottom: 1px solid rgba(231, 76, 60, 0.2);
+    }
+
+    .modal-header-danger h3 {
+        color: #e74c3c;
+    }
+
+    .exclusao-aviso {
+        background: rgba(231, 76, 60, 0.1);
+        border: 1px solid rgba(231, 76, 60, 0.2);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .exclusao-aviso-icon {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        color: #e74c3c;
+        font-weight: 600;
+    }
+
+    .exclusao-aviso-icon .icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .exclusao-aviso p {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9em;
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    .exclusao-info {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .exclusao-info-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .exclusao-info-item:last-child {
+        border-bottom: none;
+    }
+
+    .exclusao-info-item label {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.85em;
+    }
+
+    .exclusao-info-item span {
+        color: #fff;
+        font-weight: 500;
+    }
+
+    .exclusao-confirmacao {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .exclusao-confirmacao label {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        cursor: pointer;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9em;
+        line-height: 1.4;
+    }
+
+    .exclusao-confirmacao input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-top: 2px;
+        flex-shrink: 0;
+    }
+
+    .btn-excluir-final {
+        width: 100%;
+        padding: 14px;
+        background: rgba(231, 76, 60, 0.2);
+        border: 1px solid rgba(231, 76, 60, 0.4);
+        color: rgba(231, 76, 60, 0.5);
+        border-radius: 10px;
+        font-size: 0.95em;
+        font-weight: 500;
+        cursor: not-allowed;
+        transition: all 0.3s;
+    }
+
+    .btn-excluir-final.ativo {
+        background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+        border-color: transparent;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .btn-excluir-final.ativo:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+    }
+
     .btn-juros {
         background: rgba(243, 156, 18, 0.15);
         color: #f39c12;
@@ -1866,6 +2312,17 @@
             <button class="modal-close">&times;</button>
         </div>
         <div class="modal-body" id="modalComprovanteBody"></div>
+    </div>
+</div>
+
+<!-- Modal de Confirmação de Exclusão -->
+<div class="modal" id="modalExcluir">
+    <div class="modal-content modal-exclusao">
+        <div class="modal-header modal-header-danger">
+            <h3>Excluir Permanentemente</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body" id="modalExcluirBody"></div>
     </div>
 </div>
 
@@ -3612,6 +4069,149 @@
         renderizar();
     }
 
+    // Toggle menu de ações
+    function toggleMenuAcoes(id) {
+        // Fechar todos os outros menus
+        document.querySelectorAll('.menu-acoes-dropdown').forEach(menu => {
+            if (menu.id !== `menuAcoes-${id}`) {
+                menu.classList.remove('active');
+            }
+        });
+        
+        const menu = document.getElementById(`menuAcoes-${id}`);
+        menu.classList.toggle('active');
+    }
+
+    function fecharMenuAcoes() {
+        document.querySelectorAll('.menu-acoes-dropdown').forEach(menu => {
+            menu.classList.remove('active');
+        });
+    }
+
+    // Fechar menu ao clicar fora
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.menu-acoes-container')) {
+            fecharMenuAcoes();
+        }
+    });
+
+    // Iniciar processo de exclusão com modal
+    function iniciarExclusaoEmprestimo(id, teveMovimentacao) {
+        const emp = financeiro.emprestimos.find(e => e.id === id);
+        if (!emp) return;
+
+        itemEditando = { tipo: 'excluirEmprestimo', id: id };
+
+        const body = document.getElementById('modalExcluirBody');
+        
+        // Texto de aviso baseado se teve movimentação
+        const avisoTexto = teveMovimentacao 
+            ? `Esta dívida possui histórico de movimentações (juros pagos e/ou amortizações). 
+               Ao excluir, você perderá todo o registro financeiro, incluindo comprovantes anexados.`
+            : `Esta dívida não possui movimentações registradas. 
+               Ideal para remover cadastros duplicados ou erros de digitação.`;
+
+        const avisoTipo = teveMovimentacao ? 'Atenção: Dívida com histórico' : 'Dívida sem movimentações';
+
+        body.innerHTML = `
+            <div class="exclusao-aviso">
+                <div class="exclusao-aviso-icon">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    ${avisoTipo}
+                </div>
+                <p>${avisoTexto}</p>
+            </div>
+
+            <div class="exclusao-info">
+                <div class="exclusao-info-item">
+                    <label>Descrição</label>
+                    <span>${emp.descricao}</span>
+                </div>
+                <div class="exclusao-info-item">
+                    <label>Valor Original</label>
+                    <span>${formatarMoeda(emp.principalOriginal)}</span>
+                </div>
+                <div class="exclusao-info-item">
+                    <label>Total Juros Pagos</label>
+                    <span>${formatarMoeda(emp.totalJurosPagos || 0)}</span>
+                </div>
+                <div class="exclusao-info-item">
+                    <label>Total Amortizado</label>
+                    <span>${formatarMoeda(emp.totalAmortizado || 0)}</span>
+                </div>
+                <div class="exclusao-info-item">
+                    <label>Comprovantes</label>
+                    <span>${(emp.historico || []).filter(h => h.comprovante).length} anexo(s)</span>
+                </div>
+            </div>
+
+            <div class="exclusao-confirmacao">
+                <label>
+                    <input type="checkbox" id="checkConfirmaExclusao" onchange="habilitarBotaoExclusao()">
+                    <span>Entendo que esta ação é <strong>irreversível</strong> e removerá permanentemente esta dívida, 
+                    todo seu histórico e comprovantes do sistema.</span>
+                </label>
+            </div>
+
+            <button class="btn-excluir-final" id="btnExcluirFinal" onclick="confirmarExclusaoEmprestimo()">
+                Excluir Permanentemente
+            </button>
+        `;
+
+        abrirModal('modalExcluir');
+    }
+
+    function habilitarBotaoExclusao() {
+        const checkbox = document.getElementById('checkConfirmaExclusao');
+        const btn = document.getElementById('btnExcluirFinal');
+        
+        if (checkbox.checked) {
+            btn.classList.add('ativo');
+        } else {
+            btn.classList.remove('ativo');
+        }
+    }
+
+    function confirmarExclusaoEmprestimo() {
+        const checkbox = document.getElementById('checkConfirmaExclusao');
+        if (!checkbox.checked) return;
+
+        const emp = financeiro.emprestimos.find(e => e.id === itemEditando.id);
+        if (!emp) return;
+
+        financeiro.emprestimos = financeiro.emprestimos.filter(e => e.id !== itemEditando.id);
+        salvarDados();
+        fecharModal('modalExcluir');
+        renderizar();
+        mostrarStatus('Dívida excluída permanentemente', 'success');
+    }
+
+    // Restaurar empréstimo arquivado (desfazer quitação)
+    function restaurarEmprestimo(id) {
+        const emp = financeiro.emprestimos.find(e => e.id === id);
+        if (!emp) return;
+        
+        const confirma = confirm(
+            `Restaurar "${emp.descricao}"?\n\n` +
+            `A dívida voltará para a lista de dívidas ativas.\n` +
+            `Saldo devedor: ${formatarMoeda(emp.principal || 0)}`
+        );
+        
+        if (!confirma) return;
+        
+        // Remover flags de arquivamento
+        emp.arquivado = false;
+        emp.arquivadoEm = null;
+        
+        salvarDados();
+        renderizar();
+        mostrarStatus('Dívida restaurada para lista ativa', 'success');
+    }
+
     // ==========================================
     // RESERVAS / ECONOMIAS
     // ==========================================
@@ -4263,6 +4863,9 @@
                     </button>`;
                 }).join('');
 
+            // Verificar se teve movimentações reais
+            const teveMovimentacao = (e.totalJurosPagos || 0) > 0 || (e.totalAmortizado || 0) > 0;
+
             return `
                 <div class="emprestimo-card arquivado">
                     <div class="emprestimo-card-header">
@@ -4270,6 +4873,32 @@
                             ${e.descricao}
                             <span class="badge arquivado">Quitado</span>
                             <small>Arquivado em ${formatarData(e.arquivadoEm?.split('T')[0])}</small>
+                        </div>
+                        <div class="menu-acoes-container">
+                            <button class="btn-menu-acoes" onclick="toggleMenuAcoes(${e.id})" title="Ações">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="1"></circle>
+                                    <circle cx="12" cy="5" r="1"></circle>
+                                    <circle cx="12" cy="19" r="1"></circle>
+                                </svg>
+                            </button>
+                            <div class="menu-acoes-dropdown" id="menuAcoes-${e.id}">
+                                <button class="menu-acao-item" onclick="restaurarEmprestimo(${e.id}); fecharMenuAcoes();">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="1 4 1 10 7 10"></polyline>
+                                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                                    </svg>
+                                    Restaurar dívida
+                                </button>
+                                <div class="menu-acao-divisor"></div>
+                                <button class="menu-acao-item menu-acao-danger" onclick="iniciarExclusaoEmprestimo(${e.id}, ${teveMovimentacao}); fecharMenuAcoes();">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    </svg>
+                                    Excluir permanentemente
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="emprestimo-valores">
