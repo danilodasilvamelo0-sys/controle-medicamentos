@@ -426,6 +426,76 @@
             height: 20px;
         }
 
+        /* Botão de Biometria / Face ID */
+        .biometric-btn {
+            width: 100%;
+            padding: 16px;
+            background: rgba(212, 175, 125, 0.1);
+            border: 1px solid rgba(212, 175, 125, 0.3);
+            border-radius: 12px;
+            color: #d4af7d;
+            font-size: 0.9em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .biometric-btn:hover {
+            background: rgba(212, 175, 125, 0.2);
+            border-color: rgba(212, 175, 125, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .biometric-btn:active {
+            transform: scale(0.98);
+        }
+
+        .biometric-btn svg {
+            stroke: #d4af7d;
+        }
+
+        .login-divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .login-divider::before,
+        .login-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .login-divider span {
+            padding: 0 15px;
+        }
+
+        .setup-biometric-link {
+            background: none;
+            border: none;
+            color: rgba(212, 175, 125, 0.6);
+            font-size: 0.75em;
+            cursor: pointer;
+            margin-top: 20px;
+            padding: 10px;
+            transition: color 0.3s;
+        }
+
+        .setup-biometric-link:hover {
+            color: #d4af7d;
+        }
+
         .toast {
             position: fixed;
             bottom: 30px;
@@ -613,6 +683,20 @@
             <h2>Acesso Privado</h2>
             <p class="login-subtitle">Digite suas credenciais para continuar</p>
             
+            <!-- Botão Face ID / Biometria -->
+            <button type="button" class="biometric-btn" id="biometricBtn" onclick="autenticarBiometria()" style="display: none;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32">
+                    <path d="M7 3H5a2 2 0 0 0-2 2v2M17 3h2a2 2 0 0 1 2 2v2M7 21H5a2 2 0 0 1-2-2v-2M17 21h2a2 2 0 0 0 2-2v-2"/>
+                    <circle cx="12" cy="12" r="4"/>
+                    <path d="M12 8v1M12 15v1M8 12h1M15 12h1"/>
+                </svg>
+                <span>Usar Face ID</span>
+            </button>
+            
+            <div class="login-divider" id="loginDivider" style="display: none;">
+                <span>ou</span>
+            </div>
+            
             <form onsubmit="verificarLogin(event)">
                 <div class="login-field">
                     <label>Usuario</label>
@@ -625,6 +709,11 @@
                 <p class="login-error" id="loginError">Credenciais invalidas. Tente novamente.</p>
                 <button type="submit" class="login-btn">Entrar</button>
             </form>
+            
+            <!-- Link para configurar biometria -->
+            <button type="button" class="setup-biometric-link" id="setupBiometricLink" onclick="configurarBiometria()" style="display: none;">
+                Configurar Face ID / Biometria
+            </button>
         </div>
     </div>
 
@@ -737,7 +826,197 @@
             if (e.key === 'Escape') fecharLogin();
         });
 
+        // ==========================================
+        // AUTENTICAÇÃO BIOMÉTRICA (Face ID / Touch ID)
+        // ==========================================
+        
+        var BIOMETRIC_KEY = 'zara_biometric_enabled';
+        var BIOMETRIC_CREDENTIAL = 'zara_biometric_credential';
+        
+        // Verifica se WebAuthn está disponível
+        function biometriaDisponivel() {
+            return window.PublicKeyCredential !== undefined && 
+                   typeof window.PublicKeyCredential === 'function';
+        }
+        
+        // Verifica se o dispositivo suporta autenticação de plataforma (Face ID, Touch ID)
+        async function verificarSuporteBiometria() {
+            if (!biometriaDisponivel()) return false;
+            
+            try {
+                const available = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+                return available;
+            } catch (e) {
+                console.log('Biometria não suportada:', e);
+                return false;
+            }
+        }
+        
+        // Inicializa interface de biometria
+        async function inicializarBiometria() {
+            const suportado = await verificarSuporteBiometria();
+            const configurado = localStorage.getItem(BIOMETRIC_KEY) === 'true';
+            
+            const btnBiometric = document.getElementById('biometricBtn');
+            const divider = document.getElementById('loginDivider');
+            const setupLink = document.getElementById('setupBiometricLink');
+            
+            if (suportado) {
+                if (configurado) {
+                    // Mostrar botão de Face ID
+                    btnBiometric.style.display = 'flex';
+                    divider.style.display = 'flex';
+                    setupLink.style.display = 'none';
+                } else {
+                    // Mostrar link para configurar
+                    btnBiometric.style.display = 'none';
+                    divider.style.display = 'none';
+                    setupLink.style.display = 'block';
+                }
+            }
+        }
+        
+        // Gera um ID único para o usuário
+        function gerarUserId() {
+            let id = localStorage.getItem('zara_user_id');
+            if (!id) {
+                id = 'zara_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('zara_user_id', id);
+            }
+            return id;
+        }
+        
+        // Converte string para ArrayBuffer
+        function stringToBuffer(str) {
+            return Uint8Array.from(str, c => c.charCodeAt(0));
+        }
+        
+        // Converte ArrayBuffer para Base64
+        function bufferToBase64(buffer) {
+            return btoa(String.fromCharCode(...new Uint8Array(buffer)));
+        }
+        
+        // Configura biometria pela primeira vez
+        async function configurarBiometria() {
+            if (!biometriaDisponivel()) {
+                toast('Seu navegador nao suporta biometria');
+                return;
+            }
+            
+            try {
+                const userId = gerarUserId();
+                
+                // Opções para criar credencial
+                const createOptions = {
+                    publicKey: {
+                        challenge: stringToBuffer('zara_challenge_' + Date.now()),
+                        rp: {
+                            name: 'ZARA Private Access',
+                            id: window.location.hostname
+                        },
+                        user: {
+                            id: stringToBuffer(userId),
+                            name: 'master@zara.local',
+                            displayName: 'ZARA Master'
+                        },
+                        pubKeyCredParams: [
+                            { type: 'public-key', alg: -7 },  // ES256
+                            { type: 'public-key', alg: -257 } // RS256
+                        ],
+                        authenticatorSelection: {
+                            authenticatorAttachment: 'platform',
+                            userVerification: 'required',
+                            residentKey: 'preferred'
+                        },
+                        timeout: 60000,
+                        attestation: 'none'
+                    }
+                };
+                
+                // Criar credencial
+                const credential = await navigator.credentials.create(createOptions);
+                
+                if (credential) {
+                    // Salvar ID da credencial
+                    localStorage.setItem(BIOMETRIC_CREDENTIAL, bufferToBase64(credential.rawId));
+                    localStorage.setItem(BIOMETRIC_KEY, 'true');
+                    
+                    toast('Face ID configurado com sucesso!');
+                    inicializarBiometria();
+                }
+            } catch (e) {
+                console.error('Erro ao configurar biometria:', e);
+                if (e.name === 'NotAllowedError') {
+                    toast('Permissao negada. Tente novamente.');
+                } else {
+                    toast('Erro ao configurar. Tente novamente.');
+                }
+            }
+        }
+        
+        // Autenticar com biometria
+        async function autenticarBiometria() {
+            if (!biometriaDisponivel()) {
+                toast('Biometria nao disponivel');
+                return;
+            }
+            
+            const credentialId = localStorage.getItem(BIOMETRIC_CREDENTIAL);
+            if (!credentialId) {
+                toast('Configure a biometria primeiro');
+                return;
+            }
+            
+            try {
+                // Converter credencial salva de volta para ArrayBuffer
+                const credentialIdBuffer = Uint8Array.from(atob(credentialId), c => c.charCodeAt(0));
+                
+                const getOptions = {
+                    publicKey: {
+                        challenge: stringToBuffer('zara_auth_' + Date.now()),
+                        rpId: window.location.hostname,
+                        allowCredentials: [{
+                            type: 'public-key',
+                            id: credentialIdBuffer,
+                            transports: ['internal']
+                        }],
+                        userVerification: 'required',
+                        timeout: 60000
+                    }
+                };
+                
+                // Solicitar autenticação
+                const assertion = await navigator.credentials.get(getOptions);
+                
+                if (assertion) {
+                    // Autenticação bem-sucedida
+                    sessionStorage.setItem(AUTH_KEY, 'true');
+                    fecharLogin();
+                    desbloquearConteudo();
+                    toast('Acesso autorizado via Face ID');
+                }
+            } catch (e) {
+                console.error('Erro na autenticacao biometrica:', e);
+                if (e.name === 'NotAllowedError') {
+                    toast('Autenticacao cancelada');
+                } else {
+                    toast('Falha na autenticacao. Use senha.');
+                }
+            }
+        }
+        
+        // Auto-login com biometria ao abrir modal
+        function abrirLoginComBiometria() {
+            const configurado = localStorage.getItem(BIOMETRIC_KEY) === 'true';
+            if (configurado) {
+                // Tentar autenticar automaticamente
+                setTimeout(() => autenticarBiometria(), 300);
+            }
+        }
+        
+        // Inicializar
         verificarSessao();
+        inicializarBiometria();
     </script>
 </body>
 </html>
