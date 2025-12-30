@@ -18,13 +18,11 @@
 ```
     html {
         background: #0a0a0a !important;
-        background-color: #0a0a0a !important;
     }
 
     body {
         font-family: 'Inter', sans-serif;
         background: #0a0a0a !important;
-        background-color: #0a0a0a !important;
         color: #fff;
         min-height: 100vh;
         display: flex;
@@ -162,7 +160,6 @@
     }
 
     .menu-item .icon {
-        font-size: 1.3em;
         width: 45px;
         height: 45px;
         display: flex;
@@ -173,6 +170,11 @@
         transition: all 0.4s ease;
         position: relative;
         z-index: 1;
+    }
+
+    .menu-item .icon svg {
+        width: 20px;
+        height: 20px;
     }
 
     .menu-item .text {
@@ -198,10 +200,14 @@
 
     .menu-item .arrow {
         color: rgba(255, 255, 255, 0.2);
-        font-size: 1.2em;
         transition: all 0.4s ease;
         position: relative;
         z-index: 1;
+    }
+
+    .menu-item .arrow svg {
+        width: 18px;
+        height: 18px;
     }
 
     .footer {
@@ -256,14 +262,12 @@
         background: linear-gradient(90deg, transparent, #d4af7d, transparent);
     }
 
-    /* Conteúdo bloqueado */
     .content-locked .menu {
         filter: blur(8px);
         pointer-events: none;
         opacity: 0.3;
     }
 
-    /* Modal de Login */
     .modal-overlay {
         display: none;
         position: fixed;
@@ -403,10 +407,6 @@
         box-shadow: 0 8px 25px rgba(212, 175, 125, 0.3);
     }
 
-    .login-btn:active {
-        transform: translateY(0);
-    }
-
     .login-close {
         position: absolute;
         top: 15px;
@@ -414,17 +414,20 @@
         background: transparent;
         border: none;
         color: rgba(255, 255, 255, 0.3);
-        font-size: 1.5em;
         cursor: pointer;
         transition: color 0.3s;
-        line-height: 1;
+        padding: 5px;
     }
 
     .login-close:hover {
         color: #d4af7d;
     }
 
-    /* Toast */
+    .login-close svg {
+        width: 20px;
+        height: 20px;
+    }
+
     .toast {
         position: fixed;
         bottom: 30px;
@@ -466,7 +469,6 @@
         .menu-item .icon {
             width: 40px;
             height: 40px;
-            font-size: 1.1em;
         }
 
         .menu-item h3 {
@@ -491,7 +493,7 @@
 ```
 
 </head>
-<body style="background:#0a0a0a;background-color:#0a0a0a;">
+<body>
     <div class="gold-line"></div>
     <div class="gold-line-bottom"></div>
 
@@ -510,108 +512,151 @@
 
     <nav class="menu">
         <a href="pessoal.html" class="menu-item">
-            <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2z"/></svg></span>
+            <span class="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+            </span>
             <div class="text">
                 <h3>Pessoal</h3>
-                <p>Metas & Desenvolvimento</p>
+                <p>Metas e Desenvolvimento</p>
             </div>
-            <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            <span class="arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </span>
         </a>
 
         <a href="financeiro.html" class="menu-item">
-            <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+            <span class="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <line x1="12" y1="1" x2="12" y2="23"/>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+            </span>
             <div class="text">
                 <h3>Financeiro</h3>
-                <p>Patrimônio & Investimentos</p>
+                <p>Patrimonio e Investimentos</p>
             </div>
-            <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            <span class="arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </span>
         </a>
 
         <a href="familiar.html" class="menu-item">
-            <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+            <span class="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+            </span>
             <div class="text">
                 <h3>Familiar</h3>
-                <p>Família & Compromissos</p>
+                <p>Familia e Compromissos</p>
             </div>
-            <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            <span class="arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </span>
         </a>
 
         <a href="profissional.html" class="menu-item">
-            <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
+            <span class="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+            </span>
             <div class="text">
                 <h3>Profissional</h3>
-                <p>Carreira & Projetos</p>
+                <p>Carreira e Projetos</p>
             </div>
-            <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            <span class="arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </span>
         </a>
 
         <a href="saude.html" class="menu-item">
-            <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+            <span class="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                </svg>
+            </span>
             <div class="text">
-                <h3>Saúde</h3>
-                <p>Bem-estar & Vitalidade</p>
+                <h3>Saude</h3>
+                <p>Bem-estar e Vitalidade</p>
             </div>
-            <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            <span class="arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </span>
         </a>
     </nav>
 
-    <p class="footer">© 2025 Zara Institute — Members Only</p>
+    <p class="footer">2025 Zara Institute - Members Only</p>
 </div>
 
-<!-- Modal de Login -->
 <div class="modal-overlay" id="loginModal">
     <div class="login-modal">
-        <button class="login-close" onclick="fecharLogin()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        <button class="login-close" onclick="fecharLogin()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
         <div class="login-logo">Z</div>
         <h2>Acesso Privado</h2>
         <p class="login-subtitle">Digite suas credenciais para continuar</p>
         
         <form onsubmit="verificarLogin(event)">
             <div class="login-field">
-                <label>Usuário</label>
-                <input type="text" id="loginUser" placeholder="Digite seu usuário" autocomplete="off">
+                <label>Usuario</label>
+                <input type="text" id="loginUser" placeholder="Digite seu usuario" autocomplete="off">
             </div>
             <div class="login-field">
                 <label>Senha</label>
                 <input type="password" id="loginPassword" placeholder="Digite sua senha">
             </div>
-            <p class="login-error" id="loginError">Credenciais inválidas. Tente novamente.</p>
+            <p class="login-error" id="loginError">Credenciais invalidas. Tente novamente.</p>
             <button type="submit" class="login-btn">Entrar</button>
         </form>
     </div>
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
-    // ==========================================
-    // CONFIGURAÇÃO DE ACESSO
-    // ==========================================
-    const CREDENCIAIS = {
-        usuario: 'Master',
+    var CREDENCIAIS = {
+        usuario: 'master',
         senha: '2026'
     };
 
-    const AUTH_KEY = 'zara_authenticated';
+    var AUTH_KEY = 'zara_authenticated';
 
-    // ==========================================
-    // FUNÇÕES DE AUTENTICAÇÃO
-    // ==========================================
     function verificarSessao() {
-        const autenticado = sessionStorage.getItem(AUTH_KEY);
+        var autenticado = sessionStorage.getItem(AUTH_KEY);
         if (autenticado === 'true') {
             desbloquearConteudo();
         }
     }
 
     function abrirLogin() {
-        const autenticado = sessionStorage.getItem(AUTH_KEY);
+        var autenticado = sessionStorage.getItem(AUTH_KEY);
         if (autenticado === 'true') {
-            if (confirm('Você já está autenticado. Deseja sair?')) {
+            if (confirm('Voce ja esta autenticado. Deseja sair?')) {
                 sessionStorage.removeItem(AUTH_KEY);
                 bloquearConteudo();
-                toast('Sessão encerrada');
+                toast('Sessao encerrada');
             }
             return;
         }
@@ -629,8 +674,8 @@
     function verificarLogin(e) {
         e.preventDefault();
         
-        const usuario = document.getElementById('loginUser').value.trim().toLowerCase();
-        const senha = document.getElementById('loginPassword').value;
+        var usuario = document.getElementById('loginUser').value.trim().toLowerCase();
+        var senha = document.getElementById('loginPassword').value;
         
         if (usuario === CREDENCIAIS.usuario.toLowerCase() && senha === CREDENCIAIS.senha) {
             sessionStorage.setItem(AUTH_KEY, 'true');
@@ -642,31 +687,31 @@
             document.getElementById('loginPassword').value = '';
             document.getElementById('loginPassword').focus();
             
-            const modal = document.querySelector('.login-modal');
+            var modal = document.querySelector('.login-modal');
             modal.style.animation = 'shake 0.5s';
-            setTimeout(() => modal.style.animation = '', 500);
+            setTimeout(function() { modal.style.animation = ''; }, 500);
         }
     }
 
     function desbloquearConteudo() {
         document.getElementById('mainContainer').classList.remove('content-locked');
-        const badge = document.getElementById('badgeAccess');
+        var badge = document.getElementById('badgeAccess');
         badge.textContent = 'Access Granted';
         badge.classList.add('unlocked');
     }
 
     function bloquearConteudo() {
         document.getElementById('mainContainer').classList.add('content-locked');
-        const badge = document.getElementById('badgeAccess');
+        var badge = document.getElementById('badgeAccess');
         badge.textContent = 'Private Access';
         badge.classList.remove('unlocked');
     }
 
     function toast(msg) {
-        const el = document.getElementById('toast');
+        var el = document.getElementById('toast');
         el.textContent = msg;
         el.classList.add('show');
-        setTimeout(() => el.classList.remove('show'), 3000);
+        setTimeout(function() { el.classList.remove('show'); }, 3000);
     }
 
     document.getElementById('loginModal').addEventListener('click', function(e) {
