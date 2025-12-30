@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
     <title>ZARA | Financeiro</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -15,2219 +19,2260 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+```
+html {
+    background: #0a0a0a !important;
+}
 
-    /* Reset global para botões com ícones SVG */
-    button {
-        font-family: inherit;
-        background: transparent;
-    }
+/* Reset global para botões com ícones SVG */
+button {
+    font-family: inherit;
+    background: transparent;
+}
 
-    button svg {
-        fill: none;
-        pointer-events: none;
-    }
+button svg {
+    fill: none;
+    pointer-events: none;
+}
 
-    body {
-        font-family: 'Inter', sans-serif;
-        background: #0a0a0a;
-        min-height: 100vh;
-        padding: 20px;
-        padding-left: 80px;
-        color: #fff;
-        transition: padding-left 0.3s;
-    }
+body {
+    font-family: 'Inter', sans-serif;
+    background: #0a0a0a !important;
+    min-height: 100vh;
+    padding: 20px;
+    padding-left: 80px;
+    color: #fff;
+    transition: padding-left 0.3s;
+}
 
-    /* Linhas decorativas superior/inferior */
-    body::before, body::after {
-        content: '';
-        position: fixed;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, #d4af7d, transparent);
-        z-index: 9999;
-    }
-    body::before { top: 0; }
-    body::after { bottom: 0; }
+/* Linhas decorativas superior/inferior */
+body::before, body::after {
+    content: '';
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d4af7d, transparent);
+    z-index: 9999;
+}
+body::before { top: 0; }
+body::after { bottom: 0; }
 
-    .container {
-        max-width: 1400px;
-        margin: 0 auto;
-    }
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
 
-    /* ========== HEADER ========== */
-    .header {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-bottom: 30px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid rgba(212, 175, 125, 0.15);
-    }
+/* ========== HEADER ========== */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(212, 175, 125, 0.15);
+}
 
-    .btn-voltar {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        border: 1px solid rgba(212, 175, 125, 0.3);
-        background: transparent;
-        color: #d4af7d;
-        font-size: 1.3em;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        transition: all 0.3s;
-    }
+/* Status de Conexão */
+.status-conexao {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75em;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s;
+}
 
-    .btn-voltar:hover {
-        background: rgba(212, 175, 125, 0.1);
-        transform: scale(1.05);
-    }
+.status-conexao.online {
+    background: rgba(39, 174, 96, 0.15);
+    color: #27ae60;
+    border: 1px solid rgba(39, 174, 96, 0.3);
+}
 
-    .header-title h1 {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.9em;
-        font-weight: 400;
-        color: #fff;
-        letter-spacing: 2px;
-    }
+.status-conexao.offline {
+    background: rgba(231, 76, 60, 0.15);
+    color: #e74c3c;
+    border: 1px solid rgba(231, 76, 60, 0.3);
+}
 
-    .header-title p {
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 0.9em;
-        margin-top: 4px;
-    }
+.status-conexao.syncing {
+    background: rgba(241, 196, 15, 0.15);
+    color: #f1c40f;
+    border: 1px solid rgba(241, 196, 15, 0.3);
+    animation: pulse-sync 1.5s infinite;
+}
 
-    /* ========== SELETOR DE MÊS ========== */
-    .mes-selector {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: #141414;
-        border: 1px solid rgba(212, 175, 125, 0.15);
-        border-radius: 12px;
-        padding: 15px 20px;
-        margin-bottom: 25px;
-    }
+@keyframes pulse-sync {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
 
-    .mes-controls {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
+.btn-voltar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(212, 175, 125, 0.3);
+    background: transparent;
+    color: #d4af7d;
+    font-size: 1.3em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s;
+}
 
-    .mes-label {
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 0.9em;
-    }
+.btn-voltar:hover {
+    background: rgba(212, 175, 125, 0.1);
+    transform: scale(1.05);
+}
 
-    .mes-selector select {
-        background: #1a1a1a;
-        border: 1px solid rgba(212, 175, 125, 0.3);
-        color: #d4af7d;
-        padding: 10px 15px;
-        border-radius: 8px;
-        font-size: 1em;
-        cursor: pointer;
-        outline: none;
-    }
+.header-title h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9em;
+    font-weight: 400;
+    color: #fff;
+    letter-spacing: 2px;
+}
 
-    .mes-selector select:focus {
-        border-color: #d4af7d;
-    }
+.header-title p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9em;
+    margin-top: 4px;
+}
 
-    .mes-selector select option {
-        background: #1a1a1a;
-        color: #fff;
-    }
+/* ========== SELETOR DE MÊS ========== */
+.mes-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #141414;
+    border: 1px solid rgba(212, 175, 125, 0.15);
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+}
 
-    .view-toggle {
-        display: flex;
-        gap: 10px;
-    }
+.mes-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-    .view-toggle button {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: rgba(255, 255, 255, 0.5);
-        padding: 10px 18px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 0.9em;
-        transition: all 0.3s;
-    }
+.mes-label {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9em;
+}
 
-    .view-toggle button:hover {
-        background: rgba(212, 175, 125, 0.1);
-        border-color: rgba(212, 175, 125, 0.3);
-    }
+.mes-selector select {
+    background: #1a1a1a;
+    border: 1px solid rgba(212, 175, 125, 0.3);
+    color: #d4af7d;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    outline: none;
+}
 
-    .view-toggle button.active {
-        background: rgba(212, 175, 125, 0.15);
-        border-color: #d4af7d;
-        color: #d4af7d;
-    }
+.mes-selector select:focus {
+    border-color: #d4af7d;
+}
 
-    /* Botões de navegação de período */
-    .btn-periodo-nav {
-        background: rgba(255, 255, 255, 0.05) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        color: rgba(255, 255, 255, 0.6);
-        padding: 10px 12px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 0.85em;
-        transition: all 0.3s;
-    }
+.mes-selector select option {
+    background: #1a1a1a;
+    color: #fff;
+}
 
-    .btn-periodo-nav:hover {
-        background: rgba(212, 175, 125, 0.15) !important;
-        border-color: rgba(212, 175, 125, 0.3) !important;
-        color: #d4af7d;
-    }
+.view-toggle {
+    display: flex;
+    gap: 10px;
+}
 
-    .btn-periodo-hoje {
-        background: rgba(212, 175, 125, 0.1) !important;
-        border: 1px solid rgba(212, 175, 125, 0.3) !important;
-        color: #d4af7d;
-        padding: 10px 15px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 0.85em;
-        font-weight: 500;
-        transition: all 0.3s;
-    }
+.view-toggle button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.3s;
+}
 
-    .btn-periodo-hoje:hover {
-        background: rgba(212, 175, 125, 0.2) !important;
-        border-color: #d4af7d !important;
-    }
+.view-toggle button:hover {
+    background: rgba(212, 175, 125, 0.1);
+    border-color: rgba(212, 175, 125, 0.3);
+}
 
-    /* ========== RESUMO GRID ========== */
-    .resumo-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 15px;
-        margin-bottom: 30px;
-    }
+.view-toggle button.active {
+    background: rgba(212, 175, 125, 0.15);
+    border-color: #d4af7d;
+    color: #d4af7d;
+}
 
-    .resumo-card {
-        background: #141414;
-        border: 1px solid rgba(212, 175, 125, 0.15);
-        border-radius: 15px;
-        padding: 22px;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
+/* Botões de navegação de período */
+.btn-periodo-nav {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: all 0.3s;
+}
 
-    .resumo-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-    }
+.btn-periodo-nav:hover {
+    background: rgba(212, 175, 125, 0.15) !important;
+    border-color: rgba(212, 175, 125, 0.3) !important;
+    color: #d4af7d;
+}
 
-    .resumo-card.recebido::before { background: linear-gradient(90deg, #27ae60, #2ecc71); }
-    .resumo-card.pago::before { background: linear-gradient(90deg, #e74c3c, #c0392b); }
-    .resumo-card.despesas-mes::before { background: linear-gradient(90deg, #9b59b6, #8e44ad); }
-    .resumo-card.economia::before { background: linear-gradient(90deg, #3498db, #2980b9); }
+.btn-periodo-hoje {
+    background: rgba(212, 175, 125, 0.1) !important;
+    border: 1px solid rgba(212, 175, 125, 0.3) !important;
+    color: #d4af7d;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 500;
+    transition: all 0.3s;
+}
 
-    .resumo-card label {
-        display: block;
-        color: rgba(255, 255, 255, 0.6);
-        font-size: 0.8em;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 12px;
-    }
+.btn-periodo-hoje:hover {
+    background: rgba(212, 175, 125, 0.2) !important;
+    border-color: #d4af7d !important;
+}
 
-    .resumo-card .valor {
-        font-size: 1.7em;
-        font-weight: 600;
-        color: #fff;
-    }
+/* ========== RESUMO GRID ========== */
+.resumo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
 
-    .resumo-card.recebido .valor { color: #2ecc71; }
-    .resumo-card.pago .valor { color: #e74c3c; }
-    .resumo-card.despesas-mes .valor { color: #9b59b6; }
-    .resumo-card.economia .valor { color: #3498db; }
+.resumo-card {
+    background: #141414;
+    border: 1px solid rgba(212, 175, 125, 0.15);
+    border-radius: 15px;
+    padding: 22px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
 
-    /* ========== SEÇÕES ========== */
-    .section {
-        background: #141414;
-        border: 1px solid rgba(212, 175, 125, 0.15);
-        border-radius: 15px;
-        margin-bottom: 25px;
-        overflow: hidden;
-    }
+.resumo-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+}
 
-    .section-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 25px;
-        background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
-        border-bottom: 1px solid rgba(212, 175, 125, 0.15);
-    }
+.resumo-card.recebido::before { background: linear-gradient(90deg, #27ae60, #2ecc71); }
+.resumo-card.pago::before { background: linear-gradient(90deg, #e74c3c, #c0392b); }
+.resumo-card.despesas-mes::before { background: linear-gradient(90deg, #9b59b6, #8e44ad); }
+.resumo-card.economia::before { background: linear-gradient(90deg, #3498db, #2980b9); }
 
-    .section-header h2 {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.25em;
-        font-weight: 400;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
+.resumo-card label {
+    display: block;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
 
-    .section-header .subtotal {
-        font-family: 'Inter', sans-serif;
-        font-size: 0.7em;
-        color: rgba(255, 255, 255, 0.4);
-        font-weight: 400;
-    }
+.resumo-card .valor {
+    font-size: 1.7em;
+    font-weight: 600;
+    color: #fff;
+}
 
-    .btn-add {
-        background: rgba(212, 175, 125, 0.12);
-        border: 1px solid rgba(212, 175, 125, 0.3);
-        color: #d4af7d;
-        padding: 10px 20px;
-        border-radius: 8px;
-        font-size: 0.9em;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
+.resumo-card.recebido .valor { color: #2ecc71; }
+.resumo-card.pago .valor { color: #e74c3c; }
+.resumo-card.despesas-mes .valor { color: #9b59b6; }
+.resumo-card.economia .valor { color: #3498db; }
 
-    .btn-add:hover {
-        background: rgba(212, 175, 125, 0.25);
-        transform: translateY(-1px);
-    }
+/* ========== SEÇÕES ========== */
+.section {
+    background: #141414;
+    border: 1px solid rgba(212, 175, 125, 0.15);
+    border-radius: 15px;
+    margin-bottom: 25px;
+    overflow: hidden;
+}
 
-    .section-content {
-        padding: 20px 25px;
-    }
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    border-bottom: 1px solid rgba(212, 175, 125, 0.15);
+}
 
-    /* ========== TABELAS (Layout igual saude.html) ========== */
-    .table-container {
-        overflow-x: auto;
-    }
+.section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25em;
+    font-weight: 400;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-    .transacoes-table {
-        width: 100%;
-        border-collapse: collapse;
-        min-width: 600px;
-    }
+.section-header .subtotal {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7em;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 400;
+}
 
-    .transacoes-table th {
-        text-align: center;
-        padding: 16px 12px;
-        color: #d4af7d;
-        font-size: 0.8em;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        border-bottom: 1px solid rgba(212, 175, 125, 0.2);
-        background: transparent;
-    }
+.btn-add {
+    background: rgba(212, 175, 125, 0.12);
+    border: 1px solid rgba(212, 175, 125, 0.3);
+    color: #d4af7d;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.3s;
+}
 
-    .transacoes-table td {
-        padding: 18px 12px;
-        color: #fff;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        font-size: 1em;
-        text-align: center;
-        vertical-align: middle;
-    }
+.btn-add:hover {
+    background: rgba(212, 175, 125, 0.25);
+    transform: translateY(-1px);
+}
 
-    /* Colunas específicas */
-    .col-status { width: 60px; }
-    .col-descricao { text-align: left !important; }
-    .col-acoes { width: 160px; }
+.section-content {
+    padding: 20px 25px;
+}
 
-    .transacoes-table tbody tr {
-        transition: background 0.2s;
-    }
+/* ========== TABELAS (Layout igual saude.html) ========== */
+.table-container {
+    overflow-x: auto;
+}
 
-    .transacoes-table tbody tr:hover {
-        background: rgba(212, 175, 125, 0.05);
-    }
+.transacoes-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
 
-    .transacoes-table tr.done {
-        opacity: 0.5;
-    }
+.transacoes-table th {
+    text-align: center;
+    padding: 16px 12px;
+    color: #d4af7d;
+    font-size: 0.8em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 1px solid rgba(212, 175, 125, 0.2);
+    background: transparent;
+}
 
-    .transacoes-table tr.done td {
-        text-decoration: none;
-    }
+.transacoes-table td {
+    padding: 18px 12px;
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 1em;
+    text-align: center;
+    vertical-align: middle;
+}
 
-    .transacoes-table tr.vencido {
-        background: rgba(231, 76, 60, 0.08);
-    }
+/* Colunas específicas */
+.col-status { width: 60px; }
+.col-descricao { text-align: left !important; }
+.col-acoes { width: 160px; }
 
-    .transacoes-table tr.proximo {
-        background: rgba(241, 196, 15, 0.08);
-    }
+.transacoes-table tbody tr {
+    transition: background 0.2s;
+}
 
-    /* Célula de descrição */
-    .transacoes-table .descricao {
-        text-align: left;
-        font-weight: 400;
-        font-size: 1em;
-        color: #fff;
-    }
+.transacoes-table tbody tr:hover {
+    background: rgba(212, 175, 125, 0.05);
+}
 
-    /* Categoria badge */
-    .categoria {
-        display: inline-block;
-        padding: 5px 12px;
-        background: rgba(212, 175, 125, 0.1);
-        border-radius: 15px;
-        font-size: 0.85em;
-        color: #d4af7d;
-        font-weight: 400;
-    }
+.transacoes-table tr.done {
+    opacity: 0.5;
+}
 
-    /* Valores coloridos */
-    .valor-positivo { 
-        color: #2ecc71 !important; 
-        font-weight: 500; 
-        font-size: 1em; 
-    }
-    .valor-negativo { 
-        color: #e74c3c !important; 
-        font-weight: 500; 
-        font-size: 1em; 
-    }
-    .valor-economia { 
-        color: #3498db !important; 
-        font-weight: 500; 
-        font-size: 1em; 
-    }
+.transacoes-table tr.done td {
+    text-decoration: none;
+}
 
-    /* ========== SISTEMA DE ÍCONES SVG (Padrão Medicamentos) ========== */
+.transacoes-table tr.vencido {
+    background: rgba(231, 76, 60, 0.08);
+}
+
+.transacoes-table tr.proximo {
+    background: rgba(241, 196, 15, 0.08);
+}
+
+/* Célula de descrição */
+.transacoes-table .descricao {
+    text-align: left;
+    font-weight: 400;
+    font-size: 1em;
+    color: #fff;
+}
+
+/* Categoria badge */
+.categoria {
+    display: inline-block;
+    padding: 5px 12px;
+    background: rgba(212, 175, 125, 0.1);
+    border-radius: 15px;
+    font-size: 0.85em;
+    color: #d4af7d;
+    font-weight: 400;
+}
+
+/* Valores coloridos */
+.valor-positivo { 
+    color: #2ecc71 !important; 
+    font-weight: 500; 
+    font-size: 1em; 
+}
+.valor-negativo { 
+    color: #e74c3c !important; 
+    font-weight: 500; 
+    font-size: 1em; 
+}
+.valor-economia { 
+    color: #3498db !important; 
+    font-weight: 500; 
+    font-size: 1em; 
+}
+
+/* ========== SISTEMA DE ÍCONES SVG (Padrão Medicamentos) ========== */
+
+/* Classe base para todos os ícones */
+.icon {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+/* Tamanhos de ícone */
+.icon-sm { width: 14px; height: 14px; }
+.icon-md { width: 18px; height: 18px; }
+.icon-lg { width: 22px; height: 22px; }
+
+/* ========== BOTÕES DE AÇÃO (Padrão Medicamentos) ========== */
+.action-buttons {
+    display: flex;
+    gap: 2px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Botão base - área de toque mínima 44px */
+.action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: rgba(212, 175, 125, 0.7);
+}
+
+.action-btn:hover {
+    background: rgba(212, 175, 125, 0.1);
+    color: #d4af7d;
+    transform: none;
+}
+
+.action-btn:active {
+    transform: scale(0.95);
+}
+
+/* Variantes de cor */
+.action-btn.btn-edit {
+    color: rgba(212, 175, 125, 0.7);
+}
+.action-btn.btn-edit:hover {
+    color: #d4af7d;
+    background: rgba(212, 175, 125, 0.1);
+}
+
+.action-btn.btn-delete {
+    color: rgba(180, 80, 80, 0.6);
+}
+.action-btn.btn-delete:hover {
+    color: #c0392b;
+    background: rgba(192, 57, 43, 0.1);
+}
+
+.action-btn.btn-comprovante {
+    color: rgba(46, 204, 113, 0.6);
+}
+.action-btn.btn-comprovante:hover {
+    color: #27ae60;
+    background: rgba(39, 174, 96, 0.1);
+}
+
+.action-btn.btn-arquivar {
+    color: rgba(149, 165, 166, 0.6);
+}
+.action-btn.btn-arquivar:hover {
+    color: #7f8c8d;
+    background: rgba(127, 140, 141, 0.1);
+}
+
+.action-btn.btn-duplicate {
+    color: rgba(212, 175, 125, 0.5);
+}
+.action-btn.btn-duplicate:hover {
+    color: #d4af7d;
+    background: rgba(212, 175, 125, 0.1);
+}
+
+.action-btn.btn-restaurar {
+    color: rgba(46, 204, 113, 0.6);
+}
+.action-btn.btn-restaurar:hover {
+    color: #27ae60;
+    background: rgba(39, 174, 96, 0.1);
+}
+
+.action-btn.btn-pagar {
+    color: rgba(52, 152, 219, 0.7);
+}
+.action-btn.btn-pagar:hover {
+    color: #3498db;
+    background: rgba(52, 152, 219, 0.1);
+}
+
+/* Botão adicionar no header de seção */
+.btn-add-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: rgba(212, 175, 125, 0.15);
+    border: 1px solid rgba(212, 175, 125, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #d4af7d;
+}
+
+.btn-add-section:hover {
+    background: rgba(212, 175, 125, 0.25);
+    border-color: rgba(212, 175, 125, 0.5);
+}
+
+.btn-add-section .icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* ========== BADGES (sem emojis) ========== */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 0.7em;
+    font-weight: 500;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.badge .icon {
+    width: 12px;
+    height: 12px;
+}
+
+.badge.recorrente { background: rgba(155, 89, 182, 0.15); color: #9b59b6; }
+.badge.parcela { background: rgba(52, 152, 219, 0.15); color: #3498db; }
+.badge.vencido { background: rgba(192, 57, 43, 0.15); color: #c0392b; }
+.badge.proximo { background: rgba(241, 196, 15, 0.15); color: #d4a307; }
+.badge.arquivado { background: rgba(149, 165, 166, 0.15); color: #95a5a6; }
+.badge.comprovante { background: rgba(46, 204, 113, 0.15); color: #27ae60; }
+.badge.juros-pendente { background: rgba(243, 156, 18, 0.15); color: #d68910; }
+
+/* ========== CHECKBOX STATUS (igual Medicamentos) ========== */
+.checkbox-status {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid rgba(46, 204, 113, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.2s ease;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.checkbox-status:hover {
+    border-color: #2ecc71;
+    background: rgba(46, 204, 113, 0.1);
+}
+
+.checkbox-status:checked {
+    background: #27ae60;
+    border-color: #27ae60;
+}
+
+.checkbox-status:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a0a0a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") center/contain no-repeat;
+    width: 12px;
+    height: 12px;
+}
+
+/* Checkbox de formulário */
+.form-group-checkbox {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95em;
+}
+
+.checkbox-label input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(212, 175, 125, 0.5);
+    border-radius: 4px;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.checkbox-label input[type="checkbox"]:checked {
+    background: #d4af7d;
+    border-color: #d4af7d;
+}
+
+.checkbox-label input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    color: #0a0a0a;
+    font-size: 12px;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.parcelas-field.hidden {
+    display: none !important;
+}
+
+/* Preview de parcelas */
+.parcelas-preview {
+    background: rgba(52, 152, 219, 0.1);
+    border: 1px solid rgba(52, 152, 219, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 18px;
+}
+
+.parcelas-preview .preview-header {
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.parcelas-preview .preview-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.parcelas-preview .preview-item {
+    background: rgba(52, 152, 219, 0.15);
+    color: #3498db;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.parcelas-preview .preview-item:last-child {
+    background: rgba(46, 204, 113, 0.15);
+    color: #2ecc71;
+}
+
+.parcelas-preview .preview-total {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    text-align: right;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Parcelas editáveis */
+.preview-list-editable {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.preview-item-editable {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.preview-item-editable .parcela-num {
+    color: #3498db;
+    font-weight: 600;
+    font-size: 0.85em;
+    min-width: 45px;
+}
+
+.preview-item-editable .parcela-valor-input {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(212, 175, 125, 0.3);
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: #fff;
+    font-size: 0.95em;
+    text-align: right;
+}
+
+.preview-item-editable .parcela-valor-input:focus {
+    outline: none;
+    border-color: #d4af7d;
+}
+
+.preview-soma {
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.preview-soma.ok {
+    background: rgba(46, 204, 113, 0.1);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.preview-soma.erro {
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+.preview-soma .soma-linha {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 4px;
+}
+
+.preview-soma .soma-diferenca {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e74c3c;
+    font-size: 0.85em;
+}
+
+.preview-soma .soma-ok {
+    text-align: center;
+    color: #2ecc71;
+    font-size: 0.85em;
+    margin-top: 8px;
+}
+
+.btn-ajustar {
+    background: rgba(212, 175, 125, 0.2);
+    border: 1px solid rgba(212, 175, 125, 0.4);
+    color: #d4af7d;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-ajustar:hover {
+    background: rgba(212, 175, 125, 0.3);
+}
+
+/* Barra de progresso de parcelas */
+.parcela-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.parcela-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75em;
+}
+
+.parcela-info .parcela-label {
+    color: #3498db;
+    font-weight: 500;
+}
+
+.parcela-info .parcela-percent {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.parcela-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(52, 152, 219, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.parcela-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2980b9 0%, #3498db 100%);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.checkbox-status:hover {
+    background: rgba(46, 204, 113, 0.1);
+}
+
+.checkbox-status:checked {
+    background: #2ecc71;
+}
+
+.checkbox-status:checked::after {
+    content: '✓';
+    position: absolute;
+    color: #0a0a0a;
+    font-size: 12px;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* ========== EMPTY STATE ========== */
+.empty-state {
+    text-align: center;
+    padding: 45px 20px;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.95em;
+}
+
+/* ========== FORMULÁRIOS ========== */
+.form-container {
+    display: none;
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(212, 175, 125, 0.1);
+}
+
+.form-container.active {
+    display: block;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 13px 16px;
+    background: #141414;
+    border: 1px solid rgba(212, 175, 125, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #d4af7d;
+}
+
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.form-group select option {
+    background: #141414;
+    color: #fff;
+}
+
+.form-group input[type="file"] {
+    padding: 11px;
+    font-size: 0.9em;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 22px;
+}
+
+.btn-salvar {
+    background: #d4af7d;
+    color: #0a0a0a;
+    border: none;
+    padding: 13px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-salvar:hover {
+    background: #c9a066;
+    transform: translateY(-1px);
+}
+
+.btn-cancelar {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.6);
+    border: none;
+    padding: 13px 22px;
+    border-radius: 8px;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-cancelar:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* ========== PROGRESS BAR ========== */
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #27ae60, #2ecc71);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+/* ========== EMPRÉSTIMOS CARD ========== */
+.emprestimo-card {
+    background: #1a1a1a;
+    border: 1px solid rgba(155, 89, 182, 0.25);
+    border-radius: 15px;
+    padding: 22px;
+    margin-bottom: 20px;
+}
+
+.emprestimo-card.arquivado {
+    opacity: 0.5;
+    border-color: rgba(149, 165, 166, 0.25);
+}
+
+.emprestimo-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.emprestimo-card-title {
+    font-size: 1.15em;
+    color: #fff;
+    font-weight: 500;
+}
+
+.emprestimo-card-title small {
+    display: block;
+    font-size: 0.75em;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 400;
+    margin-top: 6px;
+}
+
+.emprestimo-card-acoes {
+    display: flex;
+    gap: 2px;
+}
+
+.emprestimo-valores {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.emprestimo-valor-item {
+    background: rgba(0, 0, 0, 0.25);
+    padding: 16px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.emprestimo-valor-item label {
+    display: block;
+    font-size: 0.7em;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.emprestimo-valor-item .valor {
+    font-size: 1.15em;
+    font-weight: 600;
+}
+
+.emprestimo-valor-item .valor.principal { color: #9b59b6; }
+.emprestimo-valor-item .valor.juros-acum { color: #f39c12; }
+.emprestimo-valor-item .valor.juros-pagos { color: #27ae60; }
+.emprestimo-valor-item .valor.amortizado { color: #3498db; }
+.emprestimo-valor-item .valor.saldo { color: #e74c3c; }
+
+/* ========== RESERVAS / ECONOMIAS ========== */
+.reserva-card {
+    background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+    border: 1px solid rgba(46, 204, 113, 0.2);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.reserva-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.reserva-card-title {
+    font-size: 1.1em;
+    font-weight: 500;
+    color: #fff;
+}
+
+.reserva-card-title small {
+    display: block;
+    font-size: 0.7em;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 400;
+    margin-top: 4px;
+}
+
+.reserva-card-acoes {
+    display: flex;
+    gap: 2px;
+}
+
+.reserva-saldo {
+    text-align: center;
+    padding: 20px;
+    background: rgba(46, 204, 113, 0.1);
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.reserva-saldo label {
+    display: block;
+    font-size: 0.75em;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.reserva-saldo .valor {
+    font-size: 2em;
+    font-weight: 600;
+    color: #2ecc71;
+}
+
+.reserva-acoes-rapidas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.reserva-acoes-rapidas button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 0.9em;
+    cursor: pointer;
+    border: none;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.reserva-acoes-rapidas button .icon {
+    width: 16px;
+    height: 16px;
+}
+
+.btn-depositar {
+    background: rgba(46, 204, 113, 0.15);
+    color: #2ecc71;
+    border: 1px solid rgba(46, 204, 113, 0.3) !important;
+}
+.btn-depositar:hover { background: rgba(46, 204, 113, 0.25); }
+
+.btn-retirar {
+    background: rgba(231, 76, 60, 0.15);
+    color: #e74c3c;
+    border: 1px solid rgba(231, 76, 60, 0.3) !important;
+}
+.btn-retirar:hover { background: rgba(231, 76, 60, 0.25); }
+
+.reserva-historico {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 15px;
+}
+
+.reserva-historico-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.reserva-historico-header h4 {
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+}
+
+.reserva-historico-header .toggle-icon {
+    color: rgba(255, 255, 255, 0.4);
+    transition: transform 0.3s;
+}
+
+.reserva-historico-header.expanded .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.reserva-historico-lista {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.reserva-historico-lista.expanded {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.reserva-mov-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin-bottom: 6px;
+}
+
+.reserva-mov-item .mov-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.reserva-mov-item .mov-data {
+    font-size: 0.75em;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.reserva-mov-item .mov-obs {
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.reserva-mov-item .mov-valor {
+    font-weight: 600;
+    font-size: 0.95em;
+}
+
+.reserva-mov-item .mov-valor.entrada { color: #2ecc71; }
+.reserva-mov-item .mov-valor.saida { color: #e74c3c; }
+
+.emprestimo-progress label {
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.emprestimo-acoes-rapidas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.emprestimo-acoes-rapidas button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 10px;
+    border-radius: 10px;
+    font-size: 0.85em;
+    cursor: pointer;
+    border: none;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.emprestimo-acoes-rapidas button .icon {
+    width: 14px;
+    height: 14px;
+}
+
+.btn-gerar-juros {
+    background: rgba(155, 89, 182, 0.15);
+    color: #9b59b6;
+    border: 1px solid rgba(155, 89, 182, 0.3) !important;
+}
+.btn-gerar-juros:hover { background: rgba(155, 89, 182, 0.25); }
+
+.btn-restaurar {
+    background: rgba(52, 152, 219, 0.15);
+    color: #3498db;
+    border: 1px solid rgba(52, 152, 219, 0.3) !important;
+}
+.btn-restaurar:hover { background: rgba(52, 152, 219, 0.25); }
+
+/* Menu de Ações Dropdown */
+.menu-acoes-container {
+    position: relative;
+}
+
+.btn-menu-acoes {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-menu-acoes:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-menu-acoes .icon {
+    width: 18px;
+    height: 18px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.menu-acoes-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 200px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+}
+
+.menu-acoes-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.menu-acao-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 14px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.menu-acao-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.menu-acao-item .icon {
+    width: 16px;
+    height: 16px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.menu-acao-divisor {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 8px 0;
+}
+
+.menu-acao-danger {
+    color: #e74c3c;
+}
+
+.menu-acao-danger:hover {
+    background: rgba(231, 76, 60, 0.1);
+}
+
+.menu-acao-danger .icon {
+    color: #e74c3c;
+}
+
+/* Modal de Confirmação de Exclusão */
+.modal-exclusao-content {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.modal-exclusao-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    background: rgba(231, 76, 60, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-exclusao-icon .icon {
+    width: 30px;
+    height: 30px;
+    color: #e74c3c;
+}
+
+.modal-exclusao-titulo {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.modal-exclusao-descricao {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9em;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.modal-exclusao-aviso {
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.modal-exclusao-aviso p {
+    color: #e74c3c;
+    font-size: 0.85em;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.modal-exclusao-aviso .icon {
+    width: 16px;
+    height: 16px;
+}
+
+.modal-exclusao-info {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.modal-exclusao-info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modal-exclusao-info-item:last-child {
+    border-bottom: none;
+}
+
+.modal-exclusao-info-item label {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85em;
+}
+
+.modal-exclusao-info-item span {
+    color: #fff;
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+.modal-exclusao-confirmar {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.modal-exclusao-confirmar label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.modal-exclusao-confirmar input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #e74c3c;
+}
+
+.btn-excluir-final {
+    background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+    color: #fff;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 10px;
+    font-size: 0.95em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.btn-excluir-final.enabled {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.btn-excluir-final.enabled:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 20px rgba(231, 76, 60, 0.3);
+}
+
+/* Menu de ações dropdown */
+.menu-acoes-container {
+    position: relative;
+}
+
+.btn-menu-acoes {
+    background: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.btn-menu-acoes:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-menu-acoes .icon {
+    width: 18px;
+    height: 18px;
+    stroke: rgba(255, 255, 255, 0.6);
+}
+
+.menu-acoes-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 8px 0;
+    min-width: 200px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.menu-acoes-dropdown.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.menu-acao-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 16px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.menu-acao-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.menu-acao-item .icon {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+}
+
+.menu-acao-divisor {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 8px 0;
+}
+
+.menu-acao-danger {
+    color: rgba(231, 76, 60, 0.9);
+}
+
+.menu-acao-danger:hover {
+    background: rgba(231, 76, 60, 0.1);
+}
+
+/* Modal de Exclusão */
+.modal-exclusao {
+    max-width: 420px;
+}
+
+.modal-header-danger {
+    background: linear-gradient(135deg, rgba(192, 57, 43, 0.2) 0%, rgba(231, 76, 60, 0.1) 100%);
+    border-bottom: 1px solid rgba(231, 76, 60, 0.2);
+}
+
+.modal-header-danger h3 {
+    color: #e74c3c;
+}
+
+.exclusao-aviso {
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.exclusao-aviso-icon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+.exclusao-aviso-icon .icon {
+    width: 20px;
+    height: 20px;
+}
+
+.exclusao-aviso p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9em;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.exclusao-info {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.exclusao-info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.exclusao-info-item:last-child {
+    border-bottom: none;
+}
+
+.exclusao-info-item label {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85em;
+}
+
+.exclusao-info-item span {
+    color: #fff;
+    font-weight: 500;
+}
+
+.exclusao-confirmacao {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.exclusao-confirmacao label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.exclusao-confirmacao input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.btn-excluir-final {
+    width: 100%;
+    padding: 14px;
+    background: rgba(231, 76, 60, 0.2);
+    border: 1px solid rgba(231, 76, 60, 0.4);
+    color: rgba(231, 76, 60, 0.5);
+    border-radius: 10px;
+    font-size: 0.95em;
+    font-weight: 500;
+    cursor: not-allowed;
+    pointer-events: none;
+    transition: all 0.3s;
+}
+
+.btn-excluir-final.ativo {
+    background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.btn-excluir-final.ativo:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.btn-juros {
+    background: rgba(243, 156, 18, 0.15);
+    color: #f39c12;
+    border: 1px solid rgba(243, 156, 18, 0.3) !important;
+}
+.btn-juros:hover { background: rgba(243, 156, 18, 0.25); }
+
+.btn-amortizar {
+    background: rgba(52, 152, 219, 0.15);
+    color: #3498db;
+    border: 1px solid rgba(52, 152, 219, 0.3) !important;
+}
+.btn-amortizar:hover { background: rgba(52, 152, 219, 0.25); }
+
+/* ========== RESUMO FINAL ========== */
+.resumo-final {
+    background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+    border: 1px solid rgba(212, 175, 125, 0.2);
+    border-radius: 18px;
+    padding: 28px;
+    margin-top: 30px;
+}
+
+.resumo-final h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3em;
+    color: #d4af7d;
+    margin-bottom: 22px;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.resumo-final-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.resumo-final-item {
+    text-align: center;
+    padding: 22px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+}
+
+.resumo-final-item label {
+    display: block;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.resumo-final-item .valor {
+    font-size: 1.9em;
+    font-weight: 600;
+}
+
+.resumo-final-item.recebido .valor { color: #2ecc71; }
+.resumo-final-item.pago .valor { color: #e74c3c; }
+.resumo-final-item.economia .valor { color: #3498db; }
+
+/* ========== BALANÇO GERAL ========== */
+.balanco-geral {
+    background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+    border: 1px solid rgba(212, 175, 125, 0.25);
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 30px;
+}
+
+.balanco-geral h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4em;
+    color: #d4af7d;
+    margin-bottom: 25px;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.balanco-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.balanco-item {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    padding: 20px;
+    border-left: 3px solid transparent;
+}
+
+.balanco-item.alerta { border-left-color: #e74c3c; }
+.balanco-item.sucesso { border-left-color: #2ecc71; }
+.balanco-item.info { border-left-color: #3498db; }
+
+.balanco-item h4 {
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.balanco-item .valor-destaque {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+}
+
+.balanco-item .detalhe {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.sugestoes-container {
+    background: rgba(212, 175, 125, 0.08);
+    border: 1px solid rgba(212, 175, 125, 0.2);
+    border-radius: 12px;
+    padding: 22px;
+}
+
+.sugestoes-container h4 {
+    font-size: 1em;
+    color: #d4af7d;
+    margin-bottom: 18px;
+}
+
+.sugestao-item {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    font-size: 0.95em;
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.sugestao-item:last-child {
+    margin-bottom: 0;
+}
+
+.sugestao-item .icon {
+    font-size: 1.2em;
+    flex-shrink: 0;
+}
+
+/* ========== MODAIS ========== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: #141414;
+    border: 1px solid rgba(212, 175, 125, 0.2);
+    border-radius: 20px;
+    padding: 0;
+    max-width: 550px;
+    width: 100%;
+    max-height: 85vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header h3 {
+    font-family: 'Playfair Display', serif;
+    color: #d4af7d;
+    font-size: 1.3em;
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.8em;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    transition: color 0.3s;
+}
+
+.modal-close:hover {
+    color: #fff;
+}
+
+.modal-body {
+    padding: 25px 28px;
+    overflow-y: auto;
+}
+
+.info-box {
+    background: rgba(212, 175, 125, 0.1);
+    border: 1px solid rgba(212, 175, 125, 0.2);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 20px;
+    font-size: 0.95em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.info-box strong {
+    color: #d4af7d;
+}
+
+.info-box.warning {
+    background: rgba(243, 156, 18, 0.1);
+    border-color: rgba(243, 156, 18, 0.25);
+}
+
+.info-box.info {
+    background: rgba(52, 152, 219, 0.1);
+    border-color: rgba(52, 152, 219, 0.25);
+}
+
+/* ========== STATUS SYNC ========== */
+#syncStatus {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-size: 0.9em;
+    font-weight: 500;
+    z-index: 10001;
+    opacity: 0;
+    transition: opacity 0.3s;
+    color: #fff;
+}
+
+/* ========== RESPONSIVO ========== */
+@media (max-width: 900px) {
+    .resumo-grid { grid-template-columns: repeat(2, 1fr); }
+    .emprestimo-acoes-rapidas { grid-template-columns: 1fr; }
+    .resumo-final-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+    body { padding: 15px; }
+    .header-title h1 { font-size: 1.5em; }
+    .resumo-grid { gap: 10px; }
+    .resumo-card { padding: 16px; }
+    .resumo-card .valor { font-size: 1.4em; }
+    .mes-selector { flex-direction: column; gap: 15px; align-items: stretch; }
+    .view-toggle { justify-content: center; }
+    .section-header { flex-direction: column; gap: 15px; align-items: stretch; }
+    .btn-add-section { width: 100%; height: 40px; }
+    .section-content { padding: 15px; }
+    .form-row { grid-template-columns: 1fr; }
+    .balanco-grid { grid-template-columns: 1fr; }
     
-    /* Classe base para todos os ícones */
+    /* Ícones menores no mobile mas área de toque preservada */
     .icon {
-        width: 18px;
-        height: 18px;
-        stroke: currentColor;
-        stroke-width: 1.5;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        fill: none;
-        flex-shrink: 0;
-        transition: all 0.2s ease;
-    }
-
-    /* Tamanhos de ícone */
-    .icon-sm { width: 14px; height: 14px; }
-    .icon-md { width: 18px; height: 18px; }
-    .icon-lg { width: 22px; height: 22px; }
-
-    /* ========== BOTÕES DE AÇÃO (Padrão Medicamentos) ========== */
-    .action-buttons {
-        display: flex;
-        gap: 2px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* Botão base - área de toque mínima 44px */
-    .action-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 36px;
-        height: 36px;
-        min-width: 36px;
-        min-height: 36px;
-        padding: 0;
-        background: transparent;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        color: rgba(212, 175, 125, 0.7);
-    }
-
-    .action-btn:hover {
-        background: rgba(212, 175, 125, 0.1);
-        color: #d4af7d;
-        transform: none;
-    }
-
-    .action-btn:active {
-        transform: scale(0.95);
-    }
-
-    /* Variantes de cor */
-    .action-btn.btn-edit {
-        color: rgba(212, 175, 125, 0.7);
-    }
-    .action-btn.btn-edit:hover {
-        color: #d4af7d;
-        background: rgba(212, 175, 125, 0.1);
-    }
-
-    .action-btn.btn-delete {
-        color: rgba(180, 80, 80, 0.6);
-    }
-    .action-btn.btn-delete:hover {
-        color: #c0392b;
-        background: rgba(192, 57, 43, 0.1);
-    }
-
-    .action-btn.btn-comprovante {
-        color: rgba(46, 204, 113, 0.6);
-    }
-    .action-btn.btn-comprovante:hover {
-        color: #27ae60;
-        background: rgba(39, 174, 96, 0.1);
-    }
-
-    .action-btn.btn-arquivar {
-        color: rgba(149, 165, 166, 0.6);
-    }
-    .action-btn.btn-arquivar:hover {
-        color: #7f8c8d;
-        background: rgba(127, 140, 141, 0.1);
-    }
-
-    .action-btn.btn-duplicate {
-        color: rgba(212, 175, 125, 0.5);
-    }
-    .action-btn.btn-duplicate:hover {
-        color: #d4af7d;
-        background: rgba(212, 175, 125, 0.1);
-    }
-
-    .action-btn.btn-restaurar {
-        color: rgba(46, 204, 113, 0.6);
-    }
-    .action-btn.btn-restaurar:hover {
-        color: #27ae60;
-        background: rgba(39, 174, 96, 0.1);
-    }
-
-    .action-btn.btn-pagar {
-        color: rgba(52, 152, 219, 0.7);
-    }
-    .action-btn.btn-pagar:hover {
-        color: #3498db;
-        background: rgba(52, 152, 219, 0.1);
-    }
-
-    /* Botão adicionar no header de seção */
-    .btn-add-section {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        padding: 0;
-        background: rgba(212, 175, 125, 0.15);
-        border: 1px solid rgba(212, 175, 125, 0.3);
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        color: #d4af7d;
-    }
-
-    .btn-add-section:hover {
-        background: rgba(212, 175, 125, 0.25);
-        border-color: rgba(212, 175, 125, 0.5);
-    }
-
-    .btn-add-section .icon {
         width: 16px;
         height: 16px;
     }
-
-    /* ========== BADGES (sem emojis) ========== */
-    .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        padding: 3px 8px;
-        border-radius: 10px;
-        font-size: 0.7em;
-        font-weight: 500;
-        margin-left: 8px;
-        vertical-align: middle;
+    
+    .action-btn {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
     }
-
+    
+    .action-buttons {
+        gap: 0;
+    }
+    
     .badge .icon {
-        width: 12px;
-        height: 12px;
+        width: 10px;
+        height: 10px;
     }
-
-    .badge.recorrente { background: rgba(155, 89, 182, 0.15); color: #9b59b6; }
-    .badge.parcela { background: rgba(52, 152, 219, 0.15); color: #3498db; }
-    .badge.vencido { background: rgba(192, 57, 43, 0.15); color: #c0392b; }
-    .badge.proximo { background: rgba(241, 196, 15, 0.15); color: #d4a307; }
-    .badge.arquivado { background: rgba(149, 165, 166, 0.15); color: #95a5a6; }
-    .badge.comprovante { background: rgba(46, 204, 113, 0.15); color: #27ae60; }
-    .badge.juros-pendente { background: rgba(243, 156, 18, 0.15); color: #d68910; }
-
-    /* ========== CHECKBOX STATUS (igual Medicamentos) ========== */
+    
     .checkbox-status {
-        appearance: none;
-        -webkit-appearance: none;
-        width: 22px;
-        height: 22px;
-        border: 2px solid rgba(46, 204, 113, 0.5);
-        border-radius: 50%;
-        cursor: pointer;
-        background: transparent;
-        transition: all 0.2s ease;
-        position: relative;
-        flex-shrink: 0;
-    }
-
-    .checkbox-status:hover {
-        border-color: #2ecc71;
-        background: rgba(46, 204, 113, 0.1);
-    }
-
-    .checkbox-status:checked {
-        background: #27ae60;
-        border-color: #27ae60;
-    }
-
-    .checkbox-status:checked::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 8px;
-        height: 8px;
-        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a0a0a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") center/contain no-repeat;
-        width: 12px;
-        height: 12px;
-    }
-
-    /* Checkbox de formulário */
-    .form-group-checkbox {
-        display: flex;
-        align-items: center;
-    }
-
-    .checkbox-label {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        cursor: pointer;
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 0.95em;
-    }
-
-    .checkbox-label input[type="checkbox"] {
-        appearance: none;
-        -webkit-appearance: none;
         width: 20px;
         height: 20px;
-        border: 2px solid rgba(212, 175, 125, 0.5);
-        border-radius: 4px;
-        cursor: pointer;
-        background: transparent;
-        transition: all 0.2s;
-        position: relative;
     }
-
-    .checkbox-label input[type="checkbox"]:checked {
-        background: #d4af7d;
-        border-color: #d4af7d;
-    }
-
-    .checkbox-label input[type="checkbox"]:checked::after {
-        content: '✓';
-        position: absolute;
-        color: #0a0a0a;
-        font-size: 12px;
-        font-weight: bold;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .parcelas-field.hidden {
-        display: none !important;
-    }
-
-    /* Preview de parcelas */
-    .parcelas-preview {
-        background: rgba(52, 152, 219, 0.1);
-        border: 1px solid rgba(52, 152, 219, 0.2);
-        border-radius: 10px;
-        padding: 15px;
-        margin-bottom: 18px;
-    }
-
-    .parcelas-preview .preview-header {
-        font-size: 0.8em;
-        color: rgba(255, 255, 255, 0.6);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: 10px;
-    }
-
-    .parcelas-preview .preview-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 10px;
-    }
-
-    .parcelas-preview .preview-item {
-        background: rgba(52, 152, 219, 0.15);
-        color: #3498db;
-        padding: 6px 12px;
-        border-radius: 6px;
-        font-size: 0.85em;
-        font-weight: 500;
-    }
-
-    .parcelas-preview .preview-item:last-child {
-        background: rgba(46, 204, 113, 0.15);
-        color: #2ecc71;
-    }
-
-    .parcelas-preview .preview-total {
-        font-size: 0.9em;
-        color: rgba(255, 255, 255, 0.8);
-        font-weight: 500;
-        text-align: right;
-        padding-top: 10px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    /* Parcelas editáveis */
-    .preview-list-editable {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        margin-bottom: 12px;
-    }
-
-    .preview-item-editable {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        background: rgba(0, 0, 0, 0.2);
-        padding: 8px 12px;
-        border-radius: 8px;
-    }
-
-    .preview-item-editable .parcela-num {
-        color: #3498db;
-        font-weight: 600;
-        font-size: 0.85em;
-        min-width: 45px;
-    }
-
-    .preview-item-editable .parcela-valor-input {
-        flex: 1;
-        background: rgba(0, 0, 0, 0.3);
-        border: 1px solid rgba(212, 175, 125, 0.3);
-        border-radius: 6px;
-        padding: 8px 12px;
-        color: #fff;
-        font-size: 0.95em;
-        text-align: right;
-    }
-
-    .preview-item-editable .parcela-valor-input:focus {
-        outline: none;
-        border-color: #d4af7d;
-    }
-
-    .preview-soma {
-        padding: 12px;
-        border-radius: 8px;
-        margin-top: 10px;
-    }
-
-    .preview-soma.ok {
-        background: rgba(46, 204, 113, 0.1);
-        border: 1px solid rgba(46, 204, 113, 0.3);
-    }
-
-    .preview-soma.erro {
-        background: rgba(231, 76, 60, 0.1);
-        border: 1px solid rgba(231, 76, 60, 0.3);
-    }
-
-    .preview-soma .soma-linha {
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.85em;
-        color: rgba(255, 255, 255, 0.7);
-        margin-bottom: 4px;
-    }
-
-    .preview-soma .soma-diferenca {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 8px;
-        padding-top: 8px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        color: #e74c3c;
-        font-size: 0.85em;
-    }
-
-    .preview-soma .soma-ok {
-        text-align: center;
-        color: #2ecc71;
-        font-size: 0.85em;
-        margin-top: 8px;
-    }
-
-    .btn-ajustar {
-        background: rgba(212, 175, 125, 0.2);
-        border: 1px solid rgba(212, 175, 125, 0.4);
-        color: #d4af7d;
-        padding: 4px 10px;
-        border-radius: 5px;
-        font-size: 0.8em;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
-
-    .btn-ajustar:hover {
-        background: rgba(212, 175, 125, 0.3);
-    }
-
-    /* Barra de progresso de parcelas */
-    .parcela-progress {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        margin-top: 4px;
-    }
-
-    .parcela-info {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 0.75em;
-    }
-
-    .parcela-info .parcela-label {
-        color: #3498db;
-        font-weight: 500;
-    }
-
-    .parcela-info .parcela-percent {
-        color: rgba(255, 255, 255, 0.6);
-    }
-
-    .parcela-bar {
-        width: 100%;
-        height: 6px;
-        background: rgba(52, 152, 219, 0.2);
-        border-radius: 3px;
-        overflow: hidden;
-    }
-
-    .parcela-bar-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #2980b9 0%, #3498db 100%);
-        border-radius: 3px;
-        transition: width 0.3s ease;
-    }
-
-    .checkbox-status:hover {
-        background: rgba(46, 204, 113, 0.1);
-    }
-
-    .checkbox-status:checked {
-        background: #2ecc71;
-    }
-
-    .checkbox-status:checked::after {
-        content: '✓';
-        position: absolute;
-        color: #0a0a0a;
-        font-size: 12px;
-        font-weight: bold;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    /* ========== EMPTY STATE ========== */
-    .empty-state {
-        text-align: center;
-        padding: 45px 20px;
-        color: rgba(255, 255, 255, 0.3);
-        font-size: 0.95em;
-    }
-
-    /* ========== FORMULÁRIOS ========== */
-    .form-container {
-        display: none;
-        background: #1a1a1a;
-        border-radius: 12px;
-        padding: 25px;
-        margin-bottom: 20px;
-        border: 1px solid rgba(212, 175, 125, 0.1);
-    }
-
-    .form-container.active {
-        display: block;
-    }
-
-    .form-row {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-        gap: 18px;
-        margin-bottom: 18px;
-    }
-
-    .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .form-group label {
-        color: rgba(255, 255, 255, 0.6);
-        font-size: 0.8em;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .form-group input,
-    .form-group select {
-        padding: 13px 16px;
-        background: #141414;
-        border: 1px solid rgba(212, 175, 125, 0.2);
-        border-radius: 8px;
-        color: #fff;
-        font-size: 1em;
-        transition: border-color 0.3s;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus {
-        outline: none;
-        border-color: #d4af7d;
-    }
-
-    .form-group input::placeholder {
-        color: rgba(255, 255, 255, 0.3);
-    }
-
-    .form-group select option {
-        background: #141414;
-        color: #fff;
-    }
-
-    .form-group input[type="file"] {
-        padding: 11px;
-        font-size: 0.9em;
-    }
-
-    .form-buttons {
-        display: flex;
-        gap: 12px;
-        justify-content: flex-end;
-        margin-top: 22px;
-    }
-
-    .btn-salvar {
-        background: #d4af7d;
-        color: #0a0a0a;
-        border: none;
-        padding: 13px 28px;
-        border-radius: 8px;
-        font-weight: 600;
-        font-size: 0.95em;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-
-    .btn-salvar:hover {
-        background: #c9a066;
-        transform: translateY(-1px);
-    }
-
-    .btn-cancelar {
-        background: rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.6);
-        border: none;
-        padding: 13px 22px;
-        border-radius: 8px;
-        font-size: 0.95em;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-
-    .btn-cancelar:hover {
-        background: rgba(255, 255, 255, 0.12);
-    }
-
-    /* ========== PROGRESS BAR ========== */
-    .progress-bar {
-        width: 100%;
-        height: 8px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 4px;
-        overflow: hidden;
-        margin-top: 8px;
-    }
-
-    .progress-bar-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #27ae60, #2ecc71);
-        border-radius: 4px;
-        transition: width 0.5s ease;
-    }
-
-    /* ========== EMPRÉSTIMOS CARD ========== */
-    .emprestimo-card {
-        background: #1a1a1a;
-        border: 1px solid rgba(155, 89, 182, 0.25);
-        border-radius: 15px;
-        padding: 22px;
-        margin-bottom: 20px;
-    }
-
-    .emprestimo-card.arquivado {
-        opacity: 0.5;
-        border-color: rgba(149, 165, 166, 0.25);
-    }
-
-    .emprestimo-card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 20px;
-    }
-
-    .emprestimo-card-title {
-        font-size: 1.15em;
-        color: #fff;
-        font-weight: 500;
-    }
-
-    .emprestimo-card-title small {
-        display: block;
-        font-size: 0.75em;
-        color: rgba(255, 255, 255, 0.5);
-        font-weight: 400;
-        margin-top: 6px;
-    }
-
-    .emprestimo-card-acoes {
-        display: flex;
-        gap: 2px;
-    }
-
-    .emprestimo-valores {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 12px;
-        margin-bottom: 20px;
-    }
-
-    .emprestimo-valor-item {
-        background: rgba(0, 0, 0, 0.25);
-        padding: 16px;
-        border-radius: 10px;
-        text-align: center;
-    }
-
-    .emprestimo-valor-item label {
-        display: block;
-        font-size: 0.7em;
-        color: rgba(255, 255, 255, 0.5);
-        text-transform: uppercase;
-        margin-bottom: 8px;
-        letter-spacing: 0.5px;
-    }
-
-    .emprestimo-valor-item .valor {
-        font-size: 1.15em;
-        font-weight: 600;
-    }
-
-    .emprestimo-valor-item .valor.principal { color: #9b59b6; }
-    .emprestimo-valor-item .valor.juros-acum { color: #f39c12; }
-    .emprestimo-valor-item .valor.juros-pagos { color: #27ae60; }
-    .emprestimo-valor-item .valor.amortizado { color: #3498db; }
-    .emprestimo-valor-item .valor.saldo { color: #e74c3c; }
-
-    /* ========== RESERVAS / ECONOMIAS ========== */
-    .reserva-card {
-        background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
-        border: 1px solid rgba(46, 204, 113, 0.2);
-        border-radius: 15px;
-        padding: 20px;
-        margin-bottom: 15px;
-    }
-
-    .reserva-card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 15px;
-    }
-
-    .reserva-card-title {
-        font-size: 1.1em;
-        font-weight: 500;
-        color: #fff;
-    }
-
-    .reserva-card-title small {
-        display: block;
-        font-size: 0.7em;
-        color: rgba(255, 255, 255, 0.4);
-        font-weight: 400;
-        margin-top: 4px;
-    }
-
-    .reserva-card-acoes {
-        display: flex;
-        gap: 2px;
-    }
-
-    .reserva-saldo {
-        text-align: center;
-        padding: 20px;
-        background: rgba(46, 204, 113, 0.1);
-        border-radius: 12px;
-        margin-bottom: 15px;
-    }
-
-    .reserva-saldo label {
-        display: block;
-        font-size: 0.75em;
-        color: rgba(255, 255, 255, 0.5);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 8px;
-    }
-
-    .reserva-saldo .valor {
-        font-size: 2em;
-        font-weight: 600;
-        color: #2ecc71;
-    }
-
-    .reserva-acoes-rapidas {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin-bottom: 15px;
-    }
-
-    .reserva-acoes-rapidas button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 12px;
-        border-radius: 10px;
-        font-size: 0.9em;
-        cursor: pointer;
-        border: none;
-        font-weight: 500;
-        transition: all 0.3s;
-    }
-
-    .reserva-acoes-rapidas button .icon {
-        width: 16px;
-        height: 16px;
-    }
-
-    .btn-depositar {
-        background: rgba(46, 204, 113, 0.15);
-        color: #2ecc71;
-        border: 1px solid rgba(46, 204, 113, 0.3) !important;
-    }
-    .btn-depositar:hover { background: rgba(46, 204, 113, 0.25); }
-
-    .btn-retirar {
-        background: rgba(231, 76, 60, 0.15);
-        color: #e74c3c;
-        border: 1px solid rgba(231, 76, 60, 0.3) !important;
-    }
-    .btn-retirar:hover { background: rgba(231, 76, 60, 0.25); }
-
-    .reserva-historico {
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        padding-top: 15px;
-    }
-
-    .reserva-historico-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-        cursor: pointer;
-    }
-
-    .reserva-historico-header h4 {
-        font-size: 0.85em;
-        color: rgba(255, 255, 255, 0.6);
-        font-weight: 500;
-    }
-
-    .reserva-historico-header .toggle-icon {
-        color: rgba(255, 255, 255, 0.4);
-        transition: transform 0.3s;
-    }
-
-    .reserva-historico-header.expanded .toggle-icon {
-        transform: rotate(180deg);
-    }
-
-    .reserva-historico-lista {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-    }
-
-    .reserva-historico-lista.expanded {
-        max-height: 300px;
-        overflow-y: auto;
-    }
-
-    .reserva-mov-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 12px;
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 8px;
-        margin-bottom: 6px;
-    }
-
-    .reserva-mov-item .mov-info {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-    }
-
-    .reserva-mov-item .mov-data {
-        font-size: 0.75em;
-        color: rgba(255, 255, 255, 0.4);
-    }
-
-    .reserva-mov-item .mov-obs {
-        font-size: 0.85em;
-        color: rgba(255, 255, 255, 0.7);
-    }
-
-    .reserva-mov-item .mov-valor {
-        font-weight: 600;
-        font-size: 0.95em;
-    }
-
-    .reserva-mov-item .mov-valor.entrada { color: #2ecc71; }
-    .reserva-mov-item .mov-valor.saida { color: #e74c3c; }
-
-    .emprestimo-progress label {
-        font-size: 0.8em;
-        color: rgba(255, 255, 255, 0.5);
-    }
-
-    .emprestimo-acoes-rapidas {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-        margin-top: 18px;
-    }
-
-    .emprestimo-acoes-rapidas button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        padding: 12px 10px;
-        border-radius: 10px;
-        font-size: 0.85em;
-        cursor: pointer;
-        border: none;
-        font-weight: 500;
-        transition: all 0.3s;
-    }
-
-    .emprestimo-acoes-rapidas button .icon {
+    
+    .btn-add-section .icon {
         width: 14px;
         height: 14px;
     }
-
-    .btn-gerar-juros {
-        background: rgba(155, 89, 182, 0.15);
-        color: #9b59b6;
-        border: 1px solid rgba(155, 89, 182, 0.3) !important;
-    }
-    .btn-gerar-juros:hover { background: rgba(155, 89, 182, 0.25); }
-
-    .btn-restaurar {
-        background: rgba(52, 152, 219, 0.15);
-        color: #3498db;
-        border: 1px solid rgba(52, 152, 219, 0.3) !important;
-    }
-    .btn-restaurar:hover { background: rgba(52, 152, 219, 0.25); }
-
-    /* Menu de Ações Dropdown */
-    .menu-acoes-container {
-        position: relative;
-    }
-
-    .btn-menu-acoes {
-        background: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 8px;
-        padding: 8px;
-        cursor: pointer;
-        transition: all 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .btn-menu-acoes:hover {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-menu-acoes .icon {
-        width: 18px;
-        height: 18px;
-        color: rgba(255, 255, 255, 0.6);
-    }
-
-    .menu-acoes-dropdown {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        margin-top: 8px;
-        background: #1a1a1a;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        padding: 8px;
-        min-width: 200px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        z-index: 1000;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px);
-        transition: all 0.2s ease;
-    }
-
-    .menu-acoes-dropdown.active {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-
-    .menu-acao-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        width: 100%;
-        padding: 12px 14px;
-        background: transparent;
-        border: none;
-        border-radius: 8px;
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 0.9em;
-        cursor: pointer;
-        transition: all 0.2s;
-        text-align: left;
-    }
-
-    .menu-acao-item:hover {
-        background: rgba(255, 255, 255, 0.05);
-    }
-
-    .menu-acao-item .icon {
-        width: 16px;
-        height: 16px;
-        color: rgba(255, 255, 255, 0.5);
-    }
-
-    .menu-acao-divisor {
-        height: 1px;
-        background: rgba(255, 255, 255, 0.1);
-        margin: 8px 0;
-    }
-
-    .menu-acao-danger {
-        color: #e74c3c;
-    }
-
-    .menu-acao-danger:hover {
-        background: rgba(231, 76, 60, 0.1);
-    }
-
-    .menu-acao-danger .icon {
-        color: #e74c3c;
-    }
-
-    /* Modal de Confirmação de Exclusão */
-    .modal-exclusao-content {
-        text-align: center;
-        padding: 10px 0;
-    }
-
-    .modal-exclusao-icon {
-        width: 60px;
-        height: 60px;
-        margin: 0 auto 20px;
-        background: rgba(231, 76, 60, 0.1);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .modal-exclusao-icon .icon {
-        width: 30px;
-        height: 30px;
-        color: #e74c3c;
-    }
-
-    .modal-exclusao-titulo {
-        font-size: 1.2em;
-        font-weight: 600;
-        color: #fff;
-        margin-bottom: 10px;
-    }
-
-    .modal-exclusao-descricao {
-        color: rgba(255, 255, 255, 0.6);
-        font-size: 0.9em;
-        line-height: 1.5;
-        margin-bottom: 20px;
-    }
-
-    .modal-exclusao-aviso {
-        background: rgba(231, 76, 60, 0.1);
-        border: 1px solid rgba(231, 76, 60, 0.2);
-        border-radius: 10px;
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-
-    .modal-exclusao-aviso p {
-        color: #e74c3c;
-        font-size: 0.85em;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-    }
-
-    .modal-exclusao-aviso .icon {
-        width: 16px;
-        height: 16px;
-    }
-
-    .modal-exclusao-info {
-        background: rgba(255, 255, 255, 0.03);
-        border-radius: 10px;
-        padding: 15px;
-        margin-bottom: 25px;
-        text-align: left;
-    }
-
-    .modal-exclusao-info-item {
-        display: flex;
-        justify-content: space-between;
-        padding: 8px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .modal-exclusao-info-item:last-child {
-        border-bottom: none;
-    }
-
-    .modal-exclusao-info-item label {
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 0.85em;
-    }
-
-    .modal-exclusao-info-item span {
-        color: #fff;
-        font-weight: 500;
-        font-size: 0.9em;
-    }
-
-    .modal-exclusao-confirmar {
-        background: rgba(255, 255, 255, 0.03);
-        border-radius: 10px;
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-
-    .modal-exclusao-confirmar label {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 0.9em;
-        cursor: pointer;
-    }
-
-    .modal-exclusao-confirmar input[type="checkbox"] {
-        width: 18px;
-        height: 18px;
-        accent-color: #e74c3c;
-    }
-
-    .btn-excluir-final {
-        background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
-        color: #fff;
-        border: none;
-        padding: 14px 30px;
-        border-radius: 10px;
-        font-size: 0.95em;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.3s;
-        opacity: 0.5;
-        pointer-events: none;
-    }
-
-    .btn-excluir-final.enabled {
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    .btn-excluir-final.enabled:hover {
-        transform: scale(1.02);
-        box-shadow: 0 5px 20px rgba(231, 76, 60, 0.3);
-    }
-
-    /* Menu de ações dropdown */
-    .menu-acoes-container {
-        position: relative;
-    }
-
-    .btn-menu-acoes {
-        background: transparent;
-        border: none;
-        padding: 8px;
-        cursor: pointer;
-        border-radius: 8px;
-        transition: all 0.2s;
-    }
-
-    .btn-menu-acoes:hover {
-        background: rgba(255, 255, 255, 0.1);
-    }
-
-    .btn-menu-acoes .icon {
-        width: 18px;
-        height: 18px;
-        stroke: rgba(255, 255, 255, 0.6);
-    }
-
-    .menu-acoes-dropdown {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background: #1a1a1a;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 12px;
-        padding: 8px 0;
-        min-width: 200px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        z-index: 100;
-        display: none;
-        opacity: 0;
-        transform: translateY(-10px);
-        transition: opacity 0.2s, transform 0.2s;
-    }
-
-    .menu-acoes-dropdown.active {
-        display: block;
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .menu-acao-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        width: 100%;
-        padding: 12px 16px;
-        background: none;
-        border: none;
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 0.9em;
-        cursor: pointer;
-        transition: all 0.2s;
-        text-align: left;
-    }
-
-    .menu-acao-item:hover {
-        background: rgba(255, 255, 255, 0.08);
-    }
-
-    .menu-acao-item .icon {
-        width: 16px;
-        height: 16px;
-        stroke: currentColor;
-    }
-
-    .menu-acao-divisor {
-        height: 1px;
-        background: rgba(255, 255, 255, 0.1);
-        margin: 8px 0;
-    }
-
-    .menu-acao-danger {
-        color: rgba(231, 76, 60, 0.9);
-    }
-
-    .menu-acao-danger:hover {
-        background: rgba(231, 76, 60, 0.1);
-    }
-
-    /* Modal de Exclusão */
-    .modal-exclusao {
-        max-width: 420px;
-    }
-
-    .modal-header-danger {
-        background: linear-gradient(135deg, rgba(192, 57, 43, 0.2) 0%, rgba(231, 76, 60, 0.1) 100%);
-        border-bottom: 1px solid rgba(231, 76, 60, 0.2);
-    }
-
-    .modal-header-danger h3 {
-        color: #e74c3c;
-    }
-
-    .exclusao-aviso {
-        background: rgba(231, 76, 60, 0.1);
-        border: 1px solid rgba(231, 76, 60, 0.2);
-        border-radius: 10px;
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-
-    .exclusao-aviso-icon {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 10px;
-        color: #e74c3c;
-        font-weight: 600;
-    }
-
-    .exclusao-aviso-icon .icon {
-        width: 20px;
-        height: 20px;
-    }
-
-    .exclusao-aviso p {
-        color: rgba(255, 255, 255, 0.7);
-        font-size: 0.9em;
-        line-height: 1.5;
-        margin: 0;
-    }
-
-    .exclusao-info {
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-
-    .exclusao-info-item {
-        display: flex;
-        justify-content: space-between;
-        padding: 8px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .exclusao-info-item:last-child {
-        border-bottom: none;
-    }
-
-    .exclusao-info-item label {
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 0.85em;
-    }
-
-    .exclusao-info-item span {
-        color: #fff;
-        font-weight: 500;
-    }
-
-    .exclusao-confirmacao {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-
-    .exclusao-confirmacao label {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-        cursor: pointer;
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 0.9em;
-        line-height: 1.4;
-    }
-
-    .exclusao-confirmacao input[type="checkbox"] {
-        width: 18px;
-        height: 18px;
-        margin-top: 2px;
-        flex-shrink: 0;
-    }
-
-    .btn-excluir-final {
-        width: 100%;
-        padding: 14px;
-        background: rgba(231, 76, 60, 0.2);
-        border: 1px solid rgba(231, 76, 60, 0.4);
-        color: rgba(231, 76, 60, 0.5);
-        border-radius: 10px;
-        font-size: 0.95em;
-        font-weight: 500;
-        cursor: not-allowed;
-        pointer-events: none;
-        transition: all 0.3s;
-    }
-
-    .btn-excluir-final.ativo {
-        background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
-        border-color: transparent;
-        color: #fff;
-        cursor: pointer;
-        pointer-events: auto;
-    }
-
-    .btn-excluir-final.ativo:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
-    }
-
-    .btn-juros {
-        background: rgba(243, 156, 18, 0.15);
-        color: #f39c12;
-        border: 1px solid rgba(243, 156, 18, 0.3) !important;
-    }
-    .btn-juros:hover { background: rgba(243, 156, 18, 0.25); }
-
-    .btn-amortizar {
-        background: rgba(52, 152, 219, 0.15);
-        color: #3498db;
-        border: 1px solid rgba(52, 152, 219, 0.3) !important;
-    }
-    .btn-amortizar:hover { background: rgba(52, 152, 219, 0.25); }
-
-    /* ========== RESUMO FINAL ========== */
-    .resumo-final {
-        background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
-        border: 1px solid rgba(212, 175, 125, 0.2);
-        border-radius: 18px;
-        padding: 28px;
-        margin-top: 30px;
-    }
-
-    .resumo-final h3 {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.3em;
-        color: #d4af7d;
-        margin-bottom: 22px;
-        text-align: center;
-        letter-spacing: 2px;
-    }
-
-    .resumo-final-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-    }
-
-    .resumo-final-item {
-        text-align: center;
-        padding: 22px;
-        background: rgba(0, 0, 0, 0.25);
-        border-radius: 12px;
-    }
-
-    .resumo-final-item label {
-        display: block;
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 0.8em;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 12px;
-    }
-
-    .resumo-final-item .valor {
-        font-size: 1.9em;
-        font-weight: 600;
-    }
-
-    .resumo-final-item.recebido .valor { color: #2ecc71; }
-    .resumo-final-item.pago .valor { color: #e74c3c; }
-    .resumo-final-item.economia .valor { color: #3498db; }
-
-    /* ========== BALANÇO GERAL ========== */
-    .balanco-geral {
-        background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
-        border: 1px solid rgba(212, 175, 125, 0.25);
-        border-radius: 20px;
-        padding: 30px;
-        margin-top: 30px;
-    }
-
-    .balanco-geral h3 {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.4em;
-        color: #d4af7d;
-        margin-bottom: 25px;
-        text-align: center;
-        letter-spacing: 2px;
-    }
-
-    .balanco-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 18px;
-        margin-bottom: 25px;
-    }
-
-    .balanco-item {
-        background: rgba(0, 0, 0, 0.25);
-        border-radius: 12px;
-        padding: 20px;
-        border-left: 3px solid transparent;
-    }
-
-    .balanco-item.alerta { border-left-color: #e74c3c; }
-    .balanco-item.sucesso { border-left-color: #2ecc71; }
-    .balanco-item.info { border-left-color: #3498db; }
-
-    .balanco-item h4 {
-        font-size: 0.85em;
-        color: rgba(255, 255, 255, 0.5);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 12px;
-    }
-
-    .balanco-item .valor-destaque {
-        font-size: 1.5em;
-        font-weight: 600;
-        color: #fff;
-        margin-bottom: 6px;
-    }
-
-    .balanco-item .detalhe {
-        font-size: 0.9em;
-        color: rgba(255, 255, 255, 0.5);
-    }
-
-    .sugestoes-container {
-        background: rgba(212, 175, 125, 0.08);
-        border: 1px solid rgba(212, 175, 125, 0.2);
-        border-radius: 12px;
-        padding: 22px;
-    }
-
-    .sugestoes-container h4 {
-        font-size: 1em;
-        color: #d4af7d;
-        margin-bottom: 18px;
-    }
-
-    .sugestao-item {
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
-        padding: 14px 18px;
-        margin-bottom: 12px;
-        font-size: 0.95em;
-        color: rgba(255, 255, 255, 0.8);
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-    }
-
-    .sugestao-item:last-child {
-        margin-bottom: 0;
-    }
-
-    .sugestao-item .icon {
-        font-size: 1.2em;
-        flex-shrink: 0;
-    }
-
-    /* ========== MODAIS ========== */
-    .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.85);
-        z-index: 10000;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-    }
-
-    .modal.active {
-        display: flex;
-    }
-
-    .modal-content {
-        background: #141414;
-        border: 1px solid rgba(212, 175, 125, 0.2);
-        border-radius: 20px;
-        padding: 0;
-        max-width: 550px;
-        width: 100%;
-        max-height: 85vh;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 22px 28px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .modal-header h3 {
-        font-family: 'Playfair Display', serif;
-        color: #d4af7d;
-        font-size: 1.3em;
-    }
-
-    .modal-close {
-        background: transparent;
-        border: none;
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 1.8em;
-        cursor: pointer;
-        line-height: 1;
-        padding: 0;
-        transition: color 0.3s;
-    }
-
-    .modal-close:hover {
-        color: #fff;
-    }
-
-    .modal-body {
-        padding: 25px 28px;
-        overflow-y: auto;
-    }
-
-    .info-box {
-        background: rgba(212, 175, 125, 0.1);
-        border: 1px solid rgba(212, 175, 125, 0.2);
-        border-radius: 10px;
-        padding: 16px;
-        margin-bottom: 20px;
-        font-size: 0.95em;
-        color: rgba(255, 255, 255, 0.7);
-    }
-
-    .info-box strong {
-        color: #d4af7d;
-    }
-
-    .info-box.warning {
-        background: rgba(243, 156, 18, 0.1);
-        border-color: rgba(243, 156, 18, 0.25);
-    }
-
-    .info-box.info {
-        background: rgba(52, 152, 219, 0.1);
-        border-color: rgba(52, 152, 219, 0.25);
-    }
-
-    /* ========== STATUS SYNC ========== */
-    #syncStatus {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        padding: 12px 22px;
-        border-radius: 10px;
-        font-size: 0.9em;
-        font-weight: 500;
-        z-index: 10001;
-        opacity: 0;
-        transition: opacity 0.3s;
-        color: #fff;
-    }
-
-    /* ========== RESPONSIVO ========== */
-    @media (max-width: 900px) {
-        .resumo-grid { grid-template-columns: repeat(2, 1fr); }
-        .emprestimo-acoes-rapidas { grid-template-columns: 1fr; }
-        .resumo-final-grid { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 600px) {
-        body { padding: 15px; }
-        .header-title h1 { font-size: 1.5em; }
-        .resumo-grid { gap: 10px; }
-        .resumo-card { padding: 16px; }
-        .resumo-card .valor { font-size: 1.4em; }
-        .mes-selector { flex-direction: column; gap: 15px; align-items: stretch; }
-        .view-toggle { justify-content: center; }
-        .section-header { flex-direction: column; gap: 15px; align-items: stretch; }
-        .btn-add-section { width: 100%; height: 40px; }
-        .section-content { padding: 15px; }
-        .form-row { grid-template-columns: 1fr; }
-        .balanco-grid { grid-template-columns: 1fr; }
-        
-        /* Ícones menores no mobile mas área de toque preservada */
-        .icon {
-            width: 16px;
-            height: 16px;
-        }
-        
-        .action-btn {
-            width: 44px;
-            height: 44px;
-            min-width: 44px;
-            min-height: 44px;
-        }
-        
-        .action-buttons {
-            gap: 0;
-        }
-        
-        .badge .icon {
-            width: 10px;
-            height: 10px;
-        }
-        
-        .checkbox-status {
-            width: 20px;
-            height: 20px;
-        }
-        
-        .btn-add-section .icon {
-            width: 14px;
-            height: 14px;
-        }
-    }
-    /* ========== SIDEBAR ========== */
+}
+/* ========== SIDEBAR ========== */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 100vh;
+    background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+    border-right: 1px solid rgba(212, 175, 125, 0.15);
+    z-index: 1000;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 0;
+    transition: width 0.3s;
+    overflow: hidden;
+}
+
+.sidebar:hover {
+    width: 200px;
+}
+
+.sidebar:hover ~ .container {
+    margin-left: 140px;
+}
+
+.sidebar-logo {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid rgba(212, 175, 125, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2em;
+    color: #d4af7d;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+
+.sidebar-logo:hover {
+    background: rgba(212, 175, 125, 0.1);
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+    flex: 1;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 10px;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 0.85em;
+    transition: all 0.3s;
+    border-left: 2px solid transparent;
+    white-space: nowrap;
+}
+
+.sidebar-menu a:hover {
+    background: rgba(212, 175, 125, 0.1);
+    border-left-color: #d4af7d;
+    color: #fff;
+}
+
+.sidebar-menu a.active {
+    background: rgba(212, 175, 125, 0.15);
+    border-left-color: #d4af7d;
+    color: #d4af7d;
+}
+
+.sidebar-menu a svg {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    margin-left: 10px;
+}
+
+.sidebar-menu a span {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.sidebar:hover .sidebar-menu a span {
+    opacity: 1;
+}
+
+.sidebar-divider {
+    height: 1px;
+    background: rgba(212, 175, 125, 0.2);
+    margin: 8px 10px;
+    width: calc(100% - 20px);
+}
+
+.sidebar-footer {
+    padding: 15px 10px;
+    text-align: center;
+    border-top: 1px solid rgba(212, 175, 125, 0.2);
+    width: 100%;
+    background: rgba(0,0,0,0.3);
+}
+
+.sidebar-footer p {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.7em;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.sidebar-footer .instituto {
+    font-size: 0.85em;
+    color: #d4af7d;
+    display: block;
+    margin-bottom: 3px;
+}
+
+.sidebar:hover .sidebar-footer p {
+    opacity: 1;
+}
+
+/* Mobile Navigation */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+    border-top: 1px solid rgba(212, 175, 125, 0.15);
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+.mobile-nav-items {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 0.65em;
+    padding: 5px 10px;
+    transition: all 0.3s;
+}
+
+.mobile-nav-item svg {
+    width: 22px;
+    height: 22px;
+}
+
+.mobile-nav-item.active {
+    color: #d4af7d;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-left: 10px;
+        padding-bottom: 80px;
+    }
+    
     .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 60px;
-        height: 100vh;
-        background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
-        border-right: 1px solid rgba(212, 175, 125, 0.15);
-        z-index: 1000;
-        box-shadow: 4px 0 20px rgba(0,0,0,0.5);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 15px 0;
-        transition: width 0.3s;
-        overflow: hidden;
-    }
-
-    .sidebar:hover {
-        width: 200px;
-    }
-
-    .sidebar:hover ~ .container {
-        margin-left: 140px;
-    }
-
-    .sidebar-logo {
-        width: 40px;
-        height: 40px;
-        background: transparent;
-        border: 1px solid rgba(212, 175, 125, 0.3);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: 'Playfair Display', serif;
-        font-size: 1.2em;
-        color: #d4af7d;
-        margin-bottom: 20px;
-        flex-shrink: 0;
-        text-decoration: none;
-    }
-
-    .sidebar-logo:hover {
-        background: rgba(212, 175, 125, 0.1);
-    }
-
-    .sidebar-menu {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        width: 100%;
-        flex: 1;
-    }
-
-    .sidebar-menu a {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 12px 10px;
-        color: rgba(255,255,255,0.6);
-        text-decoration: none;
-        font-size: 0.85em;
-        transition: all 0.3s;
-        border-left: 2px solid transparent;
-        white-space: nowrap;
-    }
-
-    .sidebar-menu a:hover {
-        background: rgba(212, 175, 125, 0.1);
-        border-left-color: #d4af7d;
-        color: #fff;
-    }
-
-    .sidebar-menu a.active {
-        background: rgba(212, 175, 125, 0.15);
-        border-left-color: #d4af7d;
-        color: #d4af7d;
-    }
-
-    .sidebar-menu a svg {
-        width: 20px;
-        height: 20px;
-        min-width: 20px;
-        margin-left: 10px;
-    }
-
-    .sidebar-menu a span {
-        opacity: 0;
-        transition: opacity 0.3s;
-    }
-
-    .sidebar:hover .sidebar-menu a span {
-        opacity: 1;
-    }
-
-    .sidebar-divider {
-        height: 1px;
-        background: rgba(212, 175, 125, 0.2);
-        margin: 8px 10px;
-        width: calc(100% - 20px);
-    }
-
-    .sidebar-footer {
-        padding: 15px 10px;
-        text-align: center;
-        border-top: 1px solid rgba(212, 175, 125, 0.2);
-        width: 100%;
-        background: rgba(0,0,0,0.3);
-    }
-
-    .sidebar-footer p {
-        color: rgba(255,255,255,0.6);
-        font-size: 0.7em;
-        font-weight: 400;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        line-height: 1.6;
-        opacity: 0;
-        transition: opacity 0.3s;
-    }
-
-    .sidebar-footer .instituto {
-        font-size: 0.85em;
-        color: #d4af7d;
-        display: block;
-        margin-bottom: 3px;
-    }
-
-    .sidebar:hover .sidebar-footer p {
-        opacity: 1;
-    }
-
-    /* Mobile Navigation */
-    .mobile-nav {
         display: none;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
-        border-top: 1px solid rgba(212, 175, 125, 0.15);
-        padding: 10px 0;
-        z-index: 1000;
     }
-
-    .mobile-nav-items {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
+    
+    .mobile-nav {
+        display: block;
     }
-
-    .mobile-nav-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
-        color: rgba(255,255,255,0.5);
-        text-decoration: none;
-        font-size: 0.65em;
-        padding: 5px 10px;
-        transition: all 0.3s;
+    
+    .container {
+        margin-left: 0 !important;
     }
-
-    .mobile-nav-item svg {
-        width: 22px;
-        height: 22px;
-    }
-
-    .mobile-nav-item.active {
-        color: #d4af7d;
-    }
-
-    @media (max-width: 768px) {
-        body {
-            padding-left: 10px;
-            padding-bottom: 80px;
-        }
-        
-        .sidebar {
-            display: none;
-        }
-        
-        .mobile-nav {
-            display: block;
-        }
-        
-        .container {
-            margin-left: 0 !important;
-        }
-    }
+}
+```
 
 </style>
-
 
 </head>
 <body>
@@ -2269,279 +2314,285 @@
         </div>
     </nav>
 
-    <!-- Mobile Navigation -->
-    <nav class="mobile-nav">
-        <div class="mobile-nav-items">
-            <a href="index.html" class="mobile-nav-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                </svg>
-                Inicio
-            </a>
-            <a href="saude.html" class="mobile-nav-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                </svg>
-                Saude
-            </a>
-            <a href="financeiro.html" class="mobile-nav-item active">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <line x1="12" y1="1" x2="12" y2="23"></line>
-                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                </svg>
-                Financeiro
-            </a>
-            <a href="pessoal.html" class="mobile-nav-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-                Pessoal
-            </a>
+```
+<!-- Mobile Navigation -->
+<nav class="mobile-nav">
+    <div class="mobile-nav-items">
+        <a href="index.html" class="mobile-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            Inicio
+        </a>
+        <a href="saude.html" class="mobile-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+            </svg>
+            Saude
+        </a>
+        <a href="financeiro.html" class="mobile-nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            Financeiro
+        </a>
+        <a href="pessoal.html" class="mobile-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            Pessoal
+        </a>
+    </div>
+</nav>
+
+<div class="container">
+
+
+<!-- HEADER -->
+<div class="header">
+    <div class="header-title">
+        <h1>Planejamento Financeiro</h1>
+        <p>Controle suas financas com inteligencia</p>
+    </div>
+    <div id="statusConexao" class="status-conexao online">
+        <span class="status-online">● Online</span>
+    </div>
+</div>
+
+<!-- SELETOR DE MÊS/ANO E VISUALIZAÇÃO -->
+<div class="mes-selector">
+    <div class="mes-controls">
+        <span class="mes-label">Período:</span>
+        <select id="mesSelect">
+            <option value="01">Janeiro</option>
+            <option value="02">Fevereiro</option>
+            <option value="03">Março</option>
+            <option value="04">Abril</option>
+            <option value="05">Maio</option>
+            <option value="06">Junho</option>
+            <option value="07">Julho</option>
+            <option value="08">Agosto</option>
+            <option value="09">Setembro</option>
+            <option value="10">Outubro</option>
+            <option value="11">Novembro</option>
+            <option value="12">Dezembro</option>
+        </select>
+        <select id="anoSelect">
+            <!-- Anos serão gerados dinamicamente -->
+        </select>
+        <button class="btn-periodo-nav" onclick="navegarPeriodo(-1)" title="Mês anterior">◀</button>
+        <button class="btn-periodo-nav" onclick="navegarPeriodo(1)" title="Próximo mês">▶</button>
+        <button class="btn-periodo-hoje" onclick="irParaHoje()" title="Ir para mês atual">Hoje</button>
+    </div>
+    <div class="view-toggle">
+        <button class="active" id="btnAtivos">
+            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"></path>
+                <rect x="9" y="3" width="6" height="4" rx="2"></rect>
+                <path d="M9 12l2 2 4-4"></path>
+            </svg>
+            Ativos
+        </button>
+        <button id="btnArquivados">
+            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 8v13H3V8"></path>
+                <path d="M1 3h22v5H1z"></path>
+                <path d="M10 12h4"></path>
+            </svg>
+            Arquivados
+        </button>
+    </div>
+</div>
+
+<!-- RESUMO DO MÊS -->
+<div class="resumo-grid">
+    <div class="resumo-card recebido">
+        <label>Recebido</label>
+        <div class="valor" id="totalRecebido">R$ 0,00</div>
+    </div>
+    <div class="resumo-card pago">
+        <label>Pago</label>
+        <div class="valor" id="totalPago">R$ 0,00</div>
+    </div>
+    <div class="resumo-card despesas-mes">
+        <label>Despesas do Mês</label>
+        <div class="valor" id="totalDespesasMes">R$ 0,00</div>
+    </div>
+    <div class="resumo-card economia">
+        <label>Economizado</label>
+        <div class="valor" id="totalEconomia">R$ 0,00</div>
+    </div>
+</div>
+
+<!-- SEÇÃO: RECEITAS -->
+<div class="section" id="sectionReceitas">
+    <div class="section-header">
+        <h2>Receitas</h2>
+        <button class="btn-add-section" id="btnAddReceita" title="Adicionar receita">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </button>
+    </div>
+    <div class="section-content">
+        <div id="formReceita" class="form-container"></div>
+        <div class="table-container">
+            <table class="transacoes-table">
+                <thead>
+                    <tr>
+                        <th class="col-status"></th>
+                        <th class="col-descricao">Descrição</th>
+                        <th class="col-categoria">Categoria</th>
+                        <th class="col-data">Data</th>
+                        <th class="col-valor">Valor</th>
+                        <th class="col-acoes">Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="receitasTable"></tbody>
+            </table>
         </div>
-    </nav>
+        <div id="emptyReceitas" class="empty-state">Nenhuma receita cadastrada</div>
+    </div>
+</div>
 
-    <div class="container">
+<!-- SEÇÃO: DESPESAS FIXAS -->
+<div class="section" id="sectionDespesasFixas">
+    <div class="section-header">
+        <h2>Despesas Fixas <span class="subtotal" id="subtotalFixas"></span></h2>
+        <button class="btn-add-section" id="btnAddDespesaFixa" title="Adicionar despesa fixa">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </button>
+    </div>
+    <div class="section-content">
+        <div id="formDespesaFixa" class="form-container"></div>
+        <div class="table-container">
+            <table class="transacoes-table">
+                <thead>
+                    <tr>
+                        <th class="col-status"></th>
+                        <th class="col-descricao">Descrição</th>
+                        <th class="col-categoria">Categoria</th>
+                        <th class="col-data">Vencimento</th>
+                        <th class="col-valor">Valor</th>
+                        <th class="col-acoes">Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="despesasFixasTable"></tbody>
+            </table>
+        </div>
+        <div id="emptyDespesasFixas" class="empty-state">Nenhuma despesa fixa cadastrada</div>
+    </div>
+</div>
 
+<!-- SEÇÃO: DESPESAS VARIÁVEIS -->
+<div class="section" id="sectionDespesasVariaveis">
+    <div class="section-header">
+        <h2>Despesas Parceladas <span class="subtotal" id="subtotalVariaveis"></span></h2>
+        <button class="btn-add-section" id="btnAddDespesaVariavel" title="Adicionar despesa variável">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </button>
+    </div>
+    <div class="section-content">
+        <div id="formDespesaVariavel" class="form-container"></div>
+        <div class="table-container">
+            <table class="transacoes-table">
+                <thead>
+                    <tr>
+                        <th class="col-status"></th>
+                        <th class="col-descricao">Descrição</th>
+                        <th class="col-categoria">Categoria</th>
+                        <th class="col-data">Data</th>
+                        <th class="col-valor">Valor</th>
+                        <th class="col-acoes">Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="despesasVariaveisTable"></tbody>
+            </table>
+        </div>
+        <div id="emptyDespesasVariaveis" class="empty-state">Nenhuma despesa variável cadastrada</div>
+    </div>
+</div>
 
-    <!-- HEADER -->
-    <div class="header">
-        <div class="header-title">
-            <h1>Planejamento Financeiro</h1>
-            <p>Controle suas financas com inteligencia</p>
+<!-- SEÇÃO: EMPRÉSTIMOS / DÍVIDAS -->
+<div class="section" id="sectionEmprestimos">
+    <div class="section-header">
+        <h2>Empréstimos / Dívidas</h2>
+        <button class="btn-add-section" id="btnAddEmprestimo" title="Adicionar empréstimo">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </button>
+    </div>
+    <div class="section-content">
+        <div id="formEmprestimo" class="form-container"></div>
+        <div id="emprestimosContainer"></div>
+        <div id="emptyEmprestimos" class="empty-state">Nenhum empréstimo cadastrado</div>
+    </div>
+</div>
+
+<!-- SEÇÃO: ECONOMIAS -->
+<div class="section" id="sectionEconomias">
+    <div class="section-header">
+        <h2>Reservas / Economias <span class="subtotal" id="subtotalEconomias"></span></h2>
+        <button class="btn-add-section" id="btnAddEconomia" title="Criar nova reserva">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </button>
+    </div>
+    <div class="section-content">
+        <div id="formEconomia" class="form-container"></div>
+        <div id="reservasContainer"></div>
+        <div id="emptyEconomias" class="empty-state">Nenhuma reserva cadastrada</div>
+    </div>
+</div>
+
+<!-- RESUMO GERAL ACUMULADO -->
+<div class="resumo-final">
+    <h3>RESUMO GERAL ACUMULADO</h3>
+    <div class="resumo-final-grid">
+        <div class="resumo-final-item recebido">
+            <label>Total Recebido</label>
+            <div class="valor" id="totalRecebidoFinal">R$ 0,00</div>
+        </div>
+        <div class="resumo-final-item pago">
+            <label>Total Pago</label>
+            <div class="valor" id="totalPagoFinal">R$ 0,00</div>
+        </div>
+        <div class="resumo-final-item economia">
+            <label>Total Economizado</label>
+            <div class="valor" id="totalEconomiaFinal">R$ 0,00</div>
         </div>
     </div>
+</div>
 
-    <!-- SELETOR DE MÊS/ANO E VISUALIZAÇÃO -->
-    <div class="mes-selector">
-        <div class="mes-controls">
-            <span class="mes-label">Período:</span>
-            <select id="mesSelect">
-                <option value="01">Janeiro</option>
-                <option value="02">Fevereiro</option>
-                <option value="03">Março</option>
-                <option value="04">Abril</option>
-                <option value="05">Maio</option>
-                <option value="06">Junho</option>
-                <option value="07">Julho</option>
-                <option value="08">Agosto</option>
-                <option value="09">Setembro</option>
-                <option value="10">Outubro</option>
-                <option value="11">Novembro</option>
-                <option value="12">Dezembro</option>
-            </select>
-            <select id="anoSelect">
-                <!-- Anos serão gerados dinamicamente -->
-            </select>
-            <button class="btn-periodo-nav" onclick="navegarPeriodo(-1)" title="Mês anterior">◀</button>
-            <button class="btn-periodo-nav" onclick="navegarPeriodo(1)" title="Próximo mês">▶</button>
-            <button class="btn-periodo-hoje" onclick="irParaHoje()" title="Ir para mês atual">Hoje</button>
-        </div>
-        <div class="view-toggle">
-            <button class="active" id="btnAtivos">
-                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"></path>
-                    <rect x="9" y="3" width="6" height="4" rx="2"></rect>
-                    <path d="M9 12l2 2 4-4"></path>
-                </svg>
-                Ativos
-            </button>
-            <button id="btnArquivados">
-                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 8v13H3V8"></path>
-                    <path d="M1 3h22v5H1z"></path>
-                    <path d="M10 12h4"></path>
-                </svg>
-                Arquivados
-            </button>
-        </div>
+<!-- BALANÇO GERAL INTELIGENTE -->
+<div class="balanco-geral">
+    <h3>BALANÇO GERAL</h3>
+    <div class="balanco-grid" id="balancoGrid"></div>
+    <div class="sugestoes-container">
+        <h4>Sugestões Inteligentes</h4>
+        <div id="sugestoesContainer"></div>
     </div>
-
-    <!-- RESUMO DO MÊS -->
-    <div class="resumo-grid">
-        <div class="resumo-card recebido">
-            <label>Recebido</label>
-            <div class="valor" id="totalRecebido">R$ 0,00</div>
-        </div>
-        <div class="resumo-card pago">
-            <label>Pago</label>
-            <div class="valor" id="totalPago">R$ 0,00</div>
-        </div>
-        <div class="resumo-card despesas-mes">
-            <label>Despesas do Mês</label>
-            <div class="valor" id="totalDespesasMes">R$ 0,00</div>
-        </div>
-        <div class="resumo-card economia">
-            <label>Economizado</label>
-            <div class="valor" id="totalEconomia">R$ 0,00</div>
-        </div>
-    </div>
-
-    <!-- SEÇÃO: RECEITAS -->
-    <div class="section" id="sectionReceitas">
-        <div class="section-header">
-            <h2>Receitas</h2>
-            <button class="btn-add-section" id="btnAddReceita" title="Adicionar receita">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-            </button>
-        </div>
-        <div class="section-content">
-            <div id="formReceita" class="form-container"></div>
-            <div class="table-container">
-                <table class="transacoes-table">
-                    <thead>
-                        <tr>
-                            <th class="col-status"></th>
-                            <th class="col-descricao">Descrição</th>
-                            <th class="col-categoria">Categoria</th>
-                            <th class="col-data">Data</th>
-                            <th class="col-valor">Valor</th>
-                            <th class="col-acoes">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="receitasTable"></tbody>
-                </table>
-            </div>
-            <div id="emptyReceitas" class="empty-state">Nenhuma receita cadastrada</div>
-        </div>
-    </div>
-
-    <!-- SEÇÃO: DESPESAS FIXAS -->
-    <div class="section" id="sectionDespesasFixas">
-        <div class="section-header">
-            <h2>Despesas Fixas <span class="subtotal" id="subtotalFixas"></span></h2>
-            <button class="btn-add-section" id="btnAddDespesaFixa" title="Adicionar despesa fixa">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-            </button>
-        </div>
-        <div class="section-content">
-            <div id="formDespesaFixa" class="form-container"></div>
-            <div class="table-container">
-                <table class="transacoes-table">
-                    <thead>
-                        <tr>
-                            <th class="col-status"></th>
-                            <th class="col-descricao">Descrição</th>
-                            <th class="col-categoria">Categoria</th>
-                            <th class="col-data">Vencimento</th>
-                            <th class="col-valor">Valor</th>
-                            <th class="col-acoes">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="despesasFixasTable"></tbody>
-                </table>
-            </div>
-            <div id="emptyDespesasFixas" class="empty-state">Nenhuma despesa fixa cadastrada</div>
-        </div>
-    </div>
-
-    <!-- SEÇÃO: DESPESAS VARIÁVEIS -->
-    <div class="section" id="sectionDespesasVariaveis">
-        <div class="section-header">
-            <h2>Despesas Parceladas <span class="subtotal" id="subtotalVariaveis"></span></h2>
-            <button class="btn-add-section" id="btnAddDespesaVariavel" title="Adicionar despesa variável">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-            </button>
-        </div>
-        <div class="section-content">
-            <div id="formDespesaVariavel" class="form-container"></div>
-            <div class="table-container">
-                <table class="transacoes-table">
-                    <thead>
-                        <tr>
-                            <th class="col-status"></th>
-                            <th class="col-descricao">Descrição</th>
-                            <th class="col-categoria">Categoria</th>
-                            <th class="col-data">Data</th>
-                            <th class="col-valor">Valor</th>
-                            <th class="col-acoes">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="despesasVariaveisTable"></tbody>
-                </table>
-            </div>
-            <div id="emptyDespesasVariaveis" class="empty-state">Nenhuma despesa variável cadastrada</div>
-        </div>
-    </div>
-
-    <!-- SEÇÃO: EMPRÉSTIMOS / DÍVIDAS -->
-    <div class="section" id="sectionEmprestimos">
-        <div class="section-header">
-            <h2>Empréstimos / Dívidas</h2>
-            <button class="btn-add-section" id="btnAddEmprestimo" title="Adicionar empréstimo">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-            </button>
-        </div>
-        <div class="section-content">
-            <div id="formEmprestimo" class="form-container"></div>
-            <div id="emprestimosContainer"></div>
-            <div id="emptyEmprestimos" class="empty-state">Nenhum empréstimo cadastrado</div>
-        </div>
-    </div>
-
-    <!-- SEÇÃO: ECONOMIAS -->
-    <div class="section" id="sectionEconomias">
-        <div class="section-header">
-            <h2>Reservas / Economias <span class="subtotal" id="subtotalEconomias"></span></h2>
-            <button class="btn-add-section" id="btnAddEconomia" title="Criar nova reserva">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-            </button>
-        </div>
-        <div class="section-content">
-            <div id="formEconomia" class="form-container"></div>
-            <div id="reservasContainer"></div>
-            <div id="emptyEconomias" class="empty-state">Nenhuma reserva cadastrada</div>
-        </div>
-    </div>
-
-    <!-- RESUMO GERAL ACUMULADO -->
-    <div class="resumo-final">
-        <h3>RESUMO GERAL ACUMULADO</h3>
-        <div class="resumo-final-grid">
-            <div class="resumo-final-item recebido">
-                <label>Total Recebido</label>
-                <div class="valor" id="totalRecebidoFinal">R$ 0,00</div>
-            </div>
-            <div class="resumo-final-item pago">
-                <label>Total Pago</label>
-                <div class="valor" id="totalPagoFinal">R$ 0,00</div>
-            </div>
-            <div class="resumo-final-item economia">
-                <label>Total Economizado</label>
-                <div class="valor" id="totalEconomiaFinal">R$ 0,00</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- BALANÇO GERAL INTELIGENTE -->
-    <div class="balanco-geral">
-        <h3>BALANÇO GERAL</h3>
-        <div class="balanco-grid" id="balancoGrid"></div>
-        <div class="sugestoes-container">
-            <h4>Sugestões Inteligentes</h4>
-            <div id="sugestoesContainer"></div>
-        </div>
-    </div>
+</div>
+```
 
 </div>
 
 <!-- MODAIS -->
+
 <div class="modal" id="modalEditar">
     <div class="modal-content">
         <div class="modal-header">
@@ -2583,6 +2634,7 @@
 </div>
 
 <!-- Modal de Confirmação de Exclusão -->
+
 <div class="modal" id="modalExcluir">
     <div class="modal-content modal-exclusao">
         <div class="modal-header modal-header-danger">
@@ -2594,7 +2646,9 @@
 </div>
 
 <!-- SCRIPTS serão adicionados na ETAPA 3 -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
     // ==========================================
     // CONFIGURAÇÃO E INICIALIZAÇÃO
@@ -5511,11 +5565,30 @@
     
     function salvarDados() {
         localStorage.setItem('financeiro_v5', JSON.stringify(financeiro));
-        salvarSupabase();
+        
+        // Marcar que há dados pendentes de sincronização
+        localStorage.setItem('zara_pending_sync', 'true');
+        localStorage.setItem('zara_last_change', Date.now().toString());
+        
+        // Tentar sincronizar
+        if (navigator.onLine) {
+            salvarSupabase();
+        } else {
+            // Registrar para Background Sync quando voltar online
+            if ('serviceWorker' in navigator && 'SyncManager' in window) {
+                navigator.serviceWorker.ready.then(reg => {
+                    reg.sync.register('sync-zara-data').catch(console.error);
+                });
+            }
+            atualizarStatusConexao();
+        }
     }
 
     async function salvarSupabase() {
-        if (!useSupabase) return;
+        if (!useSupabase) {
+            localStorage.removeItem('zara_pending_sync');
+            return;
+        }
         try {
             const { error } = await supabaseClient.from('financeiro').upsert({
                 id: USER_ID,
@@ -5527,11 +5600,65 @@
                 console.error('Erro Supabase:', error);
                 mostrarStatus('Erro ao sincronizar', 'error');
             } else {
-                mostrarStatus('Sincronizado', 'success');
+                localStorage.removeItem('zara_pending_sync');
+                mostrarStatus('Sincronizado ✓', 'success');
+                atualizarStatusConexao();
             }
         } catch (e) {
             console.error('Exceção Supabase:', e);
         }
+    }
+    
+    // ==========================================
+    // STATUS DE CONEXÃO ONLINE/OFFLINE
+    // ==========================================
+    
+    function atualizarStatusConexao() {
+        const indicador = document.getElementById('statusConexao');
+        if (!indicador) return;
+        
+        const pendente = localStorage.getItem('zara_pending_sync') === 'true';
+        
+        if (navigator.onLine) {
+            if (pendente) {
+                indicador.innerHTML = '<span class="status-sync">⟳ Sincronizando...</span>';
+                indicador.className = 'status-conexao syncing';
+            } else {
+                indicador.innerHTML = '<span class="status-online">● Online</span>';
+                indicador.className = 'status-conexao online';
+            }
+        } else {
+            indicador.innerHTML = '<span class="status-offline">○ Offline</span>';
+            indicador.className = 'status-conexao offline';
+        }
+    }
+    
+    // Detectar mudança de conexão
+    window.addEventListener('online', () => {
+        console.log('Conexão restaurada!');
+        atualizarStatusConexao();
+        
+        // Sincronizar dados pendentes
+        const pendente = localStorage.getItem('zara_pending_sync') === 'true';
+        if (pendente) {
+            salvarSupabase();
+        }
+    });
+    
+    window.addEventListener('offline', () => {
+        console.log('Conexão perdida!');
+        atualizarStatusConexao();
+        mostrarStatus('Modo offline ativado', 'info');
+    });
+    
+    // Escutar mensagens do Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.addEventListener('message', event => {
+            if (event.data.type === 'SYNC_DATA') {
+                console.log('SW solicitou sincronização');
+                salvarSupabase();
+            }
+        });
     }
 
     async function carregarSupabase() {
@@ -5710,12 +5837,233 @@
         
         // Renderizar interface
         renderizar();
+        
+        // Inicializar monitoramento offline
+        inicializarOffline();
+    }
+    
+    // ==========================================
+    // SUPORTE OFFLINE / PWA
+    // ==========================================
+    
+    let isOnline = navigator.onLine;
+    let pendingSync = false;
+    
+    function inicializarOffline() {
+        // Criar indicador de status
+        criarIndicadorOffline();
+        
+        // Monitorar mudanças de conexão
+        window.addEventListener('online', handleOnline);
+        window.addEventListener('offline', handleOffline);
+        
+        // Registrar Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => {
+                    console.log('[PWA] Service Worker registrado');
+                    
+                    // Escutar mensagens do SW
+                    navigator.serviceWorker.addEventListener('message', (event) => {
+                        if (event.data.type === 'SYNC_DATA') {
+                            sincronizarDadosPendentes();
+                        }
+                    });
+                })
+                .catch(err => console.log('[PWA] Erro SW:', err));
+        }
+        
+        // Verificar se há dados pendentes para sincronizar
+        verificarDadosPendentes();
+    }
+    
+    function criarIndicadorOffline() {
+        // Criar elemento de status
+        const indicator = document.createElement('div');
+        indicator.id = 'offlineIndicator';
+        indicator.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="1" y1="1" x2="23" y2="23"></line>
+                <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+                <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+                <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+                <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+                <line x1="12" y1="20" x2="12.01" y2="20"></line>
+            </svg>
+            <span>Modo Offline</span>
+        `;
+        indicator.style.cssText = `
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(231, 76, 60, 0.9);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            z-index: 9999;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s ease;
+        `;
+        document.body.appendChild(indicator);
+        
+        // Criar indicador de sincronização
+        const syncIndicator = document.createElement('div');
+        syncIndicator.id = 'syncIndicator';
+        syncIndicator.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin">
+                <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+                <path d="M21 3v5h-5"></path>
+            </svg>
+            <span>Sincronizando...</span>
+        `;
+        syncIndicator.style.cssText = `
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(52, 152, 219, 0.9);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            z-index: 9999;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        `;
+        document.body.appendChild(syncIndicator);
+        
+        // Adicionar animação de spin
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideDown {
+                from { transform: translateX(-50%) translateY(-100%); }
+                to { transform: translateX(-50%) translateY(0); }
+            }
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            #syncIndicator .spin {
+                animation: spin 1s linear infinite;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Mostrar/esconder baseado no status
+        atualizarIndicadorOffline();
+    }
+    
+    function atualizarIndicadorOffline() {
+        const indicator = document.getElementById('offlineIndicator');
+        if (indicator) {
+            indicator.style.display = navigator.onLine ? 'none' : 'flex';
+        }
+    }
+    
+    function handleOnline() {
+        console.log('[PWA] Conexão restaurada!');
+        isOnline = true;
+        atualizarIndicadorOffline();
+        
+        // Sincronizar dados pendentes
+        sincronizarDadosPendentes();
+    }
+    
+    function handleOffline() {
+        console.log('[PWA] Sem conexão');
+        isOnline = false;
+        atualizarIndicadorOffline();
+        mostrarStatus('Modo offline ativado', 'info');
+    }
+    
+    function verificarDadosPendentes() {
+        const pending = localStorage.getItem('zara_pending_sync');
+        if (pending) {
+            pendingSync = true;
+            if (navigator.onLine) {
+                sincronizarDadosPendentes();
+            }
+        }
+    }
+    
+    async function sincronizarDadosPendentes() {
+        if (!navigator.onLine) return;
+        
+        const pending = localStorage.getItem('zara_pending_sync');
+        if (!pending) return;
+        
+        const syncIndicator = document.getElementById('syncIndicator');
+        if (syncIndicator) syncIndicator.style.display = 'flex';
+        
+        try {
+            // Tentar salvar no Supabase
+            await salvarSupabase();
+            
+            // Limpar flag de pendente
+            localStorage.removeItem('zara_pending_sync');
+            pendingSync = false;
+            
+            mostrarStatus('Dados sincronizados com sucesso!', 'success');
+        } catch (error) {
+            console.error('[PWA] Erro ao sincronizar:', error);
+            mostrarStatus('Erro ao sincronizar. Tentando novamente...', 'error');
+        } finally {
+            if (syncIndicator) syncIndicator.style.display = 'none';
+        }
+    }
+    
+    // Modificar salvarDados para marcar como pendente quando offline
+    const salvarDadosOriginal = salvarDados;
+    salvarDados = function() {
+        // Salvar localmente sempre
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(financeiro));
+        
+        // Se offline, marcar como pendente
+        if (!navigator.onLine) {
+            localStorage.setItem('zara_pending_sync', 'true');
+            console.log('[PWA] Dados salvos localmente (pendente sync)');
+        } else {
+            // Se online, tentar sincronizar
+            salvarSupabase().catch(() => {
+                localStorage.setItem('zara_pending_sync', 'true');
+            });
+        }
+    };
+
+    // Registrar Service Worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => {
+                    console.log('[SW] Registrado:', reg.scope);
+                    
+                    // Verificar atualizações
+                    reg.addEventListener('updatefound', () => {
+                        const newWorker = reg.installing;
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                mostrarStatus('Nova versão disponível! Recarregue a página.', 'info');
+                            }
+                        });
+                    });
+                })
+                .catch(err => console.log('[SW] Erro:', err));
+        });
     }
 
     // Iniciar aplicação
     init();
+    
+    // Inicializar status de conexão
+    setTimeout(atualizarStatusConexao, 500);
 </script>
-
 
 </body>
 </html>
