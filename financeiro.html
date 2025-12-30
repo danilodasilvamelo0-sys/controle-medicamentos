@@ -658,6 +658,53 @@
         display: none !important;
     }
 
+    /* Preview de parcelas */
+    .parcelas-preview {
+        background: rgba(52, 152, 219, 0.1);
+        border: 1px solid rgba(52, 152, 219, 0.2);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 18px;
+    }
+
+    .parcelas-preview .preview-header {
+        font-size: 0.8em;
+        color: rgba(255, 255, 255, 0.6);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 10px;
+    }
+
+    .parcelas-preview .preview-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+
+    .parcelas-preview .preview-item {
+        background: rgba(52, 152, 219, 0.15);
+        color: #3498db;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.85em;
+        font-weight: 500;
+    }
+
+    .parcelas-preview .preview-item:last-child {
+        background: rgba(46, 204, 113, 0.15);
+        color: #2ecc71;
+    }
+
+    .parcelas-preview .preview-total {
+        font-size: 0.9em;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 500;
+        text-align: right;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
     /* Barra de progresso de parcelas */
     .parcela-progress {
         display: flex;
@@ -1882,12 +1929,12 @@
             },
             despesaVariavel: {
                 campos: [
-                    { id: 'despesaVariavelDescricao', label: 'Descrição', type: 'text', placeholder: 'Ex: Supermercado' },
-                    { id: 'despesaVariavelValor', label: 'Valor da Parcela', type: 'number', step: '0.01' },
+                    { id: 'despesaVariavelDescricao', label: 'Descrição', type: 'text', placeholder: 'Ex: Compra no cartão' },
+                    { id: 'despesaVariavelValorTotal', label: 'Valor Total', type: 'number', step: '0.01', placeholder: 'Ex: 1800.00' },
                     { id: 'despesaVariavelCategoria', label: 'Categoria', type: 'select', options: ['Alimentação', 'Transporte', 'Lazer', 'Compras', 'Saúde', 'Cartão', 'Outros'] },
-                    { id: 'despesaVariavelData', label: 'Data', type: 'date' },
+                    { id: 'despesaVariavelData', label: 'Data da 1ª Parcela', type: 'date' },
                     { id: 'despesaVariavelParcelado', label: 'Parcelado?', type: 'checkbox' },
-                    { id: 'despesaVariavelTotalParcelas', label: 'Total de Parcelas', type: 'number', min: '2', max: '48', placeholder: 'Ex: 12' }
+                    { id: 'despesaVariavelTotalParcelas', label: 'Quantidade de Parcelas', type: 'number', min: '2', max: '48', placeholder: 'Ex: 12' }
                 ]
             },
             emprestimo: {
@@ -1922,6 +1969,7 @@
                 </div>`;
             } else {
                 const isParcelasField = campo.id.includes('TotalParcelas');
+                const isValorTotal = campo.id.includes('ValorTotal');
                 html += `<div class="form-group${isParcelasField ? ' parcelas-field hidden' : ''}"><label>${campo.label}</label>`;
                 if (campo.type === 'select') {
                     html += `<select id="${campo.id}"><option value="">Selecione...</option>`;
@@ -1933,6 +1981,10 @@
                     if (campo.min) html += ` min="${campo.min}"`;
                     if (campo.max) html += ` max="${campo.max}"`;
                     if (campo.placeholder) html += ` placeholder="${campo.placeholder}"`;
+                    // Adicionar evento para atualizar preview em tempo real
+                    if (isParcelasField || isValorTotal) {
+                        html += ` oninput="atualizarPreviewParcelas()"`;
+                    }
                     html += '>';
                 }
                 html += '</div>';
@@ -1950,15 +2002,83 @@
     function toggleParcelasField() {
         const checkbox = document.getElementById('despesaVariavelParcelado');
         const parcelasField = document.querySelector('.parcelas-field');
+        const previewContainer = document.getElementById('parcelasPreview');
+        
         if (parcelasField) {
             if (checkbox && checkbox.checked) {
                 parcelasField.classList.remove('hidden');
+                // Adicionar preview se não existir
+                if (!previewContainer) {
+                    const formRow = parcelasField.closest('.form-row');
+                    const previewDiv = document.createElement('div');
+                    previewDiv.id = 'parcelasPreview';
+                    previewDiv.className = 'parcelas-preview';
+                    previewDiv.style.display = 'none';
+                    formRow.after(previewDiv);
+                }
+                atualizarPreviewParcelas();
             } else {
                 parcelasField.classList.add('hidden');
                 const input = parcelasField.querySelector('input');
                 if (input) input.value = '';
+                if (previewContainer) previewContainer.style.display = 'none';
             }
         }
+    }
+
+    // Atualizar preview das parcelas em tempo real
+    function atualizarPreviewParcelas() {
+        const valorTotalInput = document.getElementById('despesaVariavelValorTotal');
+        const totalParcelasInput = document.getElementById('despesaVariavelTotalParcelas');
+        const previewContainer = document.getElementById('parcelasPreview');
+        
+        if (!previewContainer) return;
+        
+        const valorTotal = parseFloat(valorTotalInput?.value) || 0;
+        const totalParcelas = parseInt(totalParcelasInput?.value) || 0;
+        
+        if (valorTotal <= 0 || totalParcelas < 2) {
+            previewContainer.style.display = 'none';
+            return;
+        }
+        
+        // Calcular parcelas
+        const parcelas = calcularParcelas(valorTotal, totalParcelas);
+        
+        let html = '<div class="preview-header">Distribuição das Parcelas:</div>';
+        html += '<div class="preview-list">';
+        parcelas.forEach((valor, idx) => {
+            html += `<span class="preview-item">${idx + 1}/${totalParcelas}: ${formatarMoeda(valor)}</span>`;
+        });
+        html += '</div>';
+        html += `<div class="preview-total">Total: ${formatarMoeda(valorTotal)}</div>`;
+        
+        previewContainer.innerHTML = html;
+        previewContainer.style.display = 'block';
+    }
+
+    // Calcular distribuição das parcelas
+    function calcularParcelas(valorTotal, totalParcelas) {
+        if (totalParcelas <= 0) return [];
+        if (totalParcelas === 1) return [valorTotal];
+        
+        // Calcula valor base (arredondado para 2 casas)
+        const valorBase = Math.floor((valorTotal / totalParcelas) * 100) / 100;
+        
+        // Array de parcelas
+        const parcelas = [];
+        let somaAcumulada = 0;
+        
+        for (let i = 0; i < totalParcelas - 1; i++) {
+            parcelas.push(valorBase);
+            somaAcumulada += valorBase;
+        }
+        
+        // Última parcela ajusta a diferença
+        const ultimaParcela = Math.round((valorTotal - somaAcumulada) * 100) / 100;
+        parcelas.push(ultimaParcela);
+        
+        return parcelas;
     }
 
     function mostrarForm(tipo) {
@@ -2304,13 +2424,13 @@
     
     function salvarDespesaVariavel() {
         const desc = document.getElementById('despesaVariavelDescricao').value.trim();
-        const valor = parseFloat(document.getElementById('despesaVariavelValor').value) || 0;
+        const valorTotal = parseFloat(document.getElementById('despesaVariavelValorTotal').value) || 0;
         const cat = document.getElementById('despesaVariavelCategoria').value || 'Outros';
         let data = document.getElementById('despesaVariavelData').value;
         const parcelado = document.getElementById('despesaVariavelParcelado')?.checked || false;
         const totalParcelas = parseInt(document.getElementById('despesaVariavelTotalParcelas')?.value) || 0;
         
-        if (!desc || !valor) return alert('Preencha descrição e valor!');
+        if (!desc || !valorTotal) return alert('Preencha descrição e valor!');
         
         // Se não informou data, usa o mês/ano selecionado
         if (!data) {
@@ -2318,6 +2438,9 @@
         }
         
         if (parcelado && totalParcelas >= 2) {
+            // Calcular valores das parcelas usando a função de distribuição
+            const valoresParcelas = calcularParcelas(valorTotal, totalParcelas);
+            
             // Criar despesas parceladas
             const grupoId = gerarId(); // ID único para agrupar parcelas
             const [ano, mes, dia] = data.split('-').map(Number);
@@ -2337,7 +2460,8 @@
                 financeiro.despesasVariaveis.push({
                     id: gerarId(),
                     descricao: desc,
-                    valor: valor,
+                    valor: valoresParcelas[i], // Valor calculado para esta parcela
+                    valorTotalDivida: valorTotal, // Armazena valor total para referência
                     categoria: cat,
                     data: dataParcela,
                     pago: false,
@@ -2355,7 +2479,7 @@
             financeiro.despesasVariaveis.push({
                 id: gerarId(),
                 descricao: desc,
-                valor: valor,
+                valor: valorTotal,
                 categoria: cat,
                 data: data,
                 pago: false,
@@ -2470,50 +2594,88 @@
                 .filter(d => d.grupoParcelaId === item.grupoParcelaId)
                 .sort((a, b) => a.parcelaAtual - b.parcelaAtual);
             
-            const parcelasPagas = parcelasDoGrupo.filter(p => p.pago).length;
-            const parcelasPendentes = parcelasDoGrupo.filter(p => !p.pago).length;
+            const parcelasPagas = parcelasDoGrupo.filter(p => p.pago);
+            const parcelasPendentes = parcelasDoGrupo.filter(p => !p.pago);
             const totalAtual = parcelasDoGrupo.length;
             
+            // Calcular valor total da dívida (soma de todas as parcelas)
+            const valorTotalAtual = parcelasDoGrupo.reduce((sum, p) => sum + p.valor, 0);
+            // Valor já pago
+            const valorJaPago = parcelasPagas.reduce((sum, p) => sum + p.valor, 0);
+            // Valor restante
+            const valorRestante = parcelasPendentes.reduce((sum, p) => sum + p.valor, 0);
+            
             body.innerHTML = `
-                <div class="info-box" style="margin-bottom: 15px; padding: 12px; background: rgba(52, 152, 219, 0.1); border-radius: 8px; border-left: 3px solid #3498db;">
-                    <strong>Parcela ${item.parcelaAtual}/${totalAtual}</strong><br>
-                    <small style="color: rgba(255,255,255,0.6);">
-                        ✅ ${parcelasPagas} pagas | ⏳ ${parcelasPendentes} pendentes
-                    </small>
+                <div class="info-box" style="margin-bottom: 15px; padding: 15px; background: rgba(52, 152, 219, 0.1); border-radius: 10px; border-left: 3px solid #3498db;">
+                    <strong style="font-size: 1.1em;">${item.descricao}</strong>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px;">
+                        <div style="text-align: center;">
+                            <div style="color: rgba(255,255,255,0.5); font-size: 0.75em; text-transform: uppercase;">Total</div>
+                            <div style="color: #3498db; font-weight: 600;">${formatarMoeda(valorTotalAtual)}</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="color: rgba(255,255,255,0.5); font-size: 0.75em; text-transform: uppercase;">Pago</div>
+                            <div style="color: #27ae60; font-weight: 600;">${formatarMoeda(valorJaPago)}</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="color: rgba(255,255,255,0.5); font-size: 0.75em; text-transform: uppercase;">Restante</div>
+                            <div style="color: #e74c3c; font-weight: 600;">${formatarMoeda(valorRestante)}</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);">
+                        <small style="color: rgba(255,255,255,0.5);">
+                            ${parcelasPagas.length} de ${totalAtual} parcelas pagas
+                        </small>
+                    </div>
                 </div>
+                
                 <div class="form-row">
                     <div class="form-group">
                         <label>Descrição</label>
                         <input type="text" id="editDescricao" value="${item.descricao}">
                     </div>
                     <div class="form-group">
-                        <label>Valor da Parcela</label>
-                        <input type="number" id="editValor" step="0.01" value="${item.valor}">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
                         <label>Categoria</label>
                         <input type="text" id="editCategoria" value="${item.categoria}">
                     </div>
+                </div>
+                
+                <div class="form-row">
                     <div class="form-group">
-                        <label>Total de Parcelas</label>
-                        <input type="number" id="editTotalParcelas" min="${parcelasPagas || 1}" value="${totalAtual}">
-                        <small style="color: rgba(255,255,255,0.4); font-size: 0.75em;">Mínimo: ${parcelasPagas || 1} (parcelas já pagas)</small>
+                        <label>Novo Valor Total da Dívida</label>
+                        <input type="number" id="editValorTotal" step="0.01" value="${valorTotalAtual.toFixed(2)}" 
+                               oninput="atualizarPreviewEdicaoParcelas()">
+                        <small style="color: rgba(255,255,255,0.4); font-size: 0.75em;">
+                            Valor já pago (${formatarMoeda(valorJaPago)}) não será alterado
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantidade de Parcelas</label>
+                        <input type="number" id="editTotalParcelas" min="${parcelasPagas.length || 1}" value="${totalAtual}"
+                               oninput="atualizarPreviewEdicaoParcelas()">
+                        <small style="color: rgba(255,255,255,0.4); font-size: 0.75em;">
+                            Mínimo: ${parcelasPagas.length || 1} (já pagas)
+                        </small>
                     </div>
                 </div>
-                <div class="form-group form-group-checkbox" style="margin-top: 10px;">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="editAplicarTodasParcelas" checked>
-                        <span>Aplicar alterações em TODAS as parcelas pendentes</span>
-                    </label>
-                </div>
+                
+                <div id="previewEdicaoParcelas" class="parcelas-preview" style="display: none;"></div>
+                
                 <div class="form-buttons">
                     <button class="btn-cancelar" onclick="fecharModal('modalEditar')">Cancelar</button>
-                    <button class="btn-salvar" onclick="salvarEdicaoParcelada()">Salvar</button>
+                    <button class="btn-salvar" onclick="salvarEdicaoParcelada()">Salvar Alterações</button>
                 </div>
             `;
-            document.querySelector('#modalEditar .modal-header h3').textContent = '✏️ Editar Despesa Parcelada';
+            
+            // Armazenar dados para uso na edição
+            itemEditando.parcelasPagas = parcelasPagas;
+            itemEditando.parcelasPendentes = parcelasPendentes;
+            itemEditando.valorJaPago = valorJaPago;
+            
+            document.querySelector('#modalEditar .modal-header h3').textContent = 'Editar Despesa Parcelada';
+            
+            // Atualizar preview inicial
+            setTimeout(() => atualizarPreviewEdicaoParcelas(), 100);
         } else {
             // Despesa não parcelada - edição simples
             body.innerHTML = `
@@ -2547,16 +2709,55 @@
         abrirModal('modalEditar');
     }
 
+    // Função para atualizar preview de edição de parcelas
+    function atualizarPreviewEdicaoParcelas() {
+        const previewContainer = document.getElementById('previewEdicaoParcelas');
+        if (!previewContainer || !itemEditando) return;
+        
+        const novoValorTotal = parseFloat(document.getElementById('editValorTotal')?.value) || 0;
+        const novoTotalParcelas = parseInt(document.getElementById('editTotalParcelas')?.value) || 0;
+        const valorJaPago = itemEditando.valorJaPago || 0;
+        const qtdPagas = itemEditando.parcelasPagas?.length || 0;
+        
+        if (novoValorTotal <= 0 || novoTotalParcelas < qtdPagas) {
+            previewContainer.style.display = 'none';
+            return;
+        }
+        
+        // Calcular valor restante a distribuir
+        const valorRestante = novoValorTotal - valorJaPago;
+        const qtdPendentes = novoTotalParcelas - qtdPagas;
+        
+        if (valorRestante <= 0 || qtdPendentes <= 0) {
+            previewContainer.innerHTML = '<div style="color: #27ae60; text-align: center; padding: 10px;">Dívida quitada!</div>';
+            previewContainer.style.display = 'block';
+            return;
+        }
+        
+        // Calcular novas parcelas pendentes
+        const novasParcelas = calcularParcelas(valorRestante, qtdPendentes);
+        
+        let html = '<div class="preview-header">Nova distribuição das parcelas pendentes:</div>';
+        html += '<div class="preview-list">';
+        novasParcelas.forEach((valor, idx) => {
+            html += `<span class="preview-item">${qtdPagas + idx + 1}/${novoTotalParcelas}: ${formatarMoeda(valor)}</span>`;
+        });
+        html += '</div>';
+        html += `<div class="preview-total">Restante: ${formatarMoeda(valorRestante)} em ${qtdPendentes} parcelas</div>`;
+        
+        previewContainer.innerHTML = html;
+        previewContainer.style.display = 'block';
+    }
+
     // Salvar edição de despesa parcelada
     function salvarEdicaoParcelada() {
         const item = financeiro.despesasVariaveis.find(d => d.id === itemEditando.id);
         if (!item || !item.grupoParcelaId) return;
 
         const novaDescricao = document.getElementById('editDescricao').value.trim();
-        const novoValor = parseFloat(document.getElementById('editValor').value) || item.valor;
         const novaCategoria = document.getElementById('editCategoria').value;
+        const novoValorTotal = parseFloat(document.getElementById('editValorTotal').value) || 0;
         const novoTotalParcelas = parseInt(document.getElementById('editTotalParcelas').value);
-        const aplicarTodas = document.getElementById('editAplicarTodasParcelas').checked;
 
         // Pegar todas as parcelas do grupo ordenadas
         const parcelasDoGrupo = financeiro.despesasVariaveis
@@ -2566,6 +2767,7 @@
         const totalAtual = parcelasDoGrupo.length;
         const parcelasPagas = parcelasDoGrupo.filter(p => p.pago);
         const parcelasPendentes = parcelasDoGrupo.filter(p => !p.pago);
+        const valorJaPago = parcelasPagas.reduce((sum, p) => sum + p.valor, 0);
 
         // Validar: não pode ter menos parcelas que as já pagas
         if (novoTotalParcelas < parcelasPagas.length) {
@@ -2573,81 +2775,80 @@
             return;
         }
 
-        // Atualizar parcelas existentes
-        if (aplicarTodas) {
-            // Atualizar TODAS as parcelas pendentes
-            parcelasPendentes.forEach(p => {
-                p.descricao = novaDescricao;
-                p.valor = novoValor;
-                p.categoria = novaCategoria;
-                p.totalParcelas = novoTotalParcelas;
-            });
-            // Atualizar parcelas pagas apenas descrição e categoria (não valor)
-            parcelasPagas.forEach(p => {
-                p.descricao = novaDescricao;
-                p.categoria = novaCategoria;
-                p.totalParcelas = novoTotalParcelas;
-            });
-        } else {
-            // Atualizar apenas a parcela atual
-            item.descricao = novaDescricao;
-            item.valor = novoValor;
-            item.categoria = novaCategoria;
+        // Validar: novo valor total não pode ser menor que o já pago
+        if (novoValorTotal < valorJaPago) {
+            alert(`O valor total não pode ser menor que ${formatarMoeda(valorJaPago)} (já pago).`);
+            return;
         }
 
-        // Ajustar número de parcelas
-        if (novoTotalParcelas > totalAtual) {
-            // Adicionar parcelas futuras
-            const ultimaParcela = parcelasDoGrupo[parcelasDoGrupo.length - 1];
-            const [ano, mes, dia] = ultimaParcela.data.split('-').map(Number);
+        // Calcular valor restante e quantidade de parcelas pendentes
+        const valorRestante = novoValorTotal - valorJaPago;
+        const qtdPendentes = novoTotalParcelas - parcelasPagas.length;
+
+        // Atualizar descrição e categoria em todas as parcelas
+        parcelasDoGrupo.forEach(p => {
+            p.descricao = novaDescricao;
+            p.categoria = novaCategoria;
+            p.valorTotalDivida = novoValorTotal;
+            p.totalParcelas = novoTotalParcelas;
+        });
+
+        // Excluir todas as parcelas pendentes atuais
+        financeiro.despesasVariaveis = financeiro.despesasVariaveis.filter(
+            d => d.grupoParcelaId !== item.grupoParcelaId || d.pago
+        );
+
+        // Criar novas parcelas pendentes com valores recalculados
+        if (qtdPendentes > 0 && valorRestante > 0) {
+            const novasParcelas = calcularParcelas(valorRestante, qtdPendentes);
             
-            for (let i = totalAtual + 1; i <= novoTotalParcelas; i++) {
-                // Calcular quantos meses adicionar
-                const mesesAdicionar = i - totalAtual;
-                let novaMes = mes + mesesAdicionar;
-                let novoAno = ano;
-                
-                while (novaMes > 12) {
-                    novaMes -= 12;
-                    novoAno++;
+            // Encontrar a data da próxima parcela
+            const ultimaPaga = parcelasPagas.length > 0 
+                ? parcelasPagas.sort((a, b) => new Date(b.data) - new Date(a.data))[0]
+                : null;
+            
+            let [ano, mes, dia] = ultimaPaga 
+                ? ultimaPaga.data.split('-').map(Number)
+                : parcelasPendentes[0]?.data.split('-').map(Number) || [new Date().getFullYear(), new Date().getMonth() + 1, 1];
+            
+            for (let i = 0; i < qtdPendentes; i++) {
+                // Calcular próximo mês
+                if (ultimaPaga || i > 0) {
+                    mes++;
+                    if (mes > 12) {
+                        mes = 1;
+                        ano++;
+                    }
                 }
                 
-                const dataNova = `${novoAno}-${String(novaMes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+                const dataParcela = `${ano}-${String(mes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
                 
                 financeiro.despesasVariaveis.push({
                     id: gerarId(),
                     descricao: novaDescricao,
-                    valor: novoValor,
+                    valor: novasParcelas[i],
+                    valorTotalDivida: novoValorTotal,
                     categoria: novaCategoria,
-                    data: dataNova,
+                    data: dataParcela,
                     pago: false,
                     dataPagamento: null,
                     comprovante: null,
                     parcelado: true,
                     grupoParcelaId: item.grupoParcelaId,
-                    parcelaAtual: i,
+                    parcelaAtual: parcelasPagas.length + i + 1,
                     totalParcelas: novoTotalParcelas
                 });
             }
-        } else if (novoTotalParcelas < totalAtual) {
-            // Remover parcelas pendentes excedentes (apenas as últimas não pagas)
-            const parcelasParaRemover = parcelasPendentes
-                .sort((a, b) => b.parcelaAtual - a.parcelaAtual) // Ordenar decrescente
-                .slice(0, totalAtual - novoTotalParcelas);
-            
-            const idsParaRemover = parcelasParaRemover.map(p => p.id);
-            financeiro.despesasVariaveis = financeiro.despesasVariaveis.filter(d => !idsParaRemover.includes(d.id));
-            
-            // Renumerar parcelas restantes
-            const parcelasRestantes = financeiro.despesasVariaveis
-                .filter(d => d.grupoParcelaId === item.grupoParcelaId)
-                .sort((a, b) => new Date(a.data) - new Date(b.data));
-            
-            parcelasRestantes.forEach((p, idx) => {
-                p.parcelaAtual = idx + 1;
-                p.totalParcelas = novoTotalParcelas;
-            });
         }
+
+        // Renumerar parcelas pagas
+        const todasParcelas = financeiro.despesasVariaveis
+            .filter(d => d.grupoParcelaId === item.grupoParcelaId)
+            .sort((a, b) => new Date(a.data) - new Date(b.data));
+        
+        todasParcelas.forEach((p, idx) => {
+            p.parcelaAtual = idx + 1;
+        });
 
         salvarDados();
         fecharModal('modalEditar');
@@ -3158,16 +3359,22 @@
             let parcelaHtml = '';
             let valorTotalParcelado = '';
             if (d.parcelado && d.totalParcelas && d.grupoParcelaId) {
-                // Contar parcelas pagas do mesmo grupo
+                // Contar parcelas do mesmo grupo
                 const parcelasDoGrupo = financeiro.despesasVariaveis.filter(dv => dv.grupoParcelaId === d.grupoParcelaId);
-                const parcelasPagas = parcelasDoGrupo.filter(p => p.pago).length;
+                const parcelasPagasArr = parcelasDoGrupo.filter(p => p.pago);
+                const parcelasPagas = parcelasPagasArr.length;
                 const totalParcelasAtual = parcelasDoGrupo.length;
-                const percentPago = Math.round((parcelasPagas / totalParcelasAtual) * 100);
-                const valorTotal = d.valor * totalParcelasAtual;
-                const valorPago = d.valor * parcelasPagas;
-                const valorRestante = valorTotal - valorPago;
                 
-                valorTotalParcelado = `<small style="color: rgba(255,255,255,0.4); display: block; font-size: 0.75em;">Total: ${formatarMoeda(valorTotal)}</small>`;
+                // Calcular valor total real (soma de todas as parcelas)
+                const valorTotalReal = parcelasDoGrupo.reduce((sum, p) => sum + p.valor, 0);
+                // Valor já pago
+                const valorPago = parcelasPagasArr.reduce((sum, p) => sum + p.valor, 0);
+                // Valor restante
+                const valorRestante = valorTotalReal - valorPago;
+                // Percentual pago (baseado em valor, não em quantidade)
+                const percentPago = valorTotalReal > 0 ? Math.round((valorPago / valorTotalReal) * 100) : 0;
+                
+                valorTotalParcelado = `<small style="color: rgba(255,255,255,0.4); display: block; font-size: 0.75em;">Total: ${formatarMoeda(valorTotalReal)}</small>`;
                 
                 // Determinar cor da barra baseado no progresso
                 let barColor = '#3498db'; // Azul padrão
