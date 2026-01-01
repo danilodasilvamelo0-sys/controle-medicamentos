@@ -105,6 +105,13 @@
         .estoque-ok { color: #2ecc71; }
         .estoque-baixo { color: #f1c40f; }
         .estoque-critico { color: #e74c3c; }
+        .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #1a1a1a; border: 1px solid rgba(212, 175, 125, 0.3); color: #fff; padding: 12px 24px; border-radius: 8px; z-index: 3000; opacity: 0; transition: opacity 0.3s; font-size: 0.85em; }
+        .toast.show { opacity: 1; }
+        .toast.success { border-color: #2ecc71; }
+        .toast.error { border-color: #e74c3c; }
+        .status-conexao { position: absolute; top: 15px; right: 20px; font-size: 0.75em; padding: 5px 12px; border-radius: 20px; }
+        .status-conexao.online { background: rgba(46, 204, 113, 0.15); color: #2ecc71; }
+        .status-conexao.offline { background: rgba(231, 76, 60, 0.15); color: #e74c3c; }
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; }
         .modal-overlay.active { display: flex; }
         .modal-content { background: #1a1a1a; border: 1px solid rgba(212, 175, 125, 0.2); border-radius: 15px; padding: 30px; width: 90%; max-width: 450px; max-height: 90vh; overflow-y: auto; }
@@ -187,6 +194,7 @@
     </nav>
     <div class="container page-section active" id="page-medicamentos">
         <div class="header">
+            <div id="statusConexao" class="status-conexao online">Online</div>
             <h1>Controle de Medicamentos</h1>
             <p>Sistema profissional de prescricao</p>
         </div>
@@ -307,17 +315,115 @@
         </div>
     </div>
 
+    <!-- Toast de Notificacao -->
+    <div id="toast" class="toast"></div>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        // ========== CONFIGURACAO SUPABASE ==========
         const SUPABASE_URL = 'https://ltwamldgdwqzyssoukzl.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0d2FtbGRnZHdxenlzc291a3psIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY4NzEzMDUsImV4cCI6MjA4MjQ0NzMwNX0.UVyo0c0BHslB7mCU74Qx8rdo42HA0WPAyDQ6J-FIakE';
-        let supabaseClient = null, useSupabase = false;
-        try { const { createClient } = supabase; supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY); useSupabase = true; } catch (e) { console.log('Offline mode'); }
+        let supabaseClient = null;
+        let useSupabase = false;
         const USER_ID = 'default_user';
+        
+        try { 
+            const { createClient } = supabase; 
+            supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY); 
+            useSupabase = true;
+            atualizarStatusConexao(true);
+        } catch (e) { 
+            console.log('Modo offline'); 
+            atualizarStatusConexao(false);
+        }
+
+        // ========== TOAST E STATUS ==========
+        function mostrarToast(mensagem, tipo = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = mensagem;
+            toast.className = 'toast ' + tipo + ' show';
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        }
+
+        function atualizarStatusConexao(online) {
+            const el = document.getElementById('statusConexao');
+            if (el) {
+                el.textContent = online ? 'Online' : 'Offline';
+                el.className = 'status-conexao ' + (online ? 'online' : 'offline');
+            }
+        }
+
+        // ========== DADOS ==========
         let planoSemanal = JSON.parse(localStorage.getItem('planoSemanal')) || { segunda: [], terca: [], quarta: [], quinta: [], sexta: [], sabado: [], domingo: [] };
         let statusHoje = JSON.parse(localStorage.getItem('statusHoje')) || {};
         let planoTemp = [];
 
+        // ========== SUPABASE SYNC ==========
+        async function salvarPlanoSupabase() {
+            if (!useSupabase) return;
+            try {
+                await supabaseClient.from('plano_semanal').delete().eq('user_id', USER_ID);
+                const itens = [];
+                Object.keys(planoSemanal).forEach(dia => {
+                    planoSemanal[dia].forEach(med => {
+                        itens.push({
+                            id: `${USER_ID}_${med.id}_${dia}`,
+                            user_id: USER_ID,
+                            dia: dia,
+                            med_id: med.id,
+                            nome: med.nome,
+                            dose: med.dose,
+                            hora: med.hora,
+                            estoque: med.estoque,
+                            tipo: med.tipo || 'comprimidos'
+                        });
+                    });
+                });
+                if (itens.length > 0) {
+                    await supabaseClient.from('plano_semanal').insert(itens);
+                }
+                mostrarToast('Sincronizado com sucesso!', 'success');
+                atualizarStatusConexao(true);
+            } catch (e) {
+                console.error('Erro ao sincronizar:', e);
+                mostrarToast('Erro ao sincronizar', 'error');
+                atualizarStatusConexao(false);
+            }
+        }
+
+        async function carregarPlanoSupabase() {
+            if (!useSupabase) return;
+            try {
+                const { data, error } = await supabaseClient
+                    .from('plano_semanal')
+                    .select('*')
+                    .eq('user_id', USER_ID);
+                if (error) throw error;
+                if (data && data.length > 0) {
+                    planoSemanal = { segunda: [], terca: [], quarta: [], quinta: [], sexta: [], sabado: [], domingo: [] };
+                    data.forEach(item => {
+                        if (planoSemanal[item.dia]) {
+                            planoSemanal[item.dia].push({
+                                id: item.med_id,
+                                nome: item.nome,
+                                dose: item.dose,
+                                hora: item.hora,
+                                estoque: item.estoque,
+                                tipo: item.tipo || 'comprimidos'
+                            });
+                        }
+                    });
+                    localStorage.setItem('planoSemanal', JSON.stringify(planoSemanal));
+                    mostrarToast('Dados carregados!', 'success');
+                }
+                atualizarStatusConexao(true);
+            } catch (e) {
+                console.error('Erro ao carregar:', e);
+                atualizarStatusConexao(false);
+            }
+        }
+
+        // ========== NAVEGACAO ==========
         function navigateTo(section, element) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             if (element) element.classList.add('active');
@@ -335,11 +441,13 @@
             else if (aba === 'editar') renderizarPlanoLista();
         }
 
+        // ========== UTILIDADES ==========
         function getDiaAtual() { const dias = ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado']; return dias[new Date().getDay()]; }
         function getDataHoje() { return new Date().toISOString().split('T')[0]; }
         function getDiaNome(dia) { const nomes = { 'segunda': 'Segunda-feira', 'terca': 'Terca-feira', 'quarta': 'Quarta-feira', 'quinta': 'Quinta-feira', 'sexta': 'Sexta-feira', 'sabado': 'Sabado', 'domingo': 'Domingo' }; return nomes[dia] || dia; }
         function getEstoqueClass(estoque) { if (estoque <= 0) return 'estoque-critico'; if (estoque <= 5) return 'estoque-baixo'; return 'estoque-ok'; }
 
+        // ========== RENDERIZAR HOJE ==========
         function renderizarHoje() {
             const diaAtual = getDiaAtual();
             const dataHoje = getDataHoje();
@@ -367,11 +475,13 @@
             if (tomado) {
                 Object.keys(planoSemanal).forEach(dia => { planoSemanal[dia].forEach(med => { if (med.id === medId && med.estoque > 0) med.estoque--; }); });
                 localStorage.setItem('planoSemanal', JSON.stringify(planoSemanal));
+                salvarPlanoSupabase();
             }
             localStorage.setItem('statusHoje', JSON.stringify(statusHoje));
             renderizarHoje();
         }
 
+        // ========== RENDERIZAR SEMANA ==========
         function renderizarSemana() {
             const container = document.getElementById('visaoSemana');
             const diasOrdem = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
@@ -394,6 +504,7 @@
             container.innerHTML = html;
         }
 
+        // ========== EDITAR SEMANA ==========
         function toggleDiasSelector() { document.getElementById('diasSelectorContainer').style.display = document.getElementById('novoMedFrequencia').value === 'selecionar' ? 'block' : 'none'; }
 
         function adicionarMedicamentoPlano() {
@@ -425,7 +536,13 @@
         }
 
         function removerMedicamentoTemp(idx) { planoTemp.splice(idx, 1); renderizarPlanoLista(); }
-        function removerMedicamentoPlano(medId) { Object.keys(planoSemanal).forEach(dia => { planoSemanal[dia] = planoSemanal[dia].filter(m => m.id !== medId); }); localStorage.setItem('planoSemanal', JSON.stringify(planoSemanal)); renderizarPlanoLista(); }
+        
+        function removerMedicamentoPlano(medId) { 
+            Object.keys(planoSemanal).forEach(dia => { planoSemanal[dia] = planoSemanal[dia].filter(m => m.id !== medId); }); 
+            localStorage.setItem('planoSemanal', JSON.stringify(planoSemanal)); 
+            salvarPlanoSupabase();
+            renderizarPlanoLista(); 
+        }
 
         function renderizarPlanoLista() {
             const container = document.getElementById('listaPlano');
@@ -458,22 +575,18 @@
             planoTemp.forEach(med => { med.dias.forEach(dia => { planoSemanal[dia].push({ id: med.id, nome: med.nome, dose: med.dose, hora: med.hora, estoque: med.estoque, tipo: med.tipo }); }); });
             planoTemp = [];
             localStorage.setItem('planoSemanal', JSON.stringify(planoSemanal));
+            salvarPlanoSupabase();
             renderizarPlanoLista();
-            alert('Plano semanal salvo!');
         }
 
-        // Funcoes do Modal de Edicao
+        // ========== MODAL DE EDICAO ==========
         function abrirModalEdit(medId) {
             let medEncontrado = null;
             let diasMed = [];
             Object.keys(planoSemanal).forEach(dia => {
                 const med = planoSemanal[dia].find(m => m.id === medId);
-                if (med && !medEncontrado) {
-                    medEncontrado = med;
-                }
-                if (planoSemanal[dia].find(m => m.id === medId)) {
-                    diasMed.push(dia);
-                }
+                if (med && !medEncontrado) medEncontrado = med;
+                if (planoSemanal[dia].find(m => m.id === medId)) diasMed.push(dia);
             });
             if (!medEncontrado) return;
             
@@ -500,10 +613,8 @@
             document.getElementById('modalEditMed').classList.add('active');
         }
 
-        function fecharModalEdit() {
-            document.getElementById('modalEditMed').classList.remove('active');
-        }
-
+        function fecharModalEdit() { document.getElementById('modalEditMed').classList.remove('active'); }
+        
         function toggleEditDiasSelector() {
             document.getElementById('editDiasSelectorContainer').style.display = 
                 document.getElementById('editMedFrequencia').value === 'selecionar' ? 'block' : 'none';
@@ -530,25 +641,30 @@
             }
             if (novosDias.length === 0) { alert('Selecione pelo menos um dia.'); return; }
             
-            // Remover de todos os dias
             Object.keys(planoSemanal).forEach(dia => {
                 planoSemanal[dia] = planoSemanal[dia].filter(m => m.id !== medId);
             });
             
-            // Adicionar nos novos dias
             novosDias.forEach(dia => {
                 planoSemanal[dia].push({ id: medId, nome, dose, hora, estoque, tipo });
             });
             
             localStorage.setItem('planoSemanal', JSON.stringify(planoSemanal));
+            salvarPlanoSupabase();
             fecharModalEdit();
             renderizarPlanoLista();
             renderizarSemana();
             renderizarHoje();
         }
 
-        renderizarHoje();
-        renderizarPlanoLista();
+        // ========== INICIALIZACAO ==========
+        async function inicializar() {
+            await carregarPlanoSupabase();
+            renderizarHoje();
+            renderizarPlanoLista();
+        }
+        
+        inicializar();
     </script>
 </body>
 </html>
