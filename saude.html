@@ -14,6 +14,8 @@
         body { font-family: 'Inter', sans-serif; background: #0a0a0a !important; color: #fff; min-height: 100vh; padding: 20px; padding-bottom: 80px; }
         body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, #d4af7d, transparent); z-index: 9999; }
         body::after { content: ''; position: fixed; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, #d4af7d, transparent); z-index: 9999; }
+        
+        /* Sidebar */
         .sidebar { position: fixed; top: 0; left: 0; width: 60px; height: 100vh; background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%); border-right: 1px solid rgba(212, 175, 125, 0.15); z-index: 1000; box-shadow: 4px 0 20px rgba(0,0,0,0.5); display: flex; flex-direction: column; align-items: center; padding: 15px 0; transition: width 0.3s; overflow: hidden; }
         .sidebar:hover { width: 200px; }
         .sidebar-logo { width: 40px; height: 40px; background: transparent; border: 1px solid rgba(212, 175, 125, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.2em; color: #d4af7d; margin-bottom: 20px; flex-shrink: 0; text-decoration: none; }
@@ -30,31 +32,55 @@
         .sidebar-footer p { color: rgba(255,255,255,0.6); font-size: 0.7em; font-weight: 400; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.6; opacity: 0; transition: opacity 0.3s; }
         .sidebar-footer .instituto { font-size: 0.85em; color: #d4af7d; display: block; margin-bottom: 3px; }
         .sidebar:hover .sidebar-footer p { opacity: 1; }
+        
+        /* Mobile Nav */
         .mobile-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%); border-top: 1px solid rgba(212, 175, 125, 0.15); padding: 10px 0; z-index: 1000; }
         .mobile-nav-items { display: flex; justify-content: space-around; align-items: center; }
         .mobile-nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.65em; padding: 5px 10px; transition: all 0.3s; }
         .mobile-nav-item svg { width: 22px; height: 22px; }
         .mobile-nav-item.active { color: #d4af7d; }
+        
         @media (max-width: 768px) { body { padding-left: 10px; padding-bottom: 80px; } .sidebar { display: none; } .mobile-nav { display: block; } .container { margin-left: 0 !important; } }
         @media (min-width: 769px) { body { padding-left: 80px; } .mobile-nav { display: none !important; } }
+        
+        /* Container e Layout */
         .container { max-width: 1200px; margin: 0 auto; background: #141414; border: 1px solid rgba(212, 175, 125, 0.15); border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); overflow: hidden; }
         .page-section { display: none; }
         .page-section.active { display: block; }
-        .header { background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%); border-bottom: 1px solid rgba(212, 175, 125, 0.2); color: white; padding: 30px; text-align: center; }
+        
+        /* Header */
+        .header { background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%); border-bottom: 1px solid rgba(212, 175, 125, 0.2); color: white; padding: 30px; text-align: center; position: relative; }
         .header h1 { font-family: 'Playfair Display', serif; font-size: 2em; margin-bottom: 10px; font-weight: 400; letter-spacing: 3px; color: #fff; }
         .header p { font-size: 0.9em; color: rgba(212, 175, 125, 0.8); letter-spacing: 1px; }
+        
+        /* Status Conexão - Igual ao Financeiro */
+        .status-conexao { position: absolute; top: 15px; right: 20px; padding: 6px 12px; border-radius: 20px; font-size: 0.75em; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: all 0.3s; }
+        .status-conexao.online { background: rgba(39, 174, 96, 0.15); color: #27ae60; border: 1px solid rgba(39, 174, 96, 0.3); }
+        .status-conexao.offline { background: rgba(231, 76, 60, 0.15); color: #e74c3c; border: 1px solid rgba(231, 76, 60, 0.3); }
+        .status-conexao.syncing { background: rgba(241, 196, 15, 0.15); color: #f1c40f; border: 1px solid rgba(241, 196, 15, 0.3); animation: pulse-sync 1.5s infinite; }
+        @keyframes pulse-sync { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+        
+        /* Sync Status - Igual ao Financeiro */
+        #syncStatus { position: fixed; bottom: 100px; right: 20px; padding: 12px 22px; border-radius: 10px; font-size: 0.9em; font-weight: 500; z-index: 10001; opacity: 0; transition: opacity 0.3s; color: #fff; }
+        @media (max-width: 768px) { #syncStatus { bottom: 90px; right: 10px; left: 10px; text-align: center; } }
+        
+        /* Tabs */
         .tabs-container { background: #141414; padding: 10px 15px; border-bottom: 1px solid rgba(212, 175, 125, 0.15); position: sticky; top: 0; z-index: 100; }
         .tabs-header { display: flex; gap: 8px; justify-content: space-around; }
         .tab-btn { display: flex; align-items: center; gap: 6px; padding: 10px 15px; background: transparent; border: none; color: rgba(255,255,255,0.5); font-size: 0.8em; cursor: pointer; border-radius: 8px; transition: all 0.3s; }
         .tab-btn:hover { color: #d4af7d; background: rgba(212, 175, 125, 0.1); }
         .tab-btn.active { background: rgba(212, 175, 125, 0.2); color: #d4af7d; }
         .tab-btn svg { width: 18px; height: 18px; }
+        
+        /* Sub Tabs */
         .sub-tabs { display: flex; gap: 5px; padding: 15px 20px; background: #1a1a1a; border-bottom: 1px solid rgba(212, 175, 125, 0.1); }
         .sub-tab-btn { padding: 10px 20px; background: transparent; border: 1px solid rgba(212, 175, 125, 0.2); color: rgba(255,255,255,0.5); font-size: 0.85em; cursor: pointer; border-radius: 6px; transition: all 0.3s; }
         .sub-tab-btn:hover { border-color: rgba(212, 175, 125, 0.4); color: #d4af7d; }
         .sub-tab-btn.active { background: rgba(212, 175, 125, 0.15); border-color: #d4af7d; color: #d4af7d; }
         .sub-content { display: none; padding: 20px; }
         .sub-content.active { display: block; }
+        
+        /* Tabela */
         .table-container { overflow-x: auto; }
         table { width: 100%; border-collapse: separate; border-spacing: 0; background: #1a1a1a; border-radius: 15px; overflow: hidden; border: 1px solid rgba(212, 175, 125, 0.1); }
         th { background: linear-gradient(135deg, #1f1f1f 0%, #151515 100%); color: #d4af7d; padding: 15px; text-align: center; font-weight: 500; font-size: 0.85em; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid rgba(212, 175, 125, 0.2); }
@@ -63,10 +89,19 @@
         td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: center; vertical-align: middle; color: rgba(255,255,255,0.8); }
         td:first-child { text-align: left; }
         tr:hover { background: rgba(212, 175, 125, 0.05); }
+        
+        /* Checkbox */
         .checkbox-status { appearance: none; -webkit-appearance: none; width: 24px; height: 24px; border: 2px solid #2ecc71; border-radius: 50%; cursor: pointer; position: relative; background: transparent; transition: all 0.3s; }
         .checkbox-status:checked { background: #2ecc71; border-color: #2ecc71; }
         .checkbox-status:checked::after { content: ''; position: absolute; width: 6px; height: 10px; border: solid #0a0a0a; border-width: 0 2px 2px 0; top: 50%; left: 50%; transform: translate(-50%, -60%) rotate(45deg); }
+        
+        /* Mensagens e Status */
         .empty-message { text-align: center; padding: 40px 20px; color: rgba(255,255,255,0.4); font-size: 0.95em; }
+        .estoque-ok { color: #2ecc71; }
+        .estoque-baixo { color: #f1c40f; }
+        .estoque-critico { color: #e74c3c; }
+        
+        /* Dias da Semana */
         .dia-header { padding: 15px 20px; background: rgba(212, 175, 125, 0.08); border-bottom: 1px solid rgba(212, 175, 125, 0.15); margin-top: 20px; }
         .dia-header:first-child { margin-top: 0; }
         .dia-header h3 { font-family: 'Playfair Display', serif; font-size: 1.1em; font-weight: 400; color: #d4af7d; letter-spacing: 1px; }
@@ -77,6 +112,8 @@
         .dia-item-hora { color: #d4af7d; font-size: 0.9em; min-width: 50px; }
         .dia-item-nome { color: #fff; }
         .dia-item-dose { color: rgba(255,255,255,0.5); font-size: 0.85em; }
+        
+        /* Formulários */
         .form-section { background: #1a1a1a; border: 1px solid rgba(212, 175, 125, 0.1); border-radius: 12px; padding: 25px; margin-bottom: 20px; }
         .form-section h3 { font-family: 'Playfair Display', serif; font-size: 1.1em; font-weight: 400; color: #d4af7d; margin-bottom: 20px; letter-spacing: 1px; }
         .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 15px; }
@@ -86,76 +123,65 @@
         .form-group input:focus, .form-group select:focus { border-color: #d4af7d; }
         .form-group input::placeholder { color: rgba(255,255,255,0.3); }
         .form-group select option { background: #141414; color: #fff; }
+        
+        /* Dias Selector */
         .dias-selector { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 5px; }
         .dia-check { display: flex; align-items: center; gap: 5px; }
         .dia-check input[type="checkbox"] { appearance: none; -webkit-appearance: none; width: 18px; height: 18px; border: 1px solid rgba(212, 175, 125, 0.3); border-radius: 4px; cursor: pointer; position: relative; background: transparent; }
         .dia-check input[type="checkbox"]:checked { background: rgba(212, 175, 125, 0.3); border-color: #d4af7d; }
         .dia-check input[type="checkbox"]:checked::after { content: ''; position: absolute; width: 4px; height: 8px; border: solid #d4af7d; border-width: 0 2px 2px 0; top: 50%; left: 50%; transform: translate(-50%, -60%) rotate(45deg); }
         .dia-check label { font-size: 0.8em; color: rgba(255,255,255,0.6); cursor: pointer; }
+        
+        /* Botões */
         .btn-primary { padding: 12px 25px; background: linear-gradient(135deg, #d4af7d, #c9a066); border: none; border-radius: 8px; color: #0a0a0a; font-size: 0.9em; font-weight: 600; cursor: pointer; transition: all 0.3s; }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 125, 0.3); }
+        .btn-secondary { padding: 12px 25px; background: transparent; border: 1px solid rgba(212, 175, 125, 0.3); border-radius: 8px; color: #d4af7d; font-size: 0.9em; cursor: pointer; transition: all 0.3s; }
+        .btn-secondary:hover { background: rgba(212, 175, 125, 0.1); }
         .btn-delete-small { background: transparent; border: none; color: rgba(220, 53, 69, 0.6); cursor: pointer; padding: 5px; transition: color 0.3s; }
         .btn-delete-small:hover { color: #dc3545; }
+        .btn-edit-small { background: transparent; border: none; color: rgba(212, 175, 125, 0.6); cursor: pointer; padding: 5px; transition: color 0.3s; }
+        .btn-edit-small:hover { color: #d4af7d; }
         .form-buttons { display: flex; gap: 10px; margin-top: 20px; }
+        .plano-item-actions { display: flex; gap: 5px; }
+        
+        /* Plano Lista */
         .plano-lista { margin-top: 20px; }
         .plano-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #141414; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 10px; }
         .plano-item-info { flex: 1; }
         .plano-item-nome { color: #fff; font-size: 0.95em; margin-bottom: 5px; }
         .plano-item-detalhes { color: rgba(255,255,255,0.5); font-size: 0.8em; }
-        .estoque-ok { color: #2ecc71; }
-        .estoque-baixo { color: #f1c40f; }
-        .estoque-critico { color: #e74c3c; }
-        .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #1a1a1a; border: 1px solid rgba(212, 175, 125, 0.3); color: #fff; padding: 12px 24px; border-radius: 8px; z-index: 3000; opacity: 0; transition: opacity 0.3s; font-size: 0.85em; }
-        .toast.show { opacity: 1; }
-        .toast.success { border-color: #2ecc71; }
-        .toast.error { border-color: #e74c3c; }
-        .btn-sync { position: fixed; bottom: 90px; right: 20px; background: linear-gradient(135deg, #2ecc71, #27ae60); color: #fff; border: none; padding: 12px 20px; border-radius: 25px; font-size: 0.85em; font-weight: 500; cursor: pointer; z-index: 1500; box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); transition: all 0.3s; }
-        .btn-sync:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4); }
-        .btn-sync.syncing { background: linear-gradient(135deg, #f1c40f, #f39c12); }
-        .btn-sync.error { background: linear-gradient(135deg, #e74c3c, #c0392b); }
-        @media (max-width: 768px) { .btn-sync { bottom: 80px; right: 15px; padding: 10px 16px; font-size: 0.8em; } }
+        
+        /* Modal */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; }
         .modal-overlay.active { display: flex; }
         .modal-content { background: #1a1a1a; border: 1px solid rgba(212, 175, 125, 0.2); border-radius: 15px; padding: 30px; width: 90%; max-width: 450px; max-height: 90vh; overflow-y: auto; }
         .modal-content h3 { font-family: 'Playfair Display', serif; font-size: 1.2em; color: #d4af7d; margin-bottom: 20px; text-align: center; }
         .modal-content .form-group { margin-bottom: 15px; }
         .modal-buttons { display: flex; gap: 10px; margin-top: 25px; justify-content: flex-end; }
-        .btn-edit-small { background: transparent; border: none; color: rgba(212, 175, 125, 0.6); cursor: pointer; padding: 5px; transition: color 0.3s; }
-        .btn-edit-small:hover { color: #d4af7d; }
-        .plano-item-actions { display: flex; gap: 5px; }
+        
         @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } .sub-tabs { flex-wrap: wrap; } .sub-tab-btn { flex: 1; min-width: 80px; text-align: center; padding: 10px; font-size: 0.75em; } }
     </style>
 </head>
 <body>
+    <!-- Sidebar -->
     <nav class="sidebar">
         <a href="index.html" class="sidebar-logo">Z</a>
         <div class="sidebar-menu">
             <a href="index.html">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                 <span>Inicio</span>
             </a>
             <a href="saude.html" class="active">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
                 <span>Saude</span>
             </a>
             <a href="financeiro.html">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <line x1="12" y1="1" x2="12" y2="23"></line>
-                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                 <span>Financeiro</span>
             </a>
             <div class="sidebar-divider"></div>
             <a href="pessoal.html">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                 <span>Pessoal</span>
             </a>
         </div>
@@ -163,42 +189,40 @@
             <p><span class="instituto">ZARA</span>Private Access</p>
         </div>
     </nav>
+
+    <!-- Mobile Nav -->
     <nav class="mobile-nav">
         <div class="mobile-nav-items">
             <a href="index.html" class="mobile-nav-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                 Inicio
             </a>
             <a href="saude.html" class="mobile-nav-item active">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
                 Saude
             </a>
             <a href="financeiro.html" class="mobile-nav-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <line x1="12" y1="1" x2="12" y2="23"></line>
-                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                 Financeiro
             </a>
             <a href="pessoal.html" class="mobile-nav-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                 Pessoal
             </a>
         </div>
     </nav>
+
+    <!-- Página Medicamentos -->
     <div class="container page-section active" id="page-medicamentos">
         <div class="header">
+            <div id="statusConexao" class="status-conexao online">
+                <span class="status-online">● Online</span>
+            </div>
             <h1>Controle de Medicamentos</h1>
             <p>Sistema profissional de prescricao</p>
         </div>
+
+        <!-- Tabs Internas -->
         <div class="tabs-container">
             <div class="tabs-header">
                 <button class="tab-btn active" onclick="navigateTo('medicamentos', this)">
@@ -219,11 +243,15 @@
                 </button>
             </div>
         </div>
+
+        <!-- Sub-abas -->
         <div class="sub-tabs">
             <button class="sub-tab-btn active" onclick="mudarSubAba('hoje', this)">Hoje</button>
             <button class="sub-tab-btn" onclick="mudarSubAba('semana', this)">Semana</button>
             <button class="sub-tab-btn" onclick="mudarSubAba('editar', this)">Editar Semana</button>
         </div>
+
+        <!-- Aba Hoje -->
         <div class="sub-content active" id="sub-hoje">
             <div class="table-container">
                 <table id="tabelaHojeContainer">
@@ -233,7 +261,13 @@
             </div>
             <div id="mensagemHoje" class="empty-message" style="display: none;">Nao ha medicamentos programados para hoje.</div>
         </div>
-        <div class="sub-content" id="sub-semana"><div id="visaoSemana"></div></div>
+
+        <!-- Aba Semana -->
+        <div class="sub-content" id="sub-semana">
+            <div id="visaoSemana"></div>
+        </div>
+
+        <!-- Aba Editar Semana -->
         <div class="sub-content" id="sub-editar">
             <div class="form-section">
                 <h3>Adicionar Medicamento ao Plano</h3>
@@ -274,11 +308,13 @@
             </div>
         </div>
     </div>
+
+    <!-- Outras Páginas -->
     <div class="container page-section" id="page-dieta"><div class="header"><h1>Dieta</h1><p>Em desenvolvimento...</p></div></div>
     <div class="container page-section" id="page-treino"><div class="header"><h1>Treino</h1><p>Em desenvolvimento...</p></div></div>
     <div class="container page-section" id="page-fotos"><div class="header"><h1>Fotos Comparativas</h1><p>Em desenvolvimento...</p></div></div>
 
-    <!-- Modal de Edicao -->
+    <!-- Modal Edição -->
     <div class="modal-overlay" id="modalEditMed">
         <div class="modal-content">
             <h3>Editar Medicamento</h3>
@@ -316,118 +352,168 @@
         </div>
     </div>
 
-    <!-- Botao Sincronizado -->
-    <button id="btnSync" class="btn-sync" onclick="sincronizarDados()">Sincronizado</button>
-
-    <!-- Toast de Notificacao -->
-    <div id="toast" class="toast"></div>
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // ========== CONFIGURACAO SUPABASE ==========
+        // ==========================================
+        // CONFIGURAÇÃO SUPABASE - IGUAL AO FINANCEIRO
+        // ==========================================
         const SUPABASE_URL = 'https://ltwamldgdwqzyssoukzl.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0d2FtbGRnZHdxenlzc291a3psIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY4NzEzMDUsImV4cCI6MjA4MjQ0NzMwNX0.UVyo0c0BHslB7mCU74Qx8rdo42HA0WPAyDQ6J-FIakE';
-        let supabaseClient = null;
-        let useSupabase = false;
         const USER_ID = 'default_user';
         
-        try { 
-            const { createClient } = supabase; 
-            supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY); 
+        let supabaseClient = null;
+        let useSupabase = false;
+        
+        try {
+            supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
             useSupabase = true;
-            atualizarStatusConexao(true);
-        } catch (e) { 
-            console.log('Modo offline'); 
-            atualizarStatusConexao(false);
+        } catch (e) {
+            console.log('Supabase indisponivel, usando localStorage');
         }
 
-        // ========== TOAST E STATUS ==========
-        function mostrarToast(mensagem, tipo = 'success') {
-            const toast = document.getElementById('toast');
-            toast.textContent = mensagem;
-            toast.className = 'toast ' + tipo + ' show';
-            setTimeout(() => { toast.classList.remove('show'); }, 3000);
-        }
+        // ==========================================
+        // ESTRUTURA DE DADOS
+        // ==========================================
+        const dadosVazios = {
+            planoSemanal: { segunda: [], terca: [], quarta: [], quinta: [], sexta: [], sabado: [], domingo: [] },
+            statusHoje: {}
+        };
 
-        function atualizarStatusConexao(online) {
-            const el = document.getElementById('statusConexao');
-            if (el) {
-                el.textContent = online ? 'Online' : 'Offline';
-                el.className = 'status-conexao ' + (online ? 'online' : 'offline');
-            }
-        }
+        let saude = JSON.parse(localStorage.getItem('saude_v1')) || JSON.parse(JSON.stringify(dadosVazios));
+        if (!saude.planoSemanal) saude.planoSemanal = JSON.parse(JSON.stringify(dadosVazios.planoSemanal));
+        if (!saude.statusHoje) saude.statusHoje = {};
 
-        // ========== DADOS ==========
-        let planoSemanal = JSON.parse(localStorage.getItem('planoSemanal')) || { segunda: [], terca: [], quarta: [], quinta: [], sexta: [], sabado: [], domingo: [] };
-        let statusHoje = JSON.parse(localStorage.getItem('statusHoje')) || {};
         let planoTemp = [];
 
-        // ========== SUPABASE SYNC ==========
-        async function salvarPlanoSupabase() {
-            if (!useSupabase) return;
-            try {
-                await supabaseClient.from('plano_semanal').delete().eq('user_id', USER_ID);
-                const itens = [];
-                Object.keys(planoSemanal).forEach(dia => {
-                    planoSemanal[dia].forEach(med => {
-                        itens.push({
-                            id: `${USER_ID}_${med.id}_${dia}`,
-                            user_id: USER_ID,
-                            dia: dia,
-                            med_id: med.id,
-                            nome: med.nome,
-                            dose: med.dose,
-                            hora: med.hora,
-                            estoque: med.estoque,
-                            tipo: med.tipo || 'comprimidos'
-                        });
+        // ==========================================
+        // FUNÇÕES DE SINCRONIZAÇÃO - IGUAL AO FINANCEIRO
+        // ==========================================
+        function salvarDados() {
+            localStorage.setItem('saude_v1', JSON.stringify(saude));
+            localStorage.setItem('saude_pending_sync', 'true');
+            localStorage.setItem('saude_last_change', Date.now().toString());
+            
+            if (navigator.onLine) {
+                salvarSupabase();
+            } else {
+                if ('serviceWorker' in navigator && 'SyncManager' in window) {
+                    navigator.serviceWorker.ready.then(reg => {
+                        reg.sync.register('sync-saude-data').catch(console.error);
                     });
-                });
-                if (itens.length > 0) {
-                    await supabaseClient.from('plano_semanal').insert(itens);
                 }
-                mostrarToast('Sincronizado com sucesso!', 'success');
-                atualizarStatusConexao(true);
-            } catch (e) {
-                console.error('Erro ao sincronizar:', e);
-                mostrarToast('Erro ao sincronizar', 'error');
-                atualizarStatusConexao(false);
+                atualizarStatusConexao();
             }
         }
 
-        async function carregarPlanoSupabase() {
-            if (!useSupabase) return;
+        async function salvarSupabase() {
+            if (!useSupabase) {
+                localStorage.removeItem('saude_pending_sync');
+                return;
+            }
+            try {
+                const { error } = await supabaseClient.from('saude').upsert({
+                    id: USER_ID,
+                    user_id: USER_ID,
+                    dados: saude,
+                    updated_at: new Date().toISOString()
+                });
+                if (error) {
+                    console.error('Erro Supabase:', error);
+                    mostrarStatus('Erro ao sincronizar', 'error');
+                } else {
+                    localStorage.removeItem('saude_pending_sync');
+                    mostrarStatus('Sincronizado', 'success');
+                    atualizarStatusConexao();
+                }
+            } catch (e) {
+                console.error('Exceção Supabase:', e);
+            }
+        }
+
+        async function carregarSupabase() {
+            if (!useSupabase) return false;
             try {
                 const { data, error } = await supabaseClient
-                    .from('plano_semanal')
+                    .from('saude')
                     .select('*')
-                    .eq('user_id', USER_ID);
-                if (error) throw error;
-                if (data && data.length > 0) {
-                    planoSemanal = { segunda: [], terca: [], quarta: [], quinta: [], sexta: [], sabado: [], domingo: [] };
-                    data.forEach(item => {
-                        if (planoSemanal[item.dia]) {
-                            planoSemanal[item.dia].push({
-                                id: item.med_id,
-                                nome: item.nome,
-                                dose: item.dose,
-                                hora: item.hora,
-                                estoque: item.estoque,
-                                tipo: item.tipo || 'comprimidos'
-                            });
-                        }
-                    });
-                    localStorage.setItem('planoSemanal', JSON.stringify(planoSemanal));
-                    mostrarToast('Dados carregados!', 'success');
+                    .eq('user_id', USER_ID)
+                    .maybeSingle();
+
+                if (error) {
+                    console.error('Erro ao carregar:', error);
+                    return false;
                 }
-                atualizarStatusConexao(true);
+
+                if (data?.dados) {
+                    saude = {
+                        ...dadosVazios,
+                        ...data.dados
+                    };
+                    localStorage.setItem('saude_v1', JSON.stringify(saude));
+                    mostrarStatus('Dados carregados', 'success');
+                    return true;
+                }
+                return false;
             } catch (e) {
-                console.error('Erro ao carregar:', e);
-                atualizarStatusConexao(false);
+                console.error('Exceção:', e);
+                return false;
             }
         }
 
-        // ========== NAVEGACAO ==========
+        // ==========================================
+        // STATUS DE CONEXÃO - IGUAL AO FINANCEIRO
+        // ==========================================
+        function atualizarStatusConexao() {
+            const indicador = document.getElementById('statusConexao');
+            if (!indicador) return;
+            
+            const pendente = localStorage.getItem('saude_pending_sync') === 'true';
+            
+            if (navigator.onLine) {
+                if (pendente) {
+                    indicador.innerHTML = '<span class="status-sync">Sincronizando...</span>';
+                    indicador.className = 'status-conexao syncing';
+                } else {
+                    indicador.innerHTML = '<span class="status-online">● Online</span>';
+                    indicador.className = 'status-conexao online';
+                }
+            } else {
+                indicador.innerHTML = '<span class="status-offline">○ Offline</span>';
+                indicador.className = 'status-conexao offline';
+            }
+        }
+
+        window.addEventListener('online', () => {
+            console.log('Conexao restaurada!');
+            atualizarStatusConexao();
+            const pendente = localStorage.getItem('saude_pending_sync') === 'true';
+            if (pendente) {
+                salvarSupabase();
+            }
+        });
+
+        window.addEventListener('offline', () => {
+            atualizarStatusConexao();
+        });
+
+        function mostrarStatus(msg, tipo) {
+            let status = document.getElementById('syncStatus');
+            if (!status) {
+                status = document.createElement('div');
+                status.id = 'syncStatus';
+                document.body.appendChild(status);
+            }
+            
+            status.textContent = msg;
+            status.style.background = tipo === 'success' ? 'rgba(39, 174, 96, 0.95)' : 'rgba(231, 76, 60, 0.95)';
+            status.style.opacity = '1';
+            
+            setTimeout(() => { status.style.opacity = '0'; }, 3000);
+        }
+
+        // ==========================================
+        // NAVEGAÇÃO
+        // ==========================================
         function navigateTo(section, element) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             if (element) element.classList.add('active');
@@ -445,71 +531,130 @@
             else if (aba === 'editar') renderizarPlanoLista();
         }
 
-        // ========== UTILIDADES ==========
-        function getDiaAtual() { const dias = ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado']; return dias[new Date().getDay()]; }
+        // ==========================================
+        // UTILIDADES
+        // ==========================================
+        function getDiaAtual() { 
+            const dias = ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado']; 
+            return dias[new Date().getDay()]; 
+        }
         function getDataHoje() { return new Date().toISOString().split('T')[0]; }
-        function getDiaNome(dia) { const nomes = { 'segunda': 'Segunda-feira', 'terca': 'Terca-feira', 'quarta': 'Quarta-feira', 'quinta': 'Quinta-feira', 'sexta': 'Sexta-feira', 'sabado': 'Sabado', 'domingo': 'Domingo' }; return nomes[dia] || dia; }
-        function getEstoqueClass(estoque) { if (estoque <= 0) return 'estoque-critico'; if (estoque <= 5) return 'estoque-baixo'; return 'estoque-ok'; }
+        function getDiaNome(dia) { 
+            const nomes = { 'segunda': 'Segunda-feira', 'terca': 'Terca-feira', 'quarta': 'Quarta-feira', 'quinta': 'Quinta-feira', 'sexta': 'Sexta-feira', 'sabado': 'Sabado', 'domingo': 'Domingo' }; 
+            return nomes[dia] || dia; 
+        }
+        function getEstoqueClass(estoque) { 
+            if (estoque <= 0) return 'estoque-critico'; 
+            if (estoque <= 5) return 'estoque-baixo'; 
+            return 'estoque-ok'; 
+        }
+        function getTipoAbrev(tipo) {
+            const abrev = { 'comprimidos': 'comp', 'capsulas': 'caps', 'ml': 'ml', 'gotas': 'gotas' };
+            return abrev[tipo] || 'comp';
+        }
 
-        // ========== RENDERIZAR HOJE ==========
+        // ==========================================
+        // RENDERIZAR HOJE
+        // ==========================================
         function renderizarHoje() {
             const diaAtual = getDiaAtual();
             const dataHoje = getDataHoje();
-            const medsHoje = planoSemanal[diaAtual] || [];
-            if (statusHoje.data !== dataHoje) { statusHoje = { data: dataHoje, tomados: {} }; localStorage.setItem('statusHoje', JSON.stringify(statusHoje)); }
+            const medsHoje = saude.planoSemanal[diaAtual] || [];
+            
+            if (!saude.statusHoje || saude.statusHoje.data !== dataHoje) { 
+                saude.statusHoje = { data: dataHoje, tomados: {} }; 
+                salvarDados();
+            }
+            
             const tbody = document.getElementById('tabelaHoje');
             const mensagem = document.getElementById('mensagemHoje');
             const tabela = document.getElementById('tabelaHojeContainer');
-            if (medsHoje.length === 0) { tbody.innerHTML = ''; tabela.style.display = 'none'; mensagem.style.display = 'block'; return; }
-            tabela.style.display = 'table'; mensagem.style.display = 'none';
+            
+            if (medsHoje.length === 0) { 
+                tbody.innerHTML = ''; 
+                tabela.style.display = 'none'; 
+                mensagem.style.display = 'block'; 
+                return; 
+            }
+            
+            tabela.style.display = 'table'; 
+            mensagem.style.display = 'none';
+            
             const medsOrdenados = [...medsHoje].sort((a, b) => (a.hora || '00:00').localeCompare(b.hora || '00:00'));
             tbody.innerHTML = medsOrdenados.map(med => {
-                const tomado = statusHoje.tomados && statusHoje.tomados[med.id];
-                const tipoAbrev = { 'comprimidos': 'comp', 'capsulas': 'caps', 'ml': 'ml', 'gotas': 'gotas' };
-                const tipo = tipoAbrev[med.tipo] || 'comp';
-                return `<tr><td>${med.hora || '--:--'}</td><td>${med.nome}</td><td>${med.dose}</td><td class="${getEstoqueClass(med.estoque)}">${med.estoque} ${tipo}</td><td><input type="checkbox" class="checkbox-status" ${tomado ? 'checked' : ''} onchange="toggleTomado('${med.id}', this.checked)"></td></tr>`;
+                const tomado = saude.statusHoje.tomados && saude.statusHoje.tomados[med.id];
+                return `<tr>
+                    <td>${med.hora || '--:--'}</td>
+                    <td>${med.nome}</td>
+                    <td>${med.dose}</td>
+                    <td class="${getEstoqueClass(med.estoque)}">${med.estoque} ${getTipoAbrev(med.tipo)}</td>
+                    <td><input type="checkbox" class="checkbox-status" ${tomado ? 'checked' : ''} onchange="toggleTomado('${med.id}', this.checked)"></td>
+                </tr>`;
             }).join('');
         }
 
         function toggleTomado(medId, tomado) {
             const dataHoje = getDataHoje();
-            if (statusHoje.data !== dataHoje) statusHoje = { data: dataHoje, tomados: {} };
-            if (!statusHoje.tomados) statusHoje.tomados = {};
-            statusHoje.tomados[medId] = tomado;
-            if (tomado) {
-                Object.keys(planoSemanal).forEach(dia => { planoSemanal[dia].forEach(med => { if (med.id === medId && med.estoque > 0) med.estoque--; }); });
-                localStorage.setItem('planoSemanal', JSON.stringify(planoSemanal));
-                salvarPlanoSupabase();
+            if (!saude.statusHoje || saude.statusHoje.data !== dataHoje) {
+                saude.statusHoje = { data: dataHoje, tomados: {} };
             }
-            localStorage.setItem('statusHoje', JSON.stringify(statusHoje));
+            if (!saude.statusHoje.tomados) saude.statusHoje.tomados = {};
+            
+            saude.statusHoje.tomados[medId] = tomado;
+            
+            if (tomado) {
+                Object.keys(saude.planoSemanal).forEach(dia => { 
+                    saude.planoSemanal[dia].forEach(med => { 
+                        if (med.id === medId && med.estoque > 0) med.estoque--; 
+                    }); 
+                });
+            }
+            
+            salvarDados();
             renderizarHoje();
         }
 
-        // ========== RENDERIZAR SEMANA ==========
+        // ==========================================
+        // RENDERIZAR SEMANA
+        // ==========================================
         function renderizarSemana() {
             const container = document.getElementById('visaoSemana');
             const diasOrdem = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
             let html = '';
+            
             diasOrdem.forEach(dia => {
-                const meds = planoSemanal[dia] || [];
+                const meds = saude.planoSemanal[dia] || [];
                 html += `<div class="dia-header"><h3>${getDiaNome(dia)}</h3></div>`;
-                if (meds.length === 0) { html += `<div class="dia-lista"><p style="color: rgba(255,255,255,0.4); font-size: 0.9em;">Nenhum medicamento</p></div>`; }
-                else {
+                
+                if (meds.length === 0) { 
+                    html += `<div class="dia-lista"><p style="color: rgba(255,255,255,0.4); font-size: 0.9em;">Nenhum medicamento</p></div>`; 
+                } else {
                     const medsOrdenados = [...meds].sort((a, b) => (a.hora || '00:00').localeCompare(b.hora || '00:00'));
                     html += '<div class="dia-lista">';
                     medsOrdenados.forEach(med => { 
-                        const tipoAbrev = { 'comprimidos': 'comp', 'capsulas': 'caps', 'ml': 'ml', 'gotas': 'gotas' };
-                        const tipo = tipoAbrev[med.tipo] || 'comp';
-                        html += `<div class="dia-item"><div class="dia-item-info"><span class="dia-item-hora">${med.hora || '--:--'}</span><span class="dia-item-nome">${med.nome}</span><span class="dia-item-dose">${med.dose}</span></div><span class="${getEstoqueClass(med.estoque)}">${med.estoque} ${tipo}</span></div>`; 
+                        html += `<div class="dia-item">
+                            <div class="dia-item-info">
+                                <span class="dia-item-hora">${med.hora || '--:--'}</span>
+                                <span class="dia-item-nome">${med.nome}</span>
+                                <span class="dia-item-dose">${med.dose}</span>
+                            </div>
+                            <span class="${getEstoqueClass(med.estoque)}">${med.estoque} ${getTipoAbrev(med.tipo)}</span>
+                        </div>`; 
                     });
                     html += '</div>';
                 }
             });
+            
             container.innerHTML = html;
         }
 
-        // ========== EDITAR SEMANA ==========
-        function toggleDiasSelector() { document.getElementById('diasSelectorContainer').style.display = document.getElementById('novoMedFrequencia').value === 'selecionar' ? 'block' : 'none'; }
+        // ==========================================
+        // EDITAR SEMANA
+        // ==========================================
+        function toggleDiasSelector() { 
+            document.getElementById('diasSelectorContainer').style.display = 
+                document.getElementById('novoMedFrequencia').value === 'selecionar' ? 'block' : 'none'; 
+        }
 
         function adicionarMedicamentoPlano() {
             const nome = document.getElementById('novoMedNome').value.trim();
@@ -518,16 +663,25 @@
             const estoque = parseInt(document.getElementById('novoMedEstoque').value) || 0;
             const tipo = document.getElementById('novoMedTipo').value;
             const frequencia = document.getElementById('novoMedFrequencia').value;
+            
             if (!nome || !dose) { alert('Preencha o nome e a dose.'); return; }
+            
             let dias = [];
-            if (frequencia === 'todos') dias = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
-            else {
-                ['diaSeg', 'diaTer', 'diaQua', 'diaQui', 'diaSex', 'diaSab', 'diaDom'].forEach((id, i) => {
-                    if (document.getElementById(id).checked) dias.push(['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'][i]);
+            if (frequencia === 'todos') {
+                dias = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
+            } else {
+                const diasIds = ['diaSeg', 'diaTer', 'diaQua', 'diaQui', 'diaSex', 'diaSab', 'diaDom'];
+                const diasNomes = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
+                diasIds.forEach((id, i) => {
+                    if (document.getElementById(id).checked) dias.push(diasNomes[i]);
                 });
             }
+            
             if (dias.length === 0) { alert('Selecione pelo menos um dia.'); return; }
+            
             planoTemp.push({ id: Date.now().toString(), nome, dose, hora, estoque, tipo, dias });
+            
+            // Limpar form
             document.getElementById('novoMedNome').value = '';
             document.getElementById('novoMedDose').value = '';
             document.getElementById('novoMedHora').value = '';
@@ -536,62 +690,110 @@
             document.getElementById('novoMedFrequencia').value = 'todos';
             toggleDiasSelector();
             ['diaSeg', 'diaTer', 'diaQua', 'diaQui', 'diaSex', 'diaSab', 'diaDom'].forEach(id => document.getElementById(id).checked = false);
+            
             renderizarPlanoLista();
         }
 
-        function removerMedicamentoTemp(idx) { planoTemp.splice(idx, 1); renderizarPlanoLista(); }
+        function removerMedicamentoTemp(idx) { 
+            planoTemp.splice(idx, 1); 
+            renderizarPlanoLista(); 
+        }
         
         function removerMedicamentoPlano(medId) { 
-            Object.keys(planoSemanal).forEach(dia => { planoSemanal[dia] = planoSemanal[dia].filter(m => m.id !== medId); }); 
-            localStorage.setItem('planoSemanal', JSON.stringify(planoSemanal)); 
-            salvarPlanoSupabase();
+            Object.keys(saude.planoSemanal).forEach(dia => { 
+                saude.planoSemanal[dia] = saude.planoSemanal[dia].filter(m => m.id !== medId); 
+            }); 
+            salvarDados();
             renderizarPlanoLista(); 
         }
 
         function renderizarPlanoLista() {
             const container = document.getElementById('listaPlano');
-            const medsExistentes = []; const idsVistos = new Set();
-            Object.keys(planoSemanal).forEach(dia => {
-                planoSemanal[dia].forEach(med => {
+            const medsExistentes = []; 
+            const idsVistos = new Set();
+            
+            Object.keys(saude.planoSemanal).forEach(dia => {
+                saude.planoSemanal[dia].forEach(med => {
                     if (!idsVistos.has(med.id)) {
                         idsVistos.add(med.id);
                         const diasMed = [];
-                        Object.keys(planoSemanal).forEach(d => { if (planoSemanal[d].find(m => m.id === med.id)) diasMed.push(d); });
+                        Object.keys(saude.planoSemanal).forEach(d => { 
+                            if (saude.planoSemanal[d].find(m => m.id === med.id)) diasMed.push(d); 
+                        });
                         medsExistentes.push({ ...med, dias: diasMed });
                     }
                 });
             });
+            
             let html = '';
+            
             medsExistentes.forEach(med => {
                 const diasTexto = med.dias.length === 7 ? 'Todos os dias' : med.dias.map(d => d.substring(0, 3)).join(', ');
-                const tipoTexto = med.tipo || 'comprimidos';
-                html += `<div class="plano-item"><div class="plano-item-info"><div class="plano-item-nome">${med.nome} - ${med.dose}</div><div class="plano-item-detalhes">${med.hora || '--:--'} | ${diasTexto} | ${med.estoque} ${tipoTexto}</div></div><div class="plano-item-actions"><button class="btn-edit-small" onclick="abrirModalEdit('${med.id}')" title="Editar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-delete-small" onclick="removerMedicamentoPlano('${med.id}')" title="Excluir"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div>`;
+                html += `<div class="plano-item">
+                    <div class="plano-item-info">
+                        <div class="plano-item-nome">${med.nome} - ${med.dose}</div>
+                        <div class="plano-item-detalhes">${med.hora || '--:--'} | ${diasTexto} | ${med.estoque} ${med.tipo || 'comprimidos'}</div>
+                    </div>
+                    <div class="plano-item-actions">
+                        <button class="btn-edit-small" onclick="abrirModalEdit('${med.id}')" title="Editar">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        </button>
+                        <button class="btn-delete-small" onclick="removerMedicamentoPlano('${med.id}')" title="Excluir">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        </button>
+                    </div>
+                </div>`;
             });
+            
             planoTemp.forEach((med, idx) => {
                 const diasTexto = med.dias.length === 7 ? 'Todos os dias' : med.dias.map(d => d.substring(0, 3)).join(', ');
-                const tipoTexto = med.tipo || 'comprimidos';
-                html += `<div class="plano-item" style="border-color: rgba(212, 175, 125, 0.3);"><div class="plano-item-info"><div class="plano-item-nome">${med.nome} - ${med.dose} <span style="color: #d4af7d; font-size: 0.8em;">(novo)</span></div><div class="plano-item-detalhes">${med.hora || '--:--'} | ${diasTexto} | ${med.estoque} ${tipoTexto}</div></div><div class="plano-item-actions"><button class="btn-delete-small" onclick="removerMedicamentoTemp(${idx})" title="Excluir"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div>`;
+                html += `<div class="plano-item" style="border-color: rgba(212, 175, 125, 0.3);">
+                    <div class="plano-item-info">
+                        <div class="plano-item-nome">${med.nome} - ${med.dose} <span style="color: #d4af7d; font-size: 0.8em;">(novo)</span></div>
+                        <div class="plano-item-detalhes">${med.hora || '--:--'} | ${diasTexto} | ${med.estoque} ${med.tipo}</div>
+                    </div>
+                    <div class="plano-item-actions">
+                        <button class="btn-delete-small" onclick="removerMedicamentoTemp(${idx})" title="Excluir">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        </button>
+                    </div>
+                </div>`;
             });
+            
             container.innerHTML = html || '<p class="empty-message">Nenhum medicamento no plano.</p>';
         }
 
         function salvarPlanoSemanal() {
-            planoTemp.forEach(med => { med.dias.forEach(dia => { planoSemanal[dia].push({ id: med.id, nome: med.nome, dose: med.dose, hora: med.hora, estoque: med.estoque, tipo: med.tipo }); }); });
+            planoTemp.forEach(med => { 
+                med.dias.forEach(dia => { 
+                    saude.planoSemanal[dia].push({ 
+                        id: med.id, 
+                        nome: med.nome, 
+                        dose: med.dose, 
+                        hora: med.hora, 
+                        estoque: med.estoque, 
+                        tipo: med.tipo 
+                    }); 
+                }); 
+            });
             planoTemp = [];
-            localStorage.setItem('planoSemanal', JSON.stringify(planoSemanal));
-            salvarPlanoSupabase();
+            salvarDados();
             renderizarPlanoLista();
         }
 
-        // ========== MODAL DE EDICAO ==========
+        // ==========================================
+        // MODAL EDIÇÃO
+        // ==========================================
         function abrirModalEdit(medId) {
             let medEncontrado = null;
             let diasMed = [];
-            Object.keys(planoSemanal).forEach(dia => {
-                const med = planoSemanal[dia].find(m => m.id === medId);
+            
+            Object.keys(saude.planoSemanal).forEach(dia => {
+                const med = saude.planoSemanal[dia].find(m => m.id === medId);
                 if (med && !medEncontrado) medEncontrado = med;
-                if (planoSemanal[dia].find(m => m.id === medId)) diasMed.push(dia);
+                if (saude.planoSemanal[dia].find(m => m.id === medId)) diasMed.push(dia);
             });
+            
             if (!medEncontrado) return;
             
             document.getElementById('editMedId').value = medId;
@@ -617,7 +819,9 @@
             document.getElementById('modalEditMed').classList.add('active');
         }
 
-        function fecharModalEdit() { document.getElementById('modalEditMed').classList.remove('active'); }
+        function fecharModalEdit() { 
+            document.getElementById('modalEditMed').classList.remove('active'); 
+        }
         
         function toggleEditDiasSelector() {
             document.getElementById('editDiasSelectorContainer').style.display = 
@@ -639,33 +843,41 @@
             if (frequencia === 'todos') {
                 novosDias = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
             } else {
-                ['editDiaSeg', 'editDiaTer', 'editDiaQua', 'editDiaQui', 'editDiaSex', 'editDiaSab', 'editDiaDom'].forEach((id, i) => {
-                    if (document.getElementById(id).checked) novosDias.push(['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'][i]);
+                const diasIds = ['editDiaSeg', 'editDiaTer', 'editDiaQua', 'editDiaQui', 'editDiaSex', 'editDiaSab', 'editDiaDom'];
+                const diasNomes = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
+                diasIds.forEach((id, i) => {
+                    if (document.getElementById(id).checked) novosDias.push(diasNomes[i]);
                 });
             }
+            
             if (novosDias.length === 0) { alert('Selecione pelo menos um dia.'); return; }
             
-            Object.keys(planoSemanal).forEach(dia => {
-                planoSemanal[dia] = planoSemanal[dia].filter(m => m.id !== medId);
+            // Remover de todos os dias
+            Object.keys(saude.planoSemanal).forEach(dia => {
+                saude.planoSemanal[dia] = saude.planoSemanal[dia].filter(m => m.id !== medId);
             });
             
+            // Adicionar nos novos dias
             novosDias.forEach(dia => {
-                planoSemanal[dia].push({ id: medId, nome, dose, hora, estoque, tipo });
+                saude.planoSemanal[dia].push({ id: medId, nome, dose, hora, estoque, tipo });
             });
             
-            localStorage.setItem('planoSemanal', JSON.stringify(planoSemanal));
-            salvarPlanoSupabase();
+            salvarDados();
             fecharModalEdit();
             renderizarPlanoLista();
             renderizarSemana();
             renderizarHoje();
         }
 
-        // ========== INICIALIZACAO ==========
+        // ==========================================
+        // INICIALIZAÇÃO
+        // ==========================================
         async function inicializar() {
-            await carregarPlanoSupabase();
+            atualizarStatusConexao();
+            await carregarSupabase();
             renderizarHoje();
             renderizarPlanoLista();
+            atualizarStatusConexao();
         }
         
         inicializar();
