@@ -109,9 +109,11 @@
         .toast.show { opacity: 1; }
         .toast.success { border-color: #2ecc71; }
         .toast.error { border-color: #e74c3c; }
-        .status-conexao { position: absolute; top: 15px; right: 20px; font-size: 0.75em; padding: 5px 12px; border-radius: 20px; }
-        .status-conexao.online { background: rgba(46, 204, 113, 0.15); color: #2ecc71; }
-        .status-conexao.offline { background: rgba(231, 76, 60, 0.15); color: #e74c3c; }
+        .btn-sync { position: fixed; bottom: 90px; right: 20px; background: linear-gradient(135deg, #2ecc71, #27ae60); color: #fff; border: none; padding: 12px 20px; border-radius: 25px; font-size: 0.85em; font-weight: 500; cursor: pointer; z-index: 1500; box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); transition: all 0.3s; }
+        .btn-sync:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4); }
+        .btn-sync.syncing { background: linear-gradient(135deg, #f1c40f, #f39c12); }
+        .btn-sync.error { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        @media (max-width: 768px) { .btn-sync { bottom: 80px; right: 15px; padding: 10px 16px; font-size: 0.8em; } }
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; }
         .modal-overlay.active { display: flex; }
         .modal-content { background: #1a1a1a; border: 1px solid rgba(212, 175, 125, 0.2); border-radius: 15px; padding: 30px; width: 90%; max-width: 450px; max-height: 90vh; overflow-y: auto; }
@@ -194,7 +196,6 @@
     </nav>
     <div class="container page-section active" id="page-medicamentos">
         <div class="header">
-            <div id="statusConexao" class="status-conexao online">Online</div>
             <h1>Controle de Medicamentos</h1>
             <p>Sistema profissional de prescricao</p>
         </div>
@@ -314,6 +315,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Botao Sincronizado -->
+    <button id="btnSync" class="btn-sync" onclick="sincronizarDados()">Sincronizado</button>
 
     <!-- Toast de Notificacao -->
     <div id="toast" class="toast"></div>
