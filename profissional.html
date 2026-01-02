@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>ZARA | Profissional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; background: #0a0a0a !important; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a !important; color: #fff; min-height: 100vh; padding: 20px; padding-bottom: 80px; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, #d4af7d, transparent); z-index: 9999; }
+        body::after { content: ''; position: fixed; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, #d4af7d, transparent); z-index: 9999; }
+        
+        /* Sidebar */
+        .sidebar { position: fixed; top: 0; left: 0; width: 60px; height: 100vh; background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%); border-right: 1px solid rgba(212, 175, 125, 0.15); z-index: 1000; box-shadow: 4px 0 20px rgba(0,0,0,0.5); display: flex; flex-direction: column; align-items: center; padding: 15px 0; transition: width 0.3s; overflow: hidden; }
+        .sidebar:hover { width: 200px; }
+        .sidebar-logo { width: 40px; height: 40px; background: transparent; border: 1px solid rgba(212, 175, 125, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.2em; color: #d4af7d; margin-bottom: 20px; flex-shrink: 0; text-decoration: none; }
+        .sidebar-logo:hover { background: rgba(212, 175, 125, 0.1); }
+        .sidebar-menu { display: flex; flex-direction: column; gap: 5px; width: 100%; flex: 1; }
+        .sidebar-menu a { display: flex; align-items: center; gap: 12px; padding: 12px 10px; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85em; transition: all 0.3s; border-left: 2px solid transparent; white-space: nowrap; }
+        .sidebar-menu a:hover { background: rgba(212, 175, 125, 0.1); border-left-color: #d4af7d; color: #fff; }
+        .sidebar-menu a.active { background: rgba(212, 175, 125, 0.15); border-left-color: #d4af7d; color: #d4af7d; }
+        .sidebar-menu a svg { width: 20px; height: 20px; min-width: 20px; margin-left: 10px; }
+        .sidebar-menu a span { opacity: 0; transition: opacity 0.3s; }
+        .sidebar:hover .sidebar-menu a span { opacity: 1; }
+        .sidebar-divider { height: 1px; background: rgba(212, 175, 125, 0.2); margin: 8px 10px; width: calc(100% - 20px); }
+        .sidebar-footer { padding: 15px 10px; text-align: center; border-top: 1px solid rgba(212, 175, 125, 0.2); width: 100%; background: rgba(0,0,0,0.3); }
+        .sidebar-footer p { color: rgba(255,255,255,0.6); font-size: 0.7em; font-weight: 400; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.6; opacity: 0; transition: opacity 0.3s; }
+        .sidebar-footer .instituto { font-size: 0.85em; color: #d4af7d; display: block; margin-bottom: 3px; }
+        .sidebar:hover .sidebar-footer p { opacity: 1; }
+        
+        /* Mobile Nav */
+        .mobile-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%); border-top: 1px solid rgba(212, 175, 125, 0.15); padding: 10px 0; z-index: 1000; }
+        .mobile-nav-items { display: flex; justify-content: space-around; align-items: center; }
+        .mobile-nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.65em; padding: 5px 10px; transition: all 0.3s; }
+        .mobile-nav-item svg { width: 22px; height: 22px; }
+        .mobile-nav-item.active { color: #d4af7d; }
+        
+        @media (max-width: 768px) { body { padding-left: 10px; padding-bottom: 80px; } .sidebar { display: none; } .mobile-nav { display: block; } .container { margin-left: 0 !important; } }
+        @media (min-width: 769px) { body { padding-left: 80px; } .mobile-nav { display: none !important; } }
+        
+        /* Container e Layout */
+        .container { max-width: 1200px; margin: 0 auto; background: #141414; border: 1px solid rgba(212, 175, 125, 0.15); border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); overflow: hidden; }
+        
+        /* Header */
+        .header { background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%); border-bottom: 1px solid rgba(212, 175, 125, 0.2); color: white; padding: 30px; text-align: center; position: relative; }
+        .header h1 { font-family: 'Playfair Display', serif; font-size: 2em; margin-bottom: 10px; font-weight: 400; letter-spacing: 3px; color: #fff; }
+        .header p { font-size: 0.9em; color: rgba(212, 175, 125, 0.8); letter-spacing: 1px; }
+        
+        /* Sync Status */
+        #syncStatus { position: fixed; bottom: 100px; right: 20px; padding: 12px 22px; border-radius: 10px; font-size: 0.9em; font-weight: 500; z-index: 10001; opacity: 0; transition: opacity 0.3s; color: #fff; }
+        @media (max-width: 768px) { #syncStatus { bottom: 90px; right: 10px; left: 10px; text-align: center; } }
+        
+        /* Sub Tabs */
+        .sub-tabs { display: flex; gap: 5px; padding: 15px 20px; background: #1a1a1a; border-bottom: 1px solid rgba(212, 175, 125, 0.1); flex-wrap: wrap; }
+        .sub-tab-btn { padding: 10px 20px; background: transparent; border: 1px solid rgba(212, 175, 125, 0.2); color: rgba(255,255,255,0.5); font-size: 0.85em; cursor: pointer; border-radius: 6px; transition: all 0.3s; }
+        .sub-tab-btn:hover { border-color: rgba(212, 175, 125, 0.4); color: #d4af7d; }
+        .sub-tab-btn.active { background: rgba(212, 175, 125, 0.15); border-color: #d4af7d; color: #d4af7d; }
+        .sub-content { display: none; padding: 20px; }
+        .sub-content.active { display: block; }
+        
+        /* Cards */
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 20px; }
+        .card { background: #1a1a1a; border: 1px solid rgba(212, 175, 125, 0.1); border-radius: 12px; padding: 20px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .card-title { font-family: 'Playfair Display', serif; font-size: 1em; color: #d4af7d; letter-spacing: 1px; }
+        .card-value { font-size: 1.4em; color: #fff; font-weight: 500; }
+        .card-subtitle { font-size: 0.8em; color: rgba(255,255,255,0.5); margin-top: 5px; }
+        .card-full { grid-column: 1 / -1; }
+        
+        /* Tabela */
+        .table-container { overflow-x: auto; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; background: #1a1a1a; border-radius: 15px; overflow: hidden; border: 1px solid rgba(212, 175, 125, 0.1); }
+        th { background: linear-gradient(135deg, #1f1f1f 0%, #151515 100%); color: #d4af7d; padding: 15px; text-align: center; font-weight: 500; font-size: 0.8em; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid rgba(212, 175, 125, 0.2); }
+        th:first-child { border-top-left-radius: 15px; text-align: left; }
+        th:last-child { border-top-right-radius: 15px; }
+        td { padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: center; vertical-align: middle; color: rgba(255,255,255,0.8); font-size: 0.9em; }
+        td:first-child { text-align: left; }
+        tr:hover { background: rgba(212, 175, 125, 0.05); }
+        tr:last-child td { border-bottom: none; }
+        
+        /* Checkbox */
+        .checkbox-status { appearance: none; -webkit-appearance: none; width: 22px; height: 22px; border: 2px solid #2ecc71; border-radius: 50%; cursor: pointer; position: relative; background: transparent; transition: all 0.3s; }
+        .checkbox-status:checked { background: #2ecc71; border-color: #2ecc71; }
+        .checkbox-status:checked::after { content: ''; position: absolute; width: 5px; height: 9px; border: solid #0a0a0a; border-width: 0 2px 2px 0; top: 50%; left: 50%; transform: translate(-50%, -60%) rotate(45deg); }
+        
+        /* Progress Bar */
+        .progress-bar { height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #d4af7d, #c9a066); border-radius: 4px; transition: width 0.3s; }
+        .progress-text { font-size: 0.75em; color: rgba(255,255,255,0.5); margin-top: 5px; }
+        
+        /* Status Badges */
+        .status { padding: 4px 10px; border-radius: 12px; font-size: 0.75em; font-weight: 500; }
+        .status-nao-iniciado { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+        .status-andamento { background: rgba(241, 196, 15, 0.15); color: #f1c40f; }
+        .status-concluido { background: rgba(46, 204, 113, 0.15); color: #2ecc71; }
+        .status-atrasado { background: rgba(231, 76, 60, 0.15); color: #e74c3c; }
+        
+        /* Formulários */
+        .form-section { background: #1a1a1a; border: 1px solid rgba(212, 175, 125, 0.1); border-radius: 12px; padding: 25px; margin-bottom: 20px; }
+        .form-section h3 { font-family: 'Playfair Display', serif; font-size: 1.1em; font-weight: 400; color: #d4af7d; margin-bottom: 20px; letter-spacing: 1px; }
+        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 15px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-size: 0.75em; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-group input, .form-group select, .form-group textarea { padding: 12px; background: #141414; border: 1px solid rgba(212, 175, 125, 0.2); border-radius: 8px; color: #fff; font-size: 0.9em; outline: none; transition: border-color 0.3s; font-family: inherit; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #d4af7d; }
+        .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+        .form-group select option { background: #141414; color: #fff; }
+        .form-group textarea { min-height: 80px; resize: vertical; }
+        
+        /* Botões */
+        .btn-primary { padding: 12px 25px; background: linear-gradient(135deg, #d4af7d, #c9a066); border: none; border-radius: 8px; color: #0a0a0a; font-size: 0.9em; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 125, 0.3); }
+        .btn-secondary { padding: 12px 25px; background: transparent; border: 1px solid rgba(212, 175, 125, 0.3); border-radius: 8px; color: #d4af7d; font-size: 0.9em; cursor: pointer; transition: all 0.3s; }
+        .btn-secondary:hover { background: rgba(212, 175, 125, 0.1); }
+        .btn-small { padding: 8px 15px; font-size: 0.8em; }
+        .btn-delete-small { background: transparent; border: none; color: rgba(220, 53, 69, 0.6); cursor: pointer; padding: 5px; transition: color 0.3s; }
+        .btn-delete-small:hover { color: #dc3545; }
+        .btn-edit-small { background: transparent; border: none; color: rgba(212, 175, 125, 0.6); cursor: pointer; padding: 5px; transition: color 0.3s; }
+        .btn-edit-small:hover { color: #d4af7d; }
+        .form-buttons { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+        
+        /* Dias da Semana */
+        .dia-header { padding: 15px 20px; background: rgba(212, 175, 125, 0.08); border-bottom: 1px solid rgba(212, 175, 125, 0.15); margin-top: 15px; border-radius: 8px 8px 0 0; }
+        .dia-header:first-child { margin-top: 0; }
+        .dia-header h3 { font-family: 'Playfair Display', serif; font-size: 1em; font-weight: 400; color: #d4af7d; letter-spacing: 1px; }
+        .dia-lista { padding: 10px 20px; background: #1a1a1a; border: 1px solid rgba(212, 175, 125, 0.1); border-top: none; border-radius: 0 0 8px 8px; margin-bottom: 15px; }
+        .dia-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .dia-item:last-child { border-bottom: none; }
+        
+        /* Item Lista */
+        .item-lista { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #141414; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 10px; }
+        .item-info { flex: 1; }
+        .item-nome { color: #fff; font-size: 0.95em; margin-bottom: 5px; }
+        .item-detalhes { color: rgba(255,255,255,0.5); font-size: 0.8em; }
+        .item-actions { display: flex; gap: 5px; }
+        
+        /* Modal */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-overlay.active { display: flex; }
+        .modal-content { background: #1a1a1a; border: 1px solid rgba(212, 175, 125, 0.2); border-radius: 15px; padding: 30px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
+        .modal-content h3 { font-family: 'Playfair Display', serif; font-size: 1.2em; color: #d4af7d; margin-bottom: 20px; text-align: center; }
+        .modal-buttons { display: flex; gap: 10px; margin-top: 25px; justify-content: flex-end; }
+        
+        /* Empty State */
+        .empty-message { text-align: center; padding: 40px 20px; color: rgba(255,255,255,0.4); font-size: 0.95em; }
+        
+        /* Disciplina Item */
+        .disciplina-item { display: flex; align-items: center; gap: 15px; padding: 15px; background: #141414; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 10px; }
+        .disciplina-info { flex: 1; }
+        .disciplina-nome { color: #fff; font-size: 0.95em; margin-bottom: 8px; }
+        .disciplina-progress { margin-bottom: 5px; }
+        .disciplina-horas { font-size: 0.75em; color: rgba(255,255,255,0.5); }
+        .disciplina-actions { display: flex; gap: 8px; align-items: center; }
+        .disciplina-actions input { width: 60px; padding: 8px; text-align: center; }
+        
+        /* Simulado Card */
+        .simulado-card { background: #141414; border: 1px solid rgba(212, 175, 125, 0.1); border-radius: 12px; padding: 20px; margin-bottom: 15px; }
+        .simulado-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .simulado-data { font-size: 0.85em; color: rgba(255,255,255,0.5); }
+        .simulado-nota { font-size: 1.5em; font-weight: 600; color: #d4af7d; }
+        .simulado-detalhes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .simulado-detalhe { text-align: center; }
+        .simulado-detalhe-valor { font-size: 1.1em; color: #fff; }
+        .simulado-detalhe-label { font-size: 0.75em; color: rgba(255,255,255,0.5); }
+        
+        @media (max-width: 768px) { 
+            .form-row { grid-template-columns: 1fr; } 
+            .sub-tabs { gap: 8px; } 
+            .sub-tab-btn { flex: 1; min-width: 70px; text-align: center; padding: 10px 8px; font-size: 0.75em; } 
+            .cards-grid { grid-template-columns: 1fr; }
+            .simulado-detalhes { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <a href="index.html" class="sidebar-logo">Z</a>
+        <div class="sidebar-menu">
+            <a href="index.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <span>Inicio</span>
+            </a>
+            <a href="saude.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                <span>Saude</span>
+            </a>
+            <a href="financeiro.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                <span>Financeiro</span>
+            </a>
+            <a href="profissional.html" class="active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                <span>Profissional</span>
+            </a>
+            <div class="sidebar-divider"></div>
+            <a href="pessoal.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <span>Pessoal</span>
+            </a>
+        </div>
+        <div class="sidebar-footer">
+            <p><span class="instituto">ZARA</span>Private Access</p>
+        </div>
+    </nav>
+
+    <!-- Mobile Nav -->
+    <nav class="mobile-nav">
+        <div class="mobile-nav-items">
+            <a href="index.html" class="mobile-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Inicio
+            </a>
+            <a href="saude.html" class="mobile-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                Saude
+            </a>
+            <a href="financeiro.html" class="mobile-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                Financeiro
+            </a>
+            <a href="profissional.html" class="mobile-nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                Prof
+            </a>
+            <a href="pessoal.html" class="mobile-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                Pessoal
+            </a>
+        </div>
+    </nav>
+
+    <!-- Página Principal -->
+    <div class="container">
+        <div class="header">
+            <h1>Profissional</h1>
+            <p>Carreira, Projetos e Formacao</p>
+        </div>
+
+        <!-- Sub-abas -->
+        <div class="sub-tabs">
+            <button class="sub-tab-btn active" onclick="mudarAba('carreira', this)">Carreira</button>
+            <button class="sub-tab-btn" onclick="mudarAba('oab', this)">OAB</button>
+            <button class="sub-tab-btn" onclick="mudarAba('projetos', this)">Projetos</button>
+            <button class="sub-tab-btn" onclick="mudarAba('certificacoes', this)">Certificacoes</button>
+            <button class="sub-tab-btn" onclick="mudarAba('agenda', this)">Agenda</button>
+        </div>
+
+        <!-- ==================== ABA CARREIRA ==================== -->
+        <div class="sub-content active" id="aba-carreira">
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Carreira Atual</span>
+                    </div>
+                    <div class="card-value" id="carreiraAtual">-</div>
+                    <div class="card-subtitle" id="carreiraEmpresa">Defina sua carreira</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Meta do Ano</span>
+                    </div>
+                    <div class="card-value" id="metaAno">-</div>
+                    <div class="card-subtitle">Objetivo principal</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Dias Produtivos</span>
+                    </div>
+                    <div class="card-value"><span id="diasProdutivos">0</span> dias</div>
+                    <div class="card-subtitle">Este mes</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Carga Semanal</span>
+                    </div>
+                    <div class="card-value"><span id="cargaSemanal">0</span>h</div>
+                    <div class="card-subtitle">Meta ideal</div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Competencias Principais</h3>
+                <div id="listaCompetencias"></div>
+                <div class="form-buttons" style="margin-top: 15px;">
+                    <input type="text" id="novaCompetencia" placeholder="Nova competencia" style="flex: 1; padding: 12px; background: #141414; border: 1px solid rgba(212, 175, 125, 0.2); border-radius: 8px; color: #fff;">
+                    <button class="btn-secondary btn-small" onclick="adicionarCompetencia()">Adicionar</button>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Observacoes Estrategicas</h3>
+                <textarea id="observacoesCarreira" placeholder="Anote suas reflexoes e estrategias de carreira..." style="width: 100%; min-height: 100px; padding: 12px; background: #141414; border: 1px solid rgba(212, 175, 125, 0.2); border-radius: 8px; color: #fff; resize: vertical;"></textarea>
+                <div class="form-buttons">
+                    <button class="btn-primary" onclick="salvarCarreira()">Salvar Alteracoes</button>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Editar Informacoes</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Cargo Atual</label>
+                        <input type="text" id="editCarreira" placeholder="Ex: Advogado">
+                    </div>
+                    <div class="form-group">
+                        <label>Empresa/Escritorio</label>
+                        <input type="text" id="editEmpresa" placeholder="Ex: Escritorio XYZ">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Meta do Ano</label>
+                        <input type="text" id="editMeta" placeholder="Ex: Aprovacao OAB">
+                    </div>
+                    <div class="form-group">
+                        <label>Carga Semanal Ideal (horas)</label>
+                        <input type="number" id="editCarga" placeholder="40">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ABA OAB ==================== -->
+        <div class="sub-content" id="aba-oab">
+            
+            <!-- Plano de Estudo -->
+            <div class="form-section">
+                <h3>Plano de Estudo - Disciplinas OAB</h3>
+                <div id="listaDisciplinas"></div>
+            </div>
+
+            <!-- Cronograma Semanal -->
+            <div class="form-section">
+                <h3>Cronograma Semanal</h3>
+                <div id="cronogramaSemanal"></div>
+                <div class="form-buttons">
+                    <button class="btn-secondary" onclick="abrirModalCronograma()">Editar Cronograma</button>
+                </div>
+            </div>
+
+            <!-- Tarefas do Dia -->
+            <div class="form-section">
+                <h3>Tarefas de Estudo - Hoje</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Horario</th>
+                                <th>Tarefa</th>
+                                <th>Categoria</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tarefasHoje"></tbody>
+                    </table>
+                </div>
+                <div class="form-buttons">
+                    <button class="btn-primary" onclick="abrirModalTarefa()">Adicionar Tarefa</button>
+                </div>
+            </div>
+
+            <!-- Simulados -->
+            <div class="form-section">
+                <h3>Simulados e Desempenho</h3>
+                <div id="ultimoSimulado"></div>
+                <div id="listaSimulados"></div>
+                <div class="form-buttons">
+                    <button class="btn-primary" onclick="abrirModalSimulado()">Registrar Simulado</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ABA PROJETOS ==================== -->
+        <div class="sub-content" id="aba-projetos">
+            <div class="form-section">
+                <h3>Meus Projetos</h3>
+                <div id="listaProjetos"></div>
+                <div class="form-buttons">
+                    <button class="btn-primary" onclick="abrirModalProjeto()">Novo Projeto</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ABA CERTIFICAÇÕES ==================== -->
+        <div class="sub-content" id="aba-certificacoes">
+            <div class="form-section">
+                <h3>Cursos e Certificacoes</h3>
+                <div id="listaCertificacoes"></div>
+                <div class="form-buttons">
+                    <button class="btn-primary" onclick="abrirModalCertificacao()">Adicionar Certificacao</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ABA AGENDA ==================== -->
+        <div class="sub-content" id="aba-agenda">
+            <div class="form-section">
+                <h3>Agenda Profissional</h3>
+                <div id="listaAgenda"></div>
+                <div class="form-buttons">
+                    <button class="btn-primary" onclick="abrirModalCompromisso()">Novo Compromisso</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAIS ==================== -->
+
+    <!-- Modal Tarefa -->
+    <div class="modal-overlay" id="modalTarefa">
+        <div class="modal-content">
+            <h3>Nova Tarefa de Estudo</h3>
+            <div class="form-group">
+                <label>Horario</label>
+                <input type="time" id="tarefaHora">
+            </div>
+            <div class="form-group">
+                <label>Tarefa</label>
+                <input type="text" id="tarefaDescricao" placeholder="Descricao da tarefa">
+            </div>
+            <div class="form-group">
+                <label>Categoria</label>
+                <select id="tarefaCategoria">
+                    <option value="Leitura">Leitura</option>
+                    <option value="Aula">Aula</option>
+                    <option value="Questoes">Questoes</option>
+                    <option value="Revisao">Revisao</option>
+                </select>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-secondary" onclick="fecharModal('modalTarefa')">Cancelar</button>
+                <button class="btn-primary" onclick="salvarTarefa()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Simulado -->
+    <div class="modal-overlay" id="modalSimulado">
+        <div class="modal-content">
+            <h3>Registrar Simulado</h3>
+            <div class="form-group">
+                <label>Data</label>
+                <input type="date" id="simuladoData">
+            </div>
+            <div class="form-group">
+                <label>Total de Questoes</label>
+                <input type="number" id="simuladoTotal" placeholder="80">
+            </div>
+            <div class="form-group">
+                <label>Acertos</label>
+                <input type="number" id="simuladoAcertos" placeholder="50">
+            </div>
+            <div class="form-group">
+                <label>Pontos Fracos (disciplinas)</label>
+                <input type="text" id="simuladoFracos" placeholder="Ex: Tributario, Empresarial">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-secondary" onclick="fecharModal('modalSimulado')">Cancelar</button>
+                <button class="btn-primary" onclick="salvarSimulado()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Projeto -->
+    <div class="modal-overlay" id="modalProjeto">
+        <div class="modal-content">
+            <h3>Novo Projeto</h3>
+            <div class="form-group">
+                <label>Nome do Projeto</label>
+                <input type="text" id="projetoNome" placeholder="Nome do projeto">
+            </div>
+            <div class="form-group">
+                <label>Meta</label>
+                <input type="text" id="projetoMeta" placeholder="Objetivo do projeto">
+            </div>
+            <div class="form-group">
+                <label>Prazo</label>
+                <input type="date" id="projetoPrazo">
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <select id="projetoStatus">
+                    <option value="Nao iniciado">Nao iniciado</option>
+                    <option value="Em andamento">Em andamento</option>
+                    <option value="Concluido">Concluido</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Progresso (%)</label>
+                <input type="number" id="projetoProgresso" min="0" max="100" placeholder="0">
+            </div>
+            <div class="form-group">
+                <label>Notas</label>
+                <textarea id="projetoNotas" placeholder="Anotacoes sobre o projeto"></textarea>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-secondary" onclick="fecharModal('modalProjeto')">Cancelar</button>
+                <button class="btn-primary" onclick="salvarProjeto()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Certificação -->
+    <div class="modal-overlay" id="modalCertificacao">
+        <div class="modal-content">
+            <h3>Nova Certificacao</h3>
+            <div class="form-group">
+                <label>Nome do Curso</label>
+                <input type="text" id="certNome" placeholder="Nome do curso">
+            </div>
+            <div class="form-group">
+                <label>Instituicao</label>
+                <input type="text" id="certInstituicao" placeholder="Instituicao">
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <select id="certStatus">
+                    <option value="Nao iniciado">Nao iniciado</option>
+                    <option value="Em andamento">Em andamento</option>
+                    <option value="Concluido">Concluido</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Progresso (%)</label>
+                <input type="number" id="certProgresso" min="0" max="100" placeholder="0">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-secondary" onclick="fecharModal('modalCertificacao')">Cancelar</button>
+                <button class="btn-primary" onclick="salvarCertificacao()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Compromisso -->
+    <div class="modal-overlay" id="modalCompromisso">
+        <div class="modal-content">
+            <h3>Novo Compromisso</h3>
+            <div class="form-group">
+                <label>Titulo</label>
+                <input type="text" id="compTitulo" placeholder="Titulo do compromisso">
+            </div>
+            <div class="form-group">
+                <label>Data</label>
+                <input type="date" id="compData">
+            </div>
+            <div class="form-group">
+                <label>Categoria</label>
+                <select id="compCategoria">
+                    <option value="Reuniao">Reuniao</option>
+                    <option value="Estudo">Estudo</option>
+                    <option value="OAB">OAB</option>
+                    <option value="Entrega">Entrega</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Observacoes</label>
+                <textarea id="compObs" placeholder="Observacoes"></textarea>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-secondary" onclick="fecharModal('modalCompromisso')">Cancelar</button>
+                <button class="btn-primary" onclick="salvarCompromisso()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cronograma -->
+    <div class="modal-overlay" id="modalCronograma">
+        <div class="modal-content">
+            <h3>Editar Cronograma Semanal</h3>
+            <div class="form-group">
+                <label>Segunda-feira</label>
+                <input type="text" id="cronSeg" placeholder="Ex: Constitucional, Etica">
+            </div>
+            <div class="form-group">
+                <label>Terca-feira</label>
+                <input type="text" id="cronTer" placeholder="Ex: Civil">
+            </div>
+            <div class="form-group">
+                <label>Quarta-feira</label>
+                <input type="text" id="cronQua" placeholder="Ex: Penal">
+            </div>
+            <div class="form-group">
+                <label>Quinta-feira</label>
+                <input type="text" id="cronQui" placeholder="Ex: Trabalho">
+            </div>
+            <div class="form-group">
+                <label>Sexta-feira</label>
+                <input type="text" id="cronSex" placeholder="Ex: Administrativo">
+            </div>
+            <div class="form-group">
+                <label>Sabado</label>
+                <input type="text" id="cronSab" placeholder="Ex: Revisao">
+            </div>
+            <div class="form-group">
+                <label>Domingo</label>
+                <input type="text" id="cronDom" placeholder="Ex: Simulado">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-secondary" onclick="fecharModal('modalCronograma')">Cancelar</button>
+                <button class="btn-primary" onclick="salvarCronograma()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // ==========================================
+        // CONFIGURAÇÃO SUPABASE
+        // ==========================================
+        const SUPABASE_URL = 'https://ltwamldgdwqzyssoukzl.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0d2FtbGRnZHdxenlzc291a3psIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY4NzEzMDUsImV4cCI6MjA4MjQ0NzMwNX0.UVyo0c0BHslB7mCU74Qx8rdo42HA0WPAyDQ6J-FIakE';
+        const USER_ID = 'default_user';
+        
+        let supabaseClient = null;
+        let useSupabase = false;
+        
+        try {
+            supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            useSupabase = true;
+        } catch (e) {
+            console.log('Supabase indisponivel');
+        }
+
+        // ==========================================
+        // ESTRUTURA DE DADOS
+        // ==========================================
+        const dadosVazios = {
+            carreira: {
+                cargo: '',
+                empresa: '',
+                meta: '',
+                cargaSemanal: 40,
+                diasProdutivos: 0,
+                competencias: [],
+                observacoes: ''
+            },
+            oab: {
+                disciplinas: [
+                    { id: 1, nome: 'Direito Constitucional', progresso: 0, horas: 0, status: 'Nao iniciado' },
+                    { id: 2, nome: 'Etica Profissional', progresso: 0, horas: 0, status: 'Nao iniciado' },
+                    { id: 3, nome: 'Direito Civil', progresso: 0, horas: 0, status: 'Nao iniciado' },
+                    { id: 4, nome: 'Direito Penal', progresso: 0, horas: 0, status: 'Nao iniciado' },
+                    { id: 5, nome: 'Direito do Trabalho', progresso: 0, horas: 0, status: 'Nao iniciado' },
+                    { id: 6, nome: 'Direito Empresarial', progresso: 0, horas: 0, status: 'Nao iniciado' },
+                    { id: 7, nome: 'Direito Administrativo', progresso: 0, horas: 0, status: 'Nao iniciado' },
+                    { id: 8, nome: 'Direito Tributario', progresso: 0, horas: 0, status: 'Nao iniciado' },
+                    { id: 9, nome: 'Processo Civil', progresso: 0, horas: 0, status: 'Nao iniciado' },
+                    { id: 10, nome: 'Processo Penal', progresso: 0, horas: 0, status: 'Nao iniciado' },
+                    { id: 11, nome: 'Processo do Trabalho', progresso: 0, horas: 0, status: 'Nao iniciado' }
+                ],
+                cronograma: { seg: '', ter: '', qua: '', qui: '', sex: '', sab: '', dom: '' },
+                tarefas: [],
+                simulados: []
+            },
+            projetos: [],
+            certificacoes: [],
+            agenda: []
+        };
+
+        let profissional = JSON.parse(localStorage.getItem('profissional_v1')) || JSON.parse(JSON.stringify(dadosVazios));
+        
+        // Garantir estrutura
+        if (!profissional.carreira) profissional.carreira = dadosVazios.carreira;
+        if (!profissional.oab) profissional.oab = dadosVazios.oab;
+        if (!profissional.oab.disciplinas) profissional.oab.disciplinas = dadosVazios.oab.disciplinas;
+        if (!profissional.projetos) profissional.projetos = [];
+        if (!profissional.certificacoes) profissional.certificacoes = [];
+        if (!profissional.agenda) profissional.agenda = [];
+
+        // ==========================================
+        // FUNÇÕES DE PERSISTÊNCIA
+        // ==========================================
+        function salvarDados() {
+            localStorage.setItem('profissional_v1', JSON.stringify(profissional));
+            if (navigator.onLine && useSupabase) {
+                salvarSupabase();
+            }
+        }
+
+        async function salvarSupabase() {
+            if (!useSupabase) return;
+            try {
+                await supabaseClient.from('profissional_dados').upsert({
+                    id: USER_ID,
+                    user_id: USER_ID,
+                    dados: profissional,
+                    updated_at: new Date().toISOString()
+                });
+                mostrarStatus('Sincronizado', 'success');
+            } catch (e) {
+                console.error('Erro Supabase:', e);
+            }
+        }
+
+        async function carregarSupabase() {
+            if (!useSupabase) return;
+            try {
+                const { data } = await supabaseClient
+                    .from('profissional_dados')
+                    .select('*')
+                    .eq('user_id', USER_ID)
+                    .maybeSingle();
+                if (data?.dados) {
+                    profissional = { ...dadosVazios, ...data.dados };
+                    localStorage.setItem('profissional_v1', JSON.stringify(profissional));
+                }
+            } catch (e) {
+                console.error('Erro ao carregar:', e);
+            }
+        }
+
+        function mostrarStatus(msg, tipo) {
+            let status = document.getElementById('syncStatus');
+            if (!status) {
+                status = document.createElement('div');
+                status.id = 'syncStatus';
+                document.body.appendChild(status);
+            }
+            status.textContent = msg;
+            status.style.background = tipo === 'success' ? 'rgba(39, 174, 96, 0.95)' : 'rgba(231, 76, 60, 0.95)';
+            status.style.opacity = '1';
+            setTimeout(() => { status.style.opacity = '0'; }, 3000);
+        }
+
+        // ==========================================
+        // NAVEGAÇÃO
+        // ==========================================
+        function mudarAba(aba, btn) {
+            document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.sub-content').forEach(c => c.classList.remove('active'));
+            document.getElementById('aba-' + aba).classList.add('active');
+        }
+
+        function fecharModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        // ==========================================
+        // CARREIRA
+        // ==========================================
+        function renderizarCarreira() {
+            document.getElementById('carreiraAtual').textContent = profissional.carreira.cargo || '-';
+            document.getElementById('carreiraEmpresa').textContent = profissional.carreira.empresa || 'Defina sua carreira';
+            document.getElementById('metaAno').textContent = profissional.carreira.meta || '-';
+            document.getElementById('diasProdutivos').textContent = profissional.carreira.diasProdutivos || 0;
+            document.getElementById('cargaSemanal').textContent = profissional.carreira.cargaSemanal || 0;
+            document.getElementById('observacoesCarreira').value = profissional.carreira.observacoes || '';
+            document.getElementById('editCarreira').value = profissional.carreira.cargo || '';
+            document.getElementById('editEmpresa').value = profissional.carreira.empresa || '';
+            document.getElementById('editMeta').value = profissional.carreira.meta || '';
+            document.getElementById('editCarga').value = profissional.carreira.cargaSemanal || 40;
+            
+            const lista = document.getElementById('listaCompetencias');
+            lista.innerHTML = (profissional.carreira.competencias || []).map((c, i) => `
+                <div class="item-lista">
+                    <span class="item-nome">${c}</span>
+                    <button class="btn-delete-small" onclick="removerCompetencia(${i})">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                    </button>
+                </div>
+            `).join('') || '<p class="empty-message">Nenhuma competencia cadastrada.</p>';
+        }
+
+        function adicionarCompetencia() {
+            const input = document.getElementById('novaCompetencia');
+            if (input.value.trim()) {
+                if (!profissional.carreira.competencias) profissional.carreira.competencias = [];
+                profissional.carreira.competencias.push(input.value.trim());
+                input.value = '';
+                salvarDados();
+                renderizarCarreira();
+            }
+        }
+
+        function removerCompetencia(idx) {
+            profissional.carreira.competencias.splice(idx, 1);
+            salvarDados();
+            renderizarCarreira();
+        }
+
+        function salvarCarreira() {
+            profissional.carreira.cargo = document.getElementById('editCarreira').value;
+            profissional.carreira.empresa = document.getElementById('editEmpresa').value;
+            profissional.carreira.meta = document.getElementById('editMeta').value;
+            profissional.carreira.cargaSemanal = parseInt(document.getElementById('editCarga').value) || 40;
+            profissional.carreira.observacoes = document.getElementById('observacoesCarreira').value;
+            salvarDados();
+            renderizarCarreira();
+        }
+
+        // ==========================================
+        // OAB - DISCIPLINAS
+        // ==========================================
+        function renderizarDisciplinas() {
+            const lista = document.getElementById('listaDisciplinas');
+            lista.innerHTML = profissional.oab.disciplinas.map(d => {
+                const statusClass = d.status === 'Concluido' ? 'status-concluido' : d.status === 'Em andamento' ? 'status-andamento' : 'status-nao-iniciado';
+                return `
+                <div class="disciplina-item">
+                    <div class="disciplina-info">
+                        <div class="disciplina-nome">${d.nome}</div>
+                        <div class="disciplina-progress">
+                            <div class="progress-bar"><div class="progress-fill" style="width: ${d.progresso}%"></div></div>
+                        </div>
+                        <div class="disciplina-horas">${d.horas}h estudadas - ${d.progresso}% concluido</div>
+                    </div>
+                    <div class="disciplina-actions">
+                        <select onchange="atualizarStatusDisciplina(${d.id}, this.value)" style="padding: 8px; background: #141414; border: 1px solid rgba(212, 175, 125, 0.2); border-radius: 6px; color: #fff; font-size: 0.8em;">
+                            <option value="Nao iniciado" ${d.status === 'Nao iniciado' ? 'selected' : ''}>Nao iniciado</option>
+                            <option value="Em andamento" ${d.status === 'Em andamento' ? 'selected' : ''}>Em andamento</option>
+                            <option value="Concluido" ${d.status === 'Concluido' ? 'selected' : ''}>Concluido</option>
+                        </select>
+                        <input type="number" placeholder="+h" min="0" style="width: 55px;" onchange="adicionarHoras(${d.id}, this.value); this.value=''">
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function atualizarStatusDisciplina(id, status) {
+            const d = profissional.oab.disciplinas.find(x => x.id === id);
+            if (d) {
+                d.status = status;
+                if (status === 'Concluido') d.progresso = 100;
+                salvarDados();
+                renderizarDisciplinas();
+            }
+        }
+
+        function adicionarHoras(id, horas) {
+            const h = parseInt(horas) || 0;
+            if (h > 0) {
+                const d = profissional.oab.disciplinas.find(x => x.id === id);
+                if (d) {
+                    d.horas += h;
+                    d.progresso = Math.min(100, d.progresso + Math.floor(h * 2));
+                    if (d.status === 'Nao iniciado') d.status = 'Em andamento';
+                    salvarDados();
+                    renderizarDisciplinas();
+                }
+            }
+        }
+
+        // ==========================================
+        // OAB - CRONOGRAMA
+        // ==========================================
+        function renderizarCronograma() {
+            const c = profissional.oab.cronograma || {};
+            const dias = [
+                { key: 'seg', nome: 'Segunda-feira' },
+                { key: 'ter', nome: 'Terca-feira' },
+                { key: 'qua', nome: 'Quarta-feira' },
+                { key: 'qui', nome: 'Quinta-feira' },
+                { key: 'sex', nome: 'Sexta-feira' },
+                { key: 'sab', nome: 'Sabado' },
+                { key: 'dom', nome: 'Domingo' }
+            ];
+            document.getElementById('cronogramaSemanal').innerHTML = dias.map(d => `
+                <div class="dia-header"><h3>${d.nome}</h3></div>
+                <div class="dia-lista"><div class="dia-item">${c[d.key] || 'Nenhuma disciplina definida'}</div></div>
+            `).join('');
+        }
+
+        function abrirModalCronograma() {
+            const c = profissional.oab.cronograma || {};
+            document.getElementById('cronSeg').value = c.seg || '';
+            document.getElementById('cronTer').value = c.ter || '';
+            document.getElementById('cronQua').value = c.qua || '';
+            document.getElementById('cronQui').value = c.qui || '';
+            document.getElementById('cronSex').value = c.sex || '';
+            document.getElementById('cronSab').value = c.sab || '';
+            document.getElementById('cronDom').value = c.dom || '';
+            document.getElementById('modalCronograma').classList.add('active');
+        }
+
+        function salvarCronograma() {
+            profissional.oab.cronograma = {
+                seg: document.getElementById('cronSeg').value,
+                ter: document.getElementById('cronTer').value,
+                qua: document.getElementById('cronQua').value,
+                qui: document.getElementById('cronQui').value,
+                sex: document.getElementById('cronSex').value,
+                sab: document.getElementById('cronSab').value,
+                dom: document.getElementById('cronDom').value
+            };
+            salvarDados();
+            renderizarCronograma();
+            fecharModal('modalCronograma');
+        }
+
+        // ==========================================
+        // OAB - TAREFAS
+        // ==========================================
+        function renderizarTarefas() {
+            const hoje = new Date().toISOString().split('T')[0];
+            const tarefasHoje = (profissional.oab.tarefas || []).filter(t => t.data === hoje);
+            const tbody = document.getElementById('tarefasHoje');
+            if (tarefasHoje.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: rgba(255,255,255,0.4);">Nenhuma tarefa para hoje.</td></tr>';
+            } else {
+                tbody.innerHTML = tarefasHoje.sort((a,b) => a.hora.localeCompare(b.hora)).map(t => `
+                    <tr>
+                        <td>${t.hora}</td>
+                        <td>${t.descricao}</td>
+                        <td>${t.categoria}</td>
+                        <td><input type="checkbox" class="checkbox-status" ${t.concluida ? 'checked' : ''} onchange="toggleTarefa('${t.id}', this.checked)"></td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        function abrirModalTarefa() {
+            document.getElementById('tarefaHora').value = '';
+            document.getElementById('tarefaDescricao').value = '';
+            document.getElementById('tarefaCategoria').value = 'Leitura';
+            document.getElementById('modalTarefa').classList.add('active');
+        }
+
+        function salvarTarefa() {
+            const tarefa = {
+                id: Date.now().toString(),
+                data: new Date().toISOString().split('T')[0],
+                hora: document.getElementById('tarefaHora').value,
+                descricao: document.getElementById('tarefaDescricao').value,
+                categoria: document.getElementById('tarefaCategoria').value,
+                concluida: false
+            };
+            if (!profissional.oab.tarefas) profissional.oab.tarefas = [];
+            profissional.oab.tarefas.push(tarefa);
+            salvarDados();
+            renderizarTarefas();
+            fecharModal('modalTarefa');
+        }
+
+        function toggleTarefa(id, checked) {
+            const t = profissional.oab.tarefas.find(x => x.id === id);
+            if (t) {
+                t.concluida = checked;
+                salvarDados();
+            }
+        }
+
+        // ==========================================
+        // OAB - SIMULADOS
+        // ==========================================
+        function renderizarSimulados() {
+            const simulados = profissional.oab.simulados || [];
+            const ultimo = simulados[simulados.length - 1];
+            
+            if (ultimo) {
+                const nota = ((ultimo.acertos / ultimo.total) * 100).toFixed(1);
+                document.getElementById('ultimoSimulado').innerHTML = `
+                    <div class="simulado-card" style="background: linear-gradient(135deg, #1f1f1f, #151515); border-color: rgba(212, 175, 125, 0.2);">
+                        <div class="simulado-header">
+                            <span class="simulado-data">Ultimo simulado: ${formatarData(ultimo.data)}</span>
+                            <span class="simulado-nota">${nota}%</span>
+                        </div>
+                        <div class="simulado-detalhes">
+                            <div class="simulado-detalhe">
+                                <div class="simulado-detalhe-valor">${ultimo.acertos}/${ultimo.total}</div>
+                                <div class="simulado-detalhe-label">Acertos</div>
+                            </div>
+                            <div class="simulado-detalhe">
+                                <div class="simulado-detalhe-valor">${simulados.length}</div>
+                                <div class="simulado-detalhe-label">Simulados</div>
+                            </div>
+                            <div class="simulado-detalhe">
+                                <div class="simulado-detalhe-valor" style="font-size: 0.85em;">${ultimo.fracos || '-'}</div>
+                                <div class="simulado-detalhe-label">Pontos Fracos</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                document.getElementById('ultimoSimulado').innerHTML = '<p class="empty-message">Nenhum simulado registrado.</p>';
+            }
+
+            document.getElementById('listaSimulados').innerHTML = simulados.slice().reverse().slice(0, 5).map(s => {
+                const nota = ((s.acertos / s.total) * 100).toFixed(1);
+                return `
+                <div class="item-lista">
+                    <div class="item-info">
+                        <div class="item-nome">${formatarData(s.data)} - ${nota}%</div>
+                        <div class="item-detalhes">${s.acertos}/${s.total} acertos | Fracos: ${s.fracos || '-'}</div>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function abrirModalSimulado() {
+            document.getElementById('simuladoData').value = new Date().toISOString().split('T')[0];
+            document.getElementById('simuladoTotal').value = '';
+            document.getElementById('simuladoAcertos').value = '';
+            document.getElementById('simuladoFracos').value = '';
+            document.getElementById('modalSimulado').classList.add('active');
+        }
+
+        function salvarSimulado() {
+            const simulado = {
+                id: Date.now().toString(),
+                data: document.getElementById('simuladoData').value,
+                total: parseInt(document.getElementById('simuladoTotal').value) || 80,
+                acertos: parseInt(document.getElementById('simuladoAcertos').value) || 0,
+                fracos: document.getElementById('simuladoFracos').value
+            };
+            if (!profissional.oab.simulados) profissional.oab.simulados = [];
+            profissional.oab.simulados.push(simulado);
+            salvarDados();
+            renderizarSimulados();
+            fecharModal('modalSimulado');
+        }
+
+        // ==========================================
+        // PROJETOS
+        // ==========================================
+        function renderizarProjetos() {
+            const lista = document.getElementById('listaProjetos');
+            if (profissional.projetos.length === 0) {
+                lista.innerHTML = '<p class="empty-message">Nenhum projeto cadastrado.</p>';
+            } else {
+                lista.innerHTML = profissional.projetos.map(p => {
+                    const statusClass = p.status === 'Concluido' ? 'status-concluido' : p.status === 'Em andamento' ? 'status-andamento' : 'status-nao-iniciado';
+                    return `
+                    <div class="item-lista" style="flex-direction: column; align-items: stretch;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <div>
+                                <div class="item-nome">${p.nome}</div>
+                                <div class="item-detalhes">${p.meta}</div>
+                            </div>
+                            <span class="status ${statusClass}">${p.status}</span>
+                        </div>
+                        <div class="progress-bar" style="margin-bottom: 8px;"><div class="progress-fill" style="width: ${p.progresso}%"></div></div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.8em; color: rgba(255,255,255,0.5);">
+                            <span>${p.progresso}% concluido</span>
+                            <span>Prazo: ${formatarData(p.prazo)}</span>
+                        </div>
+                        ${p.notas ? `<div style="margin-top: 10px; padding: 10px; background: rgba(212,175,125,0.05); border-radius: 6px; font-size: 0.85em; color: rgba(255,255,255,0.6);">${p.notas}</div>` : ''}
+                    </div>
+                `}).join('');
+            }
+        }
+
+        function abrirModalProjeto() {
+            document.getElementById('projetoNome').value = '';
+            document.getElementById('projetoMeta').value = '';
+            document.getElementById('projetoPrazo').value = '';
+            document.getElementById('projetoStatus').value = 'Nao iniciado';
+            document.getElementById('projetoProgresso').value = '';
+            document.getElementById('projetoNotas').value = '';
+            document.getElementById('modalProjeto').classList.add('active');
+        }
+
+        function salvarProjeto() {
+            const projeto = {
+                id: Date.now().toString(),
+                nome: document.getElementById('projetoNome').value,
+                meta: document.getElementById('projetoMeta').value,
+                prazo: document.getElementById('projetoPrazo').value,
+                status: document.getElementById('projetoStatus').value,
+                progresso: parseInt(document.getElementById('projetoProgresso').value) || 0,
+                notas: document.getElementById('projetoNotas').value
+            };
+            profissional.projetos.push(projeto);
+            salvarDados();
+            renderizarProjetos();
+            fecharModal('modalProjeto');
+        }
+
+        // ==========================================
+        // CERTIFICAÇÕES
+        // ==========================================
+        function renderizarCertificacoes() {
+            const lista = document.getElementById('listaCertificacoes');
+            if (profissional.certificacoes.length === 0) {
+                lista.innerHTML = '<p class="empty-message">Nenhuma certificacao cadastrada.</p>';
+            } else {
+                lista.innerHTML = profissional.certificacoes.map(c => {
+                    const statusClass = c.status === 'Concluido' ? 'status-concluido' : c.status === 'Em andamento' ? 'status-andamento' : 'status-nao-iniciado';
+                    return `
+                    <div class="item-lista">
+                        <div class="item-info" style="flex: 1;">
+                            <div class="item-nome">${c.nome}</div>
+                            <div class="item-detalhes">${c.instituicao}</div>
+                            <div class="progress-bar" style="margin-top: 8px;"><div class="progress-fill" style="width: ${c.progresso}%"></div></div>
+                            <div class="progress-text">${c.progresso}% concluido</div>
+                        </div>
+                        <span class="status ${statusClass}">${c.status}</span>
+                    </div>
+                `}).join('');
+            }
+        }
+
+        function abrirModalCertificacao() {
+            document.getElementById('certNome').value = '';
+            document.getElementById('certInstituicao').value = '';
+            document.getElementById('certStatus').value = 'Nao iniciado';
+            document.getElementById('certProgresso').value = '';
+            document.getElementById('modalCertificacao').classList.add('active');
+        }
+
+        function salvarCertificacao() {
+            const cert = {
+                id: Date.now().toString(),
+                nome: document.getElementById('certNome').value,
+                instituicao: document.getElementById('certInstituicao').value,
+                status: document.getElementById('certStatus').value,
+                progresso: parseInt(document.getElementById('certProgresso').value) || 0
+            };
+            profissional.certificacoes.push(cert);
+            salvarDados();
+            renderizarCertificacoes();
+            fecharModal('modalCertificacao');
+        }
+
+        // ==========================================
+        // AGENDA
+        // ==========================================
+        function renderizarAgenda() {
+            const lista = document.getElementById('listaAgenda');
+            const agendaOrdenada = [...profissional.agenda].sort((a, b) => new Date(a.data) - new Date(b.data));
+            
+            if (agendaOrdenada.length === 0) {
+                lista.innerHTML = '<p class="empty-message">Nenhum compromisso agendado.</p>';
+            } else {
+                lista.innerHTML = agendaOrdenada.map(c => `
+                    <div class="item-lista">
+                        <div class="item-info">
+                            <div class="item-nome">${c.titulo}</div>
+                            <div class="item-detalhes">${formatarData(c.data)} | ${c.categoria}${c.obs ? ' | ' + c.obs : ''}</div>
+                        </div>
+                        <button class="btn-delete-small" onclick="removerCompromisso('${c.id}')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        </button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function abrirModalCompromisso() {
+            document.getElementById('compTitulo').value = '';
+            document.getElementById('compData').value = '';
+            document.getElementById('compCategoria').value = 'Reuniao';
+            document.getElementById('compObs').value = '';
+            document.getElementById('modalCompromisso').classList.add('active');
+        }
+
+        function salvarCompromisso() {
+            const comp = {
+                id: Date.now().toString(),
+                titulo: document.getElementById('compTitulo').value,
+                data: document.getElementById('compData').value,
+                categoria: document.getElementById('compCategoria').value,
+                obs: document.getElementById('compObs').value
+            };
+            profissional.agenda.push(comp);
+            salvarDados();
+            renderizarAgenda();
+            fecharModal('modalCompromisso');
+        }
+
+        function removerCompromisso(id) {
+            profissional.agenda = profissional.agenda.filter(c => c.id !== id);
+            salvarDados();
+            renderizarAgenda();
+        }
+
+        // ==========================================
+        // UTILITÁRIOS
+        // ==========================================
+        function formatarData(data) {
+            if (!data) return '-';
+            const [ano, mes, dia] = data.split('-');
+            return `${dia}/${mes}/${ano}`;
+        }
+
+        // ==========================================
+        // INICIALIZAÇÃO
+        // ==========================================
+        async function inicializar() {
+            await carregarSupabase();
+            renderizarCarreira();
+            renderizarDisciplinas();
+            renderizarCronograma();
+            renderizarTarefas();
+            renderizarSimulados();
+            renderizarProjetos();
+            renderizarCertificacoes();
+            renderizarAgenda();
+        }
+
+        inicializar();
+    </script>
+</body>
+</html>
