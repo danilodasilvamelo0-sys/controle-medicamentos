@@ -53,14 +53,7 @@
         .header h1 { font-family: 'Playfair Display', serif; font-size: 2em; margin-bottom: 10px; font-weight: 400; letter-spacing: 3px; color: #fff; }
         .header p { font-size: 0.9em; color: rgba(212, 175, 125, 0.8); letter-spacing: 1px; }
         
-        /* Status Conexão - Igual ao Financeiro */
-        .status-conexao { position: absolute; top: 15px; right: 20px; padding: 6px 12px; border-radius: 20px; font-size: 0.75em; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: all 0.3s; }
-        .status-conexao.online { background: rgba(39, 174, 96, 0.15); color: #27ae60; border: 1px solid rgba(39, 174, 96, 0.3); }
-        .status-conexao.offline { background: rgba(231, 76, 60, 0.15); color: #e74c3c; border: 1px solid rgba(231, 76, 60, 0.3); }
-        .status-conexao.syncing { background: rgba(241, 196, 15, 0.15); color: #f1c40f; border: 1px solid rgba(241, 196, 15, 0.3); animation: pulse-sync 1.5s infinite; }
-        @keyframes pulse-sync { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-        
-        /* Sync Status - Igual ao Financeiro */
+        /* Sync Status */
         #syncStatus { position: fixed; bottom: 100px; right: 20px; padding: 12px 22px; border-radius: 10px; font-size: 0.9em; font-weight: 500; z-index: 10001; opacity: 0; transition: opacity 0.3s; color: #fff; }
         @media (max-width: 768px) { #syncStatus { bottom: 90px; right: 10px; left: 10px; text-align: center; } }
         
@@ -215,9 +208,6 @@
     <!-- Página Medicamentos -->
     <div class="container page-section active" id="page-medicamentos">
         <div class="header">
-            <div id="statusConexao" class="status-conexao online">
-                <span class="status-online">● Online</span>
-            </div>
             <h1>Controle de Medicamentos</h1>
             <p>Sistema profissional de prescricao</p>
         </div>
@@ -355,7 +345,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         // ==========================================
-        // CONFIGURAÇÃO SUPABASE - IGUAL AO FINANCEIRO
+        // CONFIGURAÇÃO SUPABASE
         // ==========================================
         const SUPABASE_URL = 'https://ltwamldgdwqzyssoukzl.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0d2FtbGRnZHdxenlzc291a3psIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY4NzEzMDUsImV4cCI6MjA4MjQ0NzMwNX0.UVyo0c0BHslB7mCU74Qx8rdo42HA0WPAyDQ6J-FIakE';
@@ -386,45 +376,39 @@
         let planoTemp = [];
 
         // ==========================================
-        // FUNÇÕES DE SINCRONIZAÇÃO - IGUAL AO FINANCEIRO
+        // FUNÇÕES DE SINCRONIZAÇÃO
         // ==========================================
         function salvarDados() {
             localStorage.setItem('saude_v1', JSON.stringify(saude));
-            localStorage.setItem('saude_pending_sync', 'true');
-            localStorage.setItem('saude_last_change', Date.now().toString());
             
-            if (navigator.onLine) {
+            if (navigator.onLine && useSupabase) {
                 salvarSupabase();
-            } else {
-                if ('serviceWorker' in navigator && 'SyncManager' in window) {
-                    navigator.serviceWorker.ready.then(reg => {
-                        reg.sync.register('sync-saude-data').catch(console.error);
-                    });
-                }
-                atualizarStatusConexao();
             }
         }
 
         async function salvarSupabase() {
-            if (!useSupabase) {
-                localStorage.removeItem('saude_pending_sync');
-                return;
-            }
+            if (!useSupabase) return;
+            
             try {
-                const { error } = await supabaseClient.from('saude').upsert({
+                // Primeiro tenta criar/atualizar na tabela saude_dados
+                const { error } = await supabaseClient.from('saude_dados').upsert({
                     id: USER_ID,
                     user_id: USER_ID,
                     dados: saude,
                     updated_at: new Date().toISOString()
                 });
+                
                 if (error) {
+                    // Se a tabela não existe, tenta criar via insert
+                    if (error.code === '42P01') {
+                        console.log('Tabela saude_dados nao existe, salvando apenas local');
+                        return;
+                    }
                     console.error('Erro Supabase:', error);
-                    mostrarStatus('Erro ao sincronizar', 'error');
-                } else {
-                    localStorage.removeItem('saude_pending_sync');
-                    mostrarStatus('Sincronizado', 'success');
-                    atualizarStatusConexao();
+                    return;
                 }
+                
+                mostrarStatus('Sincronizado', 'success');
             } catch (e) {
                 console.error('Exceção Supabase:', e);
             }
@@ -432,14 +416,20 @@
 
         async function carregarSupabase() {
             if (!useSupabase) return false;
+            
             try {
                 const { data, error } = await supabaseClient
-                    .from('saude')
+                    .from('saude_dados')
                     .select('*')
                     .eq('user_id', USER_ID)
                     .maybeSingle();
 
                 if (error) {
+                    // Se tabela não existe, ignora silenciosamente
+                    if (error.code === '42P01') {
+                        console.log('Tabela saude_dados nao existe ainda');
+                        return false;
+                    }
                     console.error('Erro ao carregar:', error);
                     return false;
                 }
@@ -459,42 +449,6 @@
                 return false;
             }
         }
-
-        // ==========================================
-        // STATUS DE CONEXÃO - IGUAL AO FINANCEIRO
-        // ==========================================
-        function atualizarStatusConexao() {
-            const indicador = document.getElementById('statusConexao');
-            if (!indicador) return;
-            
-            const pendente = localStorage.getItem('saude_pending_sync') === 'true';
-            
-            if (navigator.onLine) {
-                if (pendente) {
-                    indicador.innerHTML = '<span class="status-sync">Sincronizando...</span>';
-                    indicador.className = 'status-conexao syncing';
-                } else {
-                    indicador.innerHTML = '<span class="status-online">● Online</span>';
-                    indicador.className = 'status-conexao online';
-                }
-            } else {
-                indicador.innerHTML = '<span class="status-offline">○ Offline</span>';
-                indicador.className = 'status-conexao offline';
-            }
-        }
-
-        window.addEventListener('online', () => {
-            console.log('Conexao restaurada!');
-            atualizarStatusConexao();
-            const pendente = localStorage.getItem('saude_pending_sync') === 'true';
-            if (pendente) {
-                salvarSupabase();
-            }
-        });
-
-        window.addEventListener('offline', () => {
-            atualizarStatusConexao();
-        });
 
         function mostrarStatus(msg, tipo) {
             let status = document.getElementById('syncStatus');
@@ -873,11 +827,9 @@
         // INICIALIZAÇÃO
         // ==========================================
         async function inicializar() {
-            atualizarStatusConexao();
             await carregarSupabase();
             renderizarHoje();
             renderizarPlanoLista();
-            atualizarStatusConexao();
         }
         
         inicializar();
