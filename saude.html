@@ -153,6 +153,117 @@
         .modal-buttons { display: flex; gap: 10px; margin-top: 25px; justify-content: flex-end; }
         
         @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } .sub-tabs { flex-wrap: wrap; } .sub-tab-btn { flex: 1; min-width: 80px; text-align: center; padding: 10px; font-size: 0.75em; } }
+        
+        /* ==================== TREINO CARDS ==================== */
+        .treino-header{display:flex;justify-content:space-between;align-items:center;padding:20px;flex-wrap:wrap;gap:15px}
+        .treino-header h2{font-family:'Playfair Display',serif;font-size:1.3em;color:#d4af7d}
+        .treinos-container{padding:0 20px 20px;display:flex;flex-direction:column;gap:20px}
+        
+        .treino-card{background:#1a1a1a;border:1px solid rgba(212,175,125,0.15);border-radius:16px;overflow:hidden;transition:all 0.3s}
+        .treino-card:hover{border-color:rgba(212,175,125,0.3)}
+        
+        .treino-card-header{background:linear-gradient(135deg,#c0392b,#e74c3c);padding:15px 20px;display:flex;justify-content:space-between;align-items:center}
+        .treino-card-header.peito{background:linear-gradient(135deg,#27ae60,#2ecc71)}
+        .treino-card-header.costas{background:linear-gradient(135deg,#2980b9,#3498db)}
+        .treino-card-header.pernas{background:linear-gradient(135deg,#8e44ad,#9b59b6)}
+        .treino-card-header.ombros{background:linear-gradient(135deg,#d35400,#e67e22)}
+        .treino-card-header.bracos{background:linear-gradient(135deg,#16a085,#1abc9c)}
+        .treino-card-header.abdomen{background:linear-gradient(135deg,#c0392b,#e74c3c)}
+        .treino-card-header.cardio{background:linear-gradient(135deg,#f39c12,#f1c40f)}
+        .treino-card-header.full{background:linear-gradient(135deg,#2c3e50,#34495e)}
+        
+        .treino-card-titulo{font-family:'Playfair Display',serif;font-size:1.1em;color:#fff;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+        .treino-card-subtitulo{font-size:0.8em;color:rgba(255,255,255,0.8);margin-top:3px}
+        .treino-card-actions{display:flex;gap:8px}
+        .treino-card-btn{background:rgba(255,255,255,0.2);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+        .treino-card-btn:hover{background:rgba(255,255,255,0.3);transform:scale(1.1)}
+        .treino-card-btn.delete:hover{background:rgba(231,76,60,0.8)}
+        
+        .treino-card-body{padding:0}
+        .exercicio-table{width:100%;border-collapse:collapse}
+        .exercicio-table th{background:#141414;color:#d4af7d;padding:12px 15px;text-align:left;font-size:0.75em;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid rgba(212,175,125,0.1)}
+        .exercicio-table th:first-child{padding-left:20px}
+        .exercicio-table td{padding:12px 15px;border-bottom:1px solid rgba(255,255,255,0.03);color:rgba(255,255,255,0.85);font-size:0.9em}
+        .exercicio-table td:first-child{padding-left:20px;color:#fff;font-weight:500}
+        .exercicio-table tr:last-child td{border-bottom:none}
+        .exercicio-table tr:hover{background:rgba(212,175,125,0.05)}
+        
+        .exercicio-nome{display:flex;align-items:center;gap:10px}
+        .exercicio-nome span{flex:1}
+        .exercicio-acoes{display:flex;gap:5px;opacity:0;transition:opacity 0.2s}
+        .exercicio-table tr:hover .exercicio-acoes{opacity:1}
+        .exercicio-btn{background:transparent;border:none;color:rgba(255,255,255,0.4);cursor:pointer;padding:4px;border-radius:4px;transition:all 0.2s}
+        .exercicio-btn:hover{color:#d4af7d;background:rgba(212,175,125,0.1)}
+        .exercicio-btn.delete:hover{color:#e74c3c;background:rgba(231,76,60,0.1)}
+        .exercicio-btn.duplicate:hover{color:#2ecc71;background:rgba(46,204,113,0.1)}
+        
+        .treino-card-footer{padding:15px 20px;background:#141414;border-top:1px solid rgba(212,175,125,0.1)}
+        .add-exercicio-btn{width:100%;padding:12px;background:rgba(212,175,125,0.1);border:1px dashed rgba(212,175,125,0.3);border-radius:8px;color:#d4af7d;font-size:0.85em;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px}
+        .add-exercicio-btn:hover{background:rgba(212,175,125,0.15);border-color:#d4af7d}
+        
+        .treino-empty{text-align:center;padding:60px 20px;color:rgba(255,255,255,0.4)}
+        .treino-empty-icon{font-size:3em;margin-bottom:15px;opacity:0.3}
+        
+        /* Modal Treino */
+        .modal-treino{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);z-index:2000;justify-content:center;align-items:center;padding:20px}
+        .modal-treino.active{display:flex}
+        .modal-treino-content{background:#1a1a1a;border:1px solid rgba(212,175,125,0.2);border-radius:15px;padding:25px;width:100%;max-width:500px;max-height:85vh;overflow-y:auto}
+        .modal-treino-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+        .modal-treino-title{font-family:'Playfair Display',serif;font-size:1.2em;color:#d4af7d}
+        .modal-treino-close{background:none;border:none;color:rgba(255,255,255,0.5);font-size:1.5em;cursor:pointer}
+        .modal-treino-footer{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;padding-top:15px;border-top:1px solid rgba(255,255,255,0.05)}
+        
+        .grupo-muscular-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+        .grupo-muscular-opt{padding:12px 8px;background:#141414;border:1px solid rgba(212,175,125,0.2);border-radius:8px;color:rgba(255,255,255,0.6);font-size:0.8em;cursor:pointer;text-align:center;transition:all 0.2s}
+        .grupo-muscular-opt:hover{border-color:#d4af7d;color:#d4af7d}
+        .grupo-muscular-opt.selected{background:rgba(212,175,125,0.15);border-color:#d4af7d;color:#d4af7d}
+        @media(max-width:480px){.grupo-muscular-grid{grid-template-columns:repeat(2,1fr)}}
+        
+        .duplicar-container{background:#141414;border:1px solid rgba(212,175,125,0.15);border-radius:8px;padding:15px;margin-top:15px}
+        .duplicar-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+        .duplicar-header input[type="checkbox"]{width:18px;height:18px;accent-color:#d4af7d}
+        .duplicar-header label{font-size:0.85em;color:rgba(255,255,255,0.7)}
+        .duplicar-info{font-size:0.8em;color:rgba(255,255,255,0.4);font-style:italic}
+        
+        /* Exercício Feito */
+        .exercicio-check{appearance:none;width:22px;height:22px;border:2px solid rgba(212,175,125,0.4);border-radius:50%;cursor:pointer;background:transparent;position:relative;transition:all 0.2s;flex-shrink:0}
+        .exercicio-check:hover{border-color:#d4af7d}
+        .exercicio-check:checked{background:#2ecc71;border-color:#2ecc71}
+        .exercicio-check:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:12px;font-weight:bold}
+        .exercicio-feito td{opacity:0.5}
+        .exercicio-feito .exercicio-nome-texto{text-decoration:line-through}
+        
+        /* Exercícios Conjugados - texto simples */
+        .exercicio-nome-texto .conjugado-plus{color:#d4af7d;font-weight:600;margin:0 6px}
+        .exercicio-obs{font-size:0.75em;color:rgba(255,255,255,0.5);margin-top:4px;font-style:italic;max-width:300px}
+        
+        /* Alertas/Notas de Treino */
+        .treino-alertas{background:#1a1a1a;border:1px solid rgba(212,175,125,0.15);border-radius:12px;margin:0 20px 20px;padding:15px 20px}
+        .treino-alertas-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+        .treino-alertas-title{font-family:'Playfair Display',serif;font-size:0.95em;color:#d4af7d;display:flex;align-items:center;gap:8px}
+        .treino-alertas-title svg{width:18px;height:18px}
+        .treino-alertas-btn{background:transparent;border:1px solid rgba(212,175,125,0.3);color:#d4af7d;padding:5px 12px;border-radius:6px;font-size:0.75em;cursor:pointer;transition:all 0.2s}
+        .treino-alertas-btn:hover{background:rgba(212,175,125,0.1)}
+        .treino-alertas-lista{display:flex;flex-direction:column;gap:8px}
+        .treino-alerta-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:#141414;border-radius:8px;border-left:3px solid #e74c3c}
+        .treino-alerta-item.meta{border-left-color:#f39c12}
+        .treino-alerta-item.lembrete{border-left-color:#3498db}
+        .treino-alerta-item.sucesso{border-left-color:#2ecc71}
+        .treino-alerta-icon{font-size:1.1em;flex-shrink:0}
+        .treino-alerta-content{flex:1}
+        .treino-alerta-texto{font-size:0.85em;color:rgba(255,255,255,0.85);line-height:1.4}
+        .treino-alerta-acoes{display:flex;gap:5px;opacity:0;transition:opacity 0.2s}
+        .treino-alerta-item:hover .treino-alerta-acoes{opacity:1}
+        .treino-alerta-btn-sm{background:transparent;border:none;color:rgba(255,255,255,0.4);cursor:pointer;padding:4px;border-radius:4px}
+        .treino-alerta-btn-sm:hover{color:#e74c3c}
+        .treino-alertas-empty{text-align:center;padding:15px;color:rgba(255,255,255,0.3);font-size:0.85em}
+        
+        /* Modal Alerta */
+        .alerta-tipo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:15px}
+        .alerta-tipo-opt{padding:10px 8px;background:#141414;border:1px solid rgba(212,175,125,0.2);border-radius:8px;color:rgba(255,255,255,0.6);font-size:0.8em;cursor:pointer;text-align:center;transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:5px}
+        .alerta-tipo-opt:hover{border-color:#d4af7d;color:#d4af7d}
+        .alerta-tipo-opt.selected{background:rgba(212,175,125,0.15);border-color:#d4af7d;color:#d4af7d}
+        .alerta-tipo-opt .tipo-icon{font-size:1.2em}
     </style>
 </head>
 <body>
@@ -173,14 +284,6 @@
                 <span>Financeiro</span>
             </a>
             <div class="sidebar-divider"></div>
-            <a href="profissional.html">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                <span>Profissional</span>
-            </a>
-            <a href="familiar.html">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                <span>Familiar</span>
-            </a>
             <a href="pessoal.html">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                 <span>Pessoal</span>
@@ -204,11 +307,7 @@
             </a>
             <a href="financeiro.html" class="mobile-nav-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                Fin
-            </a>
-            <a href="profissional.html" class="mobile-nav-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                Prof
+                Financeiro
             </a>
             <a href="pessoal.html" class="mobile-nav-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
@@ -313,7 +412,27 @@
 
     <!-- Outras Páginas -->
     <div class="container page-section" id="page-dieta"><div class="header"><h1>Dieta</h1><p>Em desenvolvimento...</p></div></div>
-    <div class="container page-section" id="page-treino"><div class="header"><h1>Treino</h1><p>Em desenvolvimento...</p></div></div>
+    <div class="container page-section" id="page-treino">
+        <div class="header"><h1>Treino</h1><p>Gestão de Treinos e Exercícios</p></div>
+        
+        <!-- Alertas/Notas -->
+        <div class="treino-alertas">
+            <div class="treino-alertas-header">
+                <div class="treino-alertas-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    Alertas & Metas
+                </div>
+                <button class="treino-alertas-btn" onclick="abrirModalAlerta()">+ Adicionar</button>
+            </div>
+            <div class="treino-alertas-lista" id="listaAlertas"></div>
+        </div>
+        
+        <div class="treino-header">
+            <h2>Meus Treinos</h2>
+            <button class="btn-primary" onclick="abrirModalTreino()">+ Novo Treino</button>
+        </div>
+        <div class="treinos-container" id="listaTreinos"></div>
+    </div>
     <div class="container page-section" id="page-fotos"><div class="header"><h1>Fotos Comparativas</h1><p>Em desenvolvimento...</p></div></div>
 
     <!-- Modal Edição -->
@@ -354,6 +473,153 @@
         </div>
     </div>
 
+    <!-- Modal Novo Treino -->
+    <div class="modal-treino" id="modalTreino">
+        <div class="modal-treino-content">
+            <div class="modal-treino-header">
+                <h3 class="modal-treino-title">Novo Treino</h3>
+                <button class="modal-treino-close" onclick="fecharModalTreino()">&times;</button>
+            </div>
+            <input type="hidden" id="treinoId">
+            <div class="form-group" style="margin-bottom:15px">
+                <label style="display:block;margin-bottom:8px;font-size:0.8em;color:rgba(255,255,255,0.5);text-transform:uppercase">Nome do Treino</label>
+                <input type="text" id="treinoNome" placeholder="Ex: Treino A, Treino de Força..." style="width:100%;padding:12px;background:#141414;border:1px solid rgba(212,175,125,0.2);border-radius:8px;color:#fff;font-size:0.95em">
+            </div>
+            <div class="form-group" style="margin-bottom:15px">
+                <label style="display:block;margin-bottom:8px;font-size:0.8em;color:rgba(255,255,255,0.5);text-transform:uppercase">Grupo Muscular</label>
+                <div class="grupo-muscular-grid" id="grupoMuscularGrid">
+                    <div class="grupo-muscular-opt" data-grupo="peito" onclick="selectGrupo(this)">Peito</div>
+                    <div class="grupo-muscular-opt" data-grupo="costas" onclick="selectGrupo(this)">Costas</div>
+                    <div class="grupo-muscular-opt" data-grupo="pernas" onclick="selectGrupo(this)">Pernas</div>
+                    <div class="grupo-muscular-opt" data-grupo="ombros" onclick="selectGrupo(this)">Ombros</div>
+                    <div class="grupo-muscular-opt" data-grupo="bracos" onclick="selectGrupo(this)">Braços</div>
+                    <div class="grupo-muscular-opt" data-grupo="abdomen" onclick="selectGrupo(this)">Abdômen</div>
+                    <div class="grupo-muscular-opt" data-grupo="cardio" onclick="selectGrupo(this)">Cardio</div>
+                    <div class="grupo-muscular-opt" data-grupo="full" onclick="selectGrupo(this)">Full Body</div>
+                </div>
+            </div>
+            <div class="modal-treino-footer">
+                <button class="btn-secondary" onclick="fecharModalTreino()">Cancelar</button>
+                <button class="btn-primary" onclick="salvarTreino()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Alerta -->
+    <div class="modal-treino" id="modalAlerta">
+        <div class="modal-treino-content">
+            <div class="modal-treino-header">
+                <h3 class="modal-treino-title">Novo Alerta / Meta</h3>
+                <button class="modal-treino-close" onclick="fecharModalAlerta()">&times;</button>
+            </div>
+            <input type="hidden" id="alertaId">
+            <div class="form-group" style="margin-bottom:15px">
+                <label style="display:block;margin-bottom:8px;font-size:0.8em;color:rgba(255,255,255,0.5);text-transform:uppercase">Tipo</label>
+                <div class="alerta-tipo-grid" id="alertaTipoGrid">
+                    <div class="alerta-tipo-opt" data-tipo="alerta" onclick="selectAlertaTipo(this)">
+                        <span class="tipo-icon">⚠️</span>
+                        <span>Alerta</span>
+                    </div>
+                    <div class="alerta-tipo-opt" data-tipo="meta" onclick="selectAlertaTipo(this)">
+                        <span class="tipo-icon">🎯</span>
+                        <span>Meta</span>
+                    </div>
+                    <div class="alerta-tipo-opt" data-tipo="lembrete" onclick="selectAlertaTipo(this)">
+                        <span class="tipo-icon">📌</span>
+                        <span>Lembrete</span>
+                    </div>
+                    <div class="alerta-tipo-opt" data-tipo="sucesso" onclick="selectAlertaTipo(this)">
+                        <span class="tipo-icon">✅</span>
+                        <span>Conquista</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom:15px">
+                <label style="display:block;margin-bottom:8px;font-size:0.8em;color:rgba(255,255,255,0.5);text-transform:uppercase">Texto</label>
+                <textarea id="alertaTexto" placeholder="Ex: Fortalecer core e fazer abdômen 3x na semana..." style="width:100%;padding:12px;background:#141414;border:1px solid rgba(212,175,125,0.2);border-radius:8px;color:#fff;font-size:0.9em;min-height:80px;resize:vertical;font-family:inherit"></textarea>
+            </div>
+            <div class="modal-treino-footer">
+                <button class="btn-secondary" onclick="fecharModalAlerta()">Cancelar</button>
+                <button class="btn-primary" onclick="salvarAlerta()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Exercício -->
+    <div class="modal-treino" id="modalExercicio">
+        <div class="modal-treino-content">
+            <div class="modal-treino-header">
+                <h3 class="modal-treino-title">Exercício</h3>
+                <button class="modal-treino-close" onclick="fecharModalExercicio()">&times;</button>
+            </div>
+            <input type="hidden" id="exercicioId">
+            <input type="hidden" id="exercicioTreinoId">
+            <div class="form-group" style="margin-bottom:15px">
+                <label style="display:block;margin-bottom:8px;font-size:0.8em;color:rgba(255,255,255,0.5);text-transform:uppercase">Nome do Exercício</label>
+                <input type="text" id="exercicioNome" placeholder="Ex: Supino Reto, Agachamento..." style="width:100%;padding:12px;background:#141414;border:1px solid rgba(212,175,125,0.2);border-radius:8px;color:#fff;font-size:0.95em">
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:15px">
+                <div class="form-group">
+                    <label style="display:block;margin-bottom:8px;font-size:0.8em;color:rgba(255,255,255,0.5);text-transform:uppercase">Séries</label>
+                    <input type="text" id="exercicioSeries" placeholder="3" style="width:100%;padding:12px;background:#141414;border:1px solid rgba(212,175,125,0.2);border-radius:8px;color:#fff;font-size:0.95em">
+                </div>
+                <div class="form-group">
+                    <label style="display:block;margin-bottom:8px;font-size:0.8em;color:rgba(255,255,255,0.5);text-transform:uppercase">Repetições</label>
+                    <input type="text" id="exercicioReps" placeholder="8 a 12" style="width:100%;padding:12px;background:#141414;border:1px solid rgba(212,175,125,0.2);border-radius:8px;color:#fff;font-size:0.95em">
+                </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:15px">
+                <div class="form-group">
+                    <label style="display:block;margin-bottom:8px;font-size:0.8em;color:rgba(255,255,255,0.5);text-transform:uppercase">Método</label>
+                    <select id="exercicioMetodo" style="width:100%;padding:12px;background:#141414;border:1px solid rgba(212,175,125,0.2);border-radius:8px;color:#fff;font-size:0.95em">
+                        <option value="-">-</option>
+                        <option value="Work Set">Work Set</option>
+                        <option value="Back Off">Back Off</option>
+                        <option value="Pump Set">Pump Set</option>
+                        <option value="Muscle Round">Muscle Round</option>
+                        <option value="Drop Set">Drop Set</option>
+                        <option value="Rest Pause">Rest Pause</option>
+                        <option value="Bi-Set">Bi-Set</option>
+                        <option value="Tri-Set">Tri-Set</option>
+                        <option value="Giant Set">Giant Set</option>
+                        <option value="FST-7">FST-7</option>
+                        <option value="21s">21s</option>
+                        <option value="Negativa">Negativa</option>
+                        <option value="Isometria">Isometria</option>
+                        <option value="Myo Reps">Myo Reps</option>
+                        <option value="Cluster Set">Cluster Set</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label style="display:block;margin-bottom:8px;font-size:0.8em;color:rgba(255,255,255,0.5);text-transform:uppercase">Descanso</label>
+                    <input type="text" id="exercicioDescanso" placeholder="2 min" style="width:100%;padding:12px;background:#141414;border:1px solid rgba(212,175,125,0.2);border-radius:8px;color:#fff;font-size:0.95em">
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom:15px">
+                <label style="display:block;margin-bottom:8px;font-size:0.8em;color:rgba(255,255,255,0.5);text-transform:uppercase">Conjugado com</label>
+                <select id="exercicioConjugado" style="width:100%;padding:12px;background:#141414;border:1px solid rgba(212,175,125,0.2);border-radius:8px;color:#fff;font-size:0.95em">
+                    <option value="">Nenhum (exercício isolado)</option>
+                </select>
+                <p style="font-size:0.75em;color:rgba(255,255,255,0.4);margin-top:5px">Para Bi-Set, Tri-Set ou Giant Set, selecione o exercício anterior</p>
+            </div>
+            <div class="form-group" style="margin-bottom:15px">
+                <label style="display:block;margin-bottom:8px;font-size:0.8em;color:rgba(255,255,255,0.5);text-transform:uppercase">Observações / Modo de Execução</label>
+                <textarea id="exercicioObs" placeholder="Ex: Pegar pegada aberta, descer até o peito, subir explosivo..." style="width:100%;padding:12px;background:#141414;border:1px solid rgba(212,175,125,0.2);border-radius:8px;color:#fff;font-size:0.9em;min-height:80px;resize:vertical;font-family:inherit"></textarea>
+            </div>
+            <div class="duplicar-container">
+                <div class="duplicar-header">
+                    <input type="checkbox" id="duplicarConfig" onchange="toggleDuplicar()">
+                    <label for="duplicarConfig">Duplicar configuração do último exercício</label>
+                </div>
+                <p class="duplicar-info" id="duplicarInfo">Séries, repetições, método e descanso serão copiados</p>
+            </div>
+            <div class="modal-treino-footer">
+                <button class="btn-secondary" onclick="fecharModalExercicio()">Cancelar</button>
+                <button class="btn-primary" onclick="salvarExercicio()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         // ==========================================
@@ -378,12 +644,16 @@
         // ==========================================
         const dadosVazios = {
             planoSemanal: { segunda: [], terca: [], quarta: [], quinta: [], sexta: [], sabado: [], domingo: [] },
-            statusHoje: {}
+            statusHoje: {},
+            treinos: [],
+            alertasTreino: []
         };
 
         let saude = JSON.parse(localStorage.getItem('saude_v1')) || JSON.parse(JSON.stringify(dadosVazios));
         if (!saude.planoSemanal) saude.planoSemanal = JSON.parse(JSON.stringify(dadosVazios.planoSemanal));
         if (!saude.statusHoje) saude.statusHoje = {};
+        if (!saude.treinos) saude.treinos = [];
+        if (!saude.alertasTreino) saude.alertasTreino = [];
 
         let planoTemp = [];
 
@@ -836,12 +1106,461 @@
         }
 
         // ==========================================
+        // FUNÇÕES DE TREINO
+        // ==========================================
+        let gruposSelecionados = [];
+        let ultimoExercicio = null;
+
+        function renderTreinos() {
+            const container = document.getElementById('listaTreinos');
+            if (!saude.treinos || !saude.treinos.length) {
+                container.innerHTML = '<div class="treino-empty"><div class="treino-empty-icon">🏋️</div><p>Nenhum treino cadastrado</p><button class="btn-primary" onclick="abrirModalTreino()">Criar Primeiro Treino</button></div>';
+                return;
+            }
+
+            container.innerHTML = saude.treinos.map((treino, idx) => {
+                const exercicios = treino.exercicios || [];
+                const grupos = Array.isArray(treino.grupo) ? treino.grupo : [treino.grupo];
+                const primeiroGrupo = grupos[0] || '';
+                const gruposTexto = grupos.map(g => g.charAt(0).toUpperCase() + g.slice(1)).join(' + ');
+                
+                // Agrupar exercícios conjugados
+                const exerciciosProcessados = [];
+                const conjugadosUsados = new Set();
+                
+                exercicios.forEach(ex => {
+                    if (conjugadosUsados.has(ex.id)) return;
+                    
+                    // Encontrar todos os exercícios conjugados a este
+                    const conjugados = exercicios.filter(e => e.conjugado === ex.id);
+                    
+                    if (conjugados.length > 0) {
+                        // Este exercício tem conjugados
+                        exerciciosProcessados.push({
+                            ...ex,
+                            conjugadosCom: conjugados
+                        });
+                        conjugados.forEach(c => conjugadosUsados.add(c.id));
+                    } else if (!ex.conjugado) {
+                        // Exercício isolado
+                        exerciciosProcessados.push(ex);
+                    }
+                    // Se ex.conjugado existe, ele será processado junto com seu "pai"
+                });
+                
+                return `
+                <div class="treino-card">
+                    <div class="treino-card-header ${primeiroGrupo}">
+                        <div>
+                            <div class="treino-card-titulo">TREINO ${idx + 1} | ${treino.nome.toUpperCase()}</div>
+                            <div class="treino-card-subtitulo">${gruposTexto} • ${exercicios.length} exercício${exercicios.length !== 1 ? 's' : ''}</div>
+                        </div>
+                        <div class="treino-card-actions">
+                            <button class="treino-card-btn" onclick="editarTreino('${treino.id}')" title="Editar">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            </button>
+                            <button class="treino-card-btn delete" onclick="excluirTreino('${treino.id}')" title="Excluir">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="treino-card-body">
+                        ${exercicios.length ? `
+                        <table class="exercicio-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:40px"></th>
+                                    <th>Exercício</th>
+                                    <th>Séries</th>
+                                    <th>Repetições</th>
+                                    <th>Método</th>
+                                    <th>Descanso</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${exerciciosProcessados.map(ex => {
+                                    const temConjugados = ex.conjugadosCom && ex.conjugadosCom.length > 0;
+                                    const todosExercicios = temConjugados ? [ex, ...ex.conjugadosCom] : [ex];
+                                    const todosFeitos = todosExercicios.every(e => e.feito);
+                                    // Nome como texto único: "Supino + Remada"
+                                    const nomeCompleto = temConjugados 
+                                        ? `${ex.nome}<span class="conjugado-plus">+</span>${ex.conjugadosCom.map(c => c.nome).join('<span class="conjugado-plus">+</span>')}`
+                                        : ex.nome;
+                                    // Observação única para o conjunto
+                                    const obsConjunto = ex.obs || '';
+                                    
+                                    return `
+                                <tr class="${todosFeitos ? 'exercicio-feito' : ''}">
+                                    <td style="text-align:center">
+                                        <input type="checkbox" class="exercicio-check" ${todosFeitos ? 'checked' : ''} onchange="marcarExercicio('${treino.id}','${ex.id}',this.checked,${temConjugados ? `'${ex.conjugadosCom.map(c=>c.id).join(',')}'` : 'null'})">
+                                    </td>
+                                    <td>
+                                        <div class="exercicio-nome">
+                                            <div style="flex:1">
+                                                <span class="exercicio-nome-texto">${nomeCompleto}</span>
+                                                ${obsConjunto ? `<div class="exercicio-obs">${obsConjunto}</div>` : ''}
+                                            </div>
+                                            <div class="exercicio-acoes">
+                                                <button class="exercicio-btn duplicate" onclick="duplicarExercicio('${treino.id}','${ex.id}')" title="Duplicar">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                                </button>
+                                                <button class="exercicio-btn" onclick="editarExercicio('${treino.id}','${ex.id}')" title="Editar">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                                </button>
+                                                <button class="exercicio-btn delete" onclick="excluirExercicio('${treino.id}','${ex.id}')" title="Excluir">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>${ex.series}</td>
+                                    <td>${ex.reps}</td>
+                                    <td>${ex.metodo || '-'}</td>
+                                    <td>${ex.descanso}</td>
+                                </tr>
+                                `}).join('')}
+                            </tbody>
+                        </table>
+                        ` : '<div style="padding:30px;text-align:center;color:rgba(255,255,255,0.3)">Nenhum exercício adicionado</div>'}
+                    </div>
+                    <div class="treino-card-footer">
+                        <button class="add-exercicio-btn" onclick="abrirModalExercicio('${treino.id}')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            Adicionar Exercício
+                        </button>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+        
+        function marcarExercicio(treinoId, exId, feito, conjugadosIds) {
+            const treino = saude.treinos.find(t => t.id === treinoId);
+            if (!treino) return;
+            
+            const ex = treino.exercicios.find(e => e.id === exId);
+            if (ex) ex.feito = feito;
+            
+            // Marcar conjugados também
+            if (conjugadosIds) {
+                conjugadosIds.split(',').forEach(id => {
+                    const conj = treino.exercicios.find(e => e.id === id);
+                    if (conj) conj.feito = feito;
+                });
+            }
+            
+            salvarDados();
+            renderTreinos();
+        }
+
+        // ==========================================
+        // FUNÇÕES DE ALERTAS
+        // ==========================================
+        let alertaTipoSelecionado = '';
+        const alertaIcons = {
+            alerta: '⚠️',
+            meta: '🎯',
+            lembrete: '📌',
+            sucesso: '✅'
+        };
+
+        function renderAlertas() {
+            const container = document.getElementById('listaAlertas');
+            if (!saude.alertasTreino || !saude.alertasTreino.length) {
+                container.innerHTML = '<div class="treino-alertas-empty">Nenhum alerta ou meta cadastrado</div>';
+                return;
+            }
+
+            container.innerHTML = saude.alertasTreino.map(alerta => `
+                <div class="treino-alerta-item ${alerta.tipo}">
+                    <span class="treino-alerta-icon">${alertaIcons[alerta.tipo] || '📌'}</span>
+                    <div class="treino-alerta-content">
+                        <div class="treino-alerta-texto">${alerta.texto}</div>
+                    </div>
+                    <div class="treino-alerta-acoes">
+                        <button class="treino-alerta-btn-sm" onclick="excluirAlerta('${alerta.id}')" title="Excluir">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectAlertaTipo(el) {
+            document.querySelectorAll('.alerta-tipo-opt').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+            alertaTipoSelecionado = el.dataset.tipo;
+        }
+
+        function abrirModalAlerta() {
+            document.getElementById('alertaId').value = '';
+            document.getElementById('alertaTexto').value = '';
+            document.querySelectorAll('.alerta-tipo-opt').forEach(opt => opt.classList.remove('selected'));
+            alertaTipoSelecionado = '';
+            document.getElementById('modalAlerta').classList.add('active');
+        }
+
+        function fecharModalAlerta() {
+            document.getElementById('modalAlerta').classList.remove('active');
+        }
+
+        function salvarAlerta() {
+            const texto = document.getElementById('alertaTexto').value.trim();
+            if (!texto) return alert('Informe o texto do alerta');
+            if (!alertaTipoSelecionado) return alert('Selecione um tipo');
+
+            saude.alertasTreino.push({
+                id: Date.now().toString(),
+                tipo: alertaTipoSelecionado,
+                texto
+            });
+            salvarDados();
+            renderAlertas();
+            fecharModalAlerta();
+        }
+
+        function excluirAlerta(id) {
+            if (!confirm('Excluir este alerta?')) return;
+            saude.alertasTreino = saude.alertasTreino.filter(a => a.id !== id);
+            salvarDados();
+            renderAlertas();
+        }
+
+        function selectGrupo(el) {
+            const grupo = el.dataset.grupo;
+            if (el.classList.contains('selected')) {
+                el.classList.remove('selected');
+                gruposSelecionados = gruposSelecionados.filter(g => g !== grupo);
+            } else {
+                el.classList.add('selected');
+                gruposSelecionados.push(grupo);
+            }
+        }
+
+        function abrirModalTreino() {
+            document.getElementById('treinoId').value = '';
+            document.getElementById('treinoNome').value = '';
+            document.querySelectorAll('.grupo-muscular-opt').forEach(opt => opt.classList.remove('selected'));
+            gruposSelecionados = [];
+            document.getElementById('modalTreino').classList.add('active');
+        }
+
+        function fecharModalTreino() {
+            document.getElementById('modalTreino').classList.remove('active');
+        }
+
+        function salvarTreino() {
+            const id = document.getElementById('treinoId').value;
+            const nome = document.getElementById('treinoNome').value.trim();
+            if (!nome) return alert('Informe o nome do treino');
+            if (!gruposSelecionados.length) return alert('Selecione pelo menos um grupo muscular');
+
+            if (id) {
+                const treino = saude.treinos.find(t => t.id === id);
+                if (treino) {
+                    treino.nome = nome;
+                    treino.grupo = [...gruposSelecionados];
+                }
+            } else {
+                saude.treinos.push({
+                    id: Date.now().toString(),
+                    nome,
+                    grupo: [...gruposSelecionados],
+                    exercicios: []
+                });
+            }
+            salvarDados();
+            renderTreinos();
+            fecharModalTreino();
+        }
+
+        function editarTreino(id) {
+            const treino = saude.treinos.find(t => t.id === id);
+            if (!treino) return;
+            document.getElementById('treinoId').value = id;
+            document.getElementById('treinoNome').value = treino.nome;
+            
+            const grupos = Array.isArray(treino.grupo) ? treino.grupo : [treino.grupo];
+            gruposSelecionados = [...grupos];
+            
+            document.querySelectorAll('.grupo-muscular-opt').forEach(opt => {
+                opt.classList.toggle('selected', grupos.includes(opt.dataset.grupo));
+            });
+            document.getElementById('modalTreino').classList.add('active');
+        }
+
+        function excluirTreino(id) {
+            if (!confirm('Excluir este treino e todos os exercícios?')) return;
+            saude.treinos = saude.treinos.filter(t => t.id !== id);
+            salvarDados();
+            renderTreinos();
+        }
+
+        function abrirModalExercicio(treinoId) {
+            document.getElementById('exercicioId').value = '';
+            document.getElementById('exercicioTreinoId').value = treinoId;
+            document.getElementById('exercicioNome').value = '';
+            document.getElementById('exercicioSeries').value = '';
+            document.getElementById('exercicioReps').value = '';
+            document.getElementById('exercicioMetodo').value = '-';
+            document.getElementById('exercicioDescanso').value = '';
+            document.getElementById('exercicioObs').value = '';
+            document.getElementById('duplicarConfig').checked = false;
+
+            // Preencher select de exercícios para conjugar
+            const treino = saude.treinos.find(t => t.id === treinoId);
+            const selectConjugado = document.getElementById('exercicioConjugado');
+            selectConjugado.innerHTML = '<option value="">Nenhum (exercício isolado)</option>';
+            
+            if (treino && treino.exercicios && treino.exercicios.length > 0) {
+                treino.exercicios.forEach(ex => {
+                    selectConjugado.innerHTML += `<option value="${ex.id}">${ex.nome}</option>`;
+                });
+                
+                ultimoExercicio = treino.exercicios[treino.exercicios.length - 1];
+                document.getElementById('duplicarInfo').textContent = 
+                    `Será copiado: ${ultimoExercicio.series} séries, ${ultimoExercicio.reps} reps, ${ultimoExercicio.descanso}`;
+            } else {
+                ultimoExercicio = null;
+                document.getElementById('duplicarInfo').textContent = 'Nenhum exercício anterior para copiar';
+            }
+
+            document.getElementById('modalExercicio').classList.add('active');
+        }
+
+        function fecharModalExercicio() {
+            document.getElementById('modalExercicio').classList.remove('active');
+        }
+
+        function toggleDuplicar() {
+            const checked = document.getElementById('duplicarConfig').checked;
+            if (checked && ultimoExercicio) {
+                document.getElementById('exercicioSeries').value = ultimoExercicio.series;
+                document.getElementById('exercicioReps').value = ultimoExercicio.reps;
+                document.getElementById('exercicioMetodo').value = ultimoExercicio.metodo || '-';
+                document.getElementById('exercicioDescanso').value = ultimoExercicio.descanso;
+            }
+        }
+
+        function salvarExercicio() {
+            const id = document.getElementById('exercicioId').value;
+            const treinoId = document.getElementById('exercicioTreinoId').value;
+            const nome = document.getElementById('exercicioNome').value.trim();
+            const series = document.getElementById('exercicioSeries').value.trim();
+            const reps = document.getElementById('exercicioReps').value.trim();
+            const metodo = document.getElementById('exercicioMetodo').value;
+            const descanso = document.getElementById('exercicioDescanso').value.trim();
+            const obs = document.getElementById('exercicioObs').value.trim();
+            const conjugado = document.getElementById('exercicioConjugado').value;
+
+            if (!nome) return alert('Informe o nome do exercício');
+            if (!series) return alert('Informe as séries');
+            if (!reps) return alert('Informe as repetições');
+            if (!descanso) return alert('Informe o descanso');
+
+            const treino = saude.treinos.find(t => t.id === treinoId);
+            if (!treino) return;
+            if (!treino.exercicios) treino.exercicios = [];
+
+            if (id) {
+                const ex = treino.exercicios.find(e => e.id === id);
+                if (ex) {
+                    ex.nome = nome;
+                    ex.series = series;
+                    ex.reps = reps;
+                    ex.metodo = metodo;
+                    ex.descanso = descanso;
+                    ex.obs = obs;
+                    ex.conjugado = conjugado || null;
+                }
+            } else {
+                treino.exercicios.push({
+                    id: Date.now().toString(),
+                    nome,
+                    series,
+                    reps,
+                    metodo,
+                    descanso,
+                    obs,
+                    conjugado: conjugado || null
+                });
+            }
+            salvarDados();
+            renderTreinos();
+            fecharModalExercicio();
+        }
+
+        function editarExercicio(treinoId, exId) {
+            const treino = saude.treinos.find(t => t.id === treinoId);
+            if (!treino) return;
+            const ex = treino.exercicios.find(e => e.id === exId);
+            if (!ex) return;
+
+            document.getElementById('exercicioId').value = exId;
+            document.getElementById('exercicioTreinoId').value = treinoId;
+            document.getElementById('exercicioNome').value = ex.nome;
+            document.getElementById('exercicioSeries').value = ex.series;
+            document.getElementById('exercicioReps').value = ex.reps;
+            document.getElementById('exercicioMetodo').value = ex.metodo || '-';
+            document.getElementById('exercicioDescanso').value = ex.descanso;
+            document.getElementById('exercicioObs').value = ex.obs || '';
+            document.getElementById('duplicarConfig').checked = false;
+            
+            // Preencher select de exercícios para conjugar (exceto o próprio)
+            const selectConjugado = document.getElementById('exercicioConjugado');
+            selectConjugado.innerHTML = '<option value="">Nenhum (exercício isolado)</option>';
+            treino.exercicios.forEach(e => {
+                if (e.id !== exId) {
+                    selectConjugado.innerHTML += `<option value="${e.id}" ${ex.conjugado === e.id ? 'selected' : ''}>${e.nome}</option>`;
+                }
+            });
+
+            document.getElementById('modalExercicio').classList.add('active');
+        }
+
+        function excluirExercicio(treinoId, exId) {
+            if (!confirm('Excluir este exercício?')) return;
+            const treino = saude.treinos.find(t => t.id === treinoId);
+            if (treino) {
+                // Remover referências de conjugado
+                treino.exercicios.forEach(e => {
+                    if (e.conjugado === exId) e.conjugado = null;
+                });
+                treino.exercicios = treino.exercicios.filter(e => e.id !== exId);
+                salvarDados();
+                renderTreinos();
+            }
+        }
+
+        function duplicarExercicio(treinoId, exId) {
+            const treino = saude.treinos.find(t => t.id === treinoId);
+            if (!treino) return;
+            const ex = treino.exercicios.find(e => e.id === exId);
+            if (!ex) return;
+
+            treino.exercicios.push({
+                id: Date.now().toString(),
+                nome: ex.nome + ' (cópia)',
+                series: ex.series,
+                reps: ex.reps,
+                metodo: ex.metodo,
+                descanso: ex.descanso,
+                obs: ex.obs || '',
+                conjugado: null
+            });
+            salvarDados();
+            renderTreinos();
+        }
+
+        // ==========================================
         // INICIALIZAÇÃO
         // ==========================================
         async function inicializar() {
             await carregarSupabase();
             renderizarHoje();
             renderizarPlanoLista();
+            renderTreinos();
+            renderAlertas();
         }
         
         inicializar();
