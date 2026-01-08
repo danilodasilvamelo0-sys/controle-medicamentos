@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pessoal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            padding: 20px;
+            padding-left: 80px;
+            transition: padding-left 0.3s;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4af7d, transparent);
+            z-index: 9999;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4af7d, transparent);
+            z-index: 9999;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 60px;
+            height: 100vh;
+            background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+            border-right: 1px solid rgba(212, 175, 125, 0.15);
+            z-index: 1000;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 0;
+            transition: width 0.3s;
+            overflow: hidden;
+        }
+
+        .sidebar:hover { width: 200px; }
+        .sidebar:hover ~ .container { margin-left: 140px; }
+
+        .sidebar-logo {
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 1px solid rgba(212, 175, 125, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2em;
+            color: #d4af7d;
+            margin-bottom: 20px;
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+
+        .sidebar-logo:hover { background: rgba(212, 175, 125, 0.1); }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 100%;
+            flex: 1;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 10px;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85em;
+            transition: all 0.3s;
+            border-left: 2px solid transparent;
+            white-space: nowrap;
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(212, 175, 125, 0.1);
+            border-left-color: #d4af7d;
+            color: #fff;
+        }
+
+        .sidebar-menu a.active {
+            background: rgba(212, 175, 125, 0.15);
+            border-left-color: #d4af7d;
+            color: #d4af7d;
+        }
+
+        .sidebar-menu a svg {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            margin-left: 10px;
+        }
+
+        .sidebar-menu a span {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .sidebar:hover .sidebar-menu a span { opacity: 1; }
+
+        .sidebar-divider {
+            height: 1px;
+            background: rgba(212, 175, 125, 0.2);
+            margin: 8px 10px;
+            width: calc(100% - 20px);
+        }
+
+        .sidebar-footer {
+            padding: 15px 10px;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 125, 0.2);
+            width: 100%;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .sidebar-footer p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.7em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.6;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .sidebar-footer .instituto {
+            font-size: 0.85em;
+            color: #d4af7d;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .sidebar:hover .sidebar-footer p { opacity: 1; }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #141414;
+            border: 1px solid rgba(212, 175, 125, 0.15);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            overflow: hidden;
+            transition: margin-left 0.3s;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            border-bottom: 1px solid rgba(212, 175, 125, 0.2);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            font-weight: 400;
+            letter-spacing: 3px;
+            color: #fff;
+        }
+
+        .content {
+            padding: 25px;
+            background: #141414;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(212, 175, 125, 0.1);
+        }
+
+        .section-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2em;
+            font-weight: 400;
+            color: #d4af7d;
+            letter-spacing: 1px;
+        }
+
+        .section-title .btn-add {
+            background: transparent;
+            color: #d4af7d;
+            padding: 8px 16px;
+            border: 1px solid rgba(212, 175, 125, 0.5);
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .section-title .btn-add:hover {
+            background: rgba(212, 175, 125, 0.15);
+            border-color: #d4af7d;
+        }
+
+        .section-title .btn-add svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .estado-card {
+            background: #1a1a1a;
+            border: 1px solid rgba(212, 175, 125, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .estado-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .estado-item { text-align: center; }
+
+        .estado-label {
+            font-size: 0.7em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 8px;
+        }
+
+        .estado-valor {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            font-weight: 400;
+            color: #d4af7d;
+        }
+
+        .estado-valor small {
+            font-size: 0.5em;
+            color: rgba(255,255,255,0.5);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .estado-texto {
+            font-size: 0.95em;
+            color: #fff;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .estado-texto:hover { color: #d4af7d; }
+
+        .energia-selector {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 5px;
+        }
+
+        .energia-btn {
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.75em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .energia-btn:hover {
+            border-color: rgba(255,255,255,0.3);
+            color: rgba(255,255,255,0.8);
+        }
+
+        .energia-btn.active {
+            background: rgba(212, 175, 125, 0.15);
+            border-color: #d4af7d;
+            color: #d4af7d;
+        }
+
+        .section-nota {
+            font-size: 0.75em;
+            color: rgba(255,255,255,0.35);
+            font-style: italic;
+            margin-bottom: 15px;
+            padding-left: 2px;
+        }
+
+        .metas-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .meta-card {
+            background: #1a1a1a;
+            border: 1px solid rgba(212, 175, 125, 0.1);
+            border-radius: 10px;
+            padding: 15px 18px;
+            transition: all 0.3s;
+        }
+
+        .meta-card:hover { border-color: rgba(212, 175, 125, 0.25); }
+
+        .meta-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .meta-nome {
+            font-size: 0.95em;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .meta-status {
+            font-size: 0.65em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .meta-status.em-dia {
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ecc71;
+        }
+
+        .meta-status.atencao {
+            background: rgba(241, 196, 15, 0.15);
+            color: #f1c40f;
+        }
+
+        .meta-status.atrasada {
+            background: rgba(220, 53, 69, 0.15);
+            color: #dc3545;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8em;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 10px;
+        }
+
+        .meta-progresso-num {
+            color: rgba(255,255,255,0.7);
+            font-weight: 500;
+        }
+
+        .meta-barra {
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .meta-barra-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #c9a066 0%, #d4af7d 100%);
+            border-radius: 2px;
+            transition: width 0.4s ease;
+        }
+
+        .meta-acoes {
+            display: flex;
+            justify-content: flex-end;
+            gap: 5px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .meta-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.3);
+            cursor: pointer;
+            padding: 5px;
+            transition: all 0.3s;
+        }
+
+        .meta-btn:hover { color: #d4af7d; }
+        .meta-btn svg { width: 16px; height: 16px; }
+
+        .metas-contador {
+            text-align: center;
+            font-size: 0.75em;
+            color: rgba(255,255,255,0.4);
+            margin-top: 10px;
+        }
+
+        .metas-contador span {
+            color: #d4af7d;
+            font-weight: 500;
+        }
+
+        .metas-empty, .habitos-empty {
+            text-align: center;
+            padding: 40px 20px;
+            background: #1a1a1a;
+            border: 1px dashed rgba(212, 175, 125, 0.2);
+            border-radius: 10px;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.9em;
+        }
+
+        .habitos-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .habitos-tab {
+            padding: 8px 18px;
+            background: transparent;
+            border: 1px solid rgba(212, 175, 125, 0.2);
+            border-radius: 6px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .habitos-tab:hover {
+            border-color: rgba(212, 175, 125, 0.4);
+            color: rgba(255,255,255,0.8);
+        }
+
+        .habitos-tab.active {
+            background: rgba(212, 175, 125, 0.15);
+            border-color: #d4af7d;
+            color: #d4af7d;
+        }
+
+        .habitos-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .habito-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            background: #1a1a1a;
+            border: 1px solid rgba(212, 175, 125, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .habito-item:hover { border-color: rgba(212, 175, 125, 0.25); }
+
+        .habito-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .habito-check {
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(212, 175, 125, 0.4);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .habito-check:hover { border-color: #d4af7d; }
+
+        .habito-check.done {
+            background: #d4af7d;
+            border-color: #d4af7d;
+        }
+
+        .habito-check svg {
+            width: 14px;
+            height: 14px;
+            color: #0a0a0a;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .habito-check.done svg { opacity: 1; }
+
+        .habito-nome {
+            font-size: 0.9em;
+            color: #fff;
+        }
+
+        .habito-item.done .habito-nome { color: rgba(255,255,255,0.4); }
+
+        .habito-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .habito-streak {
+            font-size: 0.75em;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .habito-streak span {
+            color: rgba(255,255,255,0.7);
+            font-weight: 500;
+        }
+
+        .habito-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.2);
+            cursor: pointer;
+            padding: 5px;
+            transition: all 0.3s;
+            opacity: 0;
+        }
+
+        .habito-item:hover .habito-btn { opacity: 1; }
+        .habito-btn:hover { color: #dc3545; }
+        .habito-btn svg { width: 14px; height: 14px; }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal {
+            background: #1a1a1a;
+            border: 1px solid rgba(212, 175, 125, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .modal h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em;
+            font-weight: 400;
+            color: #d4af7d;
+            margin-bottom: 20px;
+        }
+
+        .modal-field { margin-bottom: 15px; }
+
+        .modal-field label {
+            display: block;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 8px;
+        }
+
+        .modal-field input,
+        .modal-field select {
+            width: 100%;
+            padding: 12px 14px;
+            background: #141414;
+            border: 1px solid rgba(212, 175, 125, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.95em;
+            font-family: inherit;
+        }
+
+        .modal-field input:focus,
+        .modal-field select:focus {
+            outline: none;
+            border-color: #d4af7d;
+        }
+
+        .modal-field input::placeholder { color: rgba(255,255,255,0.3); }
+        .modal-field select option { background: #141414; color: #fff; }
+
+        .modal-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: flex-end;
+        }
+
+        .modal-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-btn-save {
+            background: #d4af7d;
+            color: #0a0a0a;
+        }
+
+        .modal-btn-save:hover { background: #c9a066; }
+
+        .modal-btn-cancel {
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        .modal-btn-cancel:hover { background: rgba(255,255,255,0.15); }
+
+        .foco-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .foco-option {
+            padding: 12px 16px;
+            background: #141414;
+            border: 1px solid rgba(212, 175, 125, 0.15);
+            border-radius: 8px;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+
+        .foco-option:hover {
+            border-color: rgba(212, 175, 125, 0.4);
+            color: #fff;
+        }
+
+        .foco-option.active {
+            border-color: #d4af7d;
+            color: #d4af7d;
+            background: rgba(212, 175, 125, 0.1);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1a1a1a;
+            border: 1px solid rgba(212, 175, 125, 0.3);
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            color: #fff;
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                padding-left: 10px;
+                padding-bottom: 80px;
+            }
+
+            .sidebar { display: none; }
+
+            .container {
+                margin-left: 0 !important;
+                border-radius: 15px;
+            }
+
+            .header { padding: 25px 20px; }
+
+            .header h1 {
+                font-size: 1.6em;
+                letter-spacing: 2px;
+            }
+
+            .content { padding: 20px 15px; }
+
+            .estado-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .estado-item { padding: 10px 0; }
+            .estado-valor { font-size: 1.5em; }
+            .energia-selector { flex-wrap: wrap; }
+
+            .section-title {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .section-title h2 { font-size: 1.1em; }
+
+            .meta-header {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .modal {
+                width: 95%;
+                padding: 20px;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            .modal-row { grid-template-columns: 1fr; }
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+            border-top: 1px solid rgba(212, 175, 125, 0.15);
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        .mobile-nav-items {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .mobile-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 0.65em;
+            padding: 5px 10px;
+            transition: all 0.3s;
+        }
+
+        .mobile-nav-item svg { width: 22px; height: 22px; }
+        .mobile-nav-item.active { color: #d4af7d; }
+
+        @media (max-width: 768px) {
+            .mobile-nav { display: block; }
+            .sidebar { display: none; }
+            
+            /* Body e Container */
+            body { padding: 10px; padding-bottom: 85px; padding-left: 10px; }
+            .container { border-radius: 12px; }
+            
+            /* Header */
+            .header { padding: 20px 15px; }
+            .header h1 { font-size: 1.5em; letter-spacing: 1px; }
+            
+            /* Content */
+            .content { padding: 15px; }
+            
+            /* Estado Card */
+            .estado-card { padding: 15px; margin-bottom: 20px; }
+            .estado-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .estado-valor { font-size: 1.5em; }
+            .estado-label { font-size: 0.65em; }
+            
+            /* Energia Selector */
+            .energia-selector { flex-wrap: wrap; gap: 6px; }
+            .energia-btn { padding: 5px 10px; font-size: 0.7em; }
+            
+            /* Section Title */
+            .section-title { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .section-title h2 { font-size: 1.1em; }
+            .section-title .btn-add { width: 100%; justify-content: center; }
+            
+            /* Metas */
+            .meta-card { padding: 12px 14px; }
+            .meta-nome { font-size: 0.9em; }
+            .meta-status { font-size: 0.6em; padding: 3px 8px; }
+            .meta-info { font-size: 0.75em; }
+            .meta-acoes { margin-top: 10px; }
+            .meta-btn { width: 32px; height: 32px; }
+            
+            /* Hábitos */
+            .habitos-section { margin-bottom: 20px; }
+            .habitos-tabs { overflow-x: auto; gap: 8px; padding-bottom: 5px; }
+            .habitos-tab { padding: 8px 14px; font-size: 0.75em; flex-shrink: 0; }
+            .habito-item { padding: 12px; flex-wrap: wrap; gap: 10px; }
+            .habito-left { width: 100%; }
+            .habito-nome { font-size: 0.85em; }
+            .habito-check { width: 22px; height: 22px; }
+            .habito-right { width: 100%; justify-content: space-between; }
+            .habito-streak { font-size: 0.75em; }
+            .habito-btn { opacity: 1; }
+            
+            /* Foco Options */
+            .foco-options { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .foco-option { padding: 12px 10px; font-size: 0.8em; }
+            
+            /* Modais */
+            .modal { padding: 20px; width: 95%; max-height: 85vh; overflow-y: auto; }
+            .modal h3 { font-size: 1.1em; margin-bottom: 15px; }
+            .modal-row { grid-template-columns: 1fr; }
+            .modal-buttons { flex-direction: column; }
+            .modal-btn { width: 100%; justify-content: center; }
+            .modal-field input, .modal-field select { padding: 10px 12px; font-size: 0.9em; }
+            
+            /* Toast */
+            .toast { left: 10px; right: 10px; bottom: 90px; }
+        }
+        
+        @media (max-width: 380px) {
+            body { padding: 8px; padding-bottom: 80px; }
+            .header h1 { font-size: 1.3em; }
+            .estado-grid { gap: 10px; }
+            .estado-valor { font-size: 1.3em; }
+            .foco-options { grid-template-columns: 1fr; }
+            .habitos-tab { padding: 6px 12px; font-size: 0.7em; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <a href="index.html" class="sidebar-logo">Z</a>
+        <div class="sidebar-menu">
+            <a href="index.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <span>Inicio</span>
+            </a>
+            <a href="saude.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                <span>Saude</span>
+            </a>
+            <a href="financeiro.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                <span>Financeiro</span>
+            </a>
+            <a href="profissional.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                <span>Profissional</span>
+            </a>
+            <div class="sidebar-divider"></div>
+            <a href="pessoal.html" class="active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <span>Pessoal</span>
+            </a>
+        </div>
+        <div class="sidebar-footer">
+            <p><span class="instituto">ZARA</span>Private Access</p>
+        </div>
+    </nav>
+
+    <nav class="mobile-nav">
+        <div class="mobile-nav-items">
+            <a href="index.html" class="mobile-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Inicio
+            </a>
+            <a href="saude.html" class="mobile-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                Saude
+            </a>
+            <a href="financeiro.html" class="mobile-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                Financeiro
+            </a>
+            <a href="profissional.html" class="mobile-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                Prof.
+            </a>
+            <a href="pessoal.html" class="mobile-nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                Pessoal
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="header">
+            <h1>Pessoal</h1>
+        </header>
+
+        <div class="content">
+            <div class="section-title"><h2>Estado Atual</h2></div>
+            <div class="estado-card">
+                <div class="estado-grid">
+                    <div class="estado-item">
+                        <div class="estado-label">Disciplina</div>
+                        <div class="estado-valor" id="disciplinaValor">—</div>
+                    </div>
+                    <div class="estado-item">
+                        <div class="estado-label">Consistência</div>
+                        <div class="estado-valor" id="consistenciaValor">0 <small>dias</small></div>
+                    </div>
+                    <div class="estado-item">
+                        <div class="estado-label">Energia</div>
+                        <div class="energia-selector">
+                            <button class="energia-btn" data-nivel="baixa" onclick="setEnergia('baixa')">Baixa</button>
+                            <button class="energia-btn" data-nivel="media" onclick="setEnergia('media')">Média</button>
+                            <button class="energia-btn" data-nivel="alta" onclick="setEnergia('alta')">Alta</button>
+                        </div>
+                    </div>
+                    <div class="estado-item">
+                        <div class="estado-label">Foco Atual</div>
+                        <div class="estado-texto" id="focoAtual" onclick="abrirModalFoco()">—</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <h2>Metas Ativas</h2>
+                <button class="btn-add" onclick="abrirModalMeta()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    Nova
+                </button>
+            </div>
+            <p class="section-nota">Ter muitas metas é fuga. Poucas metas é decisão.</p>
+            <div class="metas-lista" id="metasLista"></div>
+            <div class="metas-contador"><span id="metasCount">0</span>/3 metas</div>
+
+            <div class="section-title" style="margin-top: 30px;">
+                <h2>Hábitos & Disciplina</h2>
+                <button class="btn-add" onclick="abrirModalHabito()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    Novo
+                </button>
+            </div>
+            <div class="habitos-tabs">
+                <button class="habitos-tab active" onclick="setHabitoTab('diario')">Diários</button>
+                <button class="habitos-tab" onclick="setHabitoTab('semanal')">Semanais</button>
+            </div>
+            <div class="habitos-lista" id="habitosLista"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalMeta">
+        <div class="modal">
+            <h3>Nova Meta</h3>
+            <form onsubmit="salvarMeta(event)">
+                <div class="modal-field">
+                    <label>Nome da Meta</label>
+                    <input type="text" id="metaNome" placeholder="Seja específico" required>
+                </div>
+                <div class="modal-row">
+                    <div class="modal-field">
+                        <label>Prazo</label>
+                        <input type="date" id="metaPrazo" required>
+                    </div>
+                    <div class="modal-field">
+                        <label>Progresso Inicial</label>
+                        <select id="metaProgresso">
+                            <option value="0">0%</option>
+                            <option value="10">10%</option>
+                            <option value="20">20%</option>
+                            <option value="30">30%</option>
+                            <option value="40">40%</option>
+                            <option value="50">50%</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="modal-btn modal-btn-cancel" onclick="fecharModal('modalMeta')">Cancelar</button>
+                    <button type="submit" class="modal-btn modal-btn-save">Criar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalEditarMeta">
+        <div class="modal">
+            <h3>Editar Meta</h3>
+            <form onsubmit="atualizarMeta(event)">
+                <input type="hidden" id="editMetaId">
+                <div class="modal-field">
+                    <label>Nome da Meta</label>
+                    <input type="text" id="editMetaNome" required>
+                </div>
+                <div class="modal-row">
+                    <div class="modal-field">
+                        <label>Prazo</label>
+                        <input type="date" id="editMetaPrazo" required>
+                    </div>
+                    <div class="modal-field">
+                        <label>Progresso</label>
+                        <select id="editMetaProgresso">
+                            <option value="0">0%</option>
+                            <option value="10">10%</option>
+                            <option value="20">20%</option>
+                            <option value="30">30%</option>
+                            <option value="40">40%</option>
+                            <option value="50">50%</option>
+                            <option value="60">60%</option>
+                            <option value="70">70%</option>
+                            <option value="80">80%</option>
+                            <option value="90">90%</option>
+                            <option value="100">100%</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="modal-btn modal-btn-cancel" onclick="fecharModal('modalEditarMeta')">Cancelar</button>
+                    <button type="submit" class="modal-btn modal-btn-save">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalHabito">
+        <div class="modal">
+            <h3>Novo Hábito</h3>
+            <form onsubmit="salvarHabito(event)">
+                <div class="modal-field">
+                    <label>Nome do Hábito</label>
+                    <input type="text" id="habitoNome" placeholder="Ex: Treinar" required>
+                </div>
+                <div class="modal-field">
+                    <label>Frequência</label>
+                    <select id="habitoFrequencia">
+                        <option value="diario">Diário</option>
+                        <option value="semanal">Semanal</option>
+                    </select>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="modal-btn modal-btn-cancel" onclick="fecharModal('modalHabito')">Cancelar</button>
+                    <button type="submit" class="modal-btn modal-btn-save">Criar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalFoco">
+        <div class="modal">
+            <h3>Definir Foco</h3>
+            <div class="foco-options" id="focoOptions">
+                <button type="button" class="foco-option" onclick="setFoco('Corpo & Rotina')">Corpo & Rotina</button>
+                <button type="button" class="foco-option" onclick="setFoco('Disciplina Financeira')">Disciplina Financeira</button>
+                <button type="button" class="foco-option" onclick="setFoco('Carreira & Trabalho')">Carreira & Trabalho</button>
+                <button type="button" class="foco-option" onclick="setFoco('Estudos & Conhecimento')">Estudos & Conhecimento</button>
+                <button type="button" class="foco-option" onclick="setFoco('Relacionamentos')">Relacionamentos</button>
+                <button type="button" class="foco-option" onclick="setFoco('Saúde Mental')">Saúde Mental</button>
+            </div>
+            <div class="modal-field">
+                <label>Ou defina um foco personalizado</label>
+                <input type="text" id="focoCustom" placeholder="Ex: Lançar projeto X">
+            </div>
+            <div class="modal-buttons">
+                <button type="button" class="modal-btn modal-btn-cancel" onclick="fecharModal('modalFoco')">Cancelar</button>
+                <button type="button" class="modal-btn modal-btn-save" onclick="salvarFocoCustom()">Definir</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const STORAGE_KEY = 'zara_pessoal';
+        let dados = { energia: null, foco: null, consistencia: 0, ultimoCheck: null, metas: [], habitos: [], habitosHoje: {} };
+
+        function carregarDados() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) dados = JSON.parse(saved);
+            verificarConsistencia();
+        }
+
+        function salvarDados() { localStorage.setItem(STORAGE_KEY, JSON.stringify(dados)); }
+
+        function verificarConsistencia() {
+            const hoje = new Date().toDateString();
+            if (!dados.ultimoCheck) { dados.ultimoCheck = hoje; salvarDados(); return; }
+            const diffDias = Math.floor((new Date(hoje) - new Date(dados.ultimoCheck)) / (1000 * 60 * 60 * 24));
+            if (diffDias === 1) {
+                const habitosDiarios = dados.habitos.filter(h => h.frequencia === 'diario');
+                if (habitosDiarios.length > 0 && dados.habitosHoje[dados.ultimoCheck]) {
+                    dados.consistencia = habitosDiarios.every(h => dados.habitosHoje[dados.ultimoCheck][h.id]) ? dados.consistencia + 1 : 0;
+                }
+            } else if (diffDias > 1) { dados.consistencia = 0; }
+            dados.ultimoCheck = hoje;
+            salvarDados();
+        }
+
+        function setEnergia(nivel) {
+            dados.energia = nivel;
+            salvarDados();
+            renderizarEnergia();
+            toast('Energia atualizada');
+        }
+
+        function renderizarEnergia() {
+            document.querySelectorAll('.energia-btn').forEach(el => el.classList.remove('active'));
+            if (dados.energia) document.querySelector(`.energia-btn[data-nivel="${dados.energia}"]`)?.classList.add('active');
+        }
+
+        function abrirModalFoco() {
+            document.getElementById('modalFoco').classList.add('active');
+            document.querySelectorAll('.foco-option').forEach(el => {
+                el.classList.toggle('active', el.textContent === dados.foco);
+            });
+        }
+
+        function setFoco(foco) {
+            dados.foco = foco;
+            salvarDados();
+            document.getElementById('focoAtual').textContent = foco || '—';
+            fecharModal('modalFoco');
+            toast('Foco definido');
+        }
+
+        function salvarFocoCustom() {
+            const custom = document.getElementById('focoCustom').value.trim();
+            if (custom) { setFoco(custom); document.getElementById('focoCustom').value = ''; }
+            else { const sel = document.querySelector('.foco-option.active'); if (sel) setFoco(sel.textContent); }
+        }
+
+        function abrirModalMeta() {
+            if (dados.metas.length >= 3) { toast('Limite de 3 metas. Encerre uma para criar outra.'); return; }
+            document.getElementById('metaPrazo').min = new Date().toISOString().split('T')[0];
+            document.getElementById('metaPrazo').value = '';
+            document.getElementById('metaNome').value = '';
+            document.getElementById('metaProgresso').value = '0';
+            document.getElementById('modalMeta').classList.add('active');
+        }
+
+        function salvarMeta(e) {
+            e.preventDefault();
+            if (dados.metas.length >= 3) { toast('Limite de 3 metas'); return; }
+            dados.metas.push({
+                id: Date.now(),
+                nome: document.getElementById('metaNome').value.trim(),
+                prazo: document.getElementById('metaPrazo').value,
+                progresso: parseInt(document.getElementById('metaProgresso').value),
+                criadaEm: new Date().toISOString()
+            });
+            salvarDados(); renderizarMetas(); fecharModal('modalMeta'); toast('Meta criada');
+        }
+
+        function editarMeta(id) {
+            const meta = dados.metas.find(m => m.id === id);
+            if (!meta) return;
+            document.getElementById('editMetaId').value = id;
+            document.getElementById('editMetaNome').value = meta.nome;
+            document.getElementById('editMetaPrazo').value = meta.prazo;
+            document.getElementById('editMetaProgresso').value = meta.progresso;
+            document.getElementById('modalEditarMeta').classList.add('active');
+        }
+
+        function atualizarMeta(e) {
+            e.preventDefault();
+            const meta = dados.metas.find(m => m.id === parseInt(document.getElementById('editMetaId').value));
+            if (meta) {
+                meta.nome = document.getElementById('editMetaNome').value.trim();
+                meta.prazo = document.getElementById('editMetaPrazo').value;
+                meta.progresso = parseInt(document.getElementById('editMetaProgresso').value);
+                salvarDados(); renderizarMetas(); fecharModal('modalEditarMeta'); toast('Meta atualizada');
+            }
+        }
+
+        function excluirMeta(id) { dados.metas = dados.metas.filter(m => m.id !== id); salvarDados(); renderizarMetas(); toast('Meta removida'); }
+
+        function getStatusMeta(meta) {
+            const diffDias = Math.ceil((new Date(meta.prazo) - new Date()) / (1000 * 60 * 60 * 24));
+            if (meta.progresso >= 100) return { texto: 'Concluída', classe: 'em-dia' };
+            if (diffDias < 0) return { texto: 'Atrasada', classe: 'atrasada' };
+            const diasTotais = Math.ceil((new Date(meta.prazo) - new Date(meta.criadaEm)) / (1000 * 60 * 60 * 24));
+            const progressoEsperado = diasTotais > 0 ? ((diasTotais - diffDias) / diasTotais) * 100 : 0;
+            return meta.progresso < progressoEsperado - 15 ? { texto: 'Atenção', classe: 'atencao' } : { texto: 'Em dia', classe: 'em-dia' };
+        }
+
+        function formatarData(d) { return new Date(d).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: '2-digit' }); }
+
+        function renderizarMetas() {
+            const container = document.getElementById('metasLista');
+            document.getElementById('metasCount').textContent = dados.metas.length;
+            if (!dados.metas.length) { container.innerHTML = '<div class="metas-empty">Nenhuma meta definida.<br>Defina até 3 metas para manter o foco.</div>'; return; }
+            container.innerHTML = dados.metas.map(meta => {
+                const status = getStatusMeta(meta);
+                return `<div class="meta-card"><div class="meta-header"><span class="meta-nome">${meta.nome}</span><span class="meta-status ${status.classe}">${status.texto}</span></div><div class="meta-info"><span>Prazo: ${formatarData(meta.prazo)}</span><span class="meta-progresso-num">${meta.progresso}%</span></div><div class="meta-barra"><div class="meta-barra-fill" style="width:${meta.progresso}%"></div></div><div class="meta-acoes"><button class="meta-btn" onclick="editarMeta(${meta.id})" title="Editar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button><button class="meta-btn" onclick="excluirMeta(${meta.id})" title="Excluir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button></div></div>`;
+            }).join('');
+        }
+
+        let habitoTabAtual = 'diario';
+
+        function setHabitoTab(tab) {
+            habitoTabAtual = tab;
+            document.querySelectorAll('.habitos-tab').forEach(el => el.classList.remove('active'));
+            event.target.classList.add('active');
+            renderizarHabitos();
+        }
+
+        function abrirModalHabito() {
+            document.getElementById('habitoNome').value = '';
+            document.getElementById('habitoFrequencia').value = habitoTabAtual;
+            document.getElementById('modalHabito').classList.add('active');
+        }
+
+        function salvarHabito(e) {
+            e.preventDefault();
+            dados.habitos.push({ id: Date.now(), nome: document.getElementById('habitoNome').value.trim(), frequencia: document.getElementById('habitoFrequencia').value, streak: 0, criadoEm: new Date().toISOString() });
+            salvarDados(); renderizarHabitos(); fecharModal('modalHabito'); toast('Hábito criado');
+        }
+
+        function toggleHabito(id) {
+            const hoje = new Date().toDateString();
+            if (!dados.habitosHoje[hoje]) dados.habitosHoje[hoje] = {};
+            const habito = dados.habitos.find(h => h.id === id);
+            if (!habito) return;
+            if (dados.habitosHoje[hoje][id]) { delete dados.habitosHoje[hoje][id]; habito.streak = Math.max(0, habito.streak - 1); }
+            else { dados.habitosHoje[hoje][id] = true; habito.streak++; }
+            salvarDados(); renderizarHabitos(); calcularDisciplina();
+        }
+
+        function excluirHabito(id) { dados.habitos = dados.habitos.filter(h => h.id !== id); salvarDados(); renderizarHabitos(); calcularDisciplina(); toast('Hábito removido'); }
+
+        function renderizarHabitos() {
+            const container = document.getElementById('habitosLista');
+            const filtrados = dados.habitos.filter(h => h.frequencia === habitoTabAtual);
+            const hoje = new Date().toDateString();
+            if (!filtrados.length) { container.innerHTML = `<div class="habitos-empty">Nenhum hábito ${habitoTabAtual === 'diario' ? 'diário' : 'semanal'} definido.</div>`; return; }
+            container.innerHTML = filtrados.map(h => {
+                const feito = dados.habitosHoje[hoje]?.[h.id] || false;
+                return `<div class="habito-item ${feito ? 'done' : ''}"><div class="habito-left"><div class="habito-check ${feito ? 'done' : ''}" onclick="toggleHabito(${h.id})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div><span class="habito-nome">${h.nome}</span></div><div class="habito-right"><div class="habito-streak"><span>${h.streak}</span> dias</div><button class="habito-btn" onclick="excluirHabito(${h.id})" title="Excluir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button></div></div>`;
+            }).join('');
+        }
+
+        function calcularDisciplina() {
+            const hoje = new Date().toDateString();
+            const diarios = dados.habitos.filter(h => h.frequencia === 'diario');
+            if (!diarios.length) { document.getElementById('disciplinaValor').textContent = '—'; return; }
+            const cumpridos = diarios.filter(h => dados.habitosHoje[hoje]?.[h.id]).length;
+            document.getElementById('disciplinaValor').textContent = Math.round((cumpridos / diarios.length) * 100) + '%';
+        }
+
+        function fecharModal(id) { document.getElementById(id).classList.remove('active'); }
+        document.querySelectorAll('.modal-overlay').forEach(m => m.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('active'); }));
+
+        function toast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 2500);
+        }
+
+        function init() {
+            carregarDados();
+            renderizarEnergia();
+            document.getElementById('focoAtual').textContent = dados.foco || '—';
+            renderizarMetas();
+            renderizarHabitos();
+            document.getElementById('consistenciaValor').innerHTML = `${dados.consistencia} <small>dias</small>`;
+            calcularDisciplina();
+        }
+
+        init();
+    </script>
+</body>
+</html>
