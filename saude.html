@@ -137,6 +137,27 @@
         .form-buttons { display: flex; gap: 10px; margin-top: 20px; }
         .plano-item-actions { display: flex; gap: 5px; }
         
+        /* Notificação Telegram - Sino */
+        .btn-notify { background: transparent; border: none; color: rgba(255,255,255,0.3); cursor: pointer; padding: 5px; transition: all 0.3s; }
+        .btn-notify:hover { color: #d4af7d; }
+        .btn-notify.active { color: #2ecc71; }
+        .btn-notify.active:hover { color: #27ae60; }
+        .btn-notify svg { width: 18px; height: 18px; }
+        
+        /* Config Telegram */
+        .telegram-config { background: rgba(212, 175, 125, 0.08); border: 1px solid rgba(212, 175, 125, 0.15); border-radius: 10px; padding: 15px; margin-bottom: 20px; }
+        .telegram-config-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; cursor: pointer; }
+        .telegram-config-header h4 { font-family: 'Playfair Display', serif; font-size: 0.95em; color: #d4af7d; display: flex; align-items: center; gap: 8px; }
+        .telegram-config-header svg { width: 18px; height: 18px; }
+        .telegram-config-body { display: none; }
+        .telegram-config-body.active { display: block; }
+        .telegram-status { display: flex; align-items: center; gap: 6px; font-size: 0.75em; }
+        .telegram-status.connected { color: #2ecc71; }
+        .telegram-status.disconnected { color: #e74c3c; }
+        .telegram-status-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .telegram-status.connected .telegram-status-dot { background: #2ecc71; }
+        .telegram-status.disconnected .telegram-status-dot { background: #e74c3c; }
+        
         /* Plano Lista */
         .plano-lista { margin-top: 20px; }
         .plano-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #141414; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 10px; }
@@ -552,6 +573,39 @@
 
         <!-- Aba Editar Semana -->
         <div class="sub-content" id="sub-editar">
+            <!-- Configuração Telegram -->
+            <div class="telegram-config">
+                <div class="telegram-config-header" onclick="toggleTelegramConfig()">
+                    <h4>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>
+                        Notificações Telegram
+                    </h4>
+                    <div class="telegram-status" id="telegramStatus">
+                        <span class="telegram-status-dot"></span>
+                        <span>Desconectado</span>
+                    </div>
+                </div>
+                <div class="telegram-config-body" id="telegramConfigBody">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Bot Token</label>
+                            <input type="text" id="telegramBotToken" placeholder="Cole o token do seu bot" onchange="salvarTelegramConfig()">
+                        </div>
+                        <div class="form-group">
+                            <label>Chat ID</label>
+                            <input type="text" id="telegramChatId" placeholder="Seu chat ID" onchange="salvarTelegramConfig()">
+                        </div>
+                    </div>
+                    <div class="form-buttons" style="margin-top:10px">
+                        <button class="btn-secondary" onclick="testarTelegram()">Testar Conexão</button>
+                        <button class="btn-primary" onclick="obterChatId()">Obter Chat ID</button>
+                    </div>
+                    <p style="font-size:0.75em;color:rgba(255,255,255,0.4);margin-top:12px;">
+                        Clique no 🔔 ao lado de cada medicamento para ativar notificações no horário.
+                    </p>
+                </div>
+            </div>
+            
             <div class="form-section">
                 <h3>Adicionar Medicamento ao Plano</h3>
                 <div class="form-row">
@@ -834,7 +888,9 @@
             planoSemanal: { segunda: [], terca: [], quarta: [], quinta: [], sexta: [], sabado: [], domingo: [] },
             statusHoje: {},
             treinos: [],
-            alertasTreino: []
+            alertasTreino: [],
+            telegram: { botToken: '', chatId: '', ativo: false },
+            notificacoesEnviadas: {}
         };
 
         let saude = JSON.parse(localStorage.getItem('saude_v1')) || JSON.parse(JSON.stringify(dadosVazios));
@@ -842,6 +898,8 @@
         if (!saude.statusHoje) saude.statusHoje = {};
         if (!saude.treinos) saude.treinos = [];
         if (!saude.alertasTreino) saude.alertasTreino = [];
+        if (!saude.telegram) saude.telegram = { botToken: '', chatId: '', ativo: false };
+        if (!saude.notificacoesEnviadas) saude.notificacoesEnviadas = {};
 
         let planoTemp = [];
 
@@ -1153,12 +1211,16 @@
             
             medsExistentes.forEach(med => {
                 const diasTexto = med.dias.length === 7 ? 'Todos os dias' : med.dias.map(d => d.substring(0, 3)).join(', ');
+                const notifyActive = med.notificar ? 'active' : '';
                 html += `<div class="plano-item">
                     <div class="plano-item-info">
                         <div class="plano-item-nome">${med.nome} - ${med.dose}</div>
                         <div class="plano-item-detalhes">${med.hora || '--:--'} | ${diasTexto} | ${med.estoque} ${med.tipo || 'comprimidos'}</div>
                     </div>
                     <div class="plano-item-actions">
+                        <button class="btn-notify ${notifyActive}" onclick="toggleNotificacao('${med.id}')" title="${med.notificar ? 'Desativar notificação' : 'Ativar notificação'}">
+                            <svg viewBox="0 0 24 24" fill="${med.notificar ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                        </button>
                         <button class="btn-edit-small" onclick="abrirModalEdit('${med.id}')" title="Editar">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                         </button>
@@ -1782,6 +1844,170 @@
         }
 
         // ==========================================
+        // TELEGRAM - NOTIFICAÇÕES
+        // ==========================================
+        function toggleTelegramConfig() {
+            const body = document.getElementById('telegramConfigBody');
+            body.classList.toggle('active');
+        }
+        
+        function carregarTelegramConfig() {
+            if (saude.telegram) {
+                document.getElementById('telegramBotToken').value = saude.telegram.botToken || '';
+                document.getElementById('telegramChatId').value = saude.telegram.chatId || '';
+                atualizarStatusTelegram();
+            }
+        }
+        
+        function salvarTelegramConfig() {
+            saude.telegram.botToken = document.getElementById('telegramBotToken').value.trim();
+            saude.telegram.chatId = document.getElementById('telegramChatId').value.trim();
+            saude.telegram.ativo = !!(saude.telegram.botToken && saude.telegram.chatId);
+            salvarDados();
+            atualizarStatusTelegram();
+        }
+        
+        function atualizarStatusTelegram() {
+            const status = document.getElementById('telegramStatus');
+            if (saude.telegram.botToken && saude.telegram.chatId) {
+                status.className = 'telegram-status connected';
+                status.innerHTML = '<span class="telegram-status-dot"></span><span>Conectado</span>';
+            } else {
+                status.className = 'telegram-status disconnected';
+                status.innerHTML = '<span class="telegram-status-dot"></span><span>Desconectado</span>';
+            }
+        }
+        
+        async function testarTelegram() {
+            const token = document.getElementById('telegramBotToken').value.trim();
+            const chatId = document.getElementById('telegramChatId').value.trim();
+            
+            if (!token || !chatId) {
+                alert('Preencha o Bot Token e o Chat ID.');
+                return;
+            }
+            
+            try {
+                const msg = '✅ *ZARA Saúde*\n\nConexão testada com sucesso!\nAs notificações de medicamentos estão ativas.';
+                const url = `https://api.telegram.org/bot${token}/sendMessage`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: chatId, text: msg, parse_mode: 'Markdown' })
+                });
+                
+                const data = await response.json();
+                if (data.ok) {
+                    alert('✅ Conexão bem-sucedida! Verifique o Telegram.');
+                    salvarTelegramConfig();
+                } else {
+                    alert('❌ Erro: ' + (data.description || 'Falha na conexão'));
+                }
+            } catch (e) {
+                alert('❌ Erro de conexão: ' + e.message);
+            }
+        }
+        
+        async function obterChatId() {
+            const token = document.getElementById('telegramBotToken').value.trim();
+            if (!token) {
+                alert('Preencha o Bot Token primeiro.');
+                return;
+            }
+            
+            try {
+                const url = `https://api.telegram.org/bot${token}/getUpdates`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.ok && data.result.length > 0) {
+                    const chatId = data.result[data.result.length - 1].message?.chat?.id;
+                    if (chatId) {
+                        document.getElementById('telegramChatId').value = chatId;
+                        salvarTelegramConfig();
+                        alert('✅ Chat ID obtido: ' + chatId);
+                    } else {
+                        alert('❌ Envie uma mensagem para o bot primeiro e tente novamente.');
+                    }
+                } else {
+                    alert('❌ Nenhuma mensagem encontrada. Envie qualquer mensagem para o seu bot no Telegram e clique novamente.');
+                }
+            } catch (e) {
+                alert('❌ Erro: ' + e.message);
+            }
+        }
+        
+        function toggleNotificacao(medId) {
+            // Atualizar em todos os dias
+            Object.keys(saude.planoSemanal).forEach(dia => {
+                saude.planoSemanal[dia].forEach(med => {
+                    if (med.id === medId) {
+                        med.notificar = !med.notificar;
+                    }
+                });
+            });
+            salvarDados();
+            renderizarPlanoLista();
+            
+            // Feedback
+            const medNome = Object.values(saude.planoSemanal).flat().find(m => m.id === medId)?.nome || 'Medicamento';
+            const ativo = Object.values(saude.planoSemanal).flat().find(m => m.id === medId)?.notificar;
+            mostrarStatus(`Notificação ${ativo ? 'ativada' : 'desativada'} para ${medNome}`, 'success');
+        }
+        
+        async function enviarNotificacaoTelegram(medicamento) {
+            if (!saude.telegram.ativo) return;
+            
+            const msg = `💊 *Hora do Medicamento!*\n\n*${medicamento.nome}*\nDose: ${medicamento.dose}\nHorário: ${medicamento.hora}`;
+            
+            try {
+                const url = `https://api.telegram.org/bot${saude.telegram.botToken}/sendMessage`;
+                await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        chat_id: saude.telegram.chatId, 
+                        text: msg, 
+                        parse_mode: 'Markdown' 
+                    })
+                });
+            } catch (e) {
+                console.error('Erro ao enviar notificação:', e);
+            }
+        }
+        
+        function verificarHorariosMedicamentos() {
+            const agora = new Date();
+            const horaAtual = agora.getHours().toString().padStart(2, '0') + ':' + agora.getMinutes().toString().padStart(2, '0');
+            const diaAtual = getDiaAtual();
+            const dataHoje = getDataHoje();
+            
+            // Limpar notificações de dias anteriores
+            Object.keys(saude.notificacoesEnviadas).forEach(key => {
+                if (!key.startsWith(dataHoje)) {
+                    delete saude.notificacoesEnviadas[key];
+                }
+            });
+            
+            const medsHoje = saude.planoSemanal[diaAtual] || [];
+            medsHoje.forEach(med => {
+                if (med.notificar && med.hora) {
+                    const chaveNotif = `${dataHoje}_${med.id}_${med.hora}`;
+                    
+                    // Verificar se está no horário (com margem de 1 minuto)
+                    if (med.hora === horaAtual && !saude.notificacoesEnviadas[chaveNotif]) {
+                        enviarNotificacaoTelegram(med);
+                        saude.notificacoesEnviadas[chaveNotif] = true;
+                        salvarDados();
+                    }
+                }
+            });
+        }
+        
+        // Verificar horários a cada 30 segundos
+        setInterval(verificarHorariosMedicamentos, 30000);
+
+        // ==========================================
         // INICIALIZAÇÃO
         // ==========================================
         async function inicializar() {
@@ -1790,6 +2016,8 @@
             renderizarPlanoLista();
             renderTreinos();
             renderAlertas();
+            carregarTelegramConfig();
+            verificarHorariosMedicamentos(); // Verificar imediatamente
         }
         
         inicializar();
