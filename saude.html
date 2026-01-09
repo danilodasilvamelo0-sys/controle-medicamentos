@@ -1865,6 +1865,32 @@
             saude.telegram.ativo = !!(saude.telegram.botToken && saude.telegram.chatId);
             salvarDados();
             atualizarStatusTelegram();
+            
+            // Salvar também no Supabase para a Edge Function usar
+            if (useSupabase && saude.telegram.botToken && saude.telegram.chatId) {
+                salvarTelegramSupabase();
+            }
+        }
+        
+        async function salvarTelegramSupabase() {
+            if (!useSupabase) return;
+            try {
+                const { error } = await supabaseClient.from('telegram_config').upsert({
+                    id: USER_ID,
+                    user_id: USER_ID,
+                    bot_token: saude.telegram.botToken,
+                    chat_id: saude.telegram.chatId,
+                    ativo: saude.telegram.ativo,
+                    updated_at: new Date().toISOString()
+                });
+                if (error) {
+                    console.error('Erro ao salvar Telegram no Supabase:', error);
+                } else {
+                    console.log('Telegram config salva no Supabase');
+                }
+            } catch (e) {
+                console.error('Exceção ao salvar Telegram:', e);
+            }
         }
         
         function atualizarStatusTelegram() {
@@ -1888,7 +1914,7 @@
             }
             
             try {
-                const msg = '✅ *ZARA Saúde*\n\nConexão testada com sucesso!\nAs notificações de medicamentos estão ativas.';
+                const msg = '✅ *ZARA Saúde*\n\nConexão testada com sucesso!\nAs notificações de medicamentos estão ativas 24/7.';
                 const url = `https://api.telegram.org/bot${token}/sendMessage`;
                 const response = await fetch(url, {
                     method: 'POST',
@@ -1898,7 +1924,7 @@
                 
                 const data = await response.json();
                 if (data.ok) {
-                    alert('✅ Conexão bem-sucedida! Verifique o Telegram.');
+                    alert('✅ Conexão bem-sucedida! Verifique o Telegram.\n\nAs notificações funcionarão 24/7, mesmo com o computador desligado.');
                     salvarTelegramConfig();
                 } else {
                     alert('❌ Erro: ' + (data.description || 'Falha na conexão'));
