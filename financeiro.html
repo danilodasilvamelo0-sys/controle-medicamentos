@@ -605,11 +605,9 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 8px;
-        height: 8px;
-        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a0a0a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") center/contain no-repeat;
         width: 12px;
         height: 12px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a0a0a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") center/contain no-repeat;
     }
 
     /* Checkbox de formulário */
@@ -841,25 +839,6 @@
         background: linear-gradient(90deg, #2980b9 0%, #3498db 100%);
         border-radius: 3px;
         transition: width 0.3s ease;
-    }
-
-    .checkbox-status:hover {
-        background: rgba(46, 204, 113, 0.1);
-    }
-
-    .checkbox-status:checked {
-        background: #2ecc71;
-    }
-
-    .checkbox-status:checked::after {
-        content: '✓';
-        position: absolute;
-        color: #0a0a0a;
-        font-size: 12px;
-        font-weight: bold;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
     }
 
     /* ========== EMPTY STATE ========== */
