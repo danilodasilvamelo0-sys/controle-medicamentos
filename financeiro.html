@@ -2948,6 +2948,20 @@
         return `${anoSelecionado}-${mesSelecionado}`;
     }
 
+    function getMesAnteriorKey() {
+        let mes = parseInt(mesSelecionado);
+        let ano = parseInt(anoSelecionado);
+
+        mes--;
+        if (mes < 1) {
+            mes = 12;
+            ano--;
+        }
+
+        const mesStr = String(mes).padStart(2, '0');
+        return `${ano}-${mesStr}`;
+    }
+
     function formatarMoeda(valor) {
         return new Intl.NumberFormat('pt-BR', { 
             style: 'currency', 
@@ -3608,8 +3622,9 @@
             financeiro.despesasFixasMes[key] = [];
         }
 
+        // Gerar instâncias para o mês atual
         financeiro.despesasFixas.filter(df => df.ativa).forEach(modelo => {
-            const jaExiste = financeiro.despesasFixasMes[key].some(d => d.modeloId === modelo.id);
+            const jaExiste = financeiro.despesasFixasMes[key].some(d => d.modeloId === modelo.id && !d.atrasada);
             if (!jaExiste) {
                 financeiro.despesasFixasMes[key].push({
                     id: gerarId(),
@@ -3620,10 +3635,42 @@
                     data: getDataVencimento(modelo.diaVencimento),
                     pago: false,
                     dataPagamento: null,
-                    comprovante: null
+                    comprovante: null,
+                    atrasada: false
                 });
             }
         });
+
+        // Verificar despesas não pagas do mês anterior e criar instâncias atrasadas
+        const mesAnteriorKey = getMesAnteriorKey();
+        const despesasMesAnterior = financeiro.despesasFixasMes[mesAnteriorKey] || [];
+
+        despesasMesAnterior.forEach(despesaAnterior => {
+            if (!despesaAnterior.pago && !despesaAnterior.atrasada) {
+                // Verificar se já não existe uma despesa atrasada para este modelo
+                const jaExisteAtrasada = financeiro.despesasFixasMes[key].some(
+                    d => d.modeloId === despesaAnterior.modeloId && d.atrasada && d.dataOriginal === despesaAnterior.data
+                );
+
+                if (!jaExisteAtrasada) {
+                    // Criar instância atrasada no mês atual
+                    financeiro.despesasFixasMes[key].push({
+                        id: gerarId(),
+                        modeloId: despesaAnterior.modeloId,
+                        descricao: despesaAnterior.descricao,
+                        valor: despesaAnterior.valor,
+                        categoria: despesaAnterior.categoria,
+                        data: despesaAnterior.data, // Mantém a data original de vencimento
+                        dataOriginal: despesaAnterior.data,
+                        pago: false,
+                        dataPagamento: null,
+                        comprovante: null,
+                        atrasada: true
+                    });
+                }
+            }
+        });
+
         salvarDados();
     }
 
@@ -5097,22 +5144,85 @@
         // === TABELA DESPESAS FIXAS ===
         const fixasTable = document.getElementById('despesasFixasTable');
         document.getElementById('emptyDespesasFixas').style.display = fixasMes.length ? 'none' : 'block';
-        fixasTable.innerHTML = fixasMes.map((d, idx) => {
-            const status = getStatusVencimento(d.data, d.pago);
-            const temComprovante = d.comprovante !== null && d.comprovante !== undefined;
-            return `
-                <tr class="${d.pago ? 'done' : ''} ${status.classe}">
-                    <td><input type="checkbox" class="checkbox-status" ${d.pago ? 'checked' : ''} onchange="togglePagoFixa(${d.id})"></td>
-                    <td class="descricao">
-                        ${d.descricao}
-                        <span class="badge recorrente"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4"></path><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><path d="M7 23l-4-4 4-4"></path><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg></span>
-                        ${temComprovante ? '<span class="badge comprovante"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg></span>' : ''}
+
+        // Agrupar despesas por modeloId
+        const despesasAgrupadas = {};
+        fixasMes.forEach(d => {
+            if (!despesasAgrupadas[d.modeloId]) {
+                despesasAgrupadas[d.modeloId] = {
+                    atual: null,
+                    atrasadas: []
+                };
+            }
+            if (d.atrasada) {
+                despesasAgrupadas[d.modeloId].atrasadas.push(d);
+            } else {
+                despesasAgrupadas[d.modeloId].atual = d;
+            }
+        });
+
+        // Renderizar agrupadas
+        let htmlFixas = '';
+        Object.keys(despesasAgrupadas).forEach(modeloId => {
+            const grupo = despesasAgrupadas[modeloId];
+            const atual = grupo.atual;
+            const atrasadas = grupo.atrasadas;
+
+            if (!atual && atrasadas.length === 0) return;
+
+            const despesaRef = atual || atrasadas[0];
+            const totalAtrasado = atrasadas.filter(a => !a.pago).reduce((s, a) => s + a.valor, 0);
+            const totalAtual = atual && !atual.pago ? atual.valor : 0;
+            const totalGeral = totalAtrasado + totalAtual;
+            const todasPagas = (!atual || atual.pago) && atrasadas.every(a => a.pago);
+
+            // Linha principal com nome da despesa
+            htmlFixas += `
+                <tr style="background: rgba(212, 175, 125, 0.05); font-weight: 500;">
+                    <td colspan="6" style="padding: 12px 15px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 1em;">${despesaRef.descricao}</span>
+                                <span class="badge recorrente"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4"></path><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><path d="M7 23l-4-4 4-4"></path><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg></span>
+                                <span class="categoria">${despesaRef.categoria}</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                ${todasPagas ? '<span style="color: #2ecc71; font-size: 0.85em;">✓ Tudo pago</span>' : `<span style="color: #e74c3c; font-weight: 600;">Total: ${formatarMoeda(totalGeral)}</span>`}
+                                <div class="action-buttons">
+                                    <button class="action-btn btn-edit" onclick="editarDespesaFixaModelo(${despesaRef.modeloId})" title="Editar">
+                                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                        </svg>
+                                    </button>
+                                    <button class="action-btn btn-delete" onclick="encerrarDespesaFixa(${despesaRef.modeloId})" title="Encerrar">
+                                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </td>
-                    <td><span class="categoria">${d.categoria}</span></td>
-                    <td>${formatarData(d.data)} ${status.badge}</td>
-                    <td class="valor-negativo">${formatarMoeda(d.valor)}</td>
-                    <td>
-                        <div class="action-buttons">
+                </tr>
+            `;
+
+            // Linhas de despesas atrasadas
+            atrasadas.forEach(d => {
+                const status = getStatusVencimento(d.data, d.pago);
+                const temComprovante = d.comprovante !== null && d.comprovante !== undefined;
+                htmlFixas += `
+                    <tr class="${d.pago ? 'done' : ''} ${status.classe}" style="background: rgba(231, 76, 60, 0.05);">
+                        <td style="padding-left: 40px;"><input type="checkbox" class="checkbox-status" ${d.pago ? 'checked' : ''} onchange="togglePagoFixa(${d.id})"></td>
+                        <td class="descricao" style="padding-left: 10px;">
+                            <span style="color: #e74c3c;">Em atraso</span>
+                            ${temComprovante ? '<span class="badge comprovante"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg></span>' : ''}
+                        </td>
+                        <td></td>
+                        <td>${formatarData(d.data)} <span class="badge vencido">🔴 Vencido</span></td>
+                        <td class="valor-negativo">${formatarMoeda(d.valor)}</td>
+                        <td>
                             ${temComprovante ? `
                                 <button class="action-btn btn-comprovante" onclick="verComprovanteFixa(${d.id})" title="Ver Comprovante">
                                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -5120,91 +5230,75 @@
                                     </svg>
                                 </button>
                             ` : ''}
-                            <button class="action-btn btn-edit" onclick="editarDespesaFixaModelo(${d.modeloId})" title="Editar">
-                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                </svg>
-                            </button>
-                            <button class="action-btn btn-delete" onclick="encerrarDespesaFixa(${d.modeloId})" title="Encerrar">
-                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            `;
-        }).join('');
+                        </td>
+                    </tr>
+                `;
+            });
+
+            // Linha do mês atual
+            if (atual) {
+                const status = getStatusVencimento(atual.data, atual.pago);
+                const temComprovante = atual.comprovante !== null && atual.comprovante !== undefined;
+                htmlFixas += `
+                    <tr class="${atual.pago ? 'done' : ''} ${status.classe}">
+                        <td style="padding-left: 40px;"><input type="checkbox" class="checkbox-status" ${atual.pago ? 'checked' : ''} onchange="togglePagoFixa(${atual.id})"></td>
+                        <td class="descricao" style="padding-left: 10px;">
+                            Mês atual
+                            ${temComprovante ? '<span class="badge comprovante"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg></span>' : ''}
+                        </td>
+                        <td></td>
+                        <td>${formatarData(atual.data)} ${status.badge}</td>
+                        <td class="valor-negativo">${formatarMoeda(atual.valor)}</td>
+                        <td>
+                            ${temComprovante ? `
+                                <button class="action-btn btn-comprovante" onclick="verComprovanteFixa(${atual.id})" title="Ver Comprovante">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                                    </svg>
+                                </button>
+                            ` : ''}
+                        </td>
+                    </tr>
+                `;
+            }
+        });
+
+        fixasTable.innerHTML = htmlFixas;
 
         // === TABELA DESPESAS VARIÁVEIS ===
         const variaveisTable = document.getElementById('despesasVariaveisTable');
         document.getElementById('emptyDespesasVariaveis').style.display = variaveisMes.length ? 'none' : 'block';
-        variaveisTable.innerHTML = variaveisMes.map(d => {
+
+        // Separar despesas parceladas de não parceladas
+        const naoParceladas = variaveisMes.filter(d => !d.parcelado);
+        const parceladas = variaveisMes.filter(d => d.parcelado && d.grupoParcelaId);
+
+        // Agrupar parceladas por grupoParcelaId
+        const gruposParcelados = {};
+        parceladas.forEach(p => {
+            if (!gruposParcelados[p.grupoParcelaId]) {
+                gruposParcelados[p.grupoParcelaId] = [];
+            }
+            gruposParcelados[p.grupoParcelaId].push(p);
+        });
+
+        let htmlVariaveis = '';
+
+        // Renderizar despesas não parceladas normalmente
+        naoParceladas.forEach(d => {
             const status = getStatusVencimento(d.data, d.pago);
             const temComprovante = d.comprovante !== null && d.comprovante !== undefined;
-            
-            // Calcular progresso de parcelas
-            let parcelaHtml = '';
-            let valorTotalParcelado = '';
-            if (d.parcelado && d.totalParcelas && d.grupoParcelaId) {
-                // Contar parcelas do mesmo grupo
-                const parcelasDoGrupo = financeiro.despesasVariaveis.filter(dv => dv.grupoParcelaId === d.grupoParcelaId);
-                const parcelasPagasArr = parcelasDoGrupo.filter(p => p.pago);
-                const parcelasPagas = parcelasPagasArr.length;
-                const totalParcelasAtual = parcelasDoGrupo.length;
-                
-                // Calcular valor total real (soma de todas as parcelas)
-                const valorTotalReal = parcelasDoGrupo.reduce((sum, p) => sum + p.valor, 0);
-                // Valor já pago
-                const valorPago = parcelasPagasArr.reduce((sum, p) => sum + p.valor, 0);
-                // Valor restante
-                const valorRestante = valorTotalReal - valorPago;
-                // Percentual pago (baseado em valor, não em quantidade)
-                const percentPago = valorTotalReal > 0 ? Math.round((valorPago / valorTotalReal) * 100) : 0;
-                
-                valorTotalParcelado = `<small style="color: rgba(255,255,255,0.4); display: block; font-size: 0.75em;">Total: ${formatarMoeda(valorTotalReal)}</small>`;
-                
-                // Determinar cor da barra baseado no progresso
-                let barColor = '#3498db'; // Azul padrão
-                if (percentPago >= 100) {
-                    barColor = '#2ecc71'; // Verde quando quitado
-                } else if (percentPago >= 75) {
-                    barColor = '#27ae60'; // Verde mais escuro
-                } else if (percentPago >= 50) {
-                    barColor = '#f39c12'; // Amarelo
-                }
-                
-                parcelaHtml = `
-                    <div class="parcela-progress">
-                        <div class="parcela-info">
-                            <span class="parcela-label">${parcelasPagas}/${totalParcelasAtual} pagas</span>
-                            <span class="parcela-percent">${percentPago}%</span>
-                        </div>
-                        <div class="parcela-bar">
-                            <div class="parcela-bar-fill" style="width: ${percentPago}%; background: linear-gradient(90deg, ${barColor} 0%, ${barColor}cc 100%);"></div>
-                        </div>
-                        ${percentPago < 100 ? `<small style="color: rgba(255,255,255,0.35); font-size: 0.7em;">Restam: ${formatarMoeda(valorRestante)}</small>` : '<small style="color: #2ecc71; font-size: 0.7em;">Quitado</small>'}
-                    </div>
-                `;
-            }
-            
-            return `
+
+            htmlVariaveis += `
                 <tr class="${d.pago ? 'done' : ''} ${status.classe}">
                     <td><input type="checkbox" class="checkbox-status" ${d.pago ? 'checked' : ''} onchange="togglePagoVariavel(${d.id})"></td>
                     <td class="descricao">
                         ${d.descricao}
-                        ${d.parcelado ? `<span class="badge parcela">${d.parcelaAtual}/${d.totalParcelas}</span>` : ''}
                         ${temComprovante ? '<span class="badge comprovante"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg></span>' : ''}
-                        ${parcelaHtml}
                     </td>
                     <td><span class="categoria">${d.categoria}</span></td>
                     <td>${formatarData(d.data)} ${status.badge}</td>
-                    <td class="valor-negativo">
-                        ${formatarMoeda(d.valor)}
-                        ${valorTotalParcelado}
-                    </td>
+                    <td class="valor-negativo">${formatarMoeda(d.valor)}</td>
                     <td>
                         <div class="action-buttons">
                             ${temComprovante ? `
@@ -5220,26 +5314,114 @@
                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                                 </svg>
                             </button>
-                            ${d.parcelado ? `
-                                <button class="action-btn btn-delete" onclick="deletarTodasParcelas(${d.id})" title="Excluir todas parcelas">
-                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                    </svg>
-                                </button>
-                            ` : `
-                                <button class="action-btn btn-delete" onclick="deletarDespesaVariavel(${d.id})" title="Excluir">
-                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                    </svg>
-                                </button>
-                            `}
+                            <button class="action-btn btn-delete" onclick="deletarDespesaVariavel(${d.id})" title="Excluir">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                </svg>
+                            </button>
                         </div>
                     </td>
                 </tr>
             `;
-        }).join('');
+        });
+
+        // Renderizar grupos parcelados
+        Object.keys(gruposParcelados).forEach(grupoId => {
+            const parcelas = gruposParcelados[grupoId].sort((a, b) => a.parcelaAtual - b.parcelaAtual);
+            const primeiraParcela = parcelas[0];
+
+            // Calcular totais
+            const todasParcelas = financeiro.despesasVariaveis.filter(dv => dv.grupoParcelaId === grupoId);
+            const valorTotal = todasParcelas.reduce((s, p) => s + p.valor, 0);
+            const parcelasPagas = todasParcelas.filter(p => p.pago).length;
+            const parcelasRestantes = todasParcelas.length - parcelasPagas;
+
+            // Linha principal com nome da despesa parcelada
+            htmlVariaveis += `
+                <tr style="background: rgba(52, 152, 219, 0.05); font-weight: 500;">
+                    <td colspan="6" style="padding: 12px 15px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 1em;">${primeiraParcela.descricao}</span>
+                                <span class="badge parcela">Parcelado</span>
+                                <span class="categoria">${primeiraParcela.categoria}</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <span style="color: rgba(255,255,255,0.6); font-size: 0.85em;">Restam: ${parcelasRestantes} parcelas</span>
+                                <span style="color: rgba(255,255,255,0.4); font-size: 0.8em;">Total: ${formatarMoeda(valorTotal)}</span>
+                                <div class="action-buttons">
+                                    <button class="action-btn btn-edit" onclick="editarDespesaVariavel(${primeiraParcela.id})" title="Editar">
+                                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                        </svg>
+                                    </button>
+                                    <button class="action-btn btn-delete" onclick="deletarTodasParcelas(${primeiraParcela.id})" title="Excluir todas parcelas">
+                                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `;
+
+            // Renderizar cada parcela
+            parcelas.forEach(p => {
+                const status = getStatusVencimento(p.data, p.pago);
+                const temComprovante = p.comprovante !== null && p.comprovante !== undefined;
+
+                // Determinar status da parcela
+                let statusParcela = 'Atual';
+                let corStatus = 'rgba(255,255,255,0.7)';
+                let iconeStatus = '';
+
+                const hoje = new Date();
+                hoje.setHours(0, 0, 0, 0);
+                const dataVencimento = new Date(p.data + 'T00:00:00');
+
+                if (p.pago) {
+                    statusParcela = 'Paga';
+                    corStatus = '#2ecc71';
+                    iconeStatus = '✓';
+                } else if (dataVencimento < hoje) {
+                    statusParcela = 'Atrasada';
+                    corStatus = '#e74c3c';
+                    iconeStatus = '🔴';
+                } else if (dataVencimento.getMonth() === hoje.getMonth() && dataVencimento.getFullYear() === hoje.getFullYear()) {
+                    statusParcela = 'Atual';
+                    corStatus = '#3498db';
+                }
+
+                htmlVariaveis += `
+                    <tr class="${p.pago ? 'done' : ''} ${status.classe}" style="background: ${p.pago ? 'rgba(46, 204, 113, 0.03)' : (statusParcela === 'Atrasada' ? 'rgba(231, 76, 60, 0.05)' : 'transparent')};">
+                        <td style="padding-left: 40px;"><input type="checkbox" class="checkbox-status" ${p.pago ? 'checked' : ''} onchange="togglePagoVariavel(${p.id})"></td>
+                        <td class="descricao" style="padding-left: 10px;">
+                            <span style="color: ${corStatus};">Parcela ${p.parcelaAtual}/${p.totalParcelas} – ${statusParcela} ${iconeStatus}</span>
+                            ${temComprovante ? '<span class="badge comprovante"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg></span>' : ''}
+                        </td>
+                        <td></td>
+                        <td>${formatarData(p.data)} ${status.badge}</td>
+                        <td class="valor-negativo">${formatarMoeda(p.valor)}</td>
+                        <td>
+                            ${temComprovante ? `
+                                <button class="action-btn btn-comprovante" onclick="verComprovanteVariavel(${p.id})" title="Ver Comprovante">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                                    </svg>
+                                </button>
+                            ` : ''}
+                        </td>
+                    </tr>
+                `;
+            });
+        });
+
+        variaveisTable.innerHTML = htmlVariaveis;
 
         // === CARDS EMPRÉSTIMOS ===
         const empContainer = document.getElementById('emprestimosContainer');
