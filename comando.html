@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>PAINEL DE GUERRA | Centro de Comando</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cinzel:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; background: #0a0a0a !important; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a !important; color: #fff; min-height: 100vh; padding: 20px; padding-bottom: 80px; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, #d4af7d, transparent); z-index: 9999; }
+        body::after { content: ''; position: fixed; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, #d4af7d, transparent); z-index: 9999; }
+        
+        /* Sidebar */
+        .sidebar { position: fixed; top: 0; left: 0; width: 60px; height: 100vh; background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%); border-right: 1px solid rgba(212, 175, 125, 0.15); z-index: 1000; box-shadow: 4px 0 20px rgba(0,0,0,0.5); display: flex; flex-direction: column; align-items: center; padding: 15px 0; transition: width 0.3s; overflow: hidden; }
+        .sidebar:hover { width: 200px; }
+        .sidebar-logo { width: 40px; height: 40px; background: transparent; border: 1px solid rgba(212, 175, 125, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Cinzel', serif; font-size: 1.1em; color: #d4af7d; margin-bottom: 20px; flex-shrink: 0; text-decoration: none; }
+        .sidebar-logo:hover { background: rgba(212, 175, 125, 0.1); }
+        .sidebar-menu { display: flex; flex-direction: column; gap: 5px; width: 100%; flex: 1; }
+        .sidebar-menu a { display: flex; align-items: center; gap: 12px; padding: 12px 10px; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85em; transition: all 0.3s; border-left: 2px solid transparent; white-space: nowrap; }
+        .sidebar-menu a:hover { background: rgba(212, 175, 125, 0.1); border-left-color: #d4af7d; color: #fff; }
+        .sidebar-menu a.active { background: rgba(212, 175, 125, 0.15); border-left-color: #d4af7d; color: #d4af7d; }
+        .sidebar-menu a svg { width: 20px; height: 20px; min-width: 20px; margin-left: 10px; }
+        .sidebar-menu a span { opacity: 0; transition: opacity 0.3s; }
+        .sidebar:hover .sidebar-menu a span { opacity: 1; }
+        .sidebar-divider { height: 1px; background: rgba(212, 175, 125, 0.2); margin: 8px 10px; width: calc(100% - 20px); }
+        .sidebar-footer { padding: 15px 10px; text-align: center; border-top: 1px solid rgba(212, 175, 125, 0.2); width: 100%; background: rgba(0,0,0,0.3); }
+        .sidebar-footer p { color: rgba(255,255,255,0.6); font-size: 0.7em; font-weight: 400; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.6; opacity: 0; transition: opacity 0.3s; }
+        .sidebar-footer .instituto { font-size: 0.85em; color: #d4af7d; display: block; margin-bottom: 3px; font-family: 'Cinzel', serif; }
+        .sidebar:hover .sidebar-footer p { opacity: 1; }
+        
+        /* Mobile Nav */
+        .mobile-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%); border-top: 1px solid rgba(212, 175, 125, 0.15); padding: 10px 0; z-index: 1000; }
+        .mobile-nav-items { display: flex; justify-content: space-around; align-items: center; }
+        .mobile-nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.65em; padding: 5px 10px; transition: all 0.3s; }
+        .mobile-nav-item svg { width: 22px; height: 22px; }
+        .mobile-nav-item.active { color: #d4af7d; }
+        
+        @media (max-width: 768px) { 
+            body { padding: 10px; padding-bottom: 80px; } 
+            .sidebar { display: none; } 
+            .mobile-nav { display: block; } 
+            .main-container { margin-left: 0 !important; }
+        }
+        @media (min-width: 769px) { 
+            body { padding-left: 80px; } 
+            .mobile-nav { display: none !important; }
+        }
+        
+        /* Main Container */
+        .main-container { max-width: 1200px; margin: 0 auto; }
+        
+        /* Identity Card - Fixed Top */
+        .identity-card { 
+            background: linear-gradient(135deg, #141414 0%, #1a1a1a 100%); 
+            border: 1px solid rgba(212, 175, 125, 0.3); 
+            border-radius: 16px; 
+            padding: 30px 40px; 
+            margin-bottom: 25px; 
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .identity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af7d, transparent);
+        }
+        .identity-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af7d, transparent);
+        }
+        .identity-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em;
+            font-weight: 400;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+        }
+        .identity-text span {
+            display: block;
+            margin-top: 8px;
+        }
+        
+        /* Container Principal */
+        .container { 
+            background: #141414; 
+            border: 1px solid rgba(212, 175, 125, 0.15); 
+            border-radius: 20px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5); 
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+        
+        /* Header */
+        .header { 
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%); 
+            border-bottom: 1px solid rgba(212, 175, 125, 0.2); 
+            color: white; 
+            padding: 30px; 
+            text-align: center; 
+            position: relative; 
+        }
+        .header h1 { 
+            font-family: 'Cinzel', serif; 
+            font-size: 2em; 
+            margin-bottom: 10px; 
+            font-weight: 500; 
+            letter-spacing: 4px; 
+            color: #d4af7d; 
+            text-transform: uppercase;
+        }
+        .header p { 
+            font-size: 0.85em; 
+            color: rgba(255, 255, 255, 0.5); 
+            letter-spacing: 2px; 
+            text-transform: uppercase;
+        }
+        .header-date {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 0.75em;
+            color: rgba(212, 175, 125, 0.6);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Tabs */
+        .tabs-container { background: #141414; padding: 15px 20px; border-bottom: 1px solid rgba(212, 175, 125, 0.15); }
+        .tabs-header { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+        .tab-btn { 
+            display: flex; align-items: center; gap: 8px; padding: 12px 20px; 
+            background: transparent; border: 1px solid rgba(212, 175, 125, 0.2); 
+            color: rgba(255,255,255,0.5); font-size: 0.85em; cursor: pointer; 
+            border-radius: 8px; transition: all 0.3s; white-space: nowrap;
+            font-family: 'Inter', sans-serif;
+        }
+        .tab-btn:hover { color: #d4af7d; border-color: rgba(212, 175, 125, 0.4); background: rgba(212, 175, 125, 0.05); }
+        .tab-btn.active { background: rgba(212, 175, 125, 0.15); border-color: #d4af7d; color: #d4af7d; }
+        .tab-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+        
+        .tab-content { display: none; padding: 25px; }
+        .tab-content.active { display: block; }
+        
+        /* ==================== STATUS DE GUERRA ==================== */
+        .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .status-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #151515 100%);
+            border: 1px solid rgba(212, 175, 125, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .status-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, #d4af7d, rgba(212, 175, 125, 0.3));
+        }
+        .status-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .status-card-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(212, 175, 125, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .status-card-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: #d4af7d;
+        }
+        .status-card-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .status-card-value {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8em;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .status-card-value.discipline { color: #d4af7d; }
+        .status-card-value.focus-weak { color: #e74c3c; }
+        .status-card-value.focus-moderate { color: #f39c12; }
+        .status-card-value.focus-sharp { color: #2ecc71; }
+        .status-card-value.spirit-dry { color: #95a5a6; }
+        .status-card-value.spirit-alive { color: #3498db; }
+        .status-card-value.spirit-armored { color: #d4af7d; }
+        .status-card-value.danger-low { color: #27ae60; }
+        .status-card-value.danger-medium { color: #f39c12; }
+        .status-card-value.danger-high { color: #e74c3c; }
+        
+        /* Progress Bar */
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4af7d, #c9a066);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        
+        /* Status Select */
+        .status-select {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 125, 0.2);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: #fff;
+            font-size: 0.9em;
+            width: 100%;
+            cursor: pointer;
+            outline: none;
+        }
+        .status-select:focus { border-color: #d4af7d; }
+        .status-select option { background: #1a1a1a; color: #fff; }
+        
+        /* Discipline Input */
+        .discipline-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .discipline-input input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            outline: none;
+        }
+        .discipline-input input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #d4af7d;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .discipline-input span {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2em;
+            color: #d4af7d;
+            min-width: 50px;
+            text-align: right;
+        }
+        
+        /* ==================== MISSÕES ESTRATÉGICAS ==================== */
+        .missions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .mission-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #151515 100%);
+            border: 1px solid rgba(212, 175, 125, 0.15);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .mission-card:hover { border-color: rgba(212, 175, 125, 0.3); transform: translateY(-2px); }
+        .mission-card-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .mission-card-header.corpo { background: linear-gradient(135deg, rgba(231, 76, 60, 0.3), rgba(192, 57, 43, 0.2)); }
+        .mission-card-header.mente { background: linear-gradient(135deg, rgba(52, 152, 219, 0.3), rgba(41, 128, 185, 0.2)); }
+        .mission-card-header.espirito { background: linear-gradient(135deg, rgba(155, 89, 182, 0.3), rgba(142, 68, 173, 0.2)); }
+        
+        .mission-info { flex: 1; }
+        .mission-type {
+            font-size: 0.7em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 8px;
+        }
+        .mission-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        .mission-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .mission-icon svg { width: 26px; height: 26px; stroke: #fff; }
+        
+        .mission-card-body { padding: 20px; }
+        .mission-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .weekly-checks {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .day-check {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        .day-check label {
+            font-size: 0.7em;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+        }
+        .day-check input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 32px;
+            height: 32px;
+            border: 2px solid rgba(212, 175, 125, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            position: relative;
+            background: transparent;
+            transition: all 0.3s;
+        }
+        .day-check input[type="checkbox"]:checked {
+            background: linear-gradient(135deg, #d4af7d, #c9a066);
+            border-color: #d4af7d;
+        }
+        .day-check input[type="checkbox"]:checked::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 14px;
+            border: solid #0a0a0a;
+            border-width: 0 3px 3px 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -60%) rotate(45deg);
+        }
+        
+        .mission-card-footer {
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(212, 175, 125, 0.1);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        /* ==================== RITUAIS DE FORÇA ==================== */
+        .rituals-section { margin-bottom: 30px; }
+        .rituals-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .rituals-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1em;
+            color: #d4af7d;
+            letter-spacing: 1px;
+        }
+        .rituals-list { display: flex; flex-direction: column; gap: 12px; }
+        .ritual-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #151515 100%);
+            border: 1px solid rgba(212, 175, 125, 0.1);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        .ritual-item:hover { border-color: rgba(212, 175, 125, 0.25); }
+        .ritual-item.completed { opacity: 0.6; }
+        .ritual-item.completed .ritual-name { text-decoration: line-through; color: rgba(255, 255, 255, 0.4); }
+        
+        .ritual-check {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 28px;
+            height: 28px;
+            border: 2px solid rgba(46, 204, 113, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            background: transparent;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+        .ritual-check:checked {
+            background: #2ecc71;
+            border-color: #2ecc71;
+        }
+        .ritual-check:checked::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 12px;
+            border: solid #0a0a0a;
+            border-width: 0 2px 2px 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -60%) rotate(45deg);
+        }
+        
+        .ritual-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(212, 175, 125, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .ritual-icon svg { width: 18px; height: 18px; stroke: #d4af7d; }
+        
+        .ritual-info { flex: 1; }
+        .ritual-name { color: #fff; font-size: 0.95em; }
+        .ritual-time { color: rgba(255, 255, 255, 0.4); font-size: 0.8em; margin-top: 3px; }
+        
+        .ritual-actions { display: flex; gap: 8px; }
+        
+        /* ==================== LEIS DO PODER ==================== */
+        .law-week-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            border: 2px solid rgba(212, 175, 125, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        .law-week-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #d4af7d, transparent);
+        }
+        .law-week-badge {
+            display: inline-block;
+            background: rgba(212, 175, 125, 0.2);
+            color: #d4af7d;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        .law-week-number {
+            font-family: 'Cinzel', serif;
+            font-size: 1em;
+            color: rgba(212, 175, 125, 0.6);
+            margin-bottom: 8px;
+        }
+        .law-week-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            color: #fff;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        .law-week-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95em;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        .law-week-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        /* Laws Filter */
+        .laws-filter {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 10px 18px;
+            background: transparent;
+            border: 1px solid rgba(212, 175, 125, 0.2);
+            border-radius: 6px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .filter-btn:hover { border-color: rgba(212, 175, 125, 0.4); color: #d4af7d; }
+        .filter-btn.active { background: rgba(212, 175, 125, 0.15); border-color: #d4af7d; color: #d4af7d; }
+        
+        /* Laws List */
+        .laws-list { display: flex; flex-direction: column; gap: 10px; }
+        .law-item {
+            background: linear-gradient(135deg, #1a1a1a 0%, #151515 100%);
+            border: 1px solid rgba(212, 175, 125, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .law-item:hover { border-color: rgba(212, 175, 125, 0.25); }
+        .law-item.applied { border-left: 3px solid #2ecc71; }
+        .law-item.favorite { border-left: 3px solid #d4af7d; }
+        
+        .law-item-header {
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+        .law-item-header:hover { background: rgba(212, 175, 125, 0.05); }
+        
+        .law-item-info { display: flex; align-items: center; gap: 15px; flex: 1; }
+        .law-number {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1em;
+            color: #d4af7d;
+            min-width: 35px;
+        }
+        .law-title {
+            color: #fff;
+            font-size: 0.95em;
+            flex: 1;
+        }
+        
+        .law-item-actions { display: flex; gap: 8px; align-items: center; }
+        .law-status-badge {
+            font-size: 0.7em;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .law-status-badge.applied { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
+        .law-status-badge.pending { background: rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.5); }
+        
+        .law-item-body {
+            display: none;
+            padding: 0 20px 20px;
+            border-top: 1px solid rgba(212, 175, 125, 0.1);
+        }
+        .law-item-body.active { display: block; padding-top: 20px; }
+        
+        .law-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9em;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .law-notes {
+            margin-bottom: 20px;
+        }
+        .law-notes label {
+            display: block;
+            font-size: 0.75em;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .law-notes textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 125, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9em;
+            font-family: inherit;
+            resize: vertical;
+            outline: none;
+        }
+        .law-notes textarea:focus { border-color: #d4af7d; }
+        .law-notes textarea::placeholder { color: rgba(255, 255, 255, 0.3); }
+        
+        .law-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        /* ==================== BOTÕES ==================== */
+        .btn-primary { 
+            padding: 12px 25px; 
+            background: linear-gradient(135deg, #d4af7d, #c9a066); 
+            border: none; 
+            border-radius: 8px; 
+            color: #0a0a0a; 
+            font-size: 0.9em; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 125, 0.3); }
+        
+        .btn-secondary { 
+            padding: 12px 25px; 
+            background: transparent; 
+            border: 1px solid rgba(212, 175, 125, 0.3); 
+            border-radius: 8px; 
+            color: #d4af7d; 
+            font-size: 0.9em; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+        }
+        .btn-secondary:hover { background: rgba(212, 175, 125, 0.1); }
+        
+        .btn-icon {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-icon:hover { color: #d4af7d; background: rgba(212, 175, 125, 0.1); }
+        .btn-icon.favorite.active { color: #d4af7d; }
+        .btn-icon.delete:hover { color: #e74c3c; background: rgba(231, 76, 60, 0.1); }
+        .btn-icon svg { width: 18px; height: 18px; }
+        
+        .btn-success {
+            padding: 10px 20px;
+            background: rgba(46, 204, 113, 0.2);
+            border: 1px solid rgba(46, 204, 113, 0.4);
+            border-radius: 6px;
+            color: #2ecc71;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-success:hover { background: rgba(46, 204, 113, 0.3); }
+        
+        /* ==================== MODAIS ==================== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        
+        .modal-content {
+            background: #1a1a1a;
+            border: 1px solid rgba(212, 175, 125, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em;
+            color: #d4af7d;
+        }
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 5px;
+            line-height: 1;
+        }
+        .modal-close:hover { color: #fff; }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.75em;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 125, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.95em;
+            outline: none;
+            font-family: inherit;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #d4af7d;
+        }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .form-group select option {
+            background: #1a1a1a;
+            color: #fff;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 25px;
+        }
+        
+        /* ==================== FOOTER ACTIONS ==================== */
+        .footer-actions {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            border-top: 1px solid rgba(212, 175, 125, 0.2);
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .reset-info {
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.4);
+        }
+        .reset-info svg {
+            width: 14px;
+            height: 14px;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+        
+        /* ==================== RESPONSIVO ==================== */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.4em; letter-spacing: 2px; }
+            .header p { font-size: 0.75em; }
+            .identity-card { padding: 20px; }
+            .identity-text { font-size: 1.1em; }
+            .status-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .status-card { padding: 15px; }
+            .status-card-value { font-size: 1.4em; }
+            .missions-grid { grid-template-columns: 1fr; }
+            .tabs-header { gap: 5px; }
+            .tab-btn { padding: 10px 12px; font-size: 0.75em; flex: 1; justify-content: center; }
+            .tab-btn span { display: none; }
+            .law-week-title { font-size: 1.4em; }
+            .law-week-actions { flex-direction: column; }
+            .law-week-actions button { width: 100%; }
+            .laws-filter { gap: 6px; }
+            .filter-btn { padding: 8px 12px; font-size: 0.8em; }
+            .law-item-header { padding: 15px; flex-wrap: wrap; gap: 10px; }
+            .footer-actions { flex-direction: column; text-align: center; }
+        }
+        
+        @media (max-width: 480px) {
+            .status-grid { grid-template-columns: 1fr; }
+            .weekly-checks { justify-content: space-between; }
+            .day-check input[type="checkbox"] { width: 28px; height: 28px; }
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            padding: 15px 25px;
+            background: #1a1a1a;
+            border: 1px solid rgba(212, 175, 125, 0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.9em;
+            z-index: 10001;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+        .toast.active { opacity: 1; transform: translateY(0); }
+        .toast.success { border-color: #2ecc71; }
+        .toast.error { border-color: #e74c3c; }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: rgba(212, 175, 125, 0.3); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(212, 175, 125, 0.5); }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <a href="index.html" class="sidebar-logo">Z</a>
+        <div class="sidebar-menu">
+            <a href="index.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <span>Inicio</span>
+            </a>
+            <a href="saude.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                <span>Saude</span>
+            </a>
+            <a href="financeiro.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                <span>Financeiro</span>
+            </a>
+            <a href="profissional.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                <span>Profissional</span>
+            </a>
+            <div class="sidebar-divider"></div>
+            <a href="comando.html" class="active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Comando</span>
+            </a>
+        </div>
+        <div class="sidebar-footer">
+            <p><span class="instituto">ZARA</span>Private Access</p>
+        </div>
+    </nav>
+
+    <!-- Mobile Nav -->
+    <nav class="mobile-nav">
+        <div class="mobile-nav-items">
+            <a href="index.html" class="mobile-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Inicio
+            </a>
+            <a href="saude.html" class="mobile-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                Saude
+            </a>
+            <a href="financeiro.html" class="mobile-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                Financeiro
+            </a>
+            <a href="profissional.html" class="mobile-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                Prof.
+            </a>
+            <a href="comando.html" class="mobile-nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Comando
+            </a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Identity Card -->
+        <div class="identity-card">
+            <p class="identity-text">
+                "Eu sou perigoso porque domino minha mente.
+                <span>Eu sou livre porque ninguém me controla."</span>
+            </p>
+        </div>
+
+        <!-- Main Container -->
+        <div class="container">
+            <div class="header">
+                <span class="header-date" id="currentDate"></span>
+                <h1>Painel de Guerra</h1>
+                <p>Centro de Comando • Evolução Estratégica</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-btn active" onclick="switchTab('status')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <span>Status de Guerra</span>
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('missions')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                        <span>Missões</span>
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('rituals')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                        <span>Rituais</span>
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('laws')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                        <span>Leis do Poder</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab: Status de Guerra -->
+            <div class="tab-content active" id="tab-status">
+                <div class="status-grid">
+                    <!-- Disciplina -->
+                    <div class="status-card">
+                        <div class="status-card-header">
+                            <div class="status-card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            </div>
+                            <span class="status-card-title">Disciplina</span>
+                        </div>
+                        <div class="discipline-input">
+                            <input type="range" id="disciplineRange" min="0" max="100" value="75" oninput="updateDiscipline(this.value)">
+                            <span id="disciplineValue">75%</span>
+                        </div>
+                        <div class="progress-bar" style="margin-top: 10px;">
+                            <div class="progress-fill" id="disciplineBar" style="width: 75%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Foco -->
+                    <div class="status-card">
+                        <div class="status-card-header">
+                            <div class="status-card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                            </div>
+                            <span class="status-card-title">Foco</span>
+                        </div>
+                        <select class="status-select" id="focusSelect" onchange="updateFocus(this.value)">
+                            <option value="fraco">Fraco</option>
+                            <option value="moderado" selected>Moderado</option>
+                            <option value="afiado">Afiado</option>
+                        </select>
+                        <div class="status-card-value focus-moderate" id="focusDisplay" style="margin-top: 10px; font-size: 1.2em;">MODERADO</div>
+                    </div>
+
+                    <!-- Espírito -->
+                    <div class="status-card">
+                        <div class="status-card-header">
+                            <div class="status-card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c1 3 2.5 3.5 3.5 4.5A5 5 0 0 1 17 10c0 3.5-2.5 6-5 8-2.5-2-5-4.5-5-8a5 5 0 0 1 1.5-3.5C9.5 5.5 11 5 12 2z"/></svg>
+                            </div>
+                            <span class="status-card-title">Espírito</span>
+                        </div>
+                        <select class="status-select" id="spiritSelect" onchange="updateSpirit(this.value)">
+                            <option value="seco">Seco</option>
+                            <option value="vivo" selected>Vivo</option>
+                            <option value="blindado">Blindado</option>
+                        </select>
+                        <div class="status-card-value spirit-alive" id="spiritDisplay" style="margin-top: 10px; font-size: 1.2em;">VIVO</div>
+                    </div>
+
+                    <!-- Perigo -->
+                    <div class="status-card">
+                        <div class="status-card-header">
+                            <div class="status-card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 15h.01M16 15h.01M9 9h.01M15 9h.01M12 12v-2"/></svg>
+                            </div>
+                            <span class="status-card-title">Perigo</span>
+                        </div>
+                        <select class="status-select" id="dangerSelect" onchange="updateDanger(this.value)">
+                            <option value="baixo">Baixo</option>
+                            <option value="medio" selected>Médio</option>
+                            <option value="alto">Alto</option>
+                        </select>
+                        <div class="status-card-value danger-medium" id="dangerDisplay" style="margin-top: 10px; font-size: 1.2em;">MÉDIO</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Missões Estratégicas -->
+            <div class="tab-content" id="tab-missions">
+                <div class="missions-grid" id="missionsList">
+                    <!-- Missions will be rendered here -->
+                </div>
+                <div style="text-align: center; margin-top: 25px;">
+                    <button class="btn-secondary" onclick="openMissionModal()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 8px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Nova Missão
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab: Rituais de Força -->
+            <div class="tab-content" id="tab-rituals">
+                <!-- Rituais Diários -->
+                <div class="rituals-section">
+                    <div class="rituals-header">
+                        <h3 class="rituals-title">Rituais Diários</h3>
+                        <button class="btn-icon" onclick="openRitualModal('diario')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </button>
+                    </div>
+                    <div class="rituals-list" id="dailyRitualsList">
+                        <!-- Daily rituals will be rendered here -->
+                    </div>
+                </div>
+
+                <!-- Rituais Semanais -->
+                <div class="rituals-section">
+                    <div class="rituals-header">
+                        <h3 class="rituals-title">Rituais Semanais</h3>
+                        <button class="btn-icon" onclick="openRitualModal('semanal')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </button>
+                    </div>
+                    <div class="rituals-list" id="weeklyRitualsList">
+                        <!-- Weekly rituals will be rendered here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Leis do Poder -->
+            <div class="tab-content" id="tab-laws">
+                <!-- Lei da Semana -->
+                <div class="law-week-card" id="lawWeekCard">
+                    <!-- Law of the week will be rendered here -->
+                </div>
+
+                <!-- Filtros -->
+                <div class="laws-filter">
+                    <button class="filter-btn active" onclick="filterLaws('todas')">Todas</button>
+                    <button class="filter-btn" onclick="filterLaws('aplicadas')">Aplicadas</button>
+                    <button class="filter-btn" onclick="filterLaws('pendentes')">Pendentes</button>
+                    <button class="filter-btn" onclick="filterLaws('favoritas')">Favoritas</button>
+                </div>
+
+                <!-- Lista de Leis -->
+                <div class="laws-list" id="lawsList">
+                    <!-- Laws will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="footer-actions">
+                <span class="reset-info">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    Reset automático: Segunda-feira, 05:00
+                </span>
+                <button class="btn-primary" onclick="exportReport()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Exportar Relatório
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Nova Missão -->
+    <div class="modal-overlay" id="missionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Nova Missão Estratégica</h3>
+                <button class="modal-close" onclick="closeMissionModal()">&times;</button>
+            </div>
+            <input type="hidden" id="missionId">
+            <div class="form-group">
+                <label>Tipo de Missão</label>
+                <select id="missionType">
+                    <option value="corpo">Corpo</option>
+                    <option value="mente">Mente</option>
+                    <option value="espirito">Espírito</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Título</label>
+                <input type="text" id="missionTitle" placeholder="Ex: Dominar o físico">
+            </div>
+            <div class="form-group">
+                <label>Descrição</label>
+                <textarea id="missionDescription" rows="3" placeholder="Descreva sua missão..."></textarea>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-secondary" onclick="closeMissionModal()">Cancelar</button>
+                <button class="btn-primary" onclick="saveMission()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Novo Ritual -->
+    <div class="modal-overlay" id="ritualModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Novo Ritual de Força</h3>
+                <button class="modal-close" onclick="closeRitualModal()">&times;</button>
+            </div>
+            <input type="hidden" id="ritualId">
+            <input type="hidden" id="ritualFrequency">
+            <div class="form-group">
+                <label>Nome do Ritual</label>
+                <input type="text" id="ritualName" placeholder="Ex: Meditação matinal">
+            </div>
+            <div class="form-group">
+                <label>Horário (opcional)</label>
+                <input type="time" id="ritualTime">
+            </div>
+            <div class="form-group">
+                <label>Ícone</label>
+                <select id="ritualIcon">
+                    <option value="sun">☀️ Sol (Manhã)</option>
+                    <option value="moon">🌙 Lua (Noite)</option>
+                    <option value="fire">🔥 Fogo</option>
+                    <option value="water">💧 Água</option>
+                    <option value="book">📖 Livro</option>
+                    <option value="run">🏃 Exercício</option>
+                    <option value="meditate">🧘 Meditação</option>
+                    <option value="write">✍️ Escrita</option>
+                </select>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-secondary" onclick="closeRitualModal()">Cancelar</button>
+                <button class="btn-primary" onclick="saveRitual()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ==========================================
+        // DADOS E ESTADO
+        // ==========================================
+        const STORAGE_KEY = 'painelGuerra';
+        
+        // As 48 Leis do Poder
+        const laws48 = [
+            { number: 1, title: "Nunca ofusque o brilho do mestre", description: "Faça sempre com que as pessoas acima de você se sintam confortavelmente superiores. Não vá longe demais ao impressionar, ou poderá conseguir o oposto – inspirar medo e insegurança." },
+            { number: 2, title: "Nunca confie demais nos amigos, aprenda a usar os inimigos", description: "Desconfie dos amigos, pois eles o trairão mais rápido, já que são facilmente levados à inveja. Contrate um ex-inimigo e ele será mais leal do que um amigo." },
+            { number: 3, title: "Oculte suas intenções", description: "Mantenha as pessoas sem saber para onde você está indo. Se elas não têm pista do que você quer, não podem preparar uma defesa." },
+            { number: 4, title: "Sempre diga menos do que o necessário", description: "Quando você tenta impressionar as pessoas com palavras, quanto mais você diz, mais comum parece. Pessoas poderosas impressionam e intimidam dizendo menos." },
+            { number: 5, title: "Muito depende da reputação – proteja-a com sua vida", description: "A reputação é a pedra angular do poder. Através da reputação sozinha você pode intimidar e vencer." },
+            { number: 6, title: "Chame atenção a qualquer preço", description: "Tudo é julgado pela aparência. O que não é visto conta como nada. Nunca se deixe perder na multidão." },
+            { number: 7, title: "Faça os outros trabalharem para você, mas sempre leve o crédito", description: "Use a sabedoria, o conhecimento e o trabalho dos outros para avançar sua própria causa. Isso lhe dará uma aura de eficiência e velocidade." },
+            { number: 8, title: "Faça as pessoas virem até você – use isca se necessário", description: "Quando você força o outro a agir, você está no controle. É sempre melhor fazer seu oponente vir até você, abandonando seus próprios planos." },
+            { number: 9, title: "Vença através de ações, nunca através de argumentos", description: "Qualquer triunfo momentâneo que você pense ter ganho através de argumentação é realmente uma vitória de Pirro." },
+            { number: 10, title: "Contágio: Evite os infelizes e os azarados", description: "Você pode morrer da miséria dos outros. Estados emocionais são tão contagiosos quanto doenças. Associe-se aos felizes e afortunados." },
+            { number: 11, title: "Aprenda a manter as pessoas dependentes de você", description: "Para manter sua independência, você deve sempre ser necessário e desejado. Quanto mais você é confiado, mais liberdade você tem." },
+            { number: 12, title: "Use honestidade e generosidade seletivas para desarmar sua vítima", description: "Um gesto sincero e honesto pode encobrir dezenas de desonestos. A generosidade seletiva distrai e desarma." },
+            { number: 13, title: "Ao pedir ajuda, apele para o interesse próprio das pessoas", description: "Se você precisar recorrer a um aliado para obter ajuda, não se preocupe em lembrá-lo de sua assistência passada. Ele encontrará uma maneira de ignorar isso." },
+            { number: 14, title: "Seja um espião", description: "Saber sobre seu rival é crítico. Use espiões para reunir informações valiosas que o manterão um passo à frente." },
+            { number: 15, title: "Esmague seu inimigo totalmente", description: "Todos os grandes líderes desde Moisés sabem que um inimigo temido deve ser esmagado completamente. Mais é perdido através da parada no meio do caminho." },
+            { number: 16, title: "Use a ausência para aumentar respeito e honra", description: "Muito circulando fará você desvalorizar. Quanto mais você é visto e ouvido, mais comum você parece. Se você já está estabelecido em um grupo, retirar-se temporariamente." },
+            { number: 17, title: "Mantenha os outros em suspense cultivando uma aura de imprevisibilidade", description: "Os humanos são criaturas de hábito com uma necessidade insaciável de familiaridade. Seja deliberadamente imprevisível." },
+            { number: 18, title: "Não construa fortalezas para se proteger – o isolamento é perigoso", description: "O mundo é perigoso e inimigos estão por toda parte. Todos precisam se proteger. Uma fortaleza parece a mais segura, mas o isolamento o expõe a mais perigos." },
+            { number: 19, title: "Saiba com quem está lidando – não ofenda a pessoa errada", description: "Há muitos tipos diferentes de pessoas no mundo, e você nunca pode assumir que todos reagirão da mesma maneira às suas estratégias." },
+            { number: 20, title: "Não se comprometa com ninguém", description: "É tolice apressar-se a tomar um lado. Não se comprometa com nenhum lado ou causa além de você mesmo." },
+            { number: 21, title: "Jogue de bobo para pegar um esperto", description: "Ninguém gosta de se sentir mais estúpido do que a próxima pessoa. O truque então é fazer suas vítimas se sentirem espertas – e não apenas espertas, mas mais espertas do que você." },
+            { number: 22, title: "Use a tática da rendição: transforme fraqueza em poder", description: "Quando você é mais fraco, nunca lute por honra; escolha render-se. A rendição lhe dá tempo para se recuperar, tempo para atormentar e irritar seu conquistador." },
+            { number: 23, title: "Concentre suas forças", description: "Conserve suas forças e energias mantendo-as concentradas em seu ponto mais forte. Você ganha mais encontrando uma mina rica e minerando-a mais profundamente." },
+            { number: 24, title: "Jogue o cortesão perfeito", description: "O cortesão prospera em um mundo onde tudo gira em torno de poder e habilidade política. Ele dominou a arte da indireção." },
+            { number: 25, title: "Recrie-se", description: "Não aceite os papéis que a sociedade lhe impõe. Recrie-se forjando uma nova identidade, uma que comanda atenção e nunca entedia o público." },
+            { number: 26, title: "Mantenha suas mãos limpas", description: "Você deve parecer um modelo de civilidade e eficiência: suas mãos nunca são sujas por erros e atos desagradáveis. Mantenha essa aparência impecável." },
+            { number: 27, title: "Jogue com a necessidade das pessoas de acreditar em algo", description: "As pessoas têm um desejo esmagador de acreditar em algo. Torne-se o ponto focal desse desejo oferecendo-lhes uma causa, uma nova fé para seguir." },
+            { number: 28, title: "Entre na ação com ousadia", description: "Se você é inseguro de um curso de ação, não tente. Suas dúvidas e hesitações infectarão sua execução. A timidez é perigosa." },
+            { number: 29, title: "Planeje todo o caminho até o fim", description: "O final é tudo. Planeje todo o caminho até ele, levando em consideração todas as consequências possíveis, obstáculos e reviravoltas da fortuna." },
+            { number: 30, title: "Faça suas realizações parecerem sem esforço", description: "Seus atos devem parecer naturais e executados com facilidade. Todo o trabalho duro e prática que entra neles deve estar escondido." },
+            { number: 31, title: "Controle as opções: faça os outros jogarem com as cartas que você dá", description: "Os melhores enganos são aqueles que parecem dar à outra pessoa uma escolha: suas vítimas sentem que estão no controle, mas são na verdade seus fantoches." },
+            { number: 32, title: "Jogue com as fantasias das pessoas", description: "A verdade é frequentemente evitada porque é feia e desagradável. Nunca apele para verdade e realidade a menos que esteja preparado para a raiva que vem do desencantamento." },
+            { number: 33, title: "Descubra o ponto fraco de cada pessoa", description: "Todos têm uma fraqueza, uma brecha na parede do castelo. Essa fraqueza é geralmente uma insegurança, uma emoção ou necessidade incontrolável." },
+            { number: 34, title: "Seja real à sua própria maneira: aja como rei para ser tratado como um", description: "A maneira como você se comporta frequentemente determinará como você é tratado. A longo prazo, parecer vulgar ou comum fará as pessoas desrespeitá-lo." },
+            { number: 35, title: "Domine a arte do timing", description: "Nunca pareça ter pressa - apressar-se revela falta de controle sobre você mesmo e sobre o tempo. Sempre pareça paciente, como se soubesse que tudo virá até você eventualmente." },
+            { number: 36, title: "Despreze as coisas que não pode ter: ignorá-las é a melhor vingança", description: "Reconhecendo um problema pequeno você dá a ele existência e credibilidade. Quanto mais atenção você presta a um inimigo, mais forte você o torna." },
+            { number: 37, title: "Crie espetáculos convincentes", description: "Imagens impressionantes e gestos simbólicos grandiosos criam a aura de poder – todos respondem a eles. Organize espetáculos para aqueles ao seu redor." },
+            { number: 38, title: "Pense como quiser, mas comporte-se como os outros", description: "Se você faz um show de ir contra os tempos, ostentando suas ideias não convencionais e modos não ortodoxos, as pessoas pensarão que você quer atenção." },
+            { number: 39, title: "Agite a água para pegar o peixe", description: "A raiva e a emoção são estrategicamente contraproducentes. Você deve sempre ficar calmo e objetivo. Mas se você pode deixar seus inimigos com raiva enquanto permanece calmo, você ganha uma vantagem decidida." },
+            { number: 40, title: "Despreze a refeição grátis", description: "O que é oferecido de graça é perigoso – geralmente envolve ou um truque ou uma obrigação oculta. O que tem valor vale a pena pagar." },
+            { number: 41, title: "Evite pisar nos sapatos de um grande homem", description: "O que acontece primeiro sempre parece melhor e mais original do que o que vem depois. Se você suceder um grande homem, você terá que realizar o dobro para brilhar." },
+            { number: 42, title: "Ataque o pastor e as ovelhas se dispersarão", description: "O problema pode frequentemente ser rastreado até um único indivíduo forte – o agitador, o submisso arrogante. Se você der espaço a essas pessoas para operar, outros sofrerão." },
+            { number: 43, title: "Trabalhe nos corações e mentes dos outros", description: "A coerção cria uma reação que eventualmente trabalhará contra você. Você deve seduzir os outros em querer se mover em sua direção." },
+            { number: 44, title: "Desarme e irrite com o efeito espelho", description: "O espelho reflete a realidade, mas também é a ferramenta perfeita para engano: quando você espelha seus inimigos, fazendo exatamente como eles fazem, eles não podem descobrir sua estratégia." },
+            { number: 45, title: "Pregue a necessidade de mudança, mas nunca reforme demais de uma vez", description: "Todos entendem a necessidade de mudança no abstrato, mas no dia a dia as pessoas são criaturas de hábito. Muita inovação é traumática e levará à revolta." },
+            { number: 46, title: "Nunca pareça perfeito demais", description: "Parecer melhor do que os outros é sempre perigoso, mas mais perigoso de tudo é parecer não ter falhas ou fraquezas. A inveja cria inimigos silenciosos." },
+            { number: 47, title: "Não vá além de sua marca: na vitória, aprenda quando parar", description: "O momento da vitória é frequentemente o momento de maior perigo. Na fervura da vitória, a arrogância e o excesso de confiança podem empurrá-lo além da meta que você havia visado." },
+            { number: 48, title: "Assuma uma forma sem forma", description: "Ao assumir uma forma, ao ter um plano visível, você se abre a ataque. Em vez de assumir uma forma para seu inimigo agarrar, mantenha-se adaptável e em movimento." }
+        ];
+
+        // Estado padrão
+        let data = {
+            status: {
+                discipline: 75,
+                focus: 'moderado',
+                spirit: 'vivo',
+                danger: 'medio'
+            },
+            missions: [
+                {
+                    id: 1,
+                    type: 'corpo',
+                    title: 'Dominar o Físico',
+                    description: 'Treinar com consistência e disciplina. O corpo é a primeira fortaleza.',
+                    weeklyChecks: { seg: false, ter: false, qua: false, qui: false, sex: false, sab: false, dom: false }
+                },
+                {
+                    id: 2,
+                    type: 'mente',
+                    title: 'Expandir o Conhecimento',
+                    description: 'Leitura diária, estudo de estratégia e aprimoramento intelectual.',
+                    weeklyChecks: { seg: false, ter: false, qua: false, qui: false, sex: false, sab: false, dom: false }
+                },
+                {
+                    id: 3,
+                    type: 'espirito',
+                    title: 'Fortalecer a Mente',
+                    description: 'Meditação, controle emocional e blindagem mental.',
+                    weeklyChecks: { seg: false, ter: false, qua: false, qui: false, sex: false, sab: false, dom: false }
+                }
+            ],
+            rituals: {
+                daily: [
+                    { id: 1, name: 'Acordar às 5h', time: '05:00', icon: 'sun', completed: false },
+                    { id: 2, name: 'Meditação matinal', time: '05:30', icon: 'meditate', completed: false },
+                    { id: 3, name: 'Leitura estratégica', time: '06:00', icon: 'book', completed: false },
+                    { id: 4, name: 'Treino físico', time: '07:00', icon: 'run', completed: false },
+                    { id: 5, name: 'Revisão do dia', time: '22:00', icon: 'write', completed: false }
+                ],
+                weekly: [
+                    { id: 6, name: 'Planejamento semanal', time: null, icon: 'write', completed: false },
+                    { id: 7, name: 'Análise de resultados', time: null, icon: 'book', completed: false }
+                ]
+            },
+            laws: laws48.map(law => ({
+                ...law,
+                applied: false,
+                favorite: false,
+                notes: ''
+            })),
+            lawOfTheWeek: 1,
+            lastReset: null
+        };
+
+        // ==========================================
+        // INICIALIZAÇÃO
+        // ==========================================
+        function init() {
+            loadData();
+            checkWeeklyReset();
+            updateDate();
+            renderAll();
+            
+            // Verificar reset a cada minuto
+            setInterval(checkWeeklyReset, 60000);
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                // Merge with default data to ensure new fields exist
+                data = {
+                    ...data,
+                    ...parsed,
+                    laws: data.laws.map((law, i) => ({
+                        ...law,
+                        ...(parsed.laws?.[i] || {})
+                    }))
+                };
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        function updateDate() {
+            const now = new Date();
+            const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('pt-BR', options);
+        }
+
+        // ==========================================
+        // RESET SEMANAL
+        // ==========================================
+        function checkWeeklyReset() {
+            const now = new Date();
+            const dayOfWeek = now.getDay(); // 0 = domingo, 1 = segunda
+            const hour = now.getHours();
+            
+            // Segunda-feira às 5h
+            if (dayOfWeek === 1 && hour === 5) {
+                const today = now.toDateString();
+                if (data.lastReset !== today) {
+                    performWeeklyReset();
+                    data.lastReset = today;
+                    saveData();
+                }
+            }
+        }
+
+        function performWeeklyReset() {
+            // Reset missões
+            data.missions.forEach(mission => {
+                mission.weeklyChecks = { seg: false, ter: false, qua: false, qui: false, sex: false, sab: false, dom: false };
+            });
+            
+            // Reset rituais diários
+            data.rituals.daily.forEach(ritual => {
+                ritual.completed = false;
+            });
+            
+            // Reset rituais semanais
+            data.rituals.weekly.forEach(ritual => {
+                ritual.completed = false;
+            });
+            
+            // Nova lei da semana
+            const appliedLaws = data.laws.filter(l => !l.applied);
+            if (appliedLaws.length > 0) {
+                data.lawOfTheWeek = appliedLaws[Math.floor(Math.random() * appliedLaws.length)].number;
+            } else {
+                data.lawOfTheWeek = Math.floor(Math.random() * 48) + 1;
+            }
+            
+            showToast('Reset semanal realizado!', 'success');
+            renderAll();
+        }
+
+        // ==========================================
+        // TABS
+        // ==========================================
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.closest('.tab-btn').classList.add('active');
+            document.getElementById('tab-' + tabName).classList.add('active');
+        }
+
+        // ==========================================
+        // STATUS DE GUERRA
+        // ==========================================
+        function updateDiscipline(value) {
+            data.status.discipline = parseInt(value);
+            document.getElementById('disciplineValue').textContent = value + '%';
+            document.getElementById('disciplineBar').style.width = value + '%';
+            saveData();
+        }
+
+        function updateFocus(value) {
+            data.status.focus = value;
+            const display = document.getElementById('focusDisplay');
+            display.className = 'status-card-value';
+            
+            const labels = { fraco: 'FRACO', moderado: 'MODERADO', afiado: 'AFIADO' };
+            const classes = { fraco: 'focus-weak', moderado: 'focus-moderate', afiado: 'focus-sharp' };
+            
+            display.textContent = labels[value];
+            display.classList.add(classes[value]);
+            saveData();
+        }
+
+        function updateSpirit(value) {
+            data.status.spirit = value;
+            const display = document.getElementById('spiritDisplay');
+            display.className = 'status-card-value';
+            
+            const labels = { seco: 'SECO', vivo: 'VIVO', blindado: 'BLINDADO' };
+            const classes = { seco: 'spirit-dry', vivo: 'spirit-alive', blindado: 'spirit-armored' };
+            
+            display.textContent = labels[value];
+            display.classList.add(classes[value]);
+            saveData();
+        }
+
+        function updateDanger(value) {
+            data.status.danger = value;
+            const display = document.getElementById('dangerDisplay');
+            display.className = 'status-card-value';
+            
+            const labels = { baixo: 'BAIXO', medio: 'MÉDIO', alto: 'ALTO' };
+            const classes = { baixo: 'danger-low', medio: 'danger-medium', alto: 'danger-high' };
+            
+            display.textContent = labels[value];
+            display.classList.add(classes[value]);
+            saveData();
+        }
+
+        function renderStatus() {
+            document.getElementById('disciplineRange').value = data.status.discipline;
+            document.getElementById('disciplineValue').textContent = data.status.discipline + '%';
+            document.getElementById('disciplineBar').style.width = data.status.discipline + '%';
+            
+            document.getElementById('focusSelect').value = data.status.focus;
+            updateFocus(data.status.focus);
+            
+            document.getElementById('spiritSelect').value = data.status.spirit;
+            updateSpirit(data.status.spirit);
+            
+            document.getElementById('dangerSelect').value = data.status.danger;
+            updateDanger(data.status.danger);
+        }
+
+        // ==========================================
+        // MISSÕES
+        // ==========================================
+        function renderMissions() {
+            const container = document.getElementById('missionsList');
+            const icons = {
+                corpo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 6.5L17.5 17.5M6.5 17.5L17.5 6.5"/><circle cx="12" cy="12" r="9"/></svg>',
+                mente: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a8 8 0 0 1 8 8c0 5.33-8 12-8 12S4 15.33 4 10a8 8 0 0 1 8-8z"/><circle cx="12" cy="10" r="3"/></svg>',
+                espirito: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c1 3 2.5 3.5 3.5 4.5A5 5 0 0 1 17 10c0 3.5-2.5 6-5 8-2.5-2-5-4.5-5-8a5 5 0 0 1 1.5-3.5C9.5 5.5 11 5 12 2z"/></svg>'
+            };
+            const typeLabels = { corpo: 'Corpo', mente: 'Mente', espirito: 'Espírito' };
+            const days = ['seg', 'ter', 'qua', 'qui', 'sex', 'sab', 'dom'];
+            const dayLabels = { seg: 'S', ter: 'T', qua: 'Q', qui: 'Q', sex: 'S', sab: 'S', dom: 'D' };
+            
+            container.innerHTML = data.missions.map(mission => `
+                <div class="mission-card">
+                    <div class="mission-card-header ${mission.type}">
+                        <div class="mission-info">
+                            <div class="mission-type">${typeLabels[mission.type]}</div>
+                            <div class="mission-title">${mission.title}</div>
+                        </div>
+                        <div class="mission-icon">${icons[mission.type]}</div>
+                    </div>
+                    <div class="mission-card-body">
+                        <p class="mission-description">${mission.description}</p>
+                        <div class="weekly-checks">
+                            ${days.map(day => `
+                                <div class="day-check">
+                                    <label>${dayLabels[day]}</label>
+                                    <input type="checkbox" ${mission.weeklyChecks[day] ? 'checked' : ''} onchange="toggleMissionDay(${mission.id}, '${day}')">
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="mission-card-footer">
+                        <button class="btn-icon" onclick="editMission(${mission.id})">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        </button>
+                        <button class="btn-icon delete" onclick="deleteMission(${mission.id})">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleMissionDay(missionId, day) {
+            const mission = data.missions.find(m => m.id === missionId);
+            if (mission) {
+                mission.weeklyChecks[day] = !mission.weeklyChecks[day];
+                saveData();
+            }
+        }
+
+        function openMissionModal(missionId = null) {
+            const modal = document.getElementById('missionModal');
+            document.getElementById('missionId').value = missionId || '';
+            
+            if (missionId) {
+                const mission = data.missions.find(m => m.id === missionId);
+                document.getElementById('missionType').value = mission.type;
+                document.getElementById('missionTitle').value = mission.title;
+                document.getElementById('missionDescription').value = mission.description;
+            } else {
+                document.getElementById('missionType').value = 'corpo';
+                document.getElementById('missionTitle').value = '';
+                document.getElementById('missionDescription').value = '';
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeMissionModal() {
+            document.getElementById('missionModal').classList.remove('active');
+        }
+
+        function saveMission() {
+            const id = document.getElementById('missionId').value;
+            const type = document.getElementById('missionType').value;
+            const title = document.getElementById('missionTitle').value.trim();
+            const description = document.getElementById('missionDescription').value.trim();
+            
+            if (!title) {
+                showToast('Preencha o título da missão', 'error');
+                return;
+            }
+            
+            if (data.missions.length >= 3 && !id) {
+                showToast('Máximo de 3 missões permitidas', 'error');
+                return;
+            }
+            
+            if (id) {
+                const mission = data.missions.find(m => m.id === parseInt(id));
+                mission.type = type;
+                mission.title = title;
+                mission.description = description;
+            } else {
+                const newId = Math.max(...data.missions.map(m => m.id), 0) + 1;
+                data.missions.push({
+                    id: newId,
+                    type,
+                    title,
+                    description,
+                    weeklyChecks: { seg: false, ter: false, qua: false, qui: false, sex: false, sab: false, dom: false }
+                });
+            }
+            
+            saveData();
+            renderMissions();
+            closeMissionModal();
+            showToast('Missão salva!', 'success');
+        }
+
+        function editMission(id) {
+            openMissionModal(id);
+        }
+
+        function deleteMission(id) {
+            if (confirm('Excluir esta missão?')) {
+                data.missions = data.missions.filter(m => m.id !== id);
+                saveData();
+                renderMissions();
+                showToast('Missão excluída', 'success');
+            }
+        }
+
+        // ==========================================
+        // RITUAIS
+        // ==========================================
+        function renderRituals() {
+            const iconsSvg = {
+                sun: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
+                moon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+                fire: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c1 3 2.5 3.5 3.5 4.5A5 5 0 0 1 17 10c0 3.5-2.5 6-5 8-2.5-2-5-4.5-5-8a5 5 0 0 1 1.5-3.5C9.5 5.5 11 5 12 2z"/></svg>',
+                water: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>',
+                book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+                run: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="5" r="2"/><path d="M4 17l4-4 4 4 4-4 4 4"/><line x1="12" y1="7" x2="12" y2="13"/></svg>',
+                meditate: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="6" r="3"/><path d="M12 9v4"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7"/></svg>',
+                write: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>'
+            };
+            
+            const renderList = (rituals, listId) => {
+                const container = document.getElementById(listId);
+                if (rituals.length === 0) {
+                    container.innerHTML = '<div style="text-align: center; color: rgba(255,255,255,0.4); padding: 20px;">Nenhum ritual cadastrado</div>';
+                    return;
+                }
+                container.innerHTML = rituals.map(ritual => `
+                    <div class="ritual-item ${ritual.completed ? 'completed' : ''}">
+                        <input type="checkbox" class="ritual-check" ${ritual.completed ? 'checked' : ''} onchange="toggleRitual(${ritual.id})">
+                        <div class="ritual-icon">${iconsSvg[ritual.icon] || iconsSvg.fire}</div>
+                        <div class="ritual-info">
+                            <div class="ritual-name">${ritual.name}</div>
+                            ${ritual.time ? `<div class="ritual-time">${ritual.time}</div>` : ''}
+                        </div>
+                        <div class="ritual-actions">
+                            <button class="btn-icon" onclick="editRitual(${ritual.id})">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            </button>
+                            <button class="btn-icon delete" onclick="deleteRitual(${ritual.id})">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            };
+            
+            renderList(data.rituals.daily, 'dailyRitualsList');
+            renderList(data.rituals.weekly, 'weeklyRitualsList');
+        }
+
+        function toggleRitual(id) {
+            let ritual = data.rituals.daily.find(r => r.id === id) || data.rituals.weekly.find(r => r.id === id);
+            if (ritual) {
+                ritual.completed = !ritual.completed;
+                saveData();
+                renderRituals();
+            }
+        }
+
+        function openRitualModal(frequency, ritualId = null) {
+            const modal = document.getElementById('ritualModal');
+            document.getElementById('ritualId').value = ritualId || '';
+            document.getElementById('ritualFrequency').value = frequency;
+            
+            if (ritualId) {
+                const ritual = data.rituals.daily.find(r => r.id === ritualId) || data.rituals.weekly.find(r => r.id === ritualId);
+                document.getElementById('ritualName').value = ritual.name;
+                document.getElementById('ritualTime').value = ritual.time || '';
+                document.getElementById('ritualIcon').value = ritual.icon;
+            } else {
+                document.getElementById('ritualName').value = '';
+                document.getElementById('ritualTime').value = '';
+                document.getElementById('ritualIcon').value = 'sun';
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeRitualModal() {
+            document.getElementById('ritualModal').classList.remove('active');
+        }
+
+        function saveRitual() {
+            const id = document.getElementById('ritualId').value;
+            const frequency = document.getElementById('ritualFrequency').value;
+            const name = document.getElementById('ritualName').value.trim();
+            const time = document.getElementById('ritualTime').value || null;
+            const icon = document.getElementById('ritualIcon').value;
+            
+            if (!name) {
+                showToast('Preencha o nome do ritual', 'error');
+                return;
+            }
+            
+            const list = frequency === 'diario' ? data.rituals.daily : data.rituals.weekly;
+            
+            if (id) {
+                const ritual = list.find(r => r.id === parseInt(id));
+                ritual.name = name;
+                ritual.time = time;
+                ritual.icon = icon;
+            } else {
+                const allRituals = [...data.rituals.daily, ...data.rituals.weekly];
+                const newId = Math.max(...allRituals.map(r => r.id), 0) + 1;
+                list.push({ id: newId, name, time, icon, completed: false });
+            }
+            
+            saveData();
+            renderRituals();
+            closeRitualModal();
+            showToast('Ritual salvo!', 'success');
+        }
+
+        function editRitual(id) {
+            const isDaily = data.rituals.daily.some(r => r.id === id);
+            openRitualModal(isDaily ? 'diario' : 'semanal', id);
+        }
+
+        function deleteRitual(id) {
+            if (confirm('Excluir este ritual?')) {
+                data.rituals.daily = data.rituals.daily.filter(r => r.id !== id);
+                data.rituals.weekly = data.rituals.weekly.filter(r => r.id !== id);
+                saveData();
+                renderRituals();
+                showToast('Ritual excluído', 'success');
+            }
+        }
+
+        // ==========================================
+        // LEIS DO PODER
+        // ==========================================
+        let currentFilter = 'todas';
+
+        function renderLaws() {
+            renderLawOfTheWeek();
+            renderLawsList();
+        }
+
+        function renderLawOfTheWeek() {
+            const law = data.laws.find(l => l.number === data.lawOfTheWeek);
+            const container = document.getElementById('lawWeekCard');
+            
+            container.innerHTML = `
+                <span class="law-week-badge">Lei da Semana</span>
+                <div class="law-week-number">Lei ${law.number}</div>
+                <h2 class="law-week-title">${law.title}</h2>
+                <p class="law-week-description">${law.description}</p>
+                <div class="law-week-actions">
+                    <button class="btn-primary" onclick="applyLaw(${law.number})">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 8px;"><polyline points="20 6 9 17 4 12"/></svg>
+                        Aplicar Hoje
+                    </button>
+                    <button class="btn-secondary" onclick="changeLawOfWeek()">Sortear Nova Lei</button>
+                </div>
+            `;
+        }
+
+        function renderLawsList() {
+            const container = document.getElementById('lawsList');
+            let filteredLaws = data.laws;
+            
+            if (currentFilter === 'aplicadas') {
+                filteredLaws = data.laws.filter(l => l.applied);
+            } else if (currentFilter === 'pendentes') {
+                filteredLaws = data.laws.filter(l => !l.applied);
+            } else if (currentFilter === 'favoritas') {
+                filteredLaws = data.laws.filter(l => l.favorite);
+            }
+            
+            if (filteredLaws.length === 0) {
+                container.innerHTML = '<div style="text-align: center; color: rgba(255,255,255,0.4); padding: 40px;">Nenhuma lei encontrada</div>';
+                return;
+            }
+            
+            container.innerHTML = filteredLaws.map(law => `
+                <div class="law-item ${law.applied ? 'applied' : ''} ${law.favorite ? 'favorite' : ''}">
+                    <div class="law-item-header" onclick="toggleLawBody(${law.number})">
+                        <div class="law-item-info">
+                            <span class="law-number">${law.number}</span>
+                            <span class="law-title">${law.title}</span>
+                        </div>
+                        <div class="law-item-actions">
+                            <span class="law-status-badge ${law.applied ? 'applied' : 'pending'}">${law.applied ? 'Aplicada' : 'Pendente'}</span>
+                            <button class="btn-icon favorite ${law.favorite ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite(${law.number})">
+                                <svg viewBox="0 0 24 24" fill="${law.favorite ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="law-item-body" id="law-body-${law.number}">
+                        <p class="law-description">${law.description}</p>
+                        <div class="law-notes">
+                            <label>Anotações Pessoais (insights, vitórias, falhas)</label>
+                            <textarea placeholder="Registre suas experiências aplicando esta lei..." onchange="saveLawNotes(${law.number}, this.value)">${law.notes || ''}</textarea>
+                        </div>
+                        <div class="law-actions">
+                            <button class="btn-success" onclick="applyLaw(${law.number})">${law.applied ? 'Marcar como Não Aplicada' : 'Marcar como Aplicada'}</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleLawBody(number) {
+            const body = document.getElementById('law-body-' + number);
+            body.classList.toggle('active');
+        }
+
+        function filterLaws(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderLawsList();
+        }
+
+        function applyLaw(number) {
+            const law = data.laws.find(l => l.number === number);
+            law.applied = !law.applied;
+            saveData();
+            renderLaws();
+            showToast(law.applied ? 'Lei marcada como aplicada!' : 'Lei desmarcada', 'success');
+        }
+
+        function toggleFavorite(number) {
+            const law = data.laws.find(l => l.number === number);
+            law.favorite = !law.favorite;
+            saveData();
+            renderLawsList();
+        }
+
+        function saveLawNotes(number, notes) {
+            const law = data.laws.find(l => l.number === number);
+            law.notes = notes;
+            saveData();
+        }
+
+        function changeLawOfWeek() {
+            const pendingLaws = data.laws.filter(l => !l.applied && l.number !== data.lawOfTheWeek);
+            if (pendingLaws.length > 0) {
+                data.lawOfTheWeek = pendingLaws[Math.floor(Math.random() * pendingLaws.length)].number;
+            } else {
+                data.lawOfTheWeek = Math.floor(Math.random() * 48) + 1;
+            }
+            saveData();
+            renderLawOfTheWeek();
+            showToast('Nova lei da semana selecionada!', 'success');
+        }
+
+        // ==========================================
+        // EXPORTAR RELATÓRIO
+        // ==========================================
+        function exportReport() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+            
+            // Calcular progresso das missões
+            const missionProgress = data.missions.map(m => {
+                const completed = Object.values(m.weeklyChecks).filter(v => v).length;
+                return { ...m, progress: Math.round((completed / 7) * 100) };
+            });
+            
+            // Calcular rituais completados
+            const dailyCompleted = data.rituals.daily.filter(r => r.completed).length;
+            const weeklyCompleted = data.rituals.weekly.filter(r => r.completed).length;
+            
+            // Lei da semana
+            const lawOfWeek = data.laws.find(l => l.number === data.lawOfTheWeek);
+            
+            const focusLabels = { fraco: 'Fraco', moderado: 'Moderado', afiado: 'Afiado' };
+            const spiritLabels = { seco: 'Seco', vivo: 'Vivo', blindado: 'Blindado' };
+            const dangerLabels = { baixo: 'Baixo', medio: 'Médio', alto: 'Alto' };
+            
+            const report = `
+╔══════════════════════════════════════════════════════════════╗
+║                    RELATÓRIO DE GUERRA                       ║
+║                    ${dateStr.toUpperCase().padStart(35)}      ║
+╚══════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════════
+                        STATUS DE GUERRA
+═══════════════════════════════════════════════════════════════
+
+  Disciplina: ${data.status.discipline}%
+  Foco: ${focusLabels[data.status.focus]}
+  Espírito: ${spiritLabels[data.status.spirit]}
+  Perigo: ${dangerLabels[data.status.danger]}
+
+═══════════════════════════════════════════════════════════════
+                      MISSÕES ESTRATÉGICAS
+═══════════════════════════════════════════════════════════════
+
+${missionProgress.map(m => `
+  [${m.type.toUpperCase()}] ${m.title}
+  Progresso: ${m.progress}% (${Object.values(m.weeklyChecks).filter(v => v).length}/7 dias)
+`).join('')}
+
+═══════════════════════════════════════════════════════════════
+                       RITUAIS DE FORÇA
+═══════════════════════════════════════════════════════════════
+
+  Diários: ${dailyCompleted}/${data.rituals.daily.length} completados
+  Semanais: ${weeklyCompleted}/${data.rituals.weekly.length} completados
+
+═══════════════════════════════════════════════════════════════
+                        LEI DA SEMANA
+═══════════════════════════════════════════════════════════════
+
+  Lei ${lawOfWeek.number}: ${lawOfWeek.title}
+  Status: ${lawOfWeek.applied ? 'APLICADA' : 'PENDENTE'}
+  
+  ${lawOfWeek.notes ? 'Notas: ' + lawOfWeek.notes : ''}
+
+═══════════════════════════════════════════════════════════════
+                          RESUMO
+═══════════════════════════════════════════════════════════════
+
+  Leis aplicadas: ${data.laws.filter(l => l.applied).length}/48
+  Leis favoritas: ${data.laws.filter(l => l.favorite).length}
+
+═══════════════════════════════════════════════════════════════
+
+"Eu sou perigoso porque domino minha mente.
+ Eu sou livre porque ninguém me controla."
+
+═══════════════════════════════════════════════════════════════
+`;
+            
+            // Criar blob e download
+            const blob = new Blob([report], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `relatorio-guerra-${now.toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showToast('Relatório exportado!', 'success');
+        }
+
+        // ==========================================
+        // UTILITÁRIOS
+        // ==========================================
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type;
+            toast.classList.add('active');
+            
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
+        }
+
+        function renderAll() {
+            renderStatus();
+            renderMissions();
+            renderRituals();
+            renderLaws();
+        }
+
+        // Inicializar
+        init();
+    </script>
+</body>
+</html>
