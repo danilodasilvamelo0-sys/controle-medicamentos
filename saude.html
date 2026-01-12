@@ -479,171 +479,196 @@
             padding: 0 20px 20px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
         
         .refeicao-card {
-            background: #fff;
-            border-radius: 16px;
+            background: #1a1a1a;
+            border: 1px solid rgba(212, 175, 125, 0.15);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        .refeicao-card:hover {
+            border-color: rgba(212, 175, 125, 0.3);
         }
         
         .refeicao-card-header {
-            padding: 20px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            border-bottom: 1px solid #eee;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+        }
+        .refeicao-card-header:hover {
+            background: rgba(212, 175, 125, 0.05);
+        }
+        
+        .refeicao-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .refeicao-expand-icon {
+            width: 20px;
+            height: 20px;
+            color: #d4af7d;
+            transition: transform 0.3s;
+        }
+        .refeicao-card.collapsed .refeicao-expand-icon {
+            transform: rotate(-90deg);
         }
         
         .refeicao-nome {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.4em;
-            font-weight: 400;
-            color: #1a1a1a;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .refeicao-subtitulo {
+            font-size: 0.8em;
+            color: rgba(255,255,255,0.6);
+            margin-top: 2px;
+        }
+        
+        .refeicao-header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .refeicao-horario {
             display: flex;
             align-items: center;
             gap: 6px;
-            padding: 6px 12px;
-            background: #f5f5f5;
+            padding: 5px 12px;
+            background: rgba(212, 175, 125, 0.1);
+            border: 1px solid rgba(212, 175, 125, 0.2);
             border-radius: 20px;
-            font-size: 0.9em;
-            color: #666;
+            font-size: 0.85em;
+            color: #d4af7d;
         }
         .refeicao-horario svg {
-            width: 16px;
-            height: 16px;
-            stroke: #888;
+            width: 14px;
+            height: 14px;
+            stroke: #d4af7d;
         }
         
-        .refeicao-toggle {
-            color: #2ecc71;
-            font-size: 0.85em;
-            cursor: pointer;
-            padding: 5px 0;
-            background: none;
-            border: none;
+        .refeicao-card-actions {
+            display: flex;
+            gap: 8px;
         }
-        .refeicao-toggle:hover {
-            text-decoration: underline;
+        .refeicao-card-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .refeicao-card-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+        .refeicao-card-btn.delete:hover {
+            background: rgba(231,76,60,0.8);
+        }
+        .refeicao-card-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .refeicao-card-body {
+            display: block;
+            border-top: 1px solid rgba(212, 175, 125, 0.1);
+        }
+        .refeicao-card.collapsed .refeicao-card-body {
+            display: none;
         }
         
         .refeicao-observacoes {
-            padding: 20px;
-            border-bottom: 1px solid #eee;
-            background: #fafafa;
+            padding: 15px 20px;
+            background: rgba(212, 175, 125, 0.05);
+            border-bottom: 1px solid rgba(212, 175, 125, 0.1);
         }
         .refeicao-obs-titulo {
             font-weight: 600;
-            font-size: 1em;
-            color: #1a1a1a;
-            margin-bottom: 12px;
+            font-size: 0.85em;
+            color: #d4af7d;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .refeicao-obs-texto {
-            font-size: 0.95em;
-            color: #444;
+            font-size: 0.9em;
+            color: rgba(255,255,255,0.7);
             line-height: 1.7;
             white-space: pre-line;
         }
         
         .refeicao-alimentos {
-            padding: 15px 20px;
+            padding: 0;
         }
         
-        .refeicao-alimento-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 15px 0;
-            border-bottom: 1px solid #f0f0f0;
+        .refeicao-alimentos-table {
+            width: 100%;
+            border-collapse: collapse;
         }
-        .refeicao-alimento-item:last-child {
+        .refeicao-alimentos-table th {
+            background: #141414;
+            color: #d4af7d;
+            padding: 12px 20px;
+            text-align: left;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(212, 175, 125, 0.1);
+        }
+        .refeicao-alimentos-table td {
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            color: rgba(255,255,255,0.85);
+            font-size: 0.9em;
+        }
+        .refeicao-alimentos-table tr:last-child td {
             border-bottom: none;
+        }
+        .refeicao-alimentos-table tr:hover {
+            background: rgba(212, 175, 125, 0.05);
+        }
+        
+        .refeicao-alimento-nome {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
         
         .refeicao-check-icon {
-            width: 28px;
-            height: 28px;
+            width: 22px;
+            height: 22px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-        }
-        .refeicao-check-icon::before {
-            content: '';
-            position: absolute;
-            width: 28px;
-            height: 28px;
-            border: 2px solid #ddd;
+            background: #2ecc71;
             border-radius: 50%;
         }
         .refeicao-check-icon svg {
-            width: 16px;
-            height: 16px;
-            stroke: #ccc;
-            stroke-width: 2.5;
-        }
-        
-        .refeicao-linha-vertical {
-            position: absolute;
-            left: 50%;
-            top: 28px;
-            width: 2px;
-            height: calc(100% + 15px);
-            background: #eee;
-            transform: translateX(-50%);
-        }
-        .refeicao-alimento-item:last-child .refeicao-linha-vertical {
-            display: none;
-        }
-        
-        .refeicao-alimento-texto {
-            flex: 1;
-            font-size: 1em;
-            color: #333;
-            line-height: 1.5;
-            padding-top: 3px;
-        }
-        
-        .refeicao-card-footer {
-            padding: 15px 20px;
-            background: #1a1a1a;
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-        }
-        .refeicao-btn-edit,
-        .refeicao-btn-delete {
-            background: transparent;
-            border: none;
-            padding: 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .refeicao-btn-edit svg,
-        .refeicao-btn-delete svg {
-            width: 18px;
-            height: 18px;
-        }
-        .refeicao-btn-edit {
-            color: rgba(255,255,255,0.5);
-        }
-        .refeicao-btn-edit:hover {
-            color: #d4af7d;
-            background: rgba(212,175,125,0.1);
-        }
-        .refeicao-btn-delete {
-            color: rgba(255,255,255,0.4);
-        }
-        .refeicao-btn-delete:hover {
-            color: #e74c3c;
-            background: rgba(231,76,60,0.1);
+            width: 12px;
+            height: 12px;
+            stroke: #fff;
+            stroke-width: 3;
         }
         
         .refeicoes-empty {
@@ -2401,61 +2426,73 @@
             });
             
             container.innerHTML = refeicoes.map(ref => `
-                <div class="refeicao-card">
-                    <div class="refeicao-card-header">
-                        <div>
-                            <div class="refeicao-nome">${ref.nome}</div>
-                            <button class="refeicao-toggle" onclick="toggleObservacoes(${ref.id})">
-                                <span id="toggleText${ref.id}">Ocultar</span>
-                            </button>
+                <div class="refeicao-card" id="refeicaoCard${ref.id}">
+                    <div class="refeicao-card-header" onclick="toggleRefeicaoCard(${ref.id})">
+                        <div class="refeicao-header-left">
+                            <svg class="refeicao-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            <div>
+                                <div class="refeicao-nome">${ref.nome}</div>
+                                <div class="refeicao-subtitulo">${(ref.alimentos || []).length} alimentos</div>
+                            </div>
                         </div>
-                        ${ref.horario ? `
-                            <div class="refeicao-horario">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                ${ref.horario}
+                        <div class="refeicao-header-right">
+                            ${ref.horario ? `
+                                <div class="refeicao-horario">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                    ${ref.horario}
+                                </div>
+                            ` : ''}
+                            <div class="refeicao-card-actions" onclick="event.stopPropagation()">
+                                <button class="refeicao-card-btn" onclick="editarRefeicao(${ref.id})" title="Editar">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                </button>
+                                <button class="refeicao-card-btn delete" onclick="excluirRefeicao(${ref.id})" title="Excluir">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="refeicao-card-body">
+                        ${ref.observacoes ? `
+                            <div class="refeicao-observacoes">
+                                <div class="refeicao-obs-titulo">Observações</div>
+                                <div class="refeicao-obs-texto">${ref.observacoes}</div>
                             </div>
                         ` : ''}
-                    </div>
-                    
-                    <div class="refeicao-observacoes" id="obs${ref.id}">
-                        <div class="refeicao-obs-titulo">Observações</div>
-                        <div class="refeicao-obs-texto">${ref.observacoes || 'Nenhuma observação'}</div>
-                    </div>
-                    
-                    <div class="refeicao-alimentos">
-                        ${(ref.alimentos || []).map((alimento, idx) => `
-                            <div class="refeicao-alimento-item" style="position:relative">
-                                <div class="refeicao-check-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
-                                    ${idx < ref.alimentos.length - 1 ? '<div class="refeicao-linha-vertical"></div>' : ''}
-                                </div>
-                                <div class="refeicao-alimento-texto">${alimento}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                    
-                    <div class="refeicao-card-footer">
-                        <button class="refeicao-btn-edit" onclick="editarRefeicao(${ref.id})" title="Editar">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                        </button>
-                        <button class="refeicao-btn-delete" onclick="excluirRefeicao(${ref.id})" title="Excluir">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                        </button>
+                        
+                        <div class="refeicao-alimentos">
+                            <table class="refeicao-alimentos-table">
+                                <thead>
+                                    <tr>
+                                        <th>Alimento</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${(ref.alimentos || []).map(alimento => `
+                                        <tr>
+                                            <td>
+                                                <div class="refeicao-alimento-nome">
+                                                    <div class="refeicao-check-icon">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                                                    </div>
+                                                    <span>${alimento}</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             `).join('');
         }
         
-        function toggleObservacoes(id) {
-            const obsEl = document.getElementById('obs' + id);
-            const toggleText = document.getElementById('toggleText' + id);
-            
-            if (obsEl.style.display === 'none') {
-                obsEl.style.display = 'block';
-                toggleText.textContent = 'Ocultar';
-            } else {
-                obsEl.style.display = 'none';
-                toggleText.textContent = 'Mostrar';
+        function toggleRefeicaoCard(id) {
+            const card = document.getElementById('refeicaoCard' + id);
+            if (card) {
+                card.classList.toggle('collapsed');
             }
         }
         
