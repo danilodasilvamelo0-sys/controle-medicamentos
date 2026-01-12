@@ -459,6 +459,291 @@
             .modal-content, .modal-treino-content { padding: 15px; }
             .treino-alertas { margin: 10px; padding: 10px; }
         }
+        
+        /* ==================== REFEIÇÕES / DIETA ==================== */
+        .dieta-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .dieta-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em;
+            color: #d4af7d;
+        }
+        
+        .refeicoes-container {
+            padding: 0 20px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .refeicao-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .refeicao-card-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .refeicao-nome {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4em;
+            font-weight: 400;
+            color: #1a1a1a;
+        }
+        
+        .refeicao-horario {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: #f5f5f5;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .refeicao-horario svg {
+            width: 16px;
+            height: 16px;
+            stroke: #888;
+        }
+        
+        .refeicao-toggle {
+            color: #2ecc71;
+            font-size: 0.85em;
+            cursor: pointer;
+            padding: 5px 0;
+            background: none;
+            border: none;
+        }
+        .refeicao-toggle:hover {
+            text-decoration: underline;
+        }
+        
+        .refeicao-observacoes {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            background: #fafafa;
+        }
+        .refeicao-obs-titulo {
+            font-weight: 600;
+            font-size: 1em;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+        .refeicao-obs-texto {
+            font-size: 0.95em;
+            color: #444;
+            line-height: 1.7;
+            white-space: pre-line;
+        }
+        
+        .refeicao-alimentos {
+            padding: 15px 20px;
+        }
+        
+        .refeicao-alimento-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .refeicao-alimento-item:last-child {
+            border-bottom: none;
+        }
+        
+        .refeicao-check-icon {
+            width: 28px;
+            height: 28px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .refeicao-check-icon::before {
+            content: '';
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+        }
+        .refeicao-check-icon svg {
+            width: 16px;
+            height: 16px;
+            stroke: #ccc;
+            stroke-width: 2.5;
+        }
+        
+        .refeicao-linha-vertical {
+            position: absolute;
+            left: 50%;
+            top: 28px;
+            width: 2px;
+            height: calc(100% + 15px);
+            background: #eee;
+            transform: translateX(-50%);
+        }
+        .refeicao-alimento-item:last-child .refeicao-linha-vertical {
+            display: none;
+        }
+        
+        .refeicao-alimento-texto {
+            flex: 1;
+            font-size: 1em;
+            color: #333;
+            line-height: 1.5;
+            padding-top: 3px;
+        }
+        
+        .refeicao-card-footer {
+            padding: 15px 20px;
+            background: #1a1a1a;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .refeicao-btn-edit,
+        .refeicao-btn-delete {
+            background: transparent;
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .refeicao-btn-edit svg,
+        .refeicao-btn-delete svg {
+            width: 18px;
+            height: 18px;
+        }
+        .refeicao-btn-edit {
+            color: rgba(255,255,255,0.5);
+        }
+        .refeicao-btn-edit:hover {
+            color: #d4af7d;
+            background: rgba(212,175,125,0.1);
+        }
+        .refeicao-btn-delete {
+            color: rgba(255,255,255,0.4);
+        }
+        .refeicao-btn-delete:hover {
+            color: #e74c3c;
+            background: rgba(231,76,60,0.1);
+        }
+        
+        .refeicoes-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255,255,255,0.4);
+        }
+        .refeicoes-empty-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            opacity: 0.3;
+        }
+        
+        /* Modal Refeição */
+        .alimento-input-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .alimento-input-row input {
+            flex: 1;
+        }
+        .alimento-input-row .btn-remove-alimento {
+            background: transparent;
+            border: 1px solid rgba(231,76,60,0.3);
+            color: #e74c3c;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .alimento-input-row .btn-remove-alimento:hover {
+            background: rgba(231,76,60,0.1);
+        }
+        .alimento-input-row .btn-remove-alimento svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .btn-add-alimento {
+            width: 100%;
+            padding: 12px;
+            background: rgba(212,175,125,0.1);
+            border: 1px dashed rgba(212,175,125,0.3);
+            border-radius: 8px;
+            color: #d4af7d;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .btn-add-alimento:hover {
+            background: rgba(212,175,125,0.15);
+            border-color: #d4af7d;
+        }
+        
+        /* Responsivo Dieta */
+        @media(max-width:768px) {
+            .dieta-header {
+                padding: 15px;
+            }
+            .dieta-header h2 {
+                font-size: 1.1em;
+            }
+            .refeicoes-container {
+                padding: 0 15px 15px;
+            }
+            .refeicao-card-header {
+                padding: 15px;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .refeicao-nome {
+                font-size: 1.2em;
+            }
+            .refeicao-horario {
+                align-self: flex-start;
+            }
+            .refeicao-observacoes {
+                padding: 15px;
+            }
+            .refeicao-alimentos {
+                padding: 10px 15px;
+            }
+            .refeicao-alimento-item {
+                padding: 12px 0;
+            }
+            .refeicao-alimento-texto {
+                font-size: 0.95em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -646,8 +931,22 @@
         </div>
     </div>
 
-    <!-- Outras Páginas -->
-    <div class="container page-section" id="page-dieta"><div class="header"><h1>Dieta</h1><p>Em desenvolvimento...</p></div></div>
+    <!-- Página Dieta -->
+    <div class="container page-section" id="page-dieta">
+        <div class="header">
+            <h1>Plano Alimentar</h1>
+            <p>Gestão de Refeições e Substituições</p>
+        </div>
+        
+        <div class="dieta-header">
+            <h2>Minhas Refeições</h2>
+            <button class="btn-primary" onclick="abrirModalRefeicao()">+ Adicionar Refeição</button>
+        </div>
+        
+        <div class="refeicoes-container" id="listaRefeicoes">
+            <!-- Refeições serão renderizadas aqui -->
+        </div>
+    </div>
     <div class="container page-section" id="page-treino">
         <div class="header"><h1>Treino</h1><p>Gestão de Treinos e Exercícios</p></div>
         
@@ -862,6 +1161,45 @@
         </div>
     </div>
 
+    <!-- Modal Refeição -->
+    <div class="modal-treino" id="modalRefeicao">
+        <div class="modal-treino-content" style="max-width:550px">
+            <div class="modal-treino-header">
+                <h3 class="modal-treino-title">Nova Refeição</h3>
+                <button class="modal-treino-close" onclick="fecharModalRefeicao()">&times;</button>
+            </div>
+            <input type="hidden" id="refeicaoId">
+            <div style="display:grid;grid-template-columns:2fr 1fr;gap:15px;margin-bottom:15px">
+                <div class="form-group">
+                    <label style="display:block;margin-bottom:8px;font-size:0.8em;color:rgba(255,255,255,0.5);text-transform:uppercase">Nome da Refeição</label>
+                    <input type="text" id="refeicaoNome" placeholder="Ex: Café da manhã, Almoço, Jantar..." style="width:100%;padding:12px;background:#141414;border:1px solid rgba(212,175,125,0.2);border-radius:8px;color:#fff;font-size:0.95em">
+                </div>
+                <div class="form-group">
+                    <label style="display:block;margin-bottom:8px;font-size:0.8em;color:rgba(255,255,255,0.5);text-transform:uppercase">Horário</label>
+                    <input type="time" id="refeicaoHorario" style="width:100%;padding:12px;background:#141414;border:1px solid rgba(212,175,125,0.2);border-radius:8px;color:#fff;font-size:0.95em">
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom:15px">
+                <label style="display:block;margin-bottom:8px;font-size:0.8em;color:rgba(255,255,255,0.5);text-transform:uppercase">Alimentos</label>
+                <div id="alimentosContainer">
+                    <!-- Alimentos serão adicionados aqui -->
+                </div>
+                <button type="button" class="btn-add-alimento" onclick="adicionarCampoAlimento()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Adicionar Alimento
+                </button>
+            </div>
+            <div class="form-group" style="margin-bottom:15px">
+                <label style="display:block;margin-bottom:8px;font-size:0.8em;color:rgba(255,255,255,0.5);text-transform:uppercase">Observações / Substituições</label>
+                <textarea id="refeicaoObservacoes" placeholder="Ex: Carbo: 400g de macarrão ou aipim ou batata doce...&#10;Prote: 130g de carne vermelha ou 150g de peixe..." style="width:100%;padding:12px;background:#141414;border:1px solid rgba(212,175,125,0.2);border-radius:8px;color:#fff;font-size:0.9em;min-height:120px;resize:vertical;font-family:inherit;line-height:1.6"></textarea>
+            </div>
+            <div class="modal-treino-footer">
+                <button class="btn-secondary" onclick="fecharModalRefeicao()">Cancelar</button>
+                <button class="btn-primary" onclick="salvarRefeicao()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         // ==========================================
@@ -889,6 +1227,7 @@
             statusHoje: {},
             treinos: [],
             alertasTreino: [],
+            refeicoes: [],
             telegram: { botToken: '', chatId: '', ativo: false },
             notificacoesEnviadas: {}
         };
@@ -898,6 +1237,7 @@
         if (!saude.statusHoje) saude.statusHoje = {};
         if (!saude.treinos) saude.treinos = [];
         if (!saude.alertasTreino) saude.alertasTreino = [];
+        if (!saude.refeicoes) saude.refeicoes = [];
         if (!saude.telegram) saude.telegram = { botToken: '', chatId: '', ativo: false };
         if (!saude.notificacoesEnviadas) saude.notificacoesEnviadas = {};
 
@@ -2034,6 +2374,230 @@
         setInterval(verificarHorariosMedicamentos, 30000);
 
         // ==========================================
+        // REFEIÇÕES / DIETA
+        // ==========================================
+        let alimentosTemp = [];
+        
+        function renderRefeicoes() {
+            const container = document.getElementById('listaRefeicoes');
+            if (!container) return;
+            
+            if (!saude.refeicoes || saude.refeicoes.length === 0) {
+                container.innerHTML = `
+                    <div class="refeicoes-empty">
+                        <div class="refeicoes-empty-icon">🍽️</div>
+                        <p>Nenhuma refeição cadastrada</p>
+                        <p style="font-size:0.85em;margin-top:5px">Clique em "+ Adicionar Refeição" para começar</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Ordenar por horário
+            const refeicoes = [...saude.refeicoes].sort((a, b) => {
+                if (!a.horario) return 1;
+                if (!b.horario) return -1;
+                return a.horario.localeCompare(b.horario);
+            });
+            
+            container.innerHTML = refeicoes.map(ref => `
+                <div class="refeicao-card">
+                    <div class="refeicao-card-header">
+                        <div>
+                            <div class="refeicao-nome">${ref.nome}</div>
+                            <button class="refeicao-toggle" onclick="toggleObservacoes(${ref.id})">
+                                <span id="toggleText${ref.id}">Ocultar</span>
+                            </button>
+                        </div>
+                        ${ref.horario ? `
+                            <div class="refeicao-horario">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                ${ref.horario}
+                            </div>
+                        ` : ''}
+                    </div>
+                    
+                    <div class="refeicao-observacoes" id="obs${ref.id}">
+                        <div class="refeicao-obs-titulo">Observações</div>
+                        <div class="refeicao-obs-texto">${ref.observacoes || 'Nenhuma observação'}</div>
+                    </div>
+                    
+                    <div class="refeicao-alimentos">
+                        ${(ref.alimentos || []).map((alimento, idx) => `
+                            <div class="refeicao-alimento-item" style="position:relative">
+                                <div class="refeicao-check-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                                    ${idx < ref.alimentos.length - 1 ? '<div class="refeicao-linha-vertical"></div>' : ''}
+                                </div>
+                                <div class="refeicao-alimento-texto">${alimento}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="refeicao-card-footer">
+                        <button class="refeicao-btn-edit" onclick="editarRefeicao(${ref.id})" title="Editar">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        </button>
+                        <button class="refeicao-btn-delete" onclick="excluirRefeicao(${ref.id})" title="Excluir">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function toggleObservacoes(id) {
+            const obsEl = document.getElementById('obs' + id);
+            const toggleText = document.getElementById('toggleText' + id);
+            
+            if (obsEl.style.display === 'none') {
+                obsEl.style.display = 'block';
+                toggleText.textContent = 'Ocultar';
+            } else {
+                obsEl.style.display = 'none';
+                toggleText.textContent = 'Mostrar';
+            }
+        }
+        
+        function abrirModalRefeicao(id = null) {
+            const modal = document.getElementById('modalRefeicao');
+            const titulo = modal.querySelector('.modal-treino-title');
+            
+            document.getElementById('refeicaoId').value = '';
+            document.getElementById('refeicaoNome').value = '';
+            document.getElementById('refeicaoHorario').value = '';
+            document.getElementById('refeicaoObservacoes').value = '';
+            alimentosTemp = [];
+            
+            if (id) {
+                const ref = saude.refeicoes.find(r => r.id === id);
+                if (ref) {
+                    titulo.textContent = 'Editar Refeição';
+                    document.getElementById('refeicaoId').value = ref.id;
+                    document.getElementById('refeicaoNome').value = ref.nome;
+                    document.getElementById('refeicaoHorario').value = ref.horario || '';
+                    document.getElementById('refeicaoObservacoes').value = ref.observacoes || '';
+                    alimentosTemp = [...(ref.alimentos || [])];
+                }
+            } else {
+                titulo.textContent = 'Nova Refeição';
+                // Adicionar 3 campos de alimento vazios por padrão
+                alimentosTemp = ['', '', ''];
+            }
+            
+            renderAlimentosInputs();
+            modal.classList.add('active');
+        }
+        
+        function fecharModalRefeicao() {
+            document.getElementById('modalRefeicao').classList.remove('active');
+        }
+        
+        function renderAlimentosInputs() {
+            const container = document.getElementById('alimentosContainer');
+            container.innerHTML = alimentosTemp.map((alimento, idx) => `
+                <div class="alimento-input-row">
+                    <input type="text" 
+                           value="${alimento}" 
+                           placeholder="Ex: 130 gramas Frango, peito, sem pele, cozido"
+                           onchange="alimentosTemp[${idx}] = this.value"
+                           style="width:100%;padding:12px;background:#141414;border:1px solid rgba(212,175,125,0.2);border-radius:8px;color:#fff;font-size:0.95em">
+                    <button type="button" class="btn-remove-alimento" onclick="removerCampoAlimento(${idx})">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+        
+        function adicionarCampoAlimento() {
+            // Salvar valores atuais dos inputs
+            const inputs = document.querySelectorAll('#alimentosContainer input');
+            alimentosTemp = Array.from(inputs).map(input => input.value);
+            
+            alimentosTemp.push('');
+            renderAlimentosInputs();
+            
+            // Focar no novo input
+            const novosInputs = document.querySelectorAll('#alimentosContainer input');
+            if (novosInputs.length > 0) {
+                novosInputs[novosInputs.length - 1].focus();
+            }
+        }
+        
+        function removerCampoAlimento(idx) {
+            // Salvar valores atuais dos inputs
+            const inputs = document.querySelectorAll('#alimentosContainer input');
+            alimentosTemp = Array.from(inputs).map(input => input.value);
+            
+            alimentosTemp.splice(idx, 1);
+            renderAlimentosInputs();
+        }
+        
+        function salvarRefeicao() {
+            const id = document.getElementById('refeicaoId').value;
+            const nome = document.getElementById('refeicaoNome').value.trim();
+            const horario = document.getElementById('refeicaoHorario').value;
+            const observacoes = document.getElementById('refeicaoObservacoes').value.trim();
+            
+            // Pegar valores atuais dos inputs
+            const inputs = document.querySelectorAll('#alimentosContainer input');
+            const alimentos = Array.from(inputs)
+                .map(input => input.value.trim())
+                .filter(v => v !== '');
+            
+            if (!nome) {
+                alert('Digite o nome da refeição');
+                return;
+            }
+            
+            if (alimentos.length === 0) {
+                alert('Adicione pelo menos um alimento');
+                return;
+            }
+            
+            if (id) {
+                // Editar
+                const idx = saude.refeicoes.findIndex(r => r.id === parseInt(id));
+                if (idx !== -1) {
+                    saude.refeicoes[idx] = {
+                        ...saude.refeicoes[idx],
+                        nome,
+                        horario,
+                        observacoes,
+                        alimentos
+                    };
+                }
+            } else {
+                // Novo
+                saude.refeicoes.push({
+                    id: Date.now(),
+                    nome,
+                    horario,
+                    observacoes,
+                    alimentos
+                });
+            }
+            
+            salvarDados();
+            renderRefeicoes();
+            fecharModalRefeicao();
+            mostrarStatus('Refeição salva!', 'success');
+        }
+        
+        function editarRefeicao(id) {
+            abrirModalRefeicao(id);
+        }
+        
+        function excluirRefeicao(id) {
+            if (confirm('Excluir esta refeição?')) {
+                saude.refeicoes = saude.refeicoes.filter(r => r.id !== id);
+                salvarDados();
+                renderRefeicoes();
+                mostrarStatus('Refeição excluída', 'success');
+            }
+        }
+
+        // ==========================================
         // INICIALIZAÇÃO
         // ==========================================
         async function inicializar() {
@@ -2042,6 +2606,7 @@
             renderizarPlanoLista();
             renderTreinos();
             renderAlertas();
+            renderRefeicoes();
             carregarTelegramConfig();
             verificarHorariosMedicamentos(); // Verificar imediatamente
         }
