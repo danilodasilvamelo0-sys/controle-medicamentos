@@ -420,7 +420,7 @@
             <div class="section"><h3 class="section-title" style="margin-bottom:15px;">Arquivados</h3><div id="listaProjetosArquivados"></div></div>
         </div>
         <div class="sub-content" id="aba-agenda">
-            <div class="section"><div class="section-header"><h3 class="section-title">Compromissos</h3><div style="display:flex;gap:8px;align-items:center;"><button class="btn-icon" onclick="abrirModal('modalTelegramConfig')" title="Configurar Telegram" style="opacity:0.4;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button><button class="btn btn-primary btn-sm" onclick="novoCompromisso()">Novo</button></div></div><div id="listaAgenda"></div></div>
+            <div class="section"><div class="section-header"><h3 class="section-title">Compromissos</h3><button class="btn btn-primary btn-sm" onclick="novoCompromisso()">Novo</button></div><div id="listaAgenda"></div></div>
             <div class="section"><h3 class="section-title" style="margin-bottom:15px;">Arquivados</h3><div id="listaAgendaArq"></div></div>
         </div>
     </div>
@@ -431,8 +431,7 @@
     <div class="modal-overlay" id="modalSimulado"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Simulado</h3><button class="modal-close" onclick="fecharModal('modalSimulado')">&times;</button></div><input type="hidden" id="simId"><div class="form-row"><div class="form-group"><label>Data</label><input type="date" id="simData"></div><div class="form-group"><label>Nota %</label><input type="number" id="simNota" min="0" max="100"></div></div><div class="form-row"><div class="form-group"><label>Total</label><input type="number" id="simTotal"></div><div class="form-group"><label>Acertos</label><input type="number" id="simAcertos"></div></div><div class="form-group"><label>Obs</label><textarea id="simObs"></textarea></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalSimulado')">Cancelar</button><button class="btn btn-primary" onclick="salvarSimulado()">Salvar</button></div></div></div>
     <div class="modal-overlay" id="modalExercicio"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Exercicio</h3><button class="modal-close" onclick="fecharModal('modalExercicio')">&times;</button></div><input type="hidden" id="exId"><div class="form-row"><div class="form-group"><label>Data</label><input type="date" id="exData"></div><div class="form-group"><label>Materia</label><select id="exMateria"></select></div></div><div class="form-row"><div class="form-group"><label>Questoes</label><input type="number" id="exQtd"></div><div class="form-group"><label>Acertos</label><input type="number" id="exAcertos"></div></div><div class="form-group"><label>Tempo (min)</label><input type="number" id="exTempo"></div><div class="form-group"><label>Obs</label><textarea id="exObs"></textarea></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalExercicio')">Cancelar</button><button class="btn btn-primary" onclick="salvarExercicio()">Salvar</button></div></div></div>
     <div class="modal-overlay" id="modalProjeto"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Projeto</h3><button class="modal-close" onclick="fecharModal('modalProjeto')">&times;</button></div><input type="hidden" id="projId"><div class="form-group"><label>Nome do Projeto</label><input type="text" id="projNome" placeholder="Ex: Lançamento do App, Curso de Inglês..."></div><div class="form-group"><label>Objetivo / Motivo</label><textarea id="projMeta" placeholder="Descreva o objetivo principal e a motivação por trás deste projeto..." style="min-height:80px"></textarea></div><div class="form-group"><label>Descrição Detalhada</label><textarea id="projNotas" placeholder="Explique os detalhes, etapas, estratégias ou qualquer informação relevante sobre o projeto..." style="min-height:120px"></textarea></div><div class="form-row"><div class="form-group"><label>Prazo</label><input type="date" id="projPrazo"></div><div class="form-group"><label>Progresso %</label><input type="number" id="projProg" min="0" max="100" value="0"></div></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalProjeto')">Cancelar</button><button class="btn btn-primary" onclick="salvarProjeto()">Salvar</button></div></div></div>
-    <div class="modal-overlay" id="modalAgenda"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Compromisso</h3><button class="modal-close" onclick="fecharModal('modalAgenda')">&times;</button></div><input type="hidden" id="agId"><div class="form-group"><label>Titulo</label><input type="text" id="agTitulo"></div><div class="form-row"><div class="form-group"><label>Data</label><input type="date" id="agData"></div><div class="form-group"><label>Hora</label><input type="time" id="agHora"></div></div><div class="form-row"><div class="form-group"><label>Categoria</label><select id="agCat"><option>Reuniao</option><option>Estudo</option><option>OAB</option><option>Entrega</option><option>Pessoal</option></select></div><div class="form-group"><label>Lembrete</label><select id="agLembrete"><option value="0">Sem lembrete</option><option value="15">15 min antes</option><option value="30">30 min antes</option><option value="60">1 hora antes</option><option value="1440">1 dia antes</option></select></div></div><div class="form-group"><label>Obs</label><textarea id="agObs"></textarea></div><div class="form-group" style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(212,175,125,0.1);border-radius:8px;"><input type="checkbox" id="agNotificar" style="width:18px;height:18px;accent-color:#d4af7d;"><label for="agNotificar" style="margin:0;cursor:pointer;font-size:0.9em;">Notificar no Telegram</label></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalAgenda')">Cancelar</button><button class="btn btn-primary" onclick="salvarAgenda()">Salvar</button></div></div></div>
-    <div class="modal-overlay" id="modalTelegramConfig"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Telegram</h3><button class="modal-close" onclick="fecharModal('modalTelegramConfig')">&times;</button></div><div id="telegramStatus"></div><div class="form-group"><label>Bot Token</label><input type="text" id="teleBotToken" placeholder="Cole o token do seu bot"></div><div class="form-group"><label>Chat ID</label><input type="text" id="teleChatId" placeholder="Seu Chat ID"></div><div style="padding:12px;background:rgba(212,175,125,0.1);border-radius:8px;margin-bottom:15px;"><p style="font-size:0.8em;color:rgba(255,255,255,0.6);line-height:1.5;margin:0;">💡 Configure o Telegram em <b>Saúde > Medicamentos</b> para compartilhar entre todas as páginas.</p></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalTelegramConfig')">Fechar</button><button class="btn btn-primary" onclick="salvarTelegramConfig()">Salvar</button></div></div></div>
+    <div class="modal-overlay" id="modalAgenda"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Compromisso</h3><button class="modal-close" onclick="fecharModal('modalAgenda')">&times;</button></div><input type="hidden" id="agId"><div class="form-group"><label>Titulo</label><input type="text" id="agTitulo"></div><div class="form-row"><div class="form-group"><label>Data</label><input type="date" id="agData"></div><div class="form-group"><label>Hora</label><input type="time" id="agHora"></div></div><div class="form-group"><label>Categoria</label><select id="agCat"><option>Reuniao</option><option>Estudo</option><option>OAB</option><option>Entrega</option><option>Pessoal</option></select></div><div class="form-group"><label>Obs</label><textarea id="agObs"></textarea></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalAgenda')">Cancelar</button><button class="btn btn-primary" onclick="salvarAgenda()">Salvar</button></div></div></div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
 // ==========================================
@@ -931,8 +930,7 @@ function renderAgenda(){
     }else{
         c.innerHTML=at.map(a=>{
             const horaStr = a.hora ? ' às ' + a.hora : '';
-            const notifIcon = a.notificar ? '<span title="Notificação Telegram ativa" style="color:#2ecc71;margin-left:5px;">🔔</span>' : '';
-            return '<div class="item-card"><div class="item-header"><div><div class="item-title">'+a.titulo+notifIcon+'</div><div class="item-subtitle">'+fmtData(a.data)+horaStr+' - '+a.cat+'</div></div><div class="btn-group"><button class="btn-icon play" onclick="cumprirAg(\''+a.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></button><button class="btn-icon" onclick="editAg(\''+a.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" onclick="delAg(\''+a.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div>'+(a.obs?'<div style="font-size:0.85em;color:rgba(255,255,255,0.5);">'+a.obs+'</div>':'')+'</div>';
+            return '<div class="item-card"><div class="item-header"><div><div class="item-title">'+a.titulo+'</div><div class="item-subtitle">'+fmtData(a.data)+horaStr+' - '+a.cat+'</div></div><div class="btn-group"><button class="btn-icon play" onclick="cumprirAg(\''+a.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></button><button class="btn-icon" onclick="editAg(\''+a.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" onclick="delAg(\''+a.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div>'+(a.obs?'<div style="font-size:0.85em;color:rgba(255,255,255,0.5);">'+a.obs+'</div>':'')+'</div>';
         }).join('');
     }
     const arqs=D.agenda.filter(a=>a.arq);
@@ -943,26 +941,23 @@ function renderAgenda(){
         ca.innerHTML=arqs.map(a=>'<div class="item-card" style="opacity:0.6;"><div class="item-header"><div><div class="item-title" style="text-decoration:line-through;">'+a.titulo+'</div><div class="item-subtitle">'+fmtData(a.data)+' - '+a.cat+'</div></div><div class="btn-group"><button class="btn-icon" onclick="restaurarAg(\''+a.id+'\')" title="Restaurar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></button><button class="btn-icon delete" onclick="delAg(\''+a.id+'\')" title="Excluir"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div></div>').join('');
     }
 }
+function novoCompromisso(){
+    limparFormAgenda();
+    abrirModal('modalAgenda');
+}
 function salvarAgenda(){
     const id=document.getElementById('agId').value;
     const titulo=document.getElementById('agTitulo').value.trim();
     const data=document.getElementById('agData').value;
     const hora=document.getElementById('agHora').value;
     const cat=document.getElementById('agCat').value;
-    const lembrete=parseInt(document.getElementById('agLembrete').value)||0;
     const obs=document.getElementById('agObs').value;
-    const notificar=document.getElementById('agNotificar').checked;
     if(!titulo)return alert('Informe o titulo.');
     if(id){
         const a=D.agenda.find(x=>x.id===id);
-        if(a){a.titulo=titulo;a.data=data;a.hora=hora;a.cat=cat;a.lembrete=lembrete;a.obs=obs;a.notificar=notificar;}
+        if(a){a.titulo=titulo;a.data=data;a.hora=hora;a.cat=cat;a.obs=obs;}
     }else{
-        const novoCompromisso = {id:Date.now().toString(),titulo,data,hora,cat,lembrete,obs,notificar,arq:false};
-        D.agenda.push(novoCompromisso);
-        // Agendar notificação se marcado
-        if(notificar && data){
-            agendarNotificacaoTelegram(novoCompromisso);
-        }
+        D.agenda.push({id:Date.now().toString(),titulo,data,hora,cat,obs,arq:false});
     }
     salvar();
     renderAgenda();
@@ -974,9 +969,7 @@ function limparFormAgenda(){
     document.getElementById('agTitulo').value='';
     document.getElementById('agData').value='';
     document.getElementById('agHora').value='';
-    document.getElementById('agLembrete').value='0';
     document.getElementById('agObs').value='';
-    document.getElementById('agNotificar').checked=false;
 }
 function editAg(id){
     const a=D.agenda.find(x=>x.id===id);
@@ -986,117 +979,12 @@ function editAg(id){
     document.getElementById('agData').value=a.data||'';
     document.getElementById('agHora').value=a.hora||'';
     document.getElementById('agCat').value=a.cat;
-    document.getElementById('agLembrete').value=a.lembrete||'0';
     document.getElementById('agObs').value=a.obs||'';
-    document.getElementById('agNotificar').checked=a.notificar||false;
     abrirModal('modalAgenda');
 }
 function cumprirAg(id){const a=D.agenda.find(x=>x.id===id);if(a){a.arq=true;salvar();renderAgenda();}}
 function restaurarAg(id){const a=D.agenda.find(x=>x.id===id);if(a){a.arq=false;salvar();renderAgenda();}}
 function delAg(id){if(!confirm('Excluir?'))return;D.agenda=D.agenda.filter(x=>x.id!==id);salvar();renderAgenda();}
-
-// ==========================================
-// TELEGRAM NOTIFICAÇÕES (usa config de Saúde)
-// ==========================================
-function getTelegramConfig(){
-    // Buscar configuração do Telegram de saude.html
-    try {
-        const saudeData = JSON.parse(localStorage.getItem('zara_saude_v2'));
-        if(saudeData && saudeData.telegram && saudeData.telegram.botToken && saudeData.telegram.chatId){
-            return saudeData.telegram;
-        }
-    } catch(e){}
-    return null;
-}
-
-function salvarTelegramConfig(){
-    const token = document.getElementById('teleBotToken').value.trim();
-    const chatId = document.getElementById('teleChatId').value.trim();
-    if(!token || !chatId) return alert('Preencha todos os campos.');
-    
-    // Salvar na config de saúde para compartilhar
-    try {
-        let saudeData = JSON.parse(localStorage.getItem('zara_saude_v2')) || {};
-        saudeData.telegram = { botToken: token, chatId: chatId, ativo: true };
-        localStorage.setItem('zara_saude_v2', JSON.stringify(saudeData));
-    } catch(e){}
-    
-    fecharModal('modalTelegramConfig');
-    alert('Configuração do Telegram salva!');
-}
-
-function carregarTelegramConfig(){
-    const config = getTelegramConfig();
-    if(config){
-        document.getElementById('teleBotToken').value = config.botToken || '';
-        document.getElementById('teleChatId').value = config.chatId || '';
-    }
-}
-
-async function enviarNotificacaoTelegram(mensagem){
-    const config = getTelegramConfig();
-    if(!config){
-        console.log('Telegram não configurado. Configure em Saúde > Medicamentos.');
-        return false;
-    }
-    try {
-        const url = `https://api.telegram.org/bot${config.botToken}/sendMessage`;
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                chat_id: config.chatId,
-                text: mensagem,
-                parse_mode: 'HTML'
-            })
-        });
-        const data = await response.json();
-        return data.ok;
-    } catch(e) {
-        console.error('Erro ao enviar Telegram:', e);
-        return false;
-    }
-}
-
-function agendarNotificacaoTelegram(compromisso){
-    if(!compromisso.data || !compromisso.notificar) return;
-    
-    const dataHora = new Date(compromisso.data + 'T' + (compromisso.hora || '09:00'));
-    const lembrete = compromisso.lembrete || 0;
-    const tempoNotificacao = new Date(dataHora.getTime() - (lembrete * 60 * 1000));
-    const agora = new Date();
-    const diff = tempoNotificacao.getTime() - agora.getTime();
-    
-    if(diff > 0){
-        setTimeout(async () => {
-            const msg = `🔔 <b>LEMBRETE ZARA</b>\n\n📋 <b>${compromisso.titulo}</b>\n📅 ${fmtData(compromisso.data)}${compromisso.hora ? ' às ' + compromisso.hora : ''}\n🏷 ${compromisso.cat}${compromisso.obs ? '\n📝 ' + compromisso.obs : ''}`;
-            await enviarNotificacaoTelegram(msg);
-        }, diff);
-        console.log('Notificação agendada para:', tempoNotificacao);
-    }
-}
-
-function verificarNotificacoesPendentes(){
-    D.agenda.filter(a => !a.arq && a.notificar && a.data).forEach(compromisso => {
-        agendarNotificacaoTelegram(compromisso);
-    });
-}
-
-function novoCompromisso(){
-    limparFormAgenda();
-    // Verificar se Telegram está configurado
-    const config = getTelegramConfig();
-    if(!config){
-        document.getElementById('agNotificar').disabled = true;
-        document.getElementById('agNotificar').parentElement.style.opacity = '0.5';
-        document.getElementById('agNotificar').parentElement.title = 'Configure o Telegram em Saúde primeiro';
-    } else {
-        document.getElementById('agNotificar').disabled = false;
-        document.getElementById('agNotificar').parentElement.style.opacity = '1';
-        document.getElementById('agNotificar').parentElement.title = '';
-    }
-    abrirModal('modalAgenda');
-}
 
 async function inicializar(){
     await carregarSupabase();
@@ -1112,8 +1000,6 @@ async function inicializar(){
     renderCarreira();
     renderProjetos();
     renderAgenda();
-    carregarTelegramConfig();
-    verificarNotificacoesPendentes();
 }
 inicializar();
     </script>
