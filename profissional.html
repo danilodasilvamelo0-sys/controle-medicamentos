@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -112,230 +111,227 @@
         .file-upload:hover{border-color:#d4af7d}
         .file-upload input{display:none}
         .file-upload p{font-size:0.85em;color:rgba(255,255,255,0.5)}
-
-```
-    /* CRONOGRAMA CALENDÁRIO PREMIUM - ESTILO PDF */
-    .cronograma-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;flex-wrap:wrap;gap:15px}
-    .cronograma-titulo{font-family:'Playfair Display',serif;font-size:1.5em;color:#d4af7d;letter-spacing:2px}
-    .cronograma-semana{font-size:0.85em;color:rgba(255,255,255,0.6);margin-top:5px}
-    .cronograma-nav{display:flex;align-items:center;gap:15px}
-    .cronograma-nav-btn{width:36px;height:36px;border-radius:50%;background:rgba(212,175,125,0.1);border:1px solid rgba(212,175,125,0.3);color:#d4af7d;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s}
-    .cronograma-nav-btn:hover:not(:disabled){background:#d4af7d;color:#0a0a0a}
-    .cronograma-nav-btn:disabled{opacity:0.3;cursor:not-allowed}
-    .cronograma-actions{display:flex;gap:10px;align-items:center}
-    .calendario-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-    @media(max-width:1100px){.calendario-grid{grid-template-columns:repeat(3,1fr)}}
-    @media(max-width:768px){.calendario-grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:480px){.calendario-grid{grid-template-columns:1fr}}
-    
-    .dia-card{background:#141414;border:1px solid rgba(212,175,125,0.15);border-radius:16px;min-height:320px;display:flex;flex-direction:column;transition:all 0.3s;overflow:visible;position:relative}
-    .dia-card:hover{border-color:rgba(212,175,125,0.4);transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,0.4)}
-    .dia-card.hoje{border-color:#d4af7d;box-shadow:0 0 25px rgba(212,175,125,0.15)}
-    
-    .dia-card-header{padding:20px 18px 15px;display:flex;justify-content:space-between;align-items:flex-start}
-    .dia-header-left{display:flex;align-items:center;gap:12px}
-    .dia-add-btn{width:28px;height:28px;border-radius:50%;background:#27ae60;border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s;box-shadow:0 3px 10px rgba(39,174,96,0.3);flex-shrink:0}
-    .dia-add-btn:hover{background:#2ecc71;transform:scale(1.1)}
-    .dia-add-btn svg{width:14px;height:14px}
-    .dia-info{display:flex;flex-direction:column;gap:4px}
-    .dia-nome-cal{font-family:'Playfair Display',serif;font-size:0.95em;color:#fff;font-weight:600;text-transform:uppercase;letter-spacing:1px}
-    .dia-contador{font-size:0.75em;color:#d4af7d;font-weight:600;text-transform:uppercase}
-    
-    .dia-badge{position:absolute;top:15px;right:15px;width:65px;height:65px;background:linear-gradient(135deg,#d4af7d,#c9a066);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(212,175,125,0.3)}
-    .dia-badge-num{font-size:1.8em;font-weight:700;color:#0a0a0a;line-height:1}
-    .dia-badge-mes{font-size:0.6em;color:rgba(10,10,10,0.7);text-transform:lowercase;margin-top:2px;font-weight:500}
-    
-    .dia-card-body{flex:1;padding:10px 18px 20px;overflow-y:auto;max-height:260px}
-    .dia-card-body::-webkit-scrollbar{width:3px}
-    .dia-card-body::-webkit-scrollbar-track{background:transparent}
-    .dia-card-body::-webkit-scrollbar-thumb{background:rgba(212,175,125,0.4);border-radius:2px}
-    
-    .materia-grupo{margin-bottom:18px}
-    .materia-titulo{font-family:'Playfair Display',serif;font-size:1.1em;color:#d4af7d;font-weight:600;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(212,175,125,0.15)}
-    
-    .assunto-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;transition:all 0.2s;position:relative}
-    .assunto-item.concluido .assunto-texto{text-decoration:line-through;color:rgba(255,255,255,0.3)}
-    .assunto-check{flex-shrink:0;appearance:none;width:18px;height:18px;border:2px solid rgba(212,175,125,0.5);border-radius:50%;cursor:pointer;background:transparent;position:relative;transition:all 0.2s}
-    .assunto-check:hover{border-color:#d4af7d}
-    .assunto-check:checked{background:#d4af7d;border-color:#d4af7d}
-    .assunto-check:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#0a0a0a;font-size:10px;font-weight:bold}
-    .assunto-content{flex:1;display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}
-    .assunto-texto{font-family:'Inter',sans-serif;font-size:0.85em;color:rgba(255,255,255,0.85);line-height:1.4;flex:1;word-break:break-word}
-    .assunto-acoes{display:flex;gap:4px;opacity:0;transition:opacity 0.2s;flex-shrink:0;z-index:5}
-    .assunto-item:hover .assunto-acoes{opacity:1}
-    .assunto-btn{background:rgba(0,0,0,0.3);border:none;color:rgba(255,255,255,0.5);cursor:pointer;padding:4px;border-radius:4px;transition:all 0.2s;display:flex;align-items:center;justify-content:center}
-    .assunto-btn:hover{color:#d4af7d;background:rgba(212,175,125,0.2)}
-    .assunto-btn.delete:hover{color:#e74c3c;background:rgba(231,76,60,0.2)}
-    
-    .dia-vazio{display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.25);font-size:0.85em;font-style:italic}
-    .cronograma-empty{text-align:center;padding:60px 20px;color:rgba(255,255,255,0.4)}
-    .cronograma-empty-icon{font-size:3em;margin-bottom:15px;opacity:0.3}
-    .cronograma-empty p{margin-bottom:20px}
-    #syncStatus{position:fixed;bottom:100px;right:20px;padding:12px 22px;border-radius:10px;font-size:0.9em;font-weight:500;z-index:10001;opacity:0;transition:opacity 0.3s;color:#fff}
-    @media(max-width:768px){
-        #syncStatus{bottom:90px;right:10px;left:10px;text-align:center}
-        .cronograma-grid{grid-template-columns:1fr}
-        .assunto-acoes{opacity:1}
-        .dia-card{min-height:auto}
-        .dia-card-body{max-height:none;padding-bottom:15px}
         
-        /* Body e Container */
-        body{padding:10px 10px 85px 10px}
-        .container{border-radius:12px}
+        /* CRONOGRAMA CALENDÁRIO PREMIUM - ESTILO PDF */
+        .cronograma-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;flex-wrap:wrap;gap:15px}
+        .cronograma-titulo{font-family:'Playfair Display',serif;font-size:1.5em;color:#d4af7d;letter-spacing:2px}
+        .cronograma-semana{font-size:0.85em;color:rgba(255,255,255,0.6);margin-top:5px}
+        .cronograma-nav{display:flex;align-items:center;gap:15px}
+        .cronograma-nav-btn{width:36px;height:36px;border-radius:50%;background:rgba(212,175,125,0.1);border:1px solid rgba(212,175,125,0.3);color:#d4af7d;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s}
+        .cronograma-nav-btn:hover:not(:disabled){background:#d4af7d;color:#0a0a0a}
+        .cronograma-nav-btn:disabled{opacity:0.3;cursor:not-allowed}
+        .cronograma-actions{display:flex;gap:10px;align-items:center}
+        .calendario-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+        @media(max-width:1100px){.calendario-grid{grid-template-columns:repeat(3,1fr)}}
+        @media(max-width:768px){.calendario-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:480px){.calendario-grid{grid-template-columns:1fr}}
         
-        /* Header */
-        .header{padding:20px 15px}
-        .header h1{font-size:1.4em;letter-spacing:1px}
-        .header p{font-size:0.8em}
+        .dia-card{background:#141414;border:1px solid rgba(212,175,125,0.15);border-radius:16px;min-height:320px;display:flex;flex-direction:column;transition:all 0.3s;overflow:visible;position:relative}
+        .dia-card:hover{border-color:rgba(212,175,125,0.4);transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,0.4)}
+        .dia-card.hoje{border-color:#d4af7d;box-shadow:0 0 25px rgba(212,175,125,0.15)}
         
-        /* Sub Tabs */
-        .sub-tabs{padding:10px;gap:6px;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
-        .sub-tab-btn{padding:8px 12px;font-size:0.75em;flex-shrink:0;white-space:nowrap;flex:none}
+        .dia-card-header{padding:20px 18px 15px;display:flex;justify-content:space-between;align-items:flex-start}
+        .dia-header-left{display:flex;align-items:center;gap:12px}
+        .dia-add-btn{width:28px;height:28px;border-radius:50%;background:#27ae60;border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s;box-shadow:0 3px 10px rgba(39,174,96,0.3);flex-shrink:0}
+        .dia-add-btn:hover{background:#2ecc71;transform:scale(1.1)}
+        .dia-add-btn svg{width:14px;height:14px}
+        .dia-info{display:flex;flex-direction:column;gap:4px}
+        .dia-nome-cal{font-family:'Playfair Display',serif;font-size:0.95em;color:#fff;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+        .dia-contador{font-size:0.75em;color:#d4af7d;font-weight:600;text-transform:uppercase}
         
-        /* Sub Content */
-        .sub-content{padding:12px}
+        .dia-badge{position:absolute;top:15px;right:15px;width:65px;height:65px;background:linear-gradient(135deg,#d4af7d,#c9a066);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(212,175,125,0.3)}
+        .dia-badge-num{font-size:1.8em;font-weight:700;color:#0a0a0a;line-height:1}
+        .dia-badge-mes{font-size:0.6em;color:rgba(10,10,10,0.7);text-transform:lowercase;margin-top:2px;font-weight:500}
         
-        /* Config Bar */
-        .config-bar{padding:12px;gap:10px;flex-direction:column;align-items:stretch}
-        .config-item{width:100%;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
-        .config-item:last-child{border-bottom:none}
-        .config-item label{font-size:0.75em;flex-shrink:0}
-        .config-item input{width:auto;min-width:120px;padding:8px 10px;font-size:0.85em}
-        .config-item .valor{font-size:1em}
+        .dia-card-body{flex:1;padding:10px 18px 20px;overflow-y:auto;max-height:260px}
+        .dia-card-body::-webkit-scrollbar{width:3px}
+        .dia-card-body::-webkit-scrollbar-track{background:transparent}
+        .dia-card-body::-webkit-scrollbar-thumb{background:rgba(212,175,125,0.4);border-radius:2px}
         
-        /* Section */
-        .section{padding:12px;margin-bottom:12px;border-radius:10px}
-        .section-header{flex-direction:column;align-items:stretch;gap:10px;margin-bottom:12px}
-        .section-title{font-size:0.95em;text-align:center}
-        .section-header .btn{width:100%;justify-content:center}
+        .materia-grupo{margin-bottom:18px}
+        .materia-titulo{font-family:'Playfair Display',serif;font-size:1.1em;color:#d4af7d;font-weight:600;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(212,175,125,0.15)}
         
-        /* Cards Grid */
-        .cards-grid{grid-template-columns:repeat(2,1fr);gap:8px}
-        .card{padding:12px}
-        .card-title{font-size:0.65em}
-        .card-value{font-size:1.1em}
+        .assunto-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;transition:all 0.2s;position:relative}
+        .assunto-item.concluido .assunto-texto{text-decoration:line-through;color:rgba(255,255,255,0.3)}
+        .assunto-check{flex-shrink:0;appearance:none;width:18px;height:18px;border:2px solid rgba(212,175,125,0.5);border-radius:50%;cursor:pointer;background:transparent;position:relative;transition:all 0.2s}
+        .assunto-check:hover{border-color:#d4af7d}
+        .assunto-check:checked{background:#d4af7d;border-color:#d4af7d}
+        .assunto-check:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#0a0a0a;font-size:10px;font-weight:bold}
+        .assunto-content{flex:1;display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}
+        .assunto-texto{font-family:'Inter',sans-serif;font-size:0.85em;color:rgba(255,255,255,0.85);line-height:1.4;flex:1;word-break:break-word}
+        .assunto-acoes{display:flex;gap:4px;opacity:0;transition:opacity 0.2s;flex-shrink:0;z-index:5}
+        .assunto-item:hover .assunto-acoes{opacity:1}
+        .assunto-btn{background:rgba(0,0,0,0.3);border:none;color:rgba(255,255,255,0.5);cursor:pointer;padding:4px;border-radius:4px;transition:all 0.2s;display:flex;align-items:center;justify-content:center}
+        .assunto-btn:hover{color:#d4af7d;background:rgba(212,175,125,0.2)}
+        .assunto-btn.delete:hover{color:#e74c3c;background:rgba(231,76,60,0.2)}
         
-        /* ============ ITEM CARD - DISCIPLINAS ============ */
-        .item-card{padding:12px;margin-bottom:10px}
+        .dia-vazio{display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.25);font-size:0.85em;font-style:italic}
+        .cronograma-empty{text-align:center;padding:60px 20px;color:rgba(255,255,255,0.4)}
+        .cronograma-empty-icon{font-size:3em;margin-bottom:15px;opacity:0.3}
+        .cronograma-empty p{margin-bottom:20px}
+        #syncStatus{position:fixed;bottom:100px;right:20px;padding:12px 22px;border-radius:10px;font-size:0.9em;font-weight:500;z-index:10001;opacity:0;transition:opacity 0.3s;color:#fff}
+        @media(max-width:768px){
+            #syncStatus{bottom:90px;right:10px;left:10px;text-align:center}
+            .cronograma-grid{grid-template-columns:1fr}
+            .assunto-acoes{opacity:1}
+            .dia-card{min-height:auto}
+            .dia-card-body{max-height:none;padding-bottom:15px}
+            
+            /* Body e Container */
+            body{padding:10px 10px 85px 10px}
+            .container{border-radius:12px}
+            
+            /* Header */
+            .header{padding:20px 15px}
+            .header h1{font-size:1.4em;letter-spacing:1px}
+            .header p{font-size:0.8em}
+            
+            /* Sub Tabs */
+            .sub-tabs{padding:10px;gap:6px;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+            .sub-tab-btn{padding:8px 12px;font-size:0.75em;flex-shrink:0;white-space:nowrap;flex:none}
+            
+            /* Sub Content */
+            .sub-content{padding:12px}
+            
+            /* Config Bar */
+            .config-bar{padding:12px;gap:10px;flex-direction:column;align-items:stretch}
+            .config-item{width:100%;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+            .config-item:last-child{border-bottom:none}
+            .config-item label{font-size:0.75em;flex-shrink:0}
+            .config-item input{width:auto;min-width:120px;padding:8px 10px;font-size:0.85em}
+            .config-item .valor{font-size:1em}
+            
+            /* Section */
+            .section{padding:12px;margin-bottom:12px;border-radius:10px}
+            .section-header{flex-direction:column;align-items:stretch;gap:10px;margin-bottom:12px}
+            .section-title{font-size:0.95em;text-align:center}
+            .section-header .btn{width:100%;justify-content:center}
+            
+            /* Cards Grid */
+            .cards-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+            .card{padding:12px}
+            .card-title{font-size:0.65em}
+            .card-value{font-size:1.1em}
+            
+            /* ============ ITEM CARD - DISCIPLINAS ============ */
+            .item-card{padding:12px;margin-bottom:10px}
+            
+            /* Header: Título à esquerda, botões à direita - NÃO MUDAR PARA COLUMN */
+            .item-header{flex-direction:row;align-items:center;gap:8px;margin-bottom:8px}
+            .item-header > div:first-child{flex:1;min-width:0}
+            .item-title{font-size:0.9em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+            .item-subtitle{font-size:0.75em}
+            
+            /* Botões de editar/excluir - manter em linha */
+            .item-header .btn-group{flex-direction:row;flex-shrink:0;gap:4px}
+            .item-header .btn-icon{padding:6px}
+            
+            /* Progress bar */
+            .item-progress{margin-top:8px;gap:8px}
+            .progress-bar{height:6px}
+            .item-progress-text{font-size:0.7em;min-width:35px}
+            
+            /* Footer: Botões e timer */
+            .item-footer{flex-direction:row;flex-wrap:wrap;gap:8px;margin-top:10px;padding-top:10px;align-items:center}
+            .item-footer .btn-group{flex-direction:row;gap:6px;flex:1}
+            .item-footer .btn-icon{padding:6px}
+            .item-footer .btn-icon.play svg,.item-footer .btn-icon svg{width:16px;height:16px}
+            .item-footer .btn.btn-sm{padding:6px 12px;font-size:0.7em;width:auto}
+            .timer-display{font-size:0.9em;padding:4px 8px;margin-left:auto}
+            
+            /* ============ FIM ITEM CARD ============ */
+            
+            /* Tabelas */
+            table{font-size:0.75em;display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+            th,td{padding:8px 6px;white-space:nowrap}
+            th{font-size:0.65em}
+            
+            /* Formulários */
+            .form-row{grid-template-columns:1fr;gap:10px}
+            .form-group label{font-size:0.7em}
+            .form-group input,.form-group select,.form-group textarea{padding:10px;font-size:0.85em}
+            
+            /* Botões gerais */
+            .btn{padding:10px 14px;font-size:0.8em}
+            .btn-sm{padding:8px 12px;font-size:0.75em}
+            
+            /* Modais */
+            .modal-overlay{padding:10px}
+            .modal-content{padding:15px;width:100%;max-height:90vh;border-radius:12px}
+            .modal-header{margin-bottom:15px}
+            .modal-title{font-size:1em}
+            .modal-footer{flex-direction:column;gap:8px;margin-top:15px}
+            .modal-footer .btn{width:100%}
+            
+            /* Cronograma */
+            .cronograma-header{flex-direction:column;gap:12px;padding:12px;text-align:center}
+            .cronograma-titulo{font-size:1.1em}
+            .cronograma-semana{font-size:0.75em}
+            .cronograma-nav{justify-content:center;gap:10px}
+            .cronograma-nav-btn{width:32px;height:32px}
+            .cronograma-actions{width:100%;justify-content:center}
+            
+            /* Calendario Grid */
+            .calendario-grid{grid-template-columns:1fr;gap:12px}
+            
+            /* Dia Card */
+            .dia-card{border-radius:10px}
+            .dia-card-header{padding:12px}
+            .dia-badge{width:50px;height:50px;top:10px;right:10px;border-radius:8px}
+            .dia-badge-num{font-size:1.4em}
+            .dia-badge-mes{font-size:0.55em}
+            .dia-nome-cal{font-size:0.8em}
+            .dia-contador{font-size:0.65em}
+            .dia-add-btn{width:24px;height:24px}
+            .dia-add-btn svg{width:12px;height:12px}
+            
+            /* Matéria */
+            .materia-grupo{margin-bottom:12px}
+            .materia-titulo{font-size:0.9em;margin-bottom:8px;padding-bottom:6px}
+            .assunto-texto{font-size:0.8em}
+            .assunto-check{width:16px;height:16px}
+            .assunto-item{padding:6px 0;gap:8px}
+            .assunto-btn{padding:6px}
+            
+            /* Dia Header Collapsible */
+            .dia-header{padding:10px 12px;margin-bottom:6px}
+            .dia-nome{font-size:0.8em}
+            .dia-content{padding:8px 12px}
+            .dia-item{padding:6px 0;flex-wrap:wrap;gap:6px}
+            
+            /* Status Badge */
+            .status-badge{font-size:0.65em;padding:3px 8px}
+            
+            /* Empty State */
+            .empty-state{padding:25px 15px;font-size:0.85em}
+            
+            /* File Upload */
+            .file-upload{padding:15px}
+            .file-upload p{font-size:0.8em}
+        }
         
-        /* Header: Título à esquerda, botões à direita - NÃO MUDAR PARA COLUMN */
-        .item-header{flex-direction:row;align-items:center;gap:8px;margin-bottom:8px}
-        .item-header > div:first-child{flex:1;min-width:0}
-        .item-title{font-size:0.9em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-        .item-subtitle{font-size:0.75em}
-        
-        /* Botões de editar/excluir - manter em linha */
-        .item-header .btn-group{flex-direction:row;flex-shrink:0;gap:4px}
-        .item-header .btn-icon{padding:6px}
-        
-        /* Progress bar */
-        .item-progress{margin-top:8px;gap:8px}
-        .progress-bar{height:6px}
-        .item-progress-text{font-size:0.7em;min-width:35px}
-        
-        /* Footer: Botões e timer */
-        .item-footer{flex-direction:row;flex-wrap:wrap;gap:8px;margin-top:10px;padding-top:10px;align-items:center}
-        .item-footer .btn-group{flex-direction:row;gap:6px;flex:1}
-        .item-footer .btn-icon{padding:6px}
-        .item-footer .btn-icon.play svg,.item-footer .btn-icon svg{width:16px;height:16px}
-        .item-footer .btn.btn-sm{padding:6px 12px;font-size:0.7em;width:auto}
-        .timer-display{font-size:0.9em;padding:4px 8px;margin-left:auto}
-        
-        /* ============ FIM ITEM CARD ============ */
-        
-        /* Tabelas */
-        table{font-size:0.75em;display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
-        th,td{padding:8px 6px;white-space:nowrap}
-        th{font-size:0.65em}
-        
-        /* Formulários */
-        .form-row{grid-template-columns:1fr;gap:10px}
-        .form-group label{font-size:0.7em}
-        .form-group input,.form-group select,.form-group textarea{padding:10px;font-size:0.85em}
-        
-        /* Botões gerais */
-        .btn{padding:10px 14px;font-size:0.8em}
-        .btn-sm{padding:8px 12px;font-size:0.75em}
-        
-        /* Modais */
-        .modal-overlay{padding:10px}
-        .modal-content{padding:15px;width:100%;max-height:90vh;border-radius:12px}
-        .modal-header{margin-bottom:15px}
-        .modal-title{font-size:1em}
-        .modal-footer{flex-direction:column;gap:8px;margin-top:15px}
-        .modal-footer .btn{width:100%}
-        
-        /* Cronograma */
-        .cronograma-header{flex-direction:column;gap:12px;padding:12px;text-align:center}
-        .cronograma-titulo{font-size:1.1em}
-        .cronograma-semana{font-size:0.75em}
-        .cronograma-nav{justify-content:center;gap:10px}
-        .cronograma-nav-btn{width:32px;height:32px}
-        .cronograma-actions{width:100%;justify-content:center}
-        
-        /* Calendario Grid */
-        .calendario-grid{grid-template-columns:1fr;gap:12px}
-        
-        /* Dia Card */
-        .dia-card{border-radius:10px}
-        .dia-card-header{padding:12px}
-        .dia-badge{width:50px;height:50px;top:10px;right:10px;border-radius:8px}
-        .dia-badge-num{font-size:1.4em}
-        .dia-badge-mes{font-size:0.55em}
-        .dia-nome-cal{font-size:0.8em}
-        .dia-contador{font-size:0.65em}
-        .dia-add-btn{width:24px;height:24px}
-        .dia-add-btn svg{width:12px;height:12px}
-        
-        /* Matéria */
-        .materia-grupo{margin-bottom:12px}
-        .materia-titulo{font-size:0.9em;margin-bottom:8px;padding-bottom:6px}
-        .assunto-texto{font-size:0.8em}
-        .assunto-check{width:16px;height:16px}
-        .assunto-item{padding:6px 0;gap:8px}
-        .assunto-btn{padding:6px}
-        
-        /* Dia Header Collapsible */
-        .dia-header{padding:10px 12px;margin-bottom:6px}
-        .dia-nome{font-size:0.8em}
-        .dia-content{padding:8px 12px}
-        .dia-item{padding:6px 0;flex-wrap:wrap;gap:6px}
-        
-        /* Status Badge */
-        .status-badge{font-size:0.65em;padding:3px 8px}
-        
-        /* Empty State */
-        .empty-state{padding:25px 15px;font-size:0.85em}
-        
-        /* File Upload */
-        .file-upload{padding:15px}
-        .file-upload p{font-size:0.8em}
-    }
-    
-    @media(max-width:380px){
-        body{padding:8px 8px 80px 8px}
-        .header h1{font-size:1.2em}
-        .header p{font-size:0.75em}
-        .cards-grid{grid-template-columns:1fr}
-        .sub-tab-btn{padding:6px 10px;font-size:0.7em}
-        .config-item label{font-size:0.7em}
-        .config-item input{min-width:100px;font-size:0.8em}
-        .section{padding:10px}
-        .section-title{font-size:0.9em}
-        .item-title{font-size:0.85em}
-        .item-footer .btn.btn-sm{padding:5px 10px;font-size:0.65em}
-        .timer-display{font-size:0.8em;padding:3px 6px}
-        .dia-badge{width:45px;height:45px}
-        .dia-badge-num{font-size:1.2em}
-        .cronograma-titulo{font-size:1em}
-        .modal-content{padding:12px}
-        .modal-title{font-size:0.95em}
-        table{font-size:0.7em}
-        th,td{padding:6px 4px}
-    }
-</style>
-```
-
+        @media(max-width:380px){
+            body{padding:8px 8px 80px 8px}
+            .header h1{font-size:1.2em}
+            .header p{font-size:0.75em}
+            .cards-grid{grid-template-columns:1fr}
+            .sub-tab-btn{padding:6px 10px;font-size:0.7em}
+            .config-item label{font-size:0.7em}
+            .config-item input{min-width:100px;font-size:0.8em}
+            .section{padding:10px}
+            .section-title{font-size:0.9em}
+            .item-title{font-size:0.85em}
+            .item-footer .btn.btn-sm{padding:5px 10px;font-size:0.65em}
+            .timer-display{font-size:0.8em;padding:3px 6px}
+            .dia-badge{width:45px;height:45px}
+            .dia-badge-num{font-size:1.2em}
+            .cronograma-titulo{font-size:1em}
+            .modal-content{padding:12px}
+            .modal-title{font-size:0.95em}
+            table{font-size:0.7em}
+            th,td{padding:6px 4px}
+        }
+    </style>
 </head>
 <body>
     <nav class="sidebar">
@@ -379,9 +375,6 @@
         <div class="sub-tabs">
             <button class="sub-tab-btn active" onclick="mudarAba('oab',this)">OAB</button>
             <button class="sub-tab-btn" onclick="mudarAba('carreira',this)">Carreira</button>
-            <button class="sub-tab-btn" onclick="mudarAba('projetos',this)">Projetos</button>
-            <button class="sub-tab-btn" onclick="mudarAba('certificacoes',this)">Certificacoes</button>
-            <button class="sub-tab-btn" onclick="mudarAba('agenda',this)">Agenda</button>
         </div>
         <div class="sub-content active" id="aba-oab">
             <div class="config-bar">
@@ -410,12 +403,6 @@
                 <button class="btn btn-primary" style="margin-top:15px;" onclick="salvarCarreira()">Salvar</button>
             </div>
         </div>
-        <div class="sub-content" id="aba-projetos"><div class="section"><div class="section-header"><h3 class="section-title">Meus Projetos</h3><button class="btn btn-primary btn-sm" onclick="abrirModal('modalProjeto')">Novo</button></div><div id="listaProjetos"></div></div></div>
-        <div class="sub-content" id="aba-certificacoes"><div class="section"><div class="section-header"><h3 class="section-title">Certificacoes</h3><button class="btn btn-primary btn-sm" onclick="abrirModal('modalCertificacao')">Adicionar</button></div><div id="listaCertificacoes"></div></div></div>
-        <div class="sub-content" id="aba-agenda">
-            <div class="section"><div class="section-header"><h3 class="section-title">Compromissos</h3><button class="btn btn-primary btn-sm" onclick="abrirModal('modalAgenda')">Novo</button></div><div id="listaAgenda"></div></div>
-            <div class="section"><h3 class="section-title" style="margin-bottom:15px;">Arquivados</h3><div id="listaAgendaArq"></div></div>
-        </div>
     </div>
     <div class="modal-overlay" id="modalDisciplina"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Disciplina</h3><button class="modal-close" onclick="fecharModal('modalDisciplina')">&times;</button></div><input type="hidden" id="discId"><div class="form-group"><label>Nome</label><input type="text" id="discNome"></div><div class="form-group"><label>Dias Estudados</label><input type="number" id="discDias" value="0"></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalDisciplina')">Cancelar</button><button class="btn btn-primary" onclick="salvarDisciplina()">Salvar</button></div></div></div>
     <div class="modal-overlay" id="modalSemana"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Nova Semana</h3><button class="modal-close" onclick="fecharModal('modalSemana')">&times;</button></div><div class="form-row"><div class="form-group"><label>Inicio</label><input type="date" id="semInicio"></div><div class="form-group"><label>Fim</label><input type="date" id="semFim"></div></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalSemana')">Cancelar</button><button class="btn btn-primary" onclick="criarSemana()">Criar</button></div></div></div>
@@ -423,9 +410,6 @@
     <div class="modal-overlay" id="modalTarefa"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Tarefa</h3><button class="modal-close" onclick="fecharModal('modalTarefa')">&times;</button></div><input type="hidden" id="tarId"><div class="form-row"><div class="form-group"><label>Horario</label><input type="time" id="tarHora"></div><div class="form-group"><label>Categoria</label><select id="tarCat"><option>Leitura</option><option>Aula</option><option>Questoes</option><option>Revisao</option></select></div></div><div class="form-group"><label>Descricao</label><input type="text" id="tarDesc"></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalTarefa')">Cancelar</button><button class="btn btn-primary" onclick="salvarTarefa()">Salvar</button></div></div></div>
     <div class="modal-overlay" id="modalSimulado"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Simulado</h3><button class="modal-close" onclick="fecharModal('modalSimulado')">&times;</button></div><input type="hidden" id="simId"><div class="form-row"><div class="form-group"><label>Data</label><input type="date" id="simData"></div><div class="form-group"><label>Nota %</label><input type="number" id="simNota" min="0" max="100"></div></div><div class="form-row"><div class="form-group"><label>Total</label><input type="number" id="simTotal"></div><div class="form-group"><label>Acertos</label><input type="number" id="simAcertos"></div></div><div class="form-group"><label>Obs</label><textarea id="simObs"></textarea></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalSimulado')">Cancelar</button><button class="btn btn-primary" onclick="salvarSimulado()">Salvar</button></div></div></div>
     <div class="modal-overlay" id="modalExercicio"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Exercicio</h3><button class="modal-close" onclick="fecharModal('modalExercicio')">&times;</button></div><input type="hidden" id="exId"><div class="form-row"><div class="form-group"><label>Data</label><input type="date" id="exData"></div><div class="form-group"><label>Materia</label><select id="exMateria"></select></div></div><div class="form-row"><div class="form-group"><label>Questoes</label><input type="number" id="exQtd"></div><div class="form-group"><label>Acertos</label><input type="number" id="exAcertos"></div></div><div class="form-group"><label>Tempo (min)</label><input type="number" id="exTempo"></div><div class="form-group"><label>Obs</label><textarea id="exObs"></textarea></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalExercicio')">Cancelar</button><button class="btn btn-primary" onclick="salvarExercicio()">Salvar</button></div></div></div>
-    <div class="modal-overlay" id="modalProjeto"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Projeto</h3><button class="modal-close" onclick="fecharModal('modalProjeto')">&times;</button></div><input type="hidden" id="projId"><div class="form-group"><label>Nome</label><input type="text" id="projNome"></div><div class="form-group"><label>Meta</label><input type="text" id="projMeta"></div><div class="form-row"><div class="form-group"><label>Prazo</label><input type="date" id="projPrazo"></div><div class="form-group"><label>Progresso %</label><input type="number" id="projProg" min="0" max="100" value="0"></div></div><div class="form-group"><label>Notas</label><textarea id="projNotas"></textarea></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalProjeto')">Cancelar</button><button class="btn btn-primary" onclick="salvarProjeto()">Salvar</button></div></div></div>
-    <div class="modal-overlay" id="modalCertificacao"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Certificacao</h3><button class="modal-close" onclick="fecharModal('modalCertificacao')">&times;</button></div><input type="hidden" id="certId"><div class="form-group"><label>Nome</label><input type="text" id="certNome"></div><div class="form-row"><div class="form-group"><label>Instituicao</label><input type="text" id="certInst"></div><div class="form-group"><label>Data</label><input type="date" id="certData"></div></div><div class="form-group"><label>Arquivo</label><div class="file-upload" onclick="document.getElementById('certArq').click()"><input type="file" id="certArq" accept=".pdf,.jpg,.png" onchange="previewArq(this)"><p>Clique para selecionar</p><div id="certPrev" style="display:none;margin-top:10px;color:#2ecc71;font-size:0.8em;"></div></div></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalCertificacao')">Cancelar</button><button class="btn btn-primary" onclick="salvarCertificacao()">Salvar</button></div></div></div>
-    <div class="modal-overlay" id="modalAgenda"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Compromisso</h3><button class="modal-close" onclick="fecharModal('modalAgenda')">&times;</button></div><input type="hidden" id="agId"><div class="form-group"><label>Titulo</label><input type="text" id="agTitulo"></div><div class="form-row"><div class="form-group"><label>Data</label><input type="date" id="agData"></div><div class="form-group"><label>Categoria</label><select id="agCat"><option>Reuniao</option><option>Estudo</option><option>OAB</option><option>Entrega</option></select></div></div><div class="form-group"><label>Obs</label><textarea id="agObs"></textarea></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalAgenda')">Cancelar</button><button class="btn btn-primary" onclick="salvarAgenda()">Salvar</button></div></div></div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
 // ==========================================
@@ -439,14 +423,14 @@ let supabaseClient = null;
 let useSupabase = false;
 
 try {
-supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-useSupabase = true;
+    supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    useSupabase = true;
 } catch (e) {
-console.log(‘Supabase indisponivel, usando localStorage’);
+    console.log('Supabase indisponivel, usando localStorage');
 }
 
-const KEY=‘zara_prof_v2’;
-const vazio={config:{dataInicio:’’,dataProva:’’},disciplinas:[],cronogramas:[],tarefas:[],simulados:[],exercicios:[],carreira:{cargo:’’,empresa:’’,meta:’’,carga:40,dias:0,competencias:[],obs:’’},projetos:[],certificacoes:[],agenda:[],timers:{}};
+const KEY='zara_prof_v2';
+const vazio={config:{dataInicio:'',dataProva:''},disciplinas:[],cronogramas:[],tarefas:[],simulados:[],exercicios:[],carreira:{cargo:'',empresa:'',meta:'',carga:40,dias:0,competencias:[],obs:''},timers:{}};
 let D=JSON.parse(localStorage.getItem(KEY))||JSON.parse(JSON.stringify(vazio));
 Object.keys(vazio).forEach(k=>{if(!D[k])D[k]=vazio[k];});
 
@@ -454,370 +438,337 @@ Object.keys(vazio).forEach(k=>{if(!D[k])D[k]=vazio[k];});
 // FUNÇÕES DE SINCRONIZAÇÃO
 // ==========================================
 function salvar(){
-localStorage.setItem(KEY,JSON.stringify(D));
-if (navigator.onLine && useSupabase) {
-salvarSupabase();
-}
+    localStorage.setItem(KEY,JSON.stringify(D));
+    if (navigator.onLine && useSupabase) {
+        salvarSupabase();
+    }
 }
 
 async function salvarSupabase() {
-if (!useSupabase) return;
-try {
-const { error } = await supabaseClient.from(‘profissional_dados’).upsert({
-id: USER_ID,
-user_id: USER_ID,
-dados: D,
-updated_at: new Date().toISOString()
-});
-if (error) {
-if (error.code === ‘42P01’) {
-console.log(‘Tabela profissional_dados nao existe, salvando apenas local’);
-return;
-}
-console.error(‘Erro Supabase:’, error);
-return;
-}
-mostrarStatus(‘Sincronizado’, ‘success’);
-} catch (e) {
-console.error(‘Exceção Supabase:’, e);
-}
+    if (!useSupabase) return;
+    try {
+        const { error } = await supabaseClient.from('profissional_dados').upsert({
+            id: USER_ID,
+            user_id: USER_ID,
+            dados: D,
+            updated_at: new Date().toISOString()
+        });
+        if (error) {
+            if (error.code === '42P01') {
+                console.log('Tabela profissional_dados nao existe, salvando apenas local');
+                return;
+            }
+            console.error('Erro Supabase:', error);
+            return;
+        }
+        mostrarStatus('Sincronizado', 'success');
+    } catch (e) {
+        console.error('Exceção Supabase:', e);
+    }
 }
 
 async function carregarSupabase() {
-if (!useSupabase) return false;
-try {
-const { data, error } = await supabaseClient
-.from(‘profissional_dados’)
-.select(’*’)
-.eq(‘user_id’, USER_ID)
-.maybeSingle();
+    if (!useSupabase) return false;
+    try {
+        const { data, error } = await supabaseClient
+            .from('profissional_dados')
+            .select('*')
+            .eq('user_id', USER_ID)
+            .maybeSingle();
 
-```
-    if (error) {
-        if (error.code === '42P01') {
-            console.log('Tabela profissional_dados nao existe ainda');
+        if (error) {
+            if (error.code === '42P01') {
+                console.log('Tabela profissional_dados nao existe ainda');
+                return false;
+            }
+            console.error('Erro ao carregar:', error);
             return false;
         }
-        console.error('Erro ao carregar:', error);
+
+        if (data?.dados) {
+            D = { ...vazio, ...data.dados };
+            Object.keys(vazio).forEach(k=>{if(!D[k])D[k]=vazio[k];});
+            localStorage.setItem(KEY, JSON.stringify(D));
+            mostrarStatus('Dados carregados', 'success');
+            return true;
+        }
+        return false;
+    } catch (e) {
+        console.error('Exceção:', e);
         return false;
     }
-
-    if (data?.dados) {
-        D = { ...vazio, ...data.dados };
-        Object.keys(vazio).forEach(k=>{if(!D[k])D[k]=vazio[k];});
-        localStorage.setItem(KEY, JSON.stringify(D));
-        mostrarStatus('Dados carregados', 'success');
-        return true;
-    }
-    return false;
-} catch (e) {
-    console.error('Exceção:', e);
-    return false;
-}
-```
-
 }
 
 function mostrarStatus(msg, tipo) {
-let status = document.getElementById(‘syncStatus’);
-if (!status) {
-status = document.createElement(‘div’);
-status.id = ‘syncStatus’;
-document.body.appendChild(status);
-}
-status.textContent = msg;
-status.style.background = tipo === ‘success’ ? ‘rgba(39, 174, 96, 0.95)’ : ‘rgba(231, 76, 60, 0.95)’;
-status.style.opacity = ‘1’;
-setTimeout(() => { status.style.opacity = ‘0’; }, 3000);
+    let status = document.getElementById('syncStatus');
+    if (!status) {
+        status = document.createElement('div');
+        status.id = 'syncStatus';
+        document.body.appendChild(status);
+    }
+    status.textContent = msg;
+    status.style.background = tipo === 'success' ? 'rgba(39, 174, 96, 0.95)' : 'rgba(231, 76, 60, 0.95)';
+    status.style.opacity = '1';
+    setTimeout(() => { status.style.opacity = '0'; }, 3000);
 }
 
-function mudarAba(a,b){document.querySelectorAll(’.sub-tabs>.sub-tab-btn’).forEach(x=>x.classList.remove(‘active’));b.classList.add(‘active’);document.querySelectorAll(’.sub-content’).forEach(x=>x.classList.remove(‘active’));document.getElementById(‘aba-’+a).classList.add(‘active’);}
-function abrirModal(id){document.getElementById(id).classList.add(‘active’);}
-function fecharModal(id){document.getElementById(id).classList.remove(‘active’);}
-function fmtData(d){if(!d)return’-’;const[a,m,dia]=d.split(’-’);return dia+’/’+m+’/’+a;}
-function diasRest(d){if(!d)return 0;const h=new Date();h.setHours(0,0,0,0);const p=new Date(d+‘T00:00:00’);return Math.ceil((p-h)/(1000*60*60*24));}
-function salvarConfig(){D.config.dataInicio=document.getElementById(‘dataInicio’).value;D.config.dataProva=document.getElementById(‘dataProva’).value;salvar();calcDias();}
-function calcDias(){const h=new Date();h.setHours(0,0,0,0);if(D.config.dataProva){const p=new Date(D.config.dataProva+‘T00:00:00’);const df=Math.ceil((p-h)/(1000*60*60*24));document.getElementById(‘diasRestantes’).textContent=df>0?df:0;}else{document.getElementById(‘diasRestantes’).textContent=’-’;}let t=0;D.disciplinas.forEach(d=>t+=d.dias||0);document.getElementById(‘diasEstudados’).textContent=t;}
-function atualizarSelects(){const ops=D.disciplinas.map(d=>’<option value="'+d.nome+'">’+d.nome+’</option>’).join(’’);[‘atMateria’,‘exMateria’].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=ops||’<option>-</option>’;});}
+function mudarAba(a,b){document.querySelectorAll('.sub-tabs>.sub-tab-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.sub-content').forEach(x=>x.classList.remove('active'));document.getElementById('aba-'+a).classList.add('active');}
+function abrirModal(id){document.getElementById(id).classList.add('active');}
+function fecharModal(id){document.getElementById(id).classList.remove('active');}
+function fmtData(d){if(!d)return'-';const[a,m,dia]=d.split('-');return dia+'/'+m+'/'+a;}
+function diasRest(d){if(!d)return 0;const h=new Date();h.setHours(0,0,0,0);const p=new Date(d+'T00:00:00');return Math.ceil((p-h)/(1000*60*60*24));}
+function salvarConfig(){D.config.dataInicio=document.getElementById('dataInicio').value;D.config.dataProva=document.getElementById('dataProva').value;salvar();calcDias();}
+function calcDias(){const h=new Date();h.setHours(0,0,0,0);if(D.config.dataProva){const p=new Date(D.config.dataProva+'T00:00:00');const df=Math.ceil((p-h)/(1000*60*60*24));document.getElementById('diasRestantes').textContent=df>0?df:0;}else{document.getElementById('diasRestantes').textContent='-';}let t=0;D.disciplinas.forEach(d=>t+=d.dias||0);document.getElementById('diasEstudados').textContent=t;}
+function atualizarSelects(){const ops=D.disciplinas.map(d=>'<option value="'+d.nome+'">'+d.nome+'</option>').join('');['atMateria','exMateria'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=ops||'<option>-</option>';});}
 let timers={};
-function fmtTempo(ms){const s=Math.floor(ms/1000);const h=Math.floor(s/3600);const m=Math.floor((s%3600)/60);const sec=s%60;return h.toString().padStart(2,‘0’)+’:’+m.toString().padStart(2,‘0’)+’:’+sec.toString().padStart(2,‘0’);}
-function renderDisc(){const c=document.getElementById(‘listaDisciplinas’);if(!D.disciplinas.length){c.innerHTML=’<div class="empty-state"><p>Nenhuma disciplina.</p></div>’;return;}
+function fmtTempo(ms){const s=Math.floor(ms/1000);const h=Math.floor(s/3600);const m=Math.floor((s%3600)/60);const sec=s%60;return h.toString().padStart(2,'0')+':'+m.toString().padStart(2,'0')+':'+sec.toString().padStart(2,'0');}
+function renderDisc(){const c=document.getElementById('listaDisciplinas');if(!D.disciplinas.length){c.innerHTML='<div class="empty-state"><p>Nenhuma disciplina.</p></div>';return;}
 const diasTotais=diasRest(D.config.dataProva);
-c.innerHTML=D.disciplinas.map(d=>{const prog=diasTotais>0?Math.min(100,Math.round((d.dias/diasTotais)*100)):0;const tm=D.timers[d.id]||{run:false,el:0};return ‘<div class="item-card"><div class="item-header"><div><div class="item-title">’+d.nome+’</div><div class="item-subtitle">’+d.dias+’ dias estudados</div></div><div class="btn-group"><button class="btn-icon" onclick="editDisc(\''+d.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" onclick="delDisc(\''+d.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div><div class="item-progress"><div class="progress-bar"><div class="progress-fill" style="width:'+prog+'%"></div></div><span class="item-progress-text">’+prog+’%</span></div><div class="item-footer"><div class="btn-group"><button class=“btn-icon play” onclick=“iniciarTimer('’+d.id+’')” id=“play-’+d.id+’” ‘+(tm.run?‘style=“display:none”’:’’)+’><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21"/></svg></button><button class="btn-icon" onclick="pausarTimer(\''+d.id+'\')" id="pause-'+d.id+'" style="color:#f1c40f;'+(!tm.run?'display:none':'')+'"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button><button class="btn btn-sm btn-secondary" onclick="finTimer(\''+d.id+'\')">Finalizar</button></div><div class="timer-display" id="timer-'+d.id+'">’+fmtTempo(tm.el)+’</div></div></div>’;}).join(’’);}
-function editDisc(id){const d=D.disciplinas.find(x=>x.id===id);if(!d)return;document.getElementById(‘discId’).value=id;document.getElementById(‘discNome’).value=d.nome;document.getElementById(‘discDias’).value=d.dias;abrirModal(‘modalDisciplina’);}
-function salvarDisciplina(){const id=document.getElementById(‘discId’).value;const nome=document.getElementById(‘discNome’).value.trim();const dias=parseInt(document.getElementById(‘discDias’).value)||0;if(!nome)return alert(‘Informe o nome.’);if(id){const d=D.disciplinas.find(x=>x.id===id);if(d){d.nome=nome;d.dias=dias;}}else{D.disciplinas.push({id:Date.now().toString(),nome,dias});}salvar();renderDisc();calcDias();atualizarSelects();fecharModal(‘modalDisciplina’);document.getElementById(‘discId’).value=’’;document.getElementById(‘discNome’).value=’’;document.getElementById(‘discDias’).value=‘0’;}
-function delDisc(id){if(!confirm(‘Excluir?’))return;D.disciplinas=D.disciplinas.filter(x=>x.id!==id);delete D.timers[id];salvar();renderDisc();calcDias();atualizarSelects();}
-function iniciarTimer(id){if(!D.timers[id])D.timers[id]={run:false,el:0,st:null};D.timers[id].run=true;D.timers[id].st=Date.now();salvar();document.getElementById(‘play-’+id).style.display=‘none’;document.getElementById(‘pause-’+id).style.display=’’;timers[id]=setInterval(()=>{const tm=D.timers[id];const el=tm.el+(Date.now()-tm.st);document.getElementById(‘timer-’+id).textContent=fmtTempo(el);},1000);}
-function pausarTimer(id){const tm=D.timers[id];if(tm&&tm.run){tm.el+=Date.now()-tm.st;tm.run=false;tm.st=null;clearInterval(timers[id]);salvar();}document.getElementById(‘play-’+id).style.display=’’;document.getElementById(‘pause-’+id).style.display=‘none’;}
+c.innerHTML=D.disciplinas.map(d=>{const prog=diasTotais>0?Math.min(100,Math.round((d.dias/diasTotais)*100)):0;const tm=D.timers[d.id]||{run:false,el:0};return '<div class="item-card"><div class="item-header"><div><div class="item-title">'+d.nome+'</div><div class="item-subtitle">'+d.dias+' dias estudados</div></div><div class="btn-group"><button class="btn-icon" onclick="editDisc(\''+d.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" onclick="delDisc(\''+d.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div><div class="item-progress"><div class="progress-bar"><div class="progress-fill" style="width:'+prog+'%"></div></div><span class="item-progress-text">'+prog+'%</span></div><div class="item-footer"><div class="btn-group"><button class="btn-icon play" onclick="iniciarTimer(\''+d.id+'\')" id="play-'+d.id+'" '+(tm.run?'style="display:none"':'')+'><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21"/></svg></button><button class="btn-icon" onclick="pausarTimer(\''+d.id+'\')" id="pause-'+d.id+'" style="color:#f1c40f;'+(!tm.run?'display:none':'')+'"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button><button class="btn btn-sm btn-secondary" onclick="finTimer(\''+d.id+'\')">Finalizar</button></div><div class="timer-display" id="timer-'+d.id+'">'+fmtTempo(tm.el)+'</div></div></div>';}).join('');}
+function editDisc(id){const d=D.disciplinas.find(x=>x.id===id);if(!d)return;document.getElementById('discId').value=id;document.getElementById('discNome').value=d.nome;document.getElementById('discDias').value=d.dias;abrirModal('modalDisciplina');}
+function salvarDisciplina(){const id=document.getElementById('discId').value;const nome=document.getElementById('discNome').value.trim();const dias=parseInt(document.getElementById('discDias').value)||0;if(!nome)return alert('Informe o nome.');if(id){const d=D.disciplinas.find(x=>x.id===id);if(d){d.nome=nome;d.dias=dias;}}else{D.disciplinas.push({id:Date.now().toString(),nome,dias});}salvar();renderDisc();calcDias();atualizarSelects();fecharModal('modalDisciplina');document.getElementById('discId').value='';document.getElementById('discNome').value='';document.getElementById('discDias').value='0';}
+function delDisc(id){if(!confirm('Excluir?'))return;D.disciplinas=D.disciplinas.filter(x=>x.id!==id);delete D.timers[id];salvar();renderDisc();calcDias();atualizarSelects();}
+function iniciarTimer(id){if(!D.timers[id])D.timers[id]={run:false,el:0,st:null};D.timers[id].run=true;D.timers[id].st=Date.now();salvar();document.getElementById('play-'+id).style.display='none';document.getElementById('pause-'+id).style.display='';timers[id]=setInterval(()=>{const tm=D.timers[id];const el=tm.el+(Date.now()-tm.st);document.getElementById('timer-'+id).textContent=fmtTempo(el);},1000);}
+function pausarTimer(id){const tm=D.timers[id];if(tm&&tm.run){tm.el+=Date.now()-tm.st;tm.run=false;tm.st=null;clearInterval(timers[id]);salvar();}document.getElementById('play-'+id).style.display='';document.getElementById('pause-'+id).style.display='none';}
 function finTimer(id){pausarTimer(id);const tm=D.timers[id];if(tm&&tm.el>0){const d=D.disciplinas.find(x=>x.id===id);if(d){d.dias=(d.dias||0)+1;tm.el=0;salvar();renderDisc();calcDias();}}}
-const diasSem=[‘Segunda’,‘Terça’,‘Quarta’,‘Quinta’,‘Sexta’,‘Sábado’,‘Domingo’];
-const meses=[‘jan’,‘fev’,‘mar’,‘abr’,‘mai’,‘jun’,‘jul’,‘ago’,‘set’,‘out’,‘nov’,‘dez’];
-const mesesFull=[‘janeiro’,‘fevereiro’,‘março’,‘abril’,‘maio’,‘junho’,‘julho’,‘agosto’,‘setembro’,‘outubro’,‘novembro’,‘dezembro’];
+const diasSem=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
+const meses=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const mesesFull=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
 let semanaAtualIdx=0;
 
 function renderCron(){
-const c=document.getElementById(‘cronogramaCalendario’);
-if(!D.cronogramas.length){
-c.innerHTML=’<div class="cronograma-empty"><div class="cronograma-empty-icon">📅</div><p>Nenhum cronograma criado</p><button class="btn btn-primary" onclick="abrirModal(\'modalSemana\')">Criar Primeira Semana</button></div>’;
-return;
-}
-
-```
-// Garantir índice válido
-if(semanaAtualIdx<0)semanaAtualIdx=0;
-if(semanaAtualIdx>=D.cronogramas.length)semanaAtualIdx=D.cronogramas.length-1;
-
-const s=D.cronogramas[semanaAtualIdx];
-const inicio=new Date(s.inicio+'T00:00:00');
-const numSemana=s.numero||semanaAtualIdx+1;
-const hoje=new Date();hoje.setHours(0,0,0,0);
-
-let html='<div class="cronograma-header">';
-html+='<div><div class="cronograma-titulo">SEMANA '+String(numSemana).padStart(2,'0')+'</div>';
-html+='<div class="cronograma-semana">'+fmtData(s.inicio)+' a '+fmtData(s.fim)+'</div></div>';
-html+='<div class="cronograma-nav">';
-html+='<button class="cronograma-nav-btn" onclick="navSemana(-1)" '+(semanaAtualIdx===0?'disabled':'')+' title="Semana anterior"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>';
-html+='<button class="cronograma-nav-btn" onclick="navSemana(1)" '+(semanaAtualIdx>=D.cronogramas.length-1?'disabled':'')+' title="Próxima semana"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>';
-html+='<button class="btn-icon delete" onclick="delSem(\''+s.id+'\')" title="Excluir semana"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>';
-html+='</div></div>';
-
-html+='<div class="calendario-grid">';
-for(let i=0;i<7;i++){
-    const diaData=new Date(inicio);
-    diaData.setDate(inicio.getDate()+i);
-    const diaNum=diaData.getDate();
-    const mesNome=meses[diaData.getMonth()];
-    const isHoje=diaData.getTime()===hoje.getTime();
-    const ats=(s.atividades||[]).filter(a=>a.dia===i);
-    const diaContador=i+1;
+    const c=document.getElementById('cronogramaCalendario');
+    if(!D.cronogramas.length){
+        c.innerHTML='<div class="cronograma-empty"><div class="cronograma-empty-icon">📅</div><p>Nenhum cronograma criado</p><button class="btn btn-primary" onclick="abrirModal(\'modalSemana\')">Criar Primeira Semana</button></div>';
+        return;
+    }
     
-    // Agrupar atividades por matéria
-    const materias={};
-    ats.forEach(a=>{
-        if(!materias[a.materia])materias[a.materia]=[];
-        materias[a.materia].push(a);
-    });
+    // Garantir índice válido
+    if(semanaAtualIdx<0)semanaAtualIdx=0;
+    if(semanaAtualIdx>=D.cronogramas.length)semanaAtualIdx=D.cronogramas.length-1;
     
-    html+='<div class="dia-card'+(isHoje?' hoje':'')+'">';
-    html+='<div class="dia-badge"><span class="dia-badge-num">'+String(diaNum).padStart(2,'0')+'</span><span class="dia-badge-mes">'+mesNome+'</span></div>';
-    html+='<div class="dia-card-header">';
-    html+='<div class="dia-header-left">';
-    html+='<button class="dia-add-btn" onclick="abrirAt(\''+s.id+'\','+i+')" title="Adicionar atividade"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>';
-    html+='<div class="dia-info"><div class="dia-nome-cal">'+diasSem[i].toUpperCase()+'</div><div class="dia-contador">DIA '+String(diaContador).padStart(2,'0')+'</div></div>';
-    html+='</div>';
-    html+='</div>';
+    const s=D.cronogramas[semanaAtualIdx];
+    const inicio=new Date(s.inicio+'T00:00:00');
+    const numSemana=s.numero||semanaAtualIdx+1;
+    const hoje=new Date();hoje.setHours(0,0,0,0);
     
-    html+='<div class="dia-card-body">';
-    if(Object.keys(materias).length){
-        Object.keys(materias).forEach(mat=>{
-            html+='<div class="materia-grupo">';
-            html+='<div class="materia-titulo">'+mat+'</div>';
-            materias[mat].forEach(a=>{
-                html+='<div class="assunto-item'+(a.ok?' concluido':'')+'">';
-                html+='<input type="checkbox" class="assunto-check" '+(a.ok?'checked':'')+' onchange="toggleAt(\''+s.id+'\',\''+a.id+'\',this.checked)">';
-                html+='<div class="assunto-content">';
-                html+='<span class="assunto-texto">'+(a.assunto||a.tipo)+'</span>';
-                html+='<div class="assunto-acoes">';
-                html+='<button class="assunto-btn" onclick="editAt(\''+s.id+'\',\''+a.id+'\')" title="Editar"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>';
-                html+='<button class="assunto-btn delete" onclick="delAt(\''+s.id+'\',\''+a.id+'\')" title="Excluir"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>';
-                html+='</div></div></div>';
-            });
-            html+='</div>';
+    let html='<div class="cronograma-header">';
+    html+='<div><div class="cronograma-titulo">SEMANA '+String(numSemana).padStart(2,'0')+'</div>';
+    html+='<div class="cronograma-semana">'+fmtData(s.inicio)+' a '+fmtData(s.fim)+'</div></div>';
+    html+='<div class="cronograma-nav">';
+    html+='<button class="cronograma-nav-btn" onclick="navSemana(-1)" '+(semanaAtualIdx===0?'disabled':'')+' title="Semana anterior"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>';
+    html+='<button class="cronograma-nav-btn" onclick="navSemana(1)" '+(semanaAtualIdx>=D.cronogramas.length-1?'disabled':'')+' title="Próxima semana"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>';
+    html+='<button class="btn-icon delete" onclick="delSem(\''+s.id+'\')" title="Excluir semana"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>';
+    html+='</div></div>';
+    
+    html+='<div class="calendario-grid">';
+    for(let i=0;i<7;i++){
+        const diaData=new Date(inicio);
+        diaData.setDate(inicio.getDate()+i);
+        const diaNum=diaData.getDate();
+        const mesNome=meses[diaData.getMonth()];
+        const isHoje=diaData.getTime()===hoje.getTime();
+        const ats=(s.atividades||[]).filter(a=>a.dia===i);
+        const diaContador=i+1;
+        
+        // Agrupar atividades por matéria
+        const materias={};
+        ats.forEach(a=>{
+            if(!materias[a.materia])materias[a.materia]=[];
+            materias[a.materia].push(a);
         });
-    }else{
-        html+='<div class="dia-vazio">Sem atividades</div>';
+        
+        html+='<div class="dia-card'+(isHoje?' hoje':'')+'">';
+        html+='<div class="dia-badge"><span class="dia-badge-num">'+String(diaNum).padStart(2,'0')+'</span><span class="dia-badge-mes">'+mesNome+'</span></div>';
+        html+='<div class="dia-card-header">';
+        html+='<div class="dia-header-left">';
+        html+='<button class="dia-add-btn" onclick="abrirAt(\''+s.id+'\','+i+')" title="Adicionar atividade"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>';
+        html+='<div class="dia-info"><div class="dia-nome-cal">'+diasSem[i].toUpperCase()+'</div><div class="dia-contador">DIA '+String(diaContador).padStart(2,'0')+'</div></div>';
+        html+='</div>';
+        html+='</div>';
+        
+        html+='<div class="dia-card-body">';
+        if(Object.keys(materias).length){
+            Object.keys(materias).forEach(mat=>{
+                html+='<div class="materia-grupo">';
+                html+='<div class="materia-titulo">'+mat+'</div>';
+                materias[mat].forEach(a=>{
+                    html+='<div class="assunto-item'+(a.ok?' concluido':'')+'">';
+                    html+='<input type="checkbox" class="assunto-check" '+(a.ok?'checked':'')+' onchange="toggleAt(\''+s.id+'\',\''+a.id+'\',this.checked)">';
+                    html+='<div class="assunto-content">';
+                    html+='<span class="assunto-texto">'+(a.assunto||a.tipo)+'</span>';
+                    html+='<div class="assunto-acoes">';
+                    html+='<button class="assunto-btn" onclick="editAt(\''+s.id+'\',\''+a.id+'\')" title="Editar"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>';
+                    html+='<button class="assunto-btn delete" onclick="delAt(\''+s.id+'\',\''+a.id+'\')" title="Excluir"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>';
+                    html+='</div></div></div>';
+                });
+                html+='</div>';
+            });
+        }else{
+            html+='<div class="dia-vazio">Sem atividades</div>';
+        }
+        html+='</div>';
+        html+='</div>';
     }
     html+='</div>';
-    html+='</div>';
-}
-html+='</div>';
-c.innerHTML=html;
-```
-
+    c.innerHTML=html;
 }
 
 function navSemana(dir){
-semanaAtualIdx+=dir;
-renderCron();
+    semanaAtualIdx+=dir;
+    renderCron();
 }
 
 function novaSemana(){
-if(!D.cronogramas.length){
-// Primeira semana - abrir modal para escolher datas
-abrirModal(‘modalSemana’);
-}else{
-// Gerar próxima semana automaticamente
-const ultima=D.cronogramas[D.cronogramas.length-1];
-const fimUltima=new Date(ultima.fim+‘T00:00:00’);
-const novoInicio=new Date(fimUltima);
-novoInicio.setDate(fimUltima.getDate()+1);
-const novoFim=new Date(novoInicio);
-novoFim.setDate(novoInicio.getDate()+6);
-
-```
-    const fmtISO=d=>{
-        const y=d.getFullYear();
-        const m=String(d.getMonth()+1).padStart(2,'0');
-        const day=String(d.getDate()).padStart(2,'0');
-        return y+'-'+m+'-'+day;
-    };
-    
-    const numSemana=D.cronogramas.length+1;
-    D.cronogramas.push({
-        id:Date.now().toString(),
-        inicio:fmtISO(novoInicio),
-        fim:fmtISO(novoFim),
-        numero:numSemana,
-        atividades:[]
-    });
-    semanaAtualIdx=D.cronogramas.length-1;
-    salvar();
-    renderCron();
-}
-```
-
+    if(!D.cronogramas.length){
+        // Primeira semana - abrir modal para escolher datas
+        abrirModal('modalSemana');
+    }else{
+        // Gerar próxima semana automaticamente
+        const ultima=D.cronogramas[D.cronogramas.length-1];
+        const fimUltima=new Date(ultima.fim+'T00:00:00');
+        const novoInicio=new Date(fimUltima);
+        novoInicio.setDate(fimUltima.getDate()+1);
+        const novoFim=new Date(novoInicio);
+        novoFim.setDate(novoInicio.getDate()+6);
+        
+        const fmtISO=d=>{
+            const y=d.getFullYear();
+            const m=String(d.getMonth()+1).padStart(2,'0');
+            const day=String(d.getDate()).padStart(2,'0');
+            return y+'-'+m+'-'+day;
+        };
+        
+        const numSemana=D.cronogramas.length+1;
+        D.cronogramas.push({
+            id:Date.now().toString(),
+            inicio:fmtISO(novoInicio),
+            fim:fmtISO(novoFim),
+            numero:numSemana,
+            atividades:[]
+        });
+        semanaAtualIdx=D.cronogramas.length-1;
+        salvar();
+        renderCron();
+    }
 }
 
 function criarSemana(){
-const i=document.getElementById(‘semInicio’).value;
-const f=document.getElementById(‘semFim’).value;
-if(!i||!f)return alert(‘Preencha as datas de início e fim.’);
-const numSemana=D.cronogramas.length+1;
-D.cronogramas.push({id:Date.now().toString(),inicio:i,fim:f,numero:numSemana,atividades:[]});
-semanaAtualIdx=D.cronogramas.length-1;
-salvar();
-renderCron();
-fecharModal(‘modalSemana’);
-document.getElementById(‘semInicio’).value=’’;
-document.getElementById(‘semFim’).value=’’;
+    const i=document.getElementById('semInicio').value;
+    const f=document.getElementById('semFim').value;
+    if(!i||!f)return alert('Preencha as datas de início e fim.');
+    const numSemana=D.cronogramas.length+1;
+    D.cronogramas.push({id:Date.now().toString(),inicio:i,fim:f,numero:numSemana,atividades:[]});
+    semanaAtualIdx=D.cronogramas.length-1;
+    salvar();
+    renderCron();
+    fecharModal('modalSemana');
+    document.getElementById('semInicio').value='';
+    document.getElementById('semFim').value='';
 }
 
 function delSem(id){
-if(!confirm(‘Excluir semana?’))return;
-D.cronogramas=D.cronogramas.filter(x=>x.id!==id);
-if(semanaAtualIdx>=D.cronogramas.length)semanaAtualIdx=Math.max(0,D.cronogramas.length-1);
-salvar();
-renderCron();
+    if(!confirm('Excluir semana?'))return;
+    D.cronogramas=D.cronogramas.filter(x=>x.id!==id);
+    if(semanaAtualIdx>=D.cronogramas.length)semanaAtualIdx=Math.max(0,D.cronogramas.length-1);
+    salvar();
+    renderCron();
 }
 
 function abrirAt(sid,dia){
-document.getElementById(‘atId’).value=’’;
-document.getElementById(‘atSemId’).value=sid;
-document.getElementById(‘atDia’).value=dia;
-document.getElementById(‘atAssunto’).value=’’;
-document.getElementById(‘atMateria’).selectedIndex=0;
-document.getElementById(‘atTipo’).selectedIndex=0;
-abrirModal(‘modalAtividade’);
+    document.getElementById('atId').value='';
+    document.getElementById('atSemId').value=sid;
+    document.getElementById('atDia').value=dia;
+    document.getElementById('atAssunto').value='';
+    document.getElementById('atMateria').selectedIndex=0;
+    document.getElementById('atTipo').selectedIndex=0;
+    abrirModal('modalAtividade');
 }
 
 function editAt(sid,aid){
-const s=D.cronogramas.find(x=>x.id===sid);
-const a=s?.atividades?.find(x=>x.id===aid);
-if(!a)return;
-document.getElementById(‘atId’).value=aid;
-document.getElementById(‘atSemId’).value=sid;
-document.getElementById(‘atDia’).value=a.dia;
-document.getElementById(‘atMateria’).value=a.materia;
-document.getElementById(‘atAssunto’).value=a.assunto;
-document.getElementById(‘atTipo’).value=a.tipo;
-abrirModal(‘modalAtividade’);
+    const s=D.cronogramas.find(x=>x.id===sid);
+    const a=s?.atividades?.find(x=>x.id===aid);
+    if(!a)return;
+    document.getElementById('atId').value=aid;
+    document.getElementById('atSemId').value=sid;
+    document.getElementById('atDia').value=a.dia;
+    document.getElementById('atMateria').value=a.materia;
+    document.getElementById('atAssunto').value=a.assunto;
+    document.getElementById('atTipo').value=a.tipo;
+    abrirModal('modalAtividade');
 }
 
 function salvarAtividade(){
-const id=document.getElementById(‘atId’).value;
-const sid=document.getElementById(‘atSemId’).value;
-const dia=parseInt(document.getElementById(‘atDia’).value);
-const mat=document.getElementById(‘atMateria’).value;
-const ass=document.getElementById(‘atAssunto’).value;
-const tipo=document.getElementById(‘atTipo’).value;
-if(!mat)return alert(‘Selecione uma matéria.’);
-const s=D.cronogramas.find(x=>x.id===sid);
-if(!s)return;
-if(!s.atividades)s.atividades=[];
-if(id){
-const a=s.atividades.find(x=>x.id===id);
-if(a){a.materia=mat;a.assunto=ass;a.tipo=tipo;a.dia=dia;}
-}else{
-s.atividades.push({id:Date.now().toString(),dia,materia:mat,assunto:ass,tipo,ok:false});
-}
-salvar();
-renderCron();
-fecharModal(‘modalAtividade’);
+    const id=document.getElementById('atId').value;
+    const sid=document.getElementById('atSemId').value;
+    const dia=parseInt(document.getElementById('atDia').value);
+    const mat=document.getElementById('atMateria').value;
+    const ass=document.getElementById('atAssunto').value;
+    const tipo=document.getElementById('atTipo').value;
+    if(!mat)return alert('Selecione uma matéria.');
+    const s=D.cronogramas.find(x=>x.id===sid);
+    if(!s)return;
+    if(!s.atividades)s.atividades=[];
+    if(id){
+        const a=s.atividades.find(x=>x.id===id);
+        if(a){a.materia=mat;a.assunto=ass;a.tipo=tipo;a.dia=dia;}
+    }else{
+        s.atividades.push({id:Date.now().toString(),dia,materia:mat,assunto:ass,tipo,ok:false});
+    }
+    salvar();
+    renderCron();
+    fecharModal('modalAtividade');
 }
 
 function delAt(sid,aid){
-if(!confirm(‘Excluir atividade?’))return;
-const s=D.cronogramas.find(x=>x.id===sid);
-if(s)s.atividades=s.atividades.filter(x=>x.id!==aid);
-salvar();
-renderCron();
+    if(!confirm('Excluir atividade?'))return;
+    const s=D.cronogramas.find(x=>x.id===sid);
+    if(s)s.atividades=s.atividades.filter(x=>x.id!==aid);
+    salvar();
+    renderCron();
 }
 
 function toggleAt(sid,aid,ok){
-const s=D.cronogramas.find(x=>x.id===sid);
-const a=s?.atividades?.find(x=>x.id===aid);
-if(a){a.ok=ok;salvar();renderCron();}
+    const s=D.cronogramas.find(x=>x.id===sid);
+    const a=s?.atividades?.find(x=>x.id===aid);
+    if(a){a.ok=ok;salvar();renderCron();}
 }
-function renderTarefas(){const hoje=new Date().toISOString().split(‘T’)[0];const ts=D.tarefas.filter(t=>t.data===hoje&&!t.ok);const c=document.getElementById(‘listaTarefas’);if(!ts.length){c.innerHTML=’<div class="empty-state"><p>Nenhuma tarefa para hoje.</p></div>’;return;}
-c.innerHTML=’<table><thead><tr><th>Hora</th><th>Tarefa</th><th>Cat</th><th>Acoes</th></tr></thead><tbody>’+ts.sort((a,b)=>(a.hora||’’).localeCompare(b.hora||’’)).map(t=>’<tr><td>’+(t.hora||’-’)+’</td><td>’+t.desc+’</td><td><span class="status-badge pendente">’+t.cat+’</span></td><td><div class="btn-group"><button class="btn-icon play" onclick="concluirTar(\''+t.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></button><button class="btn-icon" onclick="editTar(\''+t.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" onclick="delTar(\''+t.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>’).join(’’)+’</tbody></table>’;}
-function salvarTarefa(){const id=document.getElementById(‘tarId’).value;const hora=document.getElementById(‘tarHora’).value;const cat=document.getElementById(‘tarCat’).value;const desc=document.getElementById(‘tarDesc’).value.trim();if(!desc)return alert(‘Informe a descricao.’);const hoje=new Date().toISOString().split(‘T’)[0];if(id){const t=D.tarefas.find(x=>x.id===id);if(t){t.hora=hora;t.cat=cat;t.desc=desc;}}else{D.tarefas.push({id:Date.now().toString(),data:hoje,hora,cat,desc,ok:false});}salvar();renderTarefas();fecharModal(‘modalTarefa’);document.getElementById(‘tarId’).value=’’;document.getElementById(‘tarDesc’).value=’’;}
-function editTar(id){const t=D.tarefas.find(x=>x.id===id);if(!t)return;document.getElementById(‘tarId’).value=id;document.getElementById(‘tarHora’).value=t.hora||’’;document.getElementById(‘tarCat’).value=t.cat;document.getElementById(‘tarDesc’).value=t.desc;abrirModal(‘modalTarefa’);}
+function renderTarefas(){const hoje=new Date().toISOString().split('T')[0];const ts=D.tarefas.filter(t=>t.data===hoje&&!t.ok);const c=document.getElementById('listaTarefas');if(!ts.length){c.innerHTML='<div class="empty-state"><p>Nenhuma tarefa para hoje.</p></div>';return;}
+c.innerHTML='<table><thead><tr><th>Hora</th><th>Tarefa</th><th>Cat</th><th>Acoes</th></tr></thead><tbody>'+ts.sort((a,b)=>(a.hora||'').localeCompare(b.hora||'')).map(t=>'<tr><td>'+(t.hora||'-')+'</td><td>'+t.desc+'</td><td><span class="status-badge pendente">'+t.cat+'</span></td><td><div class="btn-group"><button class="btn-icon play" onclick="concluirTar(\''+t.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></button><button class="btn-icon" onclick="editTar(\''+t.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" onclick="delTar(\''+t.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td></tr>').join('')+'</tbody></table>';}
+function salvarTarefa(){const id=document.getElementById('tarId').value;const hora=document.getElementById('tarHora').value;const cat=document.getElementById('tarCat').value;const desc=document.getElementById('tarDesc').value.trim();if(!desc)return alert('Informe a descricao.');const hoje=new Date().toISOString().split('T')[0];if(id){const t=D.tarefas.find(x=>x.id===id);if(t){t.hora=hora;t.cat=cat;t.desc=desc;}}else{D.tarefas.push({id:Date.now().toString(),data:hoje,hora,cat,desc,ok:false});}salvar();renderTarefas();fecharModal('modalTarefa');document.getElementById('tarId').value='';document.getElementById('tarDesc').value='';}
+function editTar(id){const t=D.tarefas.find(x=>x.id===id);if(!t)return;document.getElementById('tarId').value=id;document.getElementById('tarHora').value=t.hora||'';document.getElementById('tarCat').value=t.cat;document.getElementById('tarDesc').value=t.desc;abrirModal('modalTarefa');}
 function concluirTar(id){const t=D.tarefas.find(x=>x.id===id);if(t){t.ok=true;salvar();renderTarefas();}}
 function delTar(id){D.tarefas=D.tarefas.filter(x=>x.id!==id);salvar();renderTarefas();}
-function renderSimulados(){const c=document.getElementById(‘listaSimulados’);if(!D.simulados.length){c.innerHTML=’<div class="empty-state"><p>Nenhum simulado.</p></div>’;return;}
-c.innerHTML=D.simulados.slice().reverse().map(s=>’<div class="item-card"><div class="item-header"><div><div class="item-title">’+fmtData(s.data)+’</div><div class="item-subtitle">’+s.acertos+’/’+s.total+’ acertos</div></div><div style="display:flex;align-items:center;gap:15px;"><span style="font-size:1.5em;color:#d4af7d;font-weight:600;">’+s.nota+’%</span><div class="btn-group"><button class="btn-icon" onclick="editSim(\''+s.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" onclick="delSim(\''+s.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div></div>’+(s.obs?’<div style="margin-top:10px;font-size:0.85em;color:rgba(255,255,255,0.5);">’+s.obs+’</div>’:’’)+’</div>’).join(’’);}
-function salvarSimulado(){const id=document.getElementById(‘simId’).value;const data=document.getElementById(‘simData’).value;const nota=parseInt(document.getElementById(‘simNota’).value)||0;const total=parseInt(document.getElementById(‘simTotal’).value)||80;const acertos=parseInt(document.getElementById(‘simAcertos’).value)||0;const obs=document.getElementById(‘simObs’).value;if(id){const s=D.simulados.find(x=>x.id===id);if(s){s.data=data;s.nota=nota;s.total=total;s.acertos=acertos;s.obs=obs;}}else{D.simulados.push({id:Date.now().toString(),data,nota,total,acertos,obs});}salvar();renderSimulados();fecharModal(‘modalSimulado’);document.getElementById(‘simId’).value=’’;document.getElementById(‘simData’).value=’’;document.getElementById(‘simNota’).value=’’;document.getElementById(‘simTotal’).value=’’;document.getElementById(‘simAcertos’).value=’’;document.getElementById(‘simObs’).value=’’;}
-function editSim(id){const s=D.simulados.find(x=>x.id===id);if(!s)return;document.getElementById(‘simId’).value=id;document.getElementById(‘simData’).value=s.data;document.getElementById(‘simNota’).value=s.nota;document.getElementById(‘simTotal’).value=s.total;document.getElementById(‘simAcertos’).value=s.acertos;document.getElementById(‘simObs’).value=s.obs||’’;abrirModal(‘modalSimulado’);}
-function delSim(id){if(!confirm(‘Excluir?’))return;D.simulados=D.simulados.filter(x=>x.id!==id);salvar();renderSimulados();}
-function renderExercicios(){const c=document.getElementById(‘listaExercicios’);if(!D.exercicios.length){c.innerHTML=’<div class="empty-state"><p>Nenhum exercicio.</p></div>’;return;}
-c.innerHTML=D.exercicios.slice().reverse().map(e=>{const tx=e.qtd>0?Math.round((e.acertos/e.qtd)*100):0;const cor=tx>=70?’#2ecc71’:tx>=50?’#f1c40f’:’#e74c3c’;return ‘<div class="item-card"><div class="item-header"><div><div class="item-title">’+e.materia+’</div><div class="item-subtitle">’+fmtData(e.data)+’ - ‘+(e.tempo||0)+’ min</div></div><div style="display:flex;align-items:center;gap:15px;"><span style="font-size:1.2em;color:'+cor+';font-weight:600;">’+e.acertos+’/’+e.qtd+’ (’+tx+’%)</span><div class="btn-group"><button class="btn-icon" onclick="editEx(\''+e.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" onclick="delEx(\''+e.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div></div>’+(e.obs?’<div style="margin-top:10px;font-size:0.85em;color:rgba(255,255,255,0.5);">’+e.obs+’</div>’:’’)+’</div>’;}).join(’’);}
-function salvarExercicio(){const id=document.getElementById(‘exId’).value;const data=document.getElementById(‘exData’).value;const materia=document.getElementById(‘exMateria’).value;const qtd=parseInt(document.getElementById(‘exQtd’).value)||0;const acertos=parseInt(document.getElementById(‘exAcertos’).value)||0;const tempo=parseInt(document.getElementById(‘exTempo’).value)||0;const obs=document.getElementById(‘exObs’).value;if(id){const e=D.exercicios.find(x=>x.id===id);if(e){e.data=data;e.materia=materia;e.qtd=qtd;e.acertos=acertos;e.tempo=tempo;e.obs=obs;}}else{D.exercicios.push({id:Date.now().toString(),data,materia,qtd,acertos,tempo,obs});}salvar();renderExercicios();fecharModal(‘modalExercicio’);document.getElementById(‘exId’).value=’’;document.getElementById(‘exData’).value=’’;document.getElementById(‘exQtd’).value=’’;document.getElementById(‘exAcertos’).value=’’;document.getElementById(‘exTempo’).value=’’;document.getElementById(‘exObs’).value=’’;}
-function editEx(id){const e=D.exercicios.find(x=>x.id===id);if(!e)return;document.getElementById(‘exId’).value=id;document.getElementById(‘exData’).value=e.data;document.getElementById(‘exMateria’).value=e.materia;document.getElementById(‘exQtd’).value=e.qtd;document.getElementById(‘exAcertos’).value=e.acertos;document.getElementById(‘exTempo’).value=e.tempo;document.getElementById(‘exObs’).value=e.obs||’’;abrirModal(‘modalExercicio’);}
-function delEx(id){if(!confirm(‘Excluir?’))return;D.exercicios=D.exercicios.filter(x=>x.id!==id);salvar();renderExercicios();}
-function renderCarreira(){document.getElementById(‘dispCargo’).textContent=D.carreira.cargo||’-’;document.getElementById(‘dispMeta’).textContent=D.carreira.meta||’-’;document.getElementById(‘dispDias’).textContent=D.carreira.dias||0;document.getElementById(‘dispCarga’).textContent=D.carreira.carga||0;document.getElementById(‘inputCargo’).value=D.carreira.cargo||’’;document.getElementById(‘inputEmpresa’).value=D.carreira.empresa||’’;document.getElementById(‘inputMeta’).value=D.carreira.meta||’’;document.getElementById(‘inputCarga’).value=D.carreira.carga||40;document.getElementById(‘inputObs’).value=D.carreira.obs||’’;renderCompetencias();}
-function salvarCarreira(){D.carreira.cargo=document.getElementById(‘inputCargo’).value;D.carreira.empresa=document.getElementById(‘inputEmpresa’).value;D.carreira.meta=document.getElementById(‘inputMeta’).value;D.carreira.carga=parseInt(document.getElementById(‘inputCarga’).value)||40;D.carreira.obs=document.getElementById(‘inputObs’).value;salvar();renderCarreira();}
-function renderCompetencias(){const c=document.getElementById(‘listaCompetencias’);if(!D.carreira.competencias||!D.carreira.competencias.length){c.innerHTML=’<div class="empty-state"><p>Nenhuma competencia.</p></div>’;return;}
-c.innerHTML=D.carreira.competencias.map((cp,i)=>’<div class="item-card" style="padding:12px;margin-bottom:8px;"><div style="display:flex;justify-content:space-between;align-items:center;"><span>’+cp+’</span><button class="btn-icon delete" onclick="delComp('+i+')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div>’).join(’’);}
-function addCompetencia(){const c=prompt(‘Digite a competencia:’);if(c&&c.trim()){if(!D.carreira.competencias)D.carreira.competencias=[];D.carreira.competencias.push(c.trim());salvar();renderCompetencias();}}
+function renderSimulados(){const c=document.getElementById('listaSimulados');if(!D.simulados.length){c.innerHTML='<div class="empty-state"><p>Nenhum simulado.</p></div>';return;}
+c.innerHTML=D.simulados.slice().reverse().map(s=>'<div class="item-card"><div class="item-header"><div><div class="item-title">'+fmtData(s.data)+'</div><div class="item-subtitle">'+s.acertos+'/'+s.total+' acertos</div></div><div style="display:flex;align-items:center;gap:15px;"><span style="font-size:1.5em;color:#d4af7d;font-weight:600;">'+s.nota+'%</span><div class="btn-group"><button class="btn-icon" onclick="editSim(\''+s.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" onclick="delSim(\''+s.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div></div>'+(s.obs?'<div style="margin-top:10px;font-size:0.85em;color:rgba(255,255,255,0.5);">'+s.obs+'</div>':'')+'</div>').join('');}
+function salvarSimulado(){const id=document.getElementById('simId').value;const data=document.getElementById('simData').value;const nota=parseInt(document.getElementById('simNota').value)||0;const total=parseInt(document.getElementById('simTotal').value)||80;const acertos=parseInt(document.getElementById('simAcertos').value)||0;const obs=document.getElementById('simObs').value;if(id){const s=D.simulados.find(x=>x.id===id);if(s){s.data=data;s.nota=nota;s.total=total;s.acertos=acertos;s.obs=obs;}}else{D.simulados.push({id:Date.now().toString(),data,nota,total,acertos,obs});}salvar();renderSimulados();fecharModal('modalSimulado');document.getElementById('simId').value='';document.getElementById('simData').value='';document.getElementById('simNota').value='';document.getElementById('simTotal').value='';document.getElementById('simAcertos').value='';document.getElementById('simObs').value='';}
+function editSim(id){const s=D.simulados.find(x=>x.id===id);if(!s)return;document.getElementById('simId').value=id;document.getElementById('simData').value=s.data;document.getElementById('simNota').value=s.nota;document.getElementById('simTotal').value=s.total;document.getElementById('simAcertos').value=s.acertos;document.getElementById('simObs').value=s.obs||'';abrirModal('modalSimulado');}
+function delSim(id){if(!confirm('Excluir?'))return;D.simulados=D.simulados.filter(x=>x.id!==id);salvar();renderSimulados();}
+function renderExercicios(){const c=document.getElementById('listaExercicios');if(!D.exercicios.length){c.innerHTML='<div class="empty-state"><p>Nenhum exercicio.</p></div>';return;}
+c.innerHTML=D.exercicios.slice().reverse().map(e=>{const tx=e.qtd>0?Math.round((e.acertos/e.qtd)*100):0;const cor=tx>=70?'#2ecc71':tx>=50?'#f1c40f':'#e74c3c';return '<div class="item-card"><div class="item-header"><div><div class="item-title">'+e.materia+'</div><div class="item-subtitle">'+fmtData(e.data)+' - '+(e.tempo||0)+' min</div></div><div style="display:flex;align-items:center;gap:15px;"><span style="font-size:1.2em;color:'+cor+';font-weight:600;">'+e.acertos+'/'+e.qtd+' ('+tx+'%)</span><div class="btn-group"><button class="btn-icon" onclick="editEx(\''+e.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" onclick="delEx(\''+e.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div></div>'+(e.obs?'<div style="margin-top:10px;font-size:0.85em;color:rgba(255,255,255,0.5);">'+e.obs+'</div>':'')+'</div>';}).join('');}
+function salvarExercicio(){const id=document.getElementById('exId').value;const data=document.getElementById('exData').value;const materia=document.getElementById('exMateria').value;const qtd=parseInt(document.getElementById('exQtd').value)||0;const acertos=parseInt(document.getElementById('exAcertos').value)||0;const tempo=parseInt(document.getElementById('exTempo').value)||0;const obs=document.getElementById('exObs').value;if(id){const e=D.exercicios.find(x=>x.id===id);if(e){e.data=data;e.materia=materia;e.qtd=qtd;e.acertos=acertos;e.tempo=tempo;e.obs=obs;}}else{D.exercicios.push({id:Date.now().toString(),data,materia,qtd,acertos,tempo,obs});}salvar();renderExercicios();fecharModal('modalExercicio');document.getElementById('exId').value='';document.getElementById('exData').value='';document.getElementById('exQtd').value='';document.getElementById('exAcertos').value='';document.getElementById('exTempo').value='';document.getElementById('exObs').value='';}
+function editEx(id){const e=D.exercicios.find(x=>x.id===id);if(!e)return;document.getElementById('exId').value=id;document.getElementById('exData').value=e.data;document.getElementById('exMateria').value=e.materia;document.getElementById('exQtd').value=e.qtd;document.getElementById('exAcertos').value=e.acertos;document.getElementById('exTempo').value=e.tempo;document.getElementById('exObs').value=e.obs||'';abrirModal('modalExercicio');}
+function delEx(id){if(!confirm('Excluir?'))return;D.exercicios=D.exercicios.filter(x=>x.id!==id);salvar();renderExercicios();}
+function renderCarreira(){document.getElementById('dispCargo').textContent=D.carreira.cargo||'-';document.getElementById('dispMeta').textContent=D.carreira.meta||'-';document.getElementById('dispDias').textContent=D.carreira.dias||0;document.getElementById('dispCarga').textContent=D.carreira.carga||0;document.getElementById('inputCargo').value=D.carreira.cargo||'';document.getElementById('inputEmpresa').value=D.carreira.empresa||'';document.getElementById('inputMeta').value=D.carreira.meta||'';document.getElementById('inputCarga').value=D.carreira.carga||40;document.getElementById('inputObs').value=D.carreira.obs||'';renderCompetencias();}
+function salvarCarreira(){D.carreira.cargo=document.getElementById('inputCargo').value;D.carreira.empresa=document.getElementById('inputEmpresa').value;D.carreira.meta=document.getElementById('inputMeta').value;D.carreira.carga=parseInt(document.getElementById('inputCarga').value)||40;D.carreira.obs=document.getElementById('inputObs').value;salvar();renderCarreira();}
+function renderCompetencias(){const c=document.getElementById('listaCompetencias');if(!D.carreira.competencias||!D.carreira.competencias.length){c.innerHTML='<div class="empty-state"><p>Nenhuma competencia.</p></div>';return;}
+c.innerHTML=D.carreira.competencias.map((cp,i)=>'<div class="item-card" style="padding:12px;margin-bottom:8px;"><div style="display:flex;justify-content:space-between;align-items:center;"><span>'+cp+'</span><button class="btn-icon delete" onclick="delComp('+i+')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div>').join('');}
+function addCompetencia(){const c=prompt('Digite a competencia:');if(c&&c.trim()){if(!D.carreira.competencias)D.carreira.competencias=[];D.carreira.competencias.push(c.trim());salvar();renderCompetencias();}}
 function delComp(i){D.carreira.competencias.splice(i,1);salvar();renderCompetencias();}
-function renderProjetos(){const c=document.getElementById(‘listaProjetos’);if(!D.projetos.length){c.innerHTML=’<div class="empty-state"><p>Nenhum projeto.</p></div>’;return;}
-c.innerHTML=D.projetos.map(p=>{const dr=diasRest(p.prazo);const st=p.prog>=100?‘concluido’:dr<0?‘atrasado’:‘pendente’;return ‘<div class="item-card"><div class="item-header"><div><div class="item-title">’+p.nome+’</div><div class="item-subtitle">’+(p.meta||’-’)+’</div></div><div class="btn-group"><button class="btn-icon play" onclick="concluirProj(\''+p.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></button><button class="btn-icon" onclick="editProj(\''+p.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" onclick="delProj(\''+p.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div><div class="item-progress"><div class="progress-bar"><div class="progress-fill" style="width:'+p.prog+'%"></div></div><span class="item-progress-text">’+p.prog+’%</span></div><div class="item-footer"><span class="status-badge '+st+'">’+(dr>=0?dr+’ dias restantes’:‘Atrasado’)+’</span><span>Prazo: ‘+fmtData(p.prazo)+’</span></div>’+(p.notas?’<div style="margin-top:10px;font-size:0.85em;color:rgba(255,255,255,0.5);padding-top:10px;border-top:1px solid rgba(255,255,255,0.05);">’+p.notas+’</div>’:’’)+’</div>’;}).join(’’);}
-function salvarProjeto(){const id=document.getElementById(‘projId’).value;const nome=document.getElementById(‘projNome’).value.trim();const meta=document.getElementById(‘projMeta’).value;const prazo=document.getElementById(‘projPrazo’).value;const prog=parseInt(document.getElementById(‘projProg’).value)||0;const notas=document.getElementById(‘projNotas’).value;if(!nome)return alert(‘Informe o nome.’);if(id){const p=D.projetos.find(x=>x.id===id);if(p){p.nome=nome;p.meta=meta;p.prazo=prazo;p.prog=prog;p.notas=notas;}}else{D.projetos.push({id:Date.now().toString(),nome,meta,prazo,prog,notas});}salvar();renderProjetos();fecharModal(‘modalProjeto’);document.getElementById(‘projId’).value=’’;document.getElementById(‘projNome’).value=’’;document.getElementById(‘projMeta’).value=’’;document.getElementById(‘projPrazo’).value=’’;document.getElementById(‘projProg’).value=‘0’;document.getElementById(‘projNotas’).value=’’;}
-function editProj(id){const p=D.projetos.find(x=>x.id===id);if(!p)return;document.getElementById(‘projId’).value=id;document.getElementById(‘projNome’).value=p.nome;document.getElementById(‘projMeta’).value=p.meta||’’;document.getElementById(‘projPrazo’).value=p.prazo||’’;document.getElementById(‘projProg’).value=p.prog||0;document.getElementById(‘projNotas’).value=p.notas||’’;abrirModal(‘modalProjeto’);}
-function concluirProj(id){const p=D.projetos.find(x=>x.id===id);if(p){p.prog=100;salvar();renderProjetos();}}
-function delProj(id){if(!confirm(‘Excluir?’))return;D.projetos=D.projetos.filter(x=>x.id!==id);salvar();renderProjetos();}
-let arqTemp=null;
-function previewArq(inp){const f=inp.files[0];if(f){const r=new FileReader();r.onload=e=>{arqTemp={nome:f.name,tipo:f.type,dados:e.target.result};document.getElementById(‘certPrev’).textContent=f.name;document.getElementById(‘certPrev’).style.display=‘block’;};r.readAsDataURL(f);}}
-function renderCertificacoes(){const c=document.getElementById(‘listaCertificacoes’);if(!D.certificacoes.length){c.innerHTML=’<div class="empty-state"><p>Nenhuma certificacao.</p></div>’;return;}
-c.innerHTML=D.certificacoes.map(ct=>’<div class="item-card"><div class="item-header"><div><div class="item-title">’+ct.nome+’</div><div class="item-subtitle">’+(ct.inst||’-’)+’ - ‘+fmtData(ct.data)+’</div></div><div class="btn-group">’+(ct.arq?’<button class="btn btn-sm btn-secondary" onclick="downloadCert(\''+ct.id+'\')">Download</button>’:’’)+’<button class="btn-icon" onclick="editCert(\''+ct.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" onclick="delCert(\''+ct.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div></div>’).join(’’);}
-function salvarCertificacao(){const id=document.getElementById(‘certId’).value;const nome=document.getElementById(‘certNome’).value.trim();const inst=document.getElementById(‘certInst’).value;const data=document.getElementById(‘certData’).value;if(!nome)return alert(‘Informe o nome.’);if(id){const ct=D.certificacoes.find(x=>x.id===id);if(ct){ct.nome=nome;ct.inst=inst;ct.data=data;if(arqTemp)ct.arq=arqTemp;}}else{D.certificacoes.push({id:Date.now().toString(),nome,inst,data,arq:arqTemp});}arqTemp=null;salvar();renderCertificacoes();fecharModal(‘modalCertificacao’);document.getElementById(‘certId’).value=’’;document.getElementById(‘certNome’).value=’’;document.getElementById(‘certInst’).value=’’;document.getElementById(‘certData’).value=’’;document.getElementById(‘certArq’).value=’’;document.getElementById(‘certPrev’).style.display=‘none’;}
-function editCert(id){const ct=D.certificacoes.find(x=>x.id===id);if(!ct)return;document.getElementById(‘certId’).value=id;document.getElementById(‘certNome’).value=ct.nome;document.getElementById(‘certInst’).value=ct.inst||’’;document.getElementById(‘certData’).value=ct.data||’’;document.getElementById(‘certPrev’).style.display=ct.arq?‘block’:‘none’;document.getElementById(‘certPrev’).textContent=ct.arq?.nome||’’;abrirModal(‘modalCertificacao’);}
-function downloadCert(id){const ct=D.certificacoes.find(x=>x.id===id);if(ct?.arq){const lk=document.createElement(‘a’);lk.href=ct.arq.dados;lk.download=ct.arq.nome;lk.click();}}
-function delCert(id){if(!confirm(‘Excluir?’))return;D.certificacoes=D.certificacoes.filter(x=>x.id!==id);salvar();renderCertificacoes();}
-function renderAgenda(){const at=D.agenda.filter(a=>!a.arq).sort((a,b)=>new Date(a.data)-new Date(b.data));const c=document.getElementById(‘listaAgenda’);if(!at.length){c.innerHTML=’<div class="empty-state"><p>Nenhum compromisso.</p></div>’;}else{c.innerHTML=at.map(a=>’<div class="item-card"><div class="item-header"><div><div class="item-title">’+a.titulo+’</div><div class="item-subtitle">’+fmtData(a.data)+’ - ‘+a.cat+’</div></div><div class="btn-group"><button class="btn-icon play" onclick="cumprirAg(\''+a.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></button><button class="btn-icon" onclick="editAg(\''+a.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" onclick="delAg(\''+a.id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div>’+(a.obs?’<div style="font-size:0.85em;color:rgba(255,255,255,0.5);">’+a.obs+’</div>’:’’)+’</div>’).join(’’);}
-const arqs=D.agenda.filter(a=>a.arq);const ca=document.getElementById(‘listaAgendaArq’);if(!arqs.length){ca.innerHTML=’<div class="empty-state"><p>Nenhum arquivado.</p></div>’;}else{ca.innerHTML=arqs.map(a=>’<div class="item-card" style="opacity:0.6;"><div class="item-header"><div><div class="item-title" style="text-decoration:line-through;">’+a.titulo+’</div><div class="item-subtitle">’+fmtData(a.data)+’ - ‘+a.cat+’</div></div><span class="status-badge concluido">Cumprido</span></div></div>’).join(’’);}}
-function salvarAgenda(){const id=document.getElementById(‘agId’).value;const titulo=document.getElementById(‘agTitulo’).value.trim();const data=document.getElementById(‘agData’).value;const cat=document.getElementById(‘agCat’).value;const obs=document.getElementById(‘agObs’).value;if(!titulo)return alert(‘Informe o titulo.’);if(id){const a=D.agenda.find(x=>x.id===id);if(a){a.titulo=titulo;a.data=data;a.cat=cat;a.obs=obs;}}else{D.agenda.push({id:Date.now().toString(),titulo,data,cat,obs,arq:false});}salvar();renderAgenda();fecharModal(‘modalAgenda’);document.getElementById(‘agId’).value=’’;document.getElementById(‘agTitulo’).value=’’;document.getElementById(‘agData’).value=’’;document.getElementById(‘agObs’).value=’’;}
-function editAg(id){const a=D.agenda.find(x=>x.id===id);if(!a)return;document.getElementById(‘agId’).value=id;document.getElementById(‘agTitulo’).value=a.titulo;document.getElementById(‘agData’).value=a.data||’’;document.getElementById(‘agCat’).value=a.cat;document.getElementById(‘agObs’).value=a.obs||’’;abrirModal(‘modalAgenda’);}
-function cumprirAg(id){const a=D.agenda.find(x=>x.id===id);if(a){a.arq=true;salvar();renderAgenda();}}
-function delAg(id){if(!confirm(‘Excluir?’))return;D.agenda=D.agenda.filter(x=>x.id!==id);salvar();renderAgenda();}
 async function inicializar(){
-await carregarSupabase();
-document.getElementById(‘dataInicio’).value=D.config.dataInicio||’’;
-document.getElementById(‘dataProva’).value=D.config.dataProva||’’;
-calcDias();
-atualizarSelects();
-renderDisc();
-semanaAtualIdx=D.cronogramas.length?D.cronogramas.length-1:0;
-renderCron();
-renderSimulados();
-renderExercicios();
-renderCarreira();
-renderProjetos();
-renderCertificacoes();
-renderAgenda();
+    await carregarSupabase();
+    document.getElementById('dataInicio').value=D.config.dataInicio||'';
+    document.getElementById('dataProva').value=D.config.dataProva||'';
+    calcDias();
+    atualizarSelects();
+    renderDisc();
+    semanaAtualIdx=D.cronogramas.length?D.cronogramas.length-1:0;
+    renderCron();
+    renderSimulados();
+    renderExercicios();
+    renderCarreira();
 }
 inicializar();
-</script>
-
+    </script>
 </body>
 </html>
