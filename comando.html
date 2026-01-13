@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -128,13 +127,14 @@
                 <div class="rituals-section"><div class="rituals-header"><h3 class="rituals-title">Rituais Semanais</h3><button class="btn-icon" onclick="openRitualModal('semanal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div><div class="rituals-list" id="weeklyRitualsList"></div></div>
             </div>
             <div class="tab-content" id="tab-laws"><div class="law-week-card" id="lawWeekCard"></div><div class="laws-filter"><button class="filter-btn active" onclick="filterLaws('todas')">Todas</button><button class="filter-btn" onclick="filterLaws('aplicadas')">Aplicadas</button><button class="filter-btn" onclick="filterLaws('pendentes')">Pendentes</button><button class="filter-btn" onclick="filterLaws('favoritas')">Favoritas</button></div><div class="laws-list" id="lawsList"></div></div>
-            <div class="footer-actions"><span class="reset-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Reset automático: Segunda-feira, 05:00</span><button class="btn-primary" onclick="exportReport()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;vertical-align:middle;margin-right:8px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Exportar Relatório</button></div>
+            <div class="footer-actions"><span class="reset-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Reset automático: Segunda-feira, 05:00</span><button class="btn-primary" onclick="openExportModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;vertical-align:middle;margin-right:8px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Exportar Relatório</button></div>
         </div>
     </div>
     <div class="modal-overlay" id="cutModal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Registrar Corte do Dia</h3><button class="modal-close" onclick="closeCutModal()">&times;</button></div><div class="form-group"><label>O que você cortou hoje?</label><input type="text" id="cutDescription" placeholder="Ex: Procrastinação, pessoa tóxica..."></div><div class="form-group"><label>Categoria</label><select id="cutCategory"><option value="comportamento">Comportamento</option><option value="pensamento">Pensamento</option><option value="pessoa">Pessoa</option><option value="habito">Hábito</option><option value="outro">Outro</option></select></div><div class="form-group"><label>Data</label><input type="date" id="cutDate"></div><div class="form-group"><label>Anotações (opcional)</label><textarea id="cutNotes" rows="3" placeholder="Por que isso precisava ser cortado?"></textarea></div><div class="modal-buttons"><button class="btn-secondary" onclick="closeCutModal()">Cancelar</button><button class="btn-blood" onclick="saveCut()" style="padding:12px 25px">Registrar Corte</button></div></div></div>
     <div class="modal-overlay" id="victoryModal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Relatar Vitória do Dia</h3><button class="modal-close" onclick="closeVictoryModal()">&times;</button></div><div class="form-group"><label>O que você venceu hoje?</label><input type="text" id="victoryDescription" placeholder="Ex: Completei treino mesmo cansado..."></div><div class="form-group"><label>O que você resistiu?</label><input type="text" id="victoryResisted" placeholder="Ex: Tentação de desistir..."></div><div class="form-group"><label>Lei do Poder Aplicada</label><select id="victoryLaw"><option value="">Nenhuma</option></select></div><div class="form-group"><label>Data</label><input type="date" id="victoryDate"></div><div class="modal-buttons"><button class="btn-secondary" onclick="closeVictoryModal()">Cancelar</button><button class="btn-gold" onclick="saveVictory()" style="padding:12px 25px">Registrar Vitória</button></div></div></div>
     <div class="modal-overlay" id="missionModal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Nova Missão Estratégica</h3><button class="modal-close" onclick="closeMissionModal()">&times;</button></div><input type="hidden" id="missionId"><div class="form-group"><label>Tipo de Missão</label><select id="missionType"><option value="corpo">Corpo</option><option value="mente">Mente</option><option value="espirito">Espírito</option></select></div><div class="form-group"><label>Título</label><input type="text" id="missionTitle" placeholder="Ex: Dominar o físico"></div><div class="form-group"><label>Descrição</label><textarea id="missionDescription" rows="3" placeholder="Descreva sua missão..."></textarea></div><div class="modal-buttons"><button class="btn-secondary" onclick="closeMissionModal()">Cancelar</button><button class="btn-primary" onclick="saveMission()">Salvar</button></div></div></div>
     <div class="modal-overlay" id="ritualModal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Novo Ritual de Força</h3><button class="modal-close" onclick="closeRitualModal()">&times;</button></div><input type="hidden" id="ritualId"><input type="hidden" id="ritualFrequency"><div class="form-group"><label>Nome do Ritual</label><input type="text" id="ritualName" placeholder="Ex: Meditação matinal"></div><div class="form-group"><label>Horário (opcional)</label><input type="time" id="ritualTime"></div><div class="form-group"><label>Ícone</label><select id="ritualIcon"><option value="sun">☀️ Sol</option><option value="moon">🌙 Lua</option><option value="fire">🔥 Fogo</option><option value="book">📖 Livro</option><option value="run">🏃 Exercício</option><option value="meditate">🧘 Meditação</option><option value="write">✍️ Escrita</option></select></div><div class="modal-buttons"><button class="btn-secondary" onclick="closeRitualModal()">Cancelar</button><button class="btn-primary" onclick="saveRitual()">Salvar</button></div></div></div>
+    <div class="modal-overlay" id="exportModal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Exportar Relatório de Guerra</h3><button class="modal-close" onclick="closeExportModal()">&times;</button></div><div class="form-group"><label>Formato de Exportação</label><select id="exportFormat"><option value="txt">📄 TXT (Texto Puro)</option><option value="pdf">📑 PDF (Documento)</option></select></div><div style="padding:15px;background:rgba(139,0,0,.1);border:1px solid rgba(139,0,0,.3);border-radius:8px;margin-bottom:15px;"><p style="font-size:.85em;color:rgba(255,255,255,.7);line-height:1.5;margin:0;font-style:italic;">"Quem não sangra no treino, sangra no campo."</p></div><div class="modal-buttons"><button class="btn-secondary" onclick="closeExportModal()">Cancelar</button><button class="btn-primary" onclick="generateReport()">⚔️ Gerar Relatório</button></div></div></div>
     <div class="toast" id="toast"></div>
     <script>
 const STORAGE_KEY='painelGuerra';
@@ -188,7 +188,157 @@ function applyLaw(number){const law=data.laws.find(l=>l.number===number);law.app
 function toggleFavorite(number){const law=data.laws.find(l=>l.number===number);law.favorite=!law.favorite;saveData();renderLawsList();}
 function saveLawNotes(number,notes){data.laws.find(l=>l.number===number).notes=notes;saveData();}
 function changeLawOfWeek(){const pending=data.laws.filter(l=>!l.applied&&l.number!==data.lawOfTheWeek);data.lawOfTheWeek=pending.length>0?pending[Math.floor(Math.random()*pending.length)].number:Math.floor(Math.random()*48)+1;saveData();renderLawOfTheWeek();showToast('Nova lei selecionada!','success');}
-function exportReport(){const now=new Date();const dateStr=now.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});const lawOfWeek=data.laws.find(l=>l.number===data.lawOfTheWeek);const focusLabels={fraco:'Fraco',moderado:'Moderado',afiado:'Afiado'};const spiritLabels={seco:'Seco',vivo:'Vivo',blindado:'Blindado'};const dangerLabels={baixo:'Baixo',medio:'Médio',alto:'Alto'};const last7Days=data.warHistory.slice(0,7);const historyText=last7Days.map(entry=>{const law=entry.victory?.lawApplied?laws48.find(l=>l.number===entry.victory.lawApplied):null;return`  ${entry.date}: Corte: ${entry.cut?.description||'—'} | Vitória: ${entry.victory?.description||'—'} | Lei: ${law?law.number:'—'}`;}).join('\n');const report=`╔══════════════════════════════════════════════════════════════╗\n║                    RELATÓRIO DE GUERRA                       ║\n╚══════════════════════════════════════════════════════════════╝\n\nData: ${dateStr.toUpperCase()}\n\n═══════════════════════════════════════════════════════════════\n                        STATUS DE GUERRA\n═══════════════════════════════════════════════════════════════\n\n  Disciplina: ${data.status.discipline}%\n  Foco: ${focusLabels[data.status.focus]}\n  Espírito: ${spiritLabels[data.status.spirit]}\n  Perigo: ${dangerLabels[data.status.danger]}\n\n═══════════════════════════════════════════════════════════════\n                    HISTÓRICO (ÚLTIMOS 7 DIAS)\n═══════════════════════════════════════════════════════════════\n\n${historyText||'  Nenhum registro'}\n\n═══════════════════════════════════════════════════════════════\n                        LEI DA SEMANA\n═══════════════════════════════════════════════════════════════\n\n  Lei ${lawOfWeek.number}: ${lawOfWeek.title}\n  Status: ${lawOfWeek.applied?'APLICADA':'PENDENTE'}\n\n═══════════════════════════════════════════════════════════════\n\n"Eu sou perigoso porque domino minha mente.\n Eu sou livre porque ninguém me controla."\n\n═══════════════════════════════════════════════════════════════\n`;const blob=new Blob([report],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`relatorio-guerra-${now.toISOString().split('T')[0]}.txt`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);showToast('Relatório exportado!','success');}
+
+function openExportModal(){document.getElementById('exportModal').classList.add('active');}
+function closeExportModal(){document.getElementById('exportModal').classList.remove('active');}
+
+function generateReport(){
+    const format = document.getElementById('exportFormat').value;
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('pt-BR', {day:'2-digit',month:'2-digit',year:'numeric'});
+    
+    // Comentários automáticos baseados nos níveis
+    const disciplineComments = {
+        low: "⚠️ Você está sangrando. A guerra não perdoa os fracos.",
+        medium: "🔶 Ainda há brechas. O inimigo observa cada vacilo.",
+        high: "🛡️ O escudo está erguido. Continue assim, soldado."
+    };
+    const focusComments = {
+        fraco: "Você ainda se distrai com lixo. O fraco mira no nada.",
+        moderado: "A mira ainda treme. Estabilize ou será abatido.",
+        afiado: "Um tiro. Um alvo. Zero desperdício."
+    };
+    const spiritComments = {
+        seco: "A chama está morrendo. Reacenda ou será consumido pelas trevas.",
+        vivo: "O fogo arde, mas precisa de lenha. Continue alimentando.",
+        blindado: "Nada penetra. Nada abala. Você é fortaleza."
+    };
+    const dangerComments = {
+        baixo: "Você está doméstico demais. Um leão de zoológico não caça.",
+        medio: "Você ainda é previsível. Surpreenda ou seja surpreendido.",
+        alto: "Eles temem o que não entendem. Continue sendo o caos calculado."
+    };
+    
+    // Determinar nível de disciplina
+    const discLevel = data.status.discipline < 40 ? 'low' : data.status.discipline < 70 ? 'medium' : 'high';
+    
+    // Labels
+    const focusLabels = {fraco:'FRACO',moderado:'MODERADO',afiado:'AFIADO'};
+    const spiritLabels = {seco:'SECO',vivo:'VIVO',blindado:'BLINDADO'};
+    const dangerLabels = {baixo:'BAIXO',medio:'MÉDIO',alto:'ALTO'};
+    
+    // Buscar último corte e vitória
+    const lastEntry = data.warHistory.length > 0 ? data.warHistory[0] : null;
+    const lastCut = lastEntry?.cut || null;
+    const lastVictory = lastEntry?.victory || null;
+    
+    // Lei da semana
+    const lawOfWeek = data.laws.find(l => l.number === data.lawOfTheWeek);
+    
+    // Frases de encerramento
+    const closingPhrases = [
+        "Eu sou perigoso porque domino minha mente.",
+        "Eu sou livre porque ninguém me controla.",
+        "O fraco morre todos os dias. O forte morre uma vez.",
+        "Disciplina é a ponte entre metas e conquistas.",
+        "Quem controla a si mesmo, controla o mundo."
+    ];
+    const closingPhrase = closingPhrases[Math.floor(Math.random() * closingPhrases.length)];
+    
+    const report = `
+══════════════════════════════════════════════════════════════
+⚔️ RELATÓRIO DE GUERRA – ${dateStr}
+> "Quem não sangra no treino, sangra no campo."
+══════════════════════════════════════════════════════════════
+
+
+🎯 STATUS DE GUERRA
+──────────────────────────────────────────────────────────────
+
+• Disciplina: ${data.status.discipline}%
+  ${disciplineComments[discLevel]}
+
+• Foco: ${focusLabels[data.status.focus]}
+  ${focusComments[data.status.focus]}
+
+• Espírito: ${spiritLabels[data.status.spirit]}
+  ${spiritComments[data.status.spirit]}
+
+• Perigo: ${dangerLabels[data.status.danger]}
+  ${dangerComments[data.status.danger]}
+
+
+💀 CORTE DO DIA
+──────────────────────────────────────────────────────────────
+${lastCut ? `
+• Corte aplicado: ${lastCut.description}
+• Categoria: ${lastCut.category.toUpperCase()}
+• Data: ${lastCut.date}
+${lastCut.notes ? `• Motivo: ${lastCut.notes}` : ''}
+` : `
+• Nenhum corte registrado hoje.
+  ⚠️ O que você está tolerando que deveria eliminar?
+`}
+
+🛡️ VITÓRIA DO DIA
+──────────────────────────────────────────────────────────────
+${lastVictory ? `
+• Ação realizada: ${lastVictory.description}
+${lastVictory.resisted ? `• Resistência: ${lastVictory.resisted}` : ''}
+${lastVictory.lawApplied ? `• Lei aplicada: Lei ${lastVictory.lawApplied}` : ''}
+• Resultado: Mais um passo em direção à versão imbatível.
+` : `
+• Nenhuma vitória registrada hoje.
+  ⚠️ Quem não registra vitórias, não reconhece seu progresso.
+`}
+
+📜 LEI DA SEMANA
+──────────────────────────────────────────────────────────────
+
+Lei ${lawOfWeek.number}: "${lawOfWeek.title}"
+Status: ${lawOfWeek.applied ? '✅ APLICADA' : '⏳ PENDENTE'}
+
+"${lawOfWeek.description}"
+
+
+══════════════════════════════════════════════════════════════
+                    ENCERRAMENTO
+══════════════════════════════════════════════════════════════
+
+"${closingPhrase}"
+
+──────────────────────────────────────────────────────────────
+            ZARA • PAINEL DE GUERRA • ${dateStr}
+══════════════════════════════════════════════════════════════
+`;
+
+    if(format === 'txt'){
+        // Exportar como TXT
+        const blob = new Blob([report], {type:'text/plain;charset=utf-8'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `relatorio-guerra-${now.toISOString().split('T')[0]}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        closeExportModal();
+        showToast('Relatório TXT exportado!','success');
+    } else {
+        // Exportar como PDF usando jsPDF
+        generatePDF(report, dateStr, now);
+    }
+}
+
+function generatePDF(reportText, dateStr, now){
+    const printWindow = window.open('', '_blank');
+    const htmlContent = '<!DOCTYPE html><html><head><title>Relatório de Guerra - ' + dateStr + '</title><style>@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap");*{margin:0;padding:0;box-sizing:border-box}body{font-family:"Courier Prime",monospace;background:#0a0a0a;color:#d4af7d;padding:40px;line-height:1.6}.container{max-width:800px;margin:0 auto;background:#141414;border:2px solid #d4af7d;padding:40px;box-shadow:0 0 50px rgba(212,175,125,0.2)}pre{white-space:pre-wrap;word-wrap:break-word;font-family:"Courier Prime",monospace;font-size:14px;color:#e0e0e0}@media print{body{background:white;color:black;padding:20px}.container{border-color:#333;box-shadow:none;background:white}pre{color:#333}}</style></head><body><div class="container"><pre>' + reportText.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</pre></div><script>setTimeout(function(){window.print();},500);<\/script></body></html>';
+    printWindow.document.write(htmlContent);
+    printWindow.document.close();
+    closeExportModal();
+    showToast('PDF gerado! Use Ctrl+P para salvar.','success');
+}
 function showToast(message,type='success'){const toast=document.getElementById('toast');toast.textContent=message;toast.className='toast '+type+' active';setTimeout(()=>{toast.classList.remove('active');},3000);}
 function renderAll(){renderStatus();renderHistory();renderMissions();renderRituals();renderLaws();}
 init();
