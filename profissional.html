@@ -371,11 +371,7 @@
         </div>
     </nav>
     <div class="container">
-        <div class="header"><h1>Profissional</h1><p>Carreira, Projetos e Formacao</p></div>
-        <div class="sub-tabs">
-            <button class="sub-tab-btn active" onclick="mudarAba('oab',this)">OAB</button>
-            <button class="sub-tab-btn" onclick="mudarAba('carreira',this)">Carreira</button>
-        </div>
+        <div class="header"><h1>Profissional</h1><p>Estudos OAB</p></div>
         <div class="sub-content active" id="aba-oab">
             <div class="config-bar">
                 <div class="config-item"><label>Inicio Estudos:</label><input type="date" id="dataInicio" onchange="salvarConfig()"></div>
@@ -387,21 +383,6 @@
             <div class="section"><div class="section-header"><h3 class="section-title">Cronograma Semanal</h3><button class="btn btn-primary btn-sm" onclick="novaSemana()">Nova Semana</button></div><div id="cronogramaCalendario"></div></div>
             <div class="section"><div class="section-header"><h3 class="section-title">Simulados</h3><button class="btn btn-primary btn-sm" onclick="abrirModal('modalSimulado')">Adicionar</button></div><div id="listaSimulados"></div></div>
             <div class="section"><div class="section-header"><h3 class="section-title">Exercicios</h3><button class="btn btn-primary btn-sm" onclick="abrirModal('modalExercicio')">Adicionar</button></div><div id="listaExercicios"></div></div>
-        </div>
-        <div class="sub-content" id="aba-carreira">
-            <div class="cards-grid">
-                <div class="card"><div class="card-title">Cargo Atual</div><div class="card-value" id="dispCargo">-</div></div>
-                <div class="card"><div class="card-title">Meta Anual</div><div class="card-value destaque" id="dispMeta">-</div></div>
-                <div class="card"><div class="card-title">Dias Produtivos</div><div class="card-value" id="dispDias">0</div></div>
-                <div class="card"><div class="card-title">Carga Semanal</div><div class="card-value"><span id="dispCarga">0</span>h</div></div>
-            </div>
-            <div class="section"><div class="section-header"><h3 class="section-title">Competencias</h3><button class="btn btn-secondary btn-sm" onclick="addCompetencia()">Adicionar</button></div><div id="listaCompetencias"></div></div>
-            <div class="section"><h3 class="section-title" style="margin-bottom:15px;">Editar Carreira</h3>
-                <div class="form-row"><div class="form-group"><label>Cargo</label><input type="text" id="inputCargo"></div><div class="form-group"><label>Empresa</label><input type="text" id="inputEmpresa"></div></div>
-                <div class="form-row"><div class="form-group"><label>Meta Anual</label><input type="text" id="inputMeta"></div><div class="form-group"><label>Carga (h)</label><input type="number" id="inputCarga"></div></div>
-                <div class="form-group"><label>Observacoes</label><textarea id="inputObs"></textarea></div>
-                <button class="btn btn-primary" style="margin-top:15px;" onclick="salvarCarreira()">Salvar</button>
-            </div>
         </div>
     </div>
     <div class="modal-overlay" id="modalDisciplina"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Disciplina</h3><button class="modal-close" onclick="fecharModal('modalDisciplina')">&times;</button></div><input type="hidden" id="discId"><div class="form-group"><label>Nome</label><input type="text" id="discNome"></div><div class="form-group"><label>Dias Estudados</label><input type="number" id="discDias" value="0"></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalDisciplina')">Cancelar</button><button class="btn btn-primary" onclick="salvarDisciplina()">Salvar</button></div></div></div>
@@ -430,7 +411,7 @@ try {
 }
 
 const KEY='zara_prof_v2';
-const vazio={config:{dataInicio:'',dataProva:''},disciplinas:[],cronogramas:[],tarefas:[],simulados:[],exercicios:[],carreira:{cargo:'',empresa:'',meta:'',carga:40,dias:0,competencias:[],obs:''},timers:{}};
+const vazio={config:{dataInicio:'',dataProva:''},disciplinas:[],cronogramas:[],tarefas:[],simulados:[],exercicios:[],timers:{}};
 let D=JSON.parse(localStorage.getItem(KEY))||JSON.parse(JSON.stringify(vazio));
 Object.keys(vazio).forEach(k=>{if(!D[k])D[k]=vazio[k];});
 
@@ -749,12 +730,7 @@ c.innerHTML=D.exercicios.slice().reverse().map(e=>{const tx=e.qtd>0?Math.round((
 function salvarExercicio(){const id=document.getElementById('exId').value;const data=document.getElementById('exData').value;const materia=document.getElementById('exMateria').value;const qtd=parseInt(document.getElementById('exQtd').value)||0;const acertos=parseInt(document.getElementById('exAcertos').value)||0;const tempo=parseInt(document.getElementById('exTempo').value)||0;const obs=document.getElementById('exObs').value;if(id){const e=D.exercicios.find(x=>x.id===id);if(e){e.data=data;e.materia=materia;e.qtd=qtd;e.acertos=acertos;e.tempo=tempo;e.obs=obs;}}else{D.exercicios.push({id:Date.now().toString(),data,materia,qtd,acertos,tempo,obs});}salvar();renderExercicios();fecharModal('modalExercicio');document.getElementById('exId').value='';document.getElementById('exData').value='';document.getElementById('exQtd').value='';document.getElementById('exAcertos').value='';document.getElementById('exTempo').value='';document.getElementById('exObs').value='';}
 function editEx(id){const e=D.exercicios.find(x=>x.id===id);if(!e)return;document.getElementById('exId').value=id;document.getElementById('exData').value=e.data;document.getElementById('exMateria').value=e.materia;document.getElementById('exQtd').value=e.qtd;document.getElementById('exAcertos').value=e.acertos;document.getElementById('exTempo').value=e.tempo;document.getElementById('exObs').value=e.obs||'';abrirModal('modalExercicio');}
 function delEx(id){if(!confirm('Excluir?'))return;D.exercicios=D.exercicios.filter(x=>x.id!==id);salvar();renderExercicios();}
-function renderCarreira(){document.getElementById('dispCargo').textContent=D.carreira.cargo||'-';document.getElementById('dispMeta').textContent=D.carreira.meta||'-';document.getElementById('dispDias').textContent=D.carreira.dias||0;document.getElementById('dispCarga').textContent=D.carreira.carga||0;document.getElementById('inputCargo').value=D.carreira.cargo||'';document.getElementById('inputEmpresa').value=D.carreira.empresa||'';document.getElementById('inputMeta').value=D.carreira.meta||'';document.getElementById('inputCarga').value=D.carreira.carga||40;document.getElementById('inputObs').value=D.carreira.obs||'';renderCompetencias();}
-function salvarCarreira(){D.carreira.cargo=document.getElementById('inputCargo').value;D.carreira.empresa=document.getElementById('inputEmpresa').value;D.carreira.meta=document.getElementById('inputMeta').value;D.carreira.carga=parseInt(document.getElementById('inputCarga').value)||40;D.carreira.obs=document.getElementById('inputObs').value;salvar();renderCarreira();}
-function renderCompetencias(){const c=document.getElementById('listaCompetencias');if(!D.carreira.competencias||!D.carreira.competencias.length){c.innerHTML='<div class="empty-state"><p>Nenhuma competencia.</p></div>';return;}
-c.innerHTML=D.carreira.competencias.map((cp,i)=>'<div class="item-card" style="padding:12px;margin-bottom:8px;"><div style="display:flex;justify-content:space-between;align-items:center;"><span>'+cp+'</span><button class="btn-icon delete" onclick="delComp('+i+')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div>').join('');}
-function addCompetencia(){const c=prompt('Digite a competencia:');if(c&&c.trim()){if(!D.carreira.competencias)D.carreira.competencias=[];D.carreira.competencias.push(c.trim());salvar();renderCompetencias();}}
-function delComp(i){D.carreira.competencias.splice(i,1);salvar();renderCompetencias();}
+
 async function inicializar(){
     await carregarSupabase();
     document.getElementById('dataInicio').value=D.config.dataInicio||'';
@@ -766,7 +742,6 @@ async function inicializar(){
     renderCron();
     renderSimulados();
     renderExercicios();
-    renderCarreira();
 }
 inicializar();
     </script>
