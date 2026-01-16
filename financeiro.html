@@ -5428,10 +5428,12 @@
             const valorTotal = todasParcelas.reduce((s, p) => s + p.valor, 0);
             const parcelasPagas = todasParcelas.filter(p => p.pago).length;
             const parcelasRestantes = todasParcelas.length - parcelasPagas;
-            const grupoPausado = primeiraParcela.grupoPausado || false;
-            const iconePlayPause = grupoPausado 
-                ? '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>' 
-                : '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>';
+            // true  = está pausado → mostrar PLAY
+            // false = está ativo   → mostrar PAUSE
+            const grupoPausado = !!primeiraParcela.grupoPausado;
+            const iconePlayPause = grupoPausado
+              ? '<svg class="icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>'
+              : '<svg class="icon" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
 
             // Linha principal com nome da despesa parcelada
             htmlVariaveis += `
@@ -5528,10 +5530,12 @@
         empContainer.innerHTML = emprestimosAtivos.map(e => {
             const percentQuitado = e.principalOriginal > 0 ? Math.round(((e.principalOriginal - e.principal) / e.principalOriginal) * 100) : 0;
             const temJurosPendentes = (e.jurosAcumulados || 0) > 0;
-            const estaPausado = e.pausado || false;
-            const iconePlayPauseEmp = estaPausado 
-                ? '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>' 
-                : '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>';
+            // true  = está pausado → mostrar PLAY
+            // false = está ativo   → mostrar PAUSE
+            const estaPausado = !!e.pausado;
+            const iconePlayPauseEmp = estaPausado
+              ? '<svg class="icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>'
+              : '<svg class="icon" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
 
             return `
                 <div class="emprestimo-card${estaPausado ? ' pausado' : ''}">
