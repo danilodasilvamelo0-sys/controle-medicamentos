@@ -387,7 +387,7 @@
     </div>
     <div class="modal-overlay" id="modalDisciplina"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Disciplina</h3><button class="modal-close" onclick="fecharModal('modalDisciplina')">&times;</button></div><input type="hidden" id="discId"><div class="form-group"><label>Nome</label><input type="text" id="discNome"></div><div class="form-group"><label>Dias Estudados</label><input type="number" id="discDias" value="0"></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalDisciplina')">Cancelar</button><button class="btn btn-primary" onclick="salvarDisciplina()">Salvar</button></div></div></div>
     <div class="modal-overlay" id="modalSemana"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Nova Semana</h3><button class="modal-close" onclick="fecharModal('modalSemana')">&times;</button></div><div class="form-row"><div class="form-group"><label>Inicio</label><input type="date" id="semInicio"></div><div class="form-group"><label>Fim</label><input type="date" id="semFim"></div></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalSemana')">Cancelar</button><button class="btn btn-primary" onclick="criarSemana()">Criar</button></div></div></div>
-    <div class="modal-overlay" id="modalAtividade"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Atividade</h3><button class="modal-close" onclick="fecharModal('modalAtividade')">&times;</button></div><input type="hidden" id="atId"><input type="hidden" id="atSemId"><input type="hidden" id="atDia"><div class="form-group"><label>Materia</label><select id="atMateria"></select></div><div class="form-group"><label>Assunto</label><input type="text" id="atAssunto"></div><div class="form-group"><label>Tipo</label><select id="atTipo"><option>Estudo</option><option>Lei Seca</option><option>Revisao</option><option>Video Aula</option><option>Questoes</option></select></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalAtividade')">Cancelar</button><button class="btn btn-primary" onclick="salvarAtividade()">Salvar</button></div></div></div>
+    <div class="modal-overlay" id="modalAtividade"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Atividade</h3><button class="modal-close" onclick="fecharModal('modalAtividade')">&times;</button></div><input type="hidden" id="atId"><input type="hidden" id="atSemId"><input type="hidden" id="atDia"><div class="form-group"><label>Matéria</label><select id="atMateria"></select></div><div class="form-group"><label>Tipos de Estudo (selecione)</label><div class="checkbox-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;"><label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="checkbox" class="tipo-check" value="Estudo"> Estudo</label><label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="checkbox" class="tipo-check" value="Lei Seca"> Lei Seca</label><label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="checkbox" class="tipo-check" value="Revisão"> Revisão</label><label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="checkbox" class="tipo-check" value="Vídeo Aula"> Vídeo Aula</label><label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="checkbox" class="tipo-check" value="Questões"> Questões</label><label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="checkbox" class="tipo-check" value="Simulado"> Simulado</label></div></div><div class="form-group"><label>Assuntos (opcional, separar por vírgula)</label><input type="text" id="atAssunto" placeholder="Ex: Art. 5º, Princípios"></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalAtividade')">Cancelar</button><button class="btn btn-primary" onclick="salvarAtividade()">Salvar</button></div></div></div>
     <div class="modal-overlay" id="modalTarefa"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Tarefa</h3><button class="modal-close" onclick="fecharModal('modalTarefa')">&times;</button></div><input type="hidden" id="tarId"><div class="form-row"><div class="form-group"><label>Horario</label><input type="time" id="tarHora"></div><div class="form-group"><label>Categoria</label><select id="tarCat"><option>Leitura</option><option>Aula</option><option>Questoes</option><option>Revisao</option></select></div></div><div class="form-group"><label>Descricao</label><input type="text" id="tarDesc"></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalTarefa')">Cancelar</button><button class="btn btn-primary" onclick="salvarTarefa()">Salvar</button></div></div></div>
     <div class="modal-overlay" id="modalSimulado"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Simulado</h3><button class="modal-close" onclick="fecharModal('modalSimulado')">&times;</button></div><input type="hidden" id="simId"><div class="form-row"><div class="form-group"><label>Data</label><input type="date" id="simData"></div><div class="form-group"><label>Nota %</label><input type="number" id="simNota" min="0" max="100"></div></div><div class="form-row"><div class="form-group"><label>Total</label><input type="number" id="simTotal"></div><div class="form-group"><label>Acertos</label><input type="number" id="simAcertos"></div></div><div class="form-group"><label>Obs</label><textarea id="simObs"></textarea></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalSimulado')">Cancelar</button><button class="btn btn-primary" onclick="salvarSimulado()">Salvar</button></div></div></div>
     <div class="modal-overlay" id="modalExercicio"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Exercicio</h3><button class="modal-close" onclick="fecharModal('modalExercicio')">&times;</button></div><input type="hidden" id="exId"><div class="form-row"><div class="form-group"><label>Data</label><input type="date" id="exData"></div><div class="form-group"><label>Materia</label><select id="exMateria"></select></div></div><div class="form-row"><div class="form-group"><label>Questoes</label><input type="number" id="exQtd"></div><div class="form-group"><label>Acertos</label><input type="number" id="exAcertos"></div></div><div class="form-group"><label>Tempo (min)</label><input type="number" id="exTempo"></div><div class="form-group"><label>Obs</label><textarea id="exObs"></textarea></div><div class="modal-footer"><button class="btn btn-secondary" onclick="fecharModal('modalExercicio')">Cancelar</button><button class="btn btn-primary" onclick="salvarExercicio()">Salvar</button></div></div></div>
@@ -662,7 +662,8 @@ function abrirAt(sid,dia){
     document.getElementById('atDia').value=dia;
     document.getElementById('atAssunto').value='';
     document.getElementById('atMateria').selectedIndex=0;
-    document.getElementById('atTipo').selectedIndex=0;
+    // Limpar todos os checkboxes de tipo
+    document.querySelectorAll('.tipo-check').forEach(cb => cb.checked = false);
     abrirModal('modalAtividade');
 }
 
@@ -674,8 +675,11 @@ function editAt(sid,aid){
     document.getElementById('atSemId').value=sid;
     document.getElementById('atDia').value=a.dia;
     document.getElementById('atMateria').value=a.materia;
-    document.getElementById('atAssunto').value=a.assunto;
-    document.getElementById('atTipo').value=a.tipo;
+    document.getElementById('atAssunto').value=a.assunto || '';
+    // Limpar e marcar o checkbox do tipo atual
+    document.querySelectorAll('.tipo-check').forEach(cb => {
+        cb.checked = (cb.value === a.tipo);
+    });
     abrirModal('modalAtividade');
 }
 
@@ -684,21 +688,67 @@ function salvarAtividade(){
     const sid=document.getElementById('atSemId').value;
     const dia=parseInt(document.getElementById('atDia').value);
     const mat=document.getElementById('atMateria').value;
-    const ass=document.getElementById('atAssunto').value;
-    const tipo=document.getElementById('atTipo').value;
+    const assuntoText=document.getElementById('atAssunto').value.trim();
+    
+    // Coletar tipos selecionados
+    const tiposSelecionados = [];
+    document.querySelectorAll('.tipo-check:checked').forEach(cb => {
+        tiposSelecionados.push(cb.value);
+    });
+    
+    // Coletar assuntos (separados por vírgula)
+    const assuntos = assuntoText ? assuntoText.split(',').map(a => a.trim()).filter(a => a) : [];
+    
     if(!mat)return alert('Selecione uma matéria.');
+    if(tiposSelecionados.length === 0 && assuntos.length === 0) return alert('Selecione pelo menos um tipo ou digite um assunto.');
+    
     const s=D.cronogramas.find(x=>x.id===sid);
     if(!s)return;
     if(!s.atividades)s.atividades=[];
+    
     if(id){
+        // Editando - atualizar apenas este item
         const a=s.atividades.find(x=>x.id===id);
-        if(a){a.materia=mat;a.assunto=ass;a.tipo=tipo;a.dia=dia;}
+        if(a){
+            a.materia=mat;
+            a.assunto=assuntos[0] || '';
+            a.tipo=tiposSelecionados[0] || '';
+            a.dia=dia;
+        }
     }else{
-        s.atividades.push({id:Date.now().toString(),dia,materia:mat,assunto:ass,tipo,ok:false});
+        // Novo - criar um item para cada tipo selecionado
+        tiposSelecionados.forEach(tipo => {
+            s.atividades.push({
+                id: Date.now().toString() + Math.random().toString(36).substr(2,5),
+                dia,
+                materia: mat,
+                assunto: '',
+                tipo: tipo,
+                ok: false
+            });
+        });
+        
+        // Criar um item para cada assunto digitado
+        assuntos.forEach(assunto => {
+            s.atividades.push({
+                id: Date.now().toString() + Math.random().toString(36).substr(2,5),
+                dia,
+                materia: mat,
+                assunto: assunto,
+                tipo: 'Estudo',
+                ok: false
+            });
+        });
     }
+    
     salvar();
     renderCron();
     fecharModal('modalAtividade');
+    
+    // Limpar checkboxes
+    document.querySelectorAll('.tipo-check').forEach(cb => cb.checked = false);
+    document.getElementById('atAssunto').value = '';
+    document.getElementById('atId').value = '';
 }
 
 function delAt(sid,aid){
