@@ -3975,11 +3975,18 @@
 
     // Pausar/Despausar grupo parcelado
     function togglePauseGrupoParcelado(grupoId) {
-        const parcelasDoGrupo = financeiro.despesasVariaveis.filter(d => d.grupoParcelaId === grupoId);
-        if (!parcelasDoGrupo.length) return;
+        // Converter para string para garantir comparação correta
+        const grupoIdStr = String(grupoId);
+        const parcelasDoGrupo = financeiro.despesasVariaveis.filter(d => String(d.grupoParcelaId) === grupoIdStr);
+        if (!parcelasDoGrupo.length) {
+            console.log('Nenhuma parcela encontrada para grupoId:', grupoId);
+            return;
+        }
         
         const primeiraParcela = parcelasDoGrupo[0];
-        const estaPausado = primeiraParcela.grupoPausado || false;
+        const estaPausado = !!primeiraParcela.grupoPausado;
+        
+        console.log('Toggle pause:', primeiraParcela.descricao, 'estaPausado:', estaPausado);
         
         if (estaPausado) {
             // DESPAUSAR - recalcular datas das parcelas pendentes a partir do mês atual
@@ -5423,8 +5430,9 @@
             const parcelas = gruposParcelados[grupoId].sort((a, b) => a.parcelaAtual - b.parcelaAtual);
             const primeiraParcela = parcelas[0];
 
-            // Calcular totais
-            const todasParcelas = financeiro.despesasVariaveis.filter(dv => dv.grupoParcelaId === grupoId);
+            // Calcular totais (converter para string para comparação segura)
+            const grupoIdStr = String(grupoId);
+            const todasParcelas = financeiro.despesasVariaveis.filter(dv => String(dv.grupoParcelaId) === grupoIdStr);
             const valorTotal = todasParcelas.reduce((s, p) => s + p.valor, 0);
             const parcelasPagas = todasParcelas.filter(p => p.pago).length;
             const parcelasRestantes = todasParcelas.length - parcelasPagas;
