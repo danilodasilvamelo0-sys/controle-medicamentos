@@ -112,6 +112,13 @@
         .selo-predador svg{width:60px;height:60px;color:#d4af7d;margin-bottom:15px}
         .selo-predador h2{font-family:"Cinzel",serif;font-size:1.8em;color:#d4af7d;letter-spacing:4px;margin-bottom:8px}
         .selo-predador p{color:rgba(255,255,255,.6)}
+        .fase-progress-container{background:rgba(0,0,0,.3);border:1px solid rgba(212,175,125,.2);border-radius:6px;padding:12px 15px;margin-bottom:15px}
+        .fase-progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+        .fase-progress-label{font-family:"Cinzel",serif;font-size:.85em;color:#d4af7d;letter-spacing:1px}
+        .fase-progress-count{font-family:"Cinzel",serif;font-size:.9em;color:rgba(255,255,255,.7)}
+        .fase-progress-bar{height:10px;background:rgba(212,175,125,.15);border-radius:5px;overflow:hidden;position:relative}
+        .fase-progress-fill{height:100%;background:linear-gradient(90deg,#d4af7d,#c9a066);border-radius:5px;transition:width .5s ease}
+        .fase-progress-percent{text-align:right;font-size:.75em;color:rgba(212,175,125,.7);margin-top:5px}
     </style>
 </head>
 <body>
@@ -510,13 +517,42 @@ function atualizarEssenciaToji(){
     const el=document.getElementById('essenciaValor');if(el)el.textContent=Math.round(media)+'%';
     const circle=document.getElementById('essenciaCircle');if(circle){const circ=2*Math.PI*60;circle.style.strokeDashoffset=circ-(media/100)*circ;}
 }
+function getFaseProgresso(faseId){return parseInt(localStorage.getItem('toji_fase'+faseId+'_progresso'))||0;}
+function setFaseProgresso(faseId,valor){localStorage.setItem('toji_fase'+faseId+'_progresso',Math.min(90,Math.max(0,valor)));}
+function verificarProgressoDiario(){
+    const hoje=new Date().toDateString();
+    const ultimaVerif=localStorage.getItem('toji_ultima_verificacao');
+    if(ultimaVerif===hoje)return;
+    const rituaisCompletos=RITUAIS_TOJI.every(r=>tojiData.rituais[r.id]);
+    if(rituaisCompletos){
+        const faseAtiva=detectarFaseAtiva();
+        if(faseAtiva){
+            const atual=getFaseProgresso(faseAtiva);
+            if(atual<90){
+                setFaseProgresso(faseAtiva,atual+1);
+                localStorage.setItem('toji_ultima_verificacao',hoje);
+                showToast('Dia concluído! Fase '+faseAtiva+': '+(atual+1)+'/90','success');
+                renderBlocosToji();
+            }
+        }
+    }
+}
+function detectarFaseAtiva(){
+    for(let i=1;i<=4;i++){
+        const prog=getFaseProgresso(i);
+        if(prog<90)return i;
+    }
+    return null;
+}
 function renderBlocosToji(){
     const c=document.getElementById('blocosContainer');if(!c)return;
     const checkSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
     const chevSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>';
     c.innerHTML=BLOCOS_TOJI.map(b=>{
         const bd=tojiData.blocos[b.id]||{metas:{},prova:false,open:false};
-        return `<div class="bloco-toji ${bd.open?'open':''}" id="bloco-toji-${b.id}"><div class="bloco-header-toji" onclick="toggleBlocoToji(${b.id})"><div class="bloco-info"><div class="bloco-num">${b.id}</div><div><div class="bloco-nome">${b.nome}</div><div class="bloco-dias">${b.dias}</div></div></div><div class="bloco-status-toji"><div class="bloco-check-toji ${bd.prova?'done':''}">${checkSvg}</div><div class="bloco-toggle">${chevSvg}</div></div></div><div class="bloco-content-toji"><p class="bloco-frase-toji">"${b.frase}"</p><div class="bloco-metas">${b.metas.map((m,i)=>`<div class="meta-item-toji"><div class="meta-check-toji ${bd.metas[i]?'checked':''}" onclick="toggleMetaToji(${b.id},${i})">${checkSvg}</div><span>${m}</span></div>`).join('')}</div><div class="prova-final-toji"><h5>⚔️ PROVA FINAL</h5><p>${b.prova}</p><button class="prova-btn-toji ${bd.prova?'done':''}" onclick="toggleProvaToji(${b.id})">${bd.prova?'✓ CONCLUÍDA':'MARCAR CONCLUÍDA'}</button></div></div></div>`;
+        const progresso=getFaseProgresso(b.id);
+        const percentual=Math.floor((progresso/90)*100);
+        return `<div class="bloco-toji ${bd.open?'open':''}" id="bloco-toji-${b.id}"><div class="bloco-header-toji" onclick="toggleBlocoToji(${b.id})"><div class="bloco-info"><div class="bloco-num">${b.id}</div><div><div class="bloco-nome">${b.nome}</div><div class="bloco-dias">${b.dias}</div></div></div><div class="bloco-status-toji"><div class="bloco-check-toji ${bd.prova?'done':''}">${checkSvg}</div><div class="bloco-toggle">${chevSvg}</div></div></div><div class="bloco-content-toji"><div class="fase-progress-container"><div class="fase-progress-header"><span class="fase-progress-label">PROGRESSO DA FASE</span><span class="fase-progress-count">${progresso}/90 dias</span></div><div class="fase-progress-bar"><div class="fase-progress-fill" style="width:${percentual}%"></div></div><div class="fase-progress-percent">${percentual}% concluído</div></div><p class="bloco-frase-toji">"${b.frase}"</p><div class="bloco-metas">${b.metas.map((m,i)=>`<div class="meta-item-toji"><div class="meta-check-toji ${bd.metas[i]?'checked':''}" onclick="toggleMetaToji(${b.id},${i})">${checkSvg}</div><span>${m}</span></div>`).join('')}</div><div class="prova-final-toji"><h5>⚔️ PROVA FINAL</h5><p>${b.prova}</p><button class="prova-btn-toji ${bd.prova?'done':''}" onclick="toggleProvaToji(${b.id})">${bd.prova?'✓ CONCLUÍDA':'MARCAR CONCLUÍDA'}</button></div></div></div>`;
     }).join('');
 }
 function toggleBlocoToji(id){if(!tojiData.blocos[id])tojiData.blocos[id]={metas:{},prova:false,open:false};tojiData.blocos[id].open=!tojiData.blocos[id].open;saveToji();renderBlocosToji();}
@@ -533,7 +569,7 @@ function renderRituaisToji(){
     const done=RITUAIS_TOJI.filter(r=>tojiData.rituais[r.id]).length;
     const prog=document.getElementById('rituaisTojProgress');if(prog)prog.textContent=`${done} / ${RITUAIS_TOJI.length} rituais hoje`;
 }
-function toggleRitualToji(id){tojiData.rituais[id]=!tojiData.rituais[id];saveToji();renderRituaisToji();}
+function toggleRitualToji(id){tojiData.rituais[id]=!tojiData.rituais[id];saveToji();renderRituaisToji();verificarProgressoDiario();}
 function renderCortesToji(){
     const c=document.getElementById('cortesListaToji');if(!c)return;
     const last7=tojiData.cortes.slice(-7).reverse();
