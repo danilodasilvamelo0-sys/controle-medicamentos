@@ -3980,6 +3980,7 @@
         
         // Verificar estado atual (baseado na primeira parcela)
         const estaPausado = parcelas[0].pausado === true;
+        const desc = parcelas[0].descricao;
         
         if (estaPausado) {
             // DESPAUSAR: reativar e recalcular datas
@@ -3998,25 +3999,14 @@
             // Marcar pagas como não pausadas também
             parcelas.filter(p => p.pago).forEach(p => p.pausado = false);
             
-            const desc = parcelas[0].descricao;
-            const proxParcela = parcelasPendentes[0];
-            if (proxParcela) {
-                mostrarToast(`"${desc}" reativado! Parcela ${proxParcela.parcelaAtual}/${proxParcela.totalParcelas} começa este mês.`, 'success');
-            }
+            alert(`"${desc}" foi REATIVADO!`);
         } else {
             // PAUSAR: marcar todas as parcelas como pausadas
             parcelas.forEach(p => {
                 p.pausado = true;
             });
             
-            const desc = parcelas[0].descricao;
-            const pendentes = parcelas.filter(p => !p.pago);
-            if (pendentes.length > 0) {
-                const proxParcela = pendentes.sort((a, b) => a.parcelaAtual - b.parcelaAtual)[0];
-                mostrarToast(`"${desc}" pausado na parcela ${proxParcela.parcelaAtual}/${proxParcela.totalParcelas}.`, 'warning');
-            } else {
-                mostrarToast(`"${desc}" pausado.`, 'warning');
-            }
+            alert(`"${desc}" foi PAUSADO!`);
         }
         
         salvarDados();
