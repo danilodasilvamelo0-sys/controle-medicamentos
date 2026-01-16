@@ -5429,6 +5429,9 @@
             const parcelasPagas = todasParcelas.filter(p => p.pago).length;
             const parcelasRestantes = todasParcelas.length - parcelasPagas;
             const grupoPausado = primeiraParcela.grupoPausado || false;
+            const iconePlayPause = grupoPausado 
+                ? '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>' 
+                : '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>';
 
             // Linha principal com nome da despesa parcelada
             htmlVariaveis += `
@@ -5445,9 +5448,7 @@
                                 <span style="color: rgba(255,255,255,0.4); font-size: 0.8em;">Total: ${formatarMoeda(valorTotal)}</span>
                                 <div class="action-buttons">
                                     <button class="action-btn btn-pause${grupoPausado ? ' active' : ''}" onclick="togglePauseGrupoParcelado('${grupoId}')" title="${grupoPausado ? 'Despausar' : 'Pausar'}">
-                                        ${grupoPausado 
-                                            ? '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>' 
-                                            : '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>'}
+                                        ${iconePlayPause}
                                     </button>
                                     <button class="action-btn btn-edit" onclick="editarDespesaVariavel(${primeiraParcela.id})" title="Editar">
                                         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -5528,6 +5529,9 @@
             const percentQuitado = e.principalOriginal > 0 ? Math.round(((e.principalOriginal - e.principal) / e.principalOriginal) * 100) : 0;
             const temJurosPendentes = (e.jurosAcumulados || 0) > 0;
             const estaPausado = e.pausado || false;
+            const iconePlayPauseEmp = estaPausado 
+                ? '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>' 
+                : '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>';
 
             return `
                 <div class="emprestimo-card${estaPausado ? ' pausado' : ''}">
@@ -5542,9 +5546,7 @@
                         </div>
                         <div class="emprestimo-card-acoes">
                             <button class="action-btn btn-pause${estaPausado ? ' active' : ''}" onclick="togglePauseEmprestimo(${e.id})" title="${estaPausado ? 'Despausar' : 'Pausar'}">
-                                ${estaPausado 
-                                    ? '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>' 
-                                    : '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>'}
+                                ${iconePlayPauseEmp}
                             </button>
                             <button class="action-btn btn-edit" onclick="editarEmprestimo(${e.id})" title="Editar">
                                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
