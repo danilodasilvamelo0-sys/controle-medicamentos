@@ -482,6 +482,37 @@
         background: rgba(192, 57, 43, 0.1);
     }
 
+    .action-btn.btn-pause {
+        color: rgba(241, 196, 15, 0.6);
+    }
+    .action-btn.btn-pause:hover {
+        color: #f1c40f;
+        background: rgba(241, 196, 15, 0.1);
+    }
+    .action-btn.btn-pause.active {
+        color: #f1c40f;
+        background: rgba(241, 196, 15, 0.15);
+    }
+
+    .badge.pausado {
+        background: rgba(241, 196, 15, 0.15);
+        color: #f1c40f;
+        font-size: 0.7em;
+        padding: 2px 6px;
+        border-radius: 4px;
+        margin-left: 8px;
+    }
+
+    .emprestimo-card.pausado {
+        opacity: 0.6;
+        border-left: 3px solid #f1c40f;
+    }
+
+    .grupo-parcelado.pausado {
+        opacity: 0.6;
+        border-left: 3px solid #f1c40f;
+    }
+
     .action-btn.btn-comprovante {
         color: rgba(46, 204, 113, 0.6);
     }
@@ -2521,11 +2552,12 @@
                 <span>Profissional</span>
             </a>
             <div class="sidebar-divider"></div>
-            <a href="comando.html">
+            <a href="pessoal.html">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
                 </svg>
-                <span>Comando</span>
+                <span>Pessoal</span>
             </a>
         </div>
         <div class="sidebar-footer">
@@ -2563,11 +2595,12 @@
                 </svg>
                 Prof.
             </a>
-            <a href="comando.html" class="mobile-nav-item">
+            <a href="pessoal.html" class="mobile-nav-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
                 </svg>
-                Comando
+                Pessoal
             </a>
         </div>
     </nav>
@@ -3940,6 +3973,61 @@
         renderizar();
     }
 
+    // Pausar/Despausar grupo parcelado
+    function togglePauseGrupoParcelado(grupoId) {
+        const parcelasDoGrupo = financeiro.despesasVariaveis.filter(d => d.grupoParcelaId === grupoId);
+        if (!parcelasDoGrupo.length) return;
+        
+        const primeiraParcela = parcelasDoGrupo[0];
+        const estaPausado = primeiraParcela.grupoPausado || false;
+        
+        if (estaPausado) {
+            // DESPAUSAR - recalcular datas das parcelas pendentes a partir do mês atual
+            const hoje = new Date();
+            
+            // Pegar parcelas não pagas ordenadas
+            const parcelasPendentes = parcelasDoGrupo.filter(p => !p.pago).sort((a, b) => a.parcelaAtual - b.parcelaAtual);
+            
+            if (parcelasPendentes.length > 0) {
+                // Pegar dia original do vencimento
+                const diaVencimento = parseInt(parcelasPendentes[0].data.split('-')[2]) || 1;
+                
+                // Recalcular datas mantendo a ordem das parcelas
+                parcelasPendentes.forEach((p, idx) => {
+                    const novaData = new Date(hoje.getFullYear(), hoje.getMonth() + idx, diaVencimento);
+                    p.data = `${novaData.getFullYear()}-${String(novaData.getMonth() + 1).padStart(2, '0')}-${String(novaData.getDate()).padStart(2, '0')}`;
+                });
+                
+                const proxParcela = parcelasPendentes[0];
+                mostrarToast(`"${primeiraParcela.descricao}" reativado! Continua na parcela ${proxParcela.parcelaAtual}/${proxParcela.totalParcelas} a partir deste mês.`, 'success');
+            }
+            
+            // Marcar como não pausado em todas as parcelas
+            parcelasDoGrupo.forEach(p => {
+                p.grupoPausado = false;
+                p.dataPausado = null;
+            });
+        } else {
+            // PAUSAR - guardar informação de onde parou
+            const parcelasPendentes = parcelasDoGrupo.filter(p => !p.pago).sort((a, b) => a.parcelaAtual - b.parcelaAtual);
+            const proxParcela = parcelasPendentes[0];
+            
+            parcelasDoGrupo.forEach(p => {
+                p.grupoPausado = true;
+                p.dataPausado = new Date().toISOString();
+            });
+            
+            if (proxParcela) {
+                mostrarToast(`"${primeiraParcela.descricao}" pausado na parcela ${proxParcela.parcelaAtual}/${proxParcela.totalParcelas}. Não será contabilizado.`, 'warning');
+            } else {
+                mostrarToast(`"${primeiraParcela.descricao}" pausado.`, 'warning');
+            }
+        }
+        
+        salvarDados();
+        renderizar();
+    }
+
     function deletarTodasParcelas(id) {
         const despesa = financeiro.despesasVariaveis.find(d => d.id === id);
         if (!despesa || !despesa.grupoParcelaId) return;
@@ -4658,6 +4746,30 @@
         renderizar();
     }
 
+    // Pausar/Despausar empréstimo
+    function togglePauseEmprestimo(id) {
+        const emp = financeiro.emprestimos.find(e => e.id === id);
+        if (!emp) return;
+        
+        if (emp.pausado) {
+            // DESPAUSAR - recomeça a contar do mês atual
+            emp.pausado = false;
+            emp.dataPausado = null;
+            // Resetar data de início para o mês atual (a dívida recomeça agora)
+            const hoje = new Date();
+            emp.dataInicioPause = `${hoje.getFullYear()}-${String(hoje.getMonth() + 1).padStart(2, '0')}-01`;
+            mostrarToast(`"${emp.descricao}" foi reativado e recomeça a contar a partir deste mês.`, 'success');
+        } else {
+            // PAUSAR - para de contabilizar
+            emp.pausado = true;
+            emp.dataPausado = new Date().toISOString();
+            mostrarToast(`"${emp.descricao}" foi pausado. Não será contabilizado até ser reativado.`, 'warning');
+        }
+        
+        salvarDados();
+        renderizar();
+    }
+
     // Toggle menu de ações
     function toggleMenuAcoes(id) {
         // Fechar todos os outros menus
@@ -5051,13 +5163,16 @@
         const fixasMes = getDespesasFixasMes();
         const variaveisMes = filtrarPorMes(financeiro.despesasVariaveis);
         const emprestimosAtivos = financeiro.emprestimos.filter(e => !e.arquivado);
+        // Empréstimos para cálculos (exclui pausados)
+        const emprestimosParaCalculo = emprestimosAtivos.filter(e => !e.pausado);
 
-        // Cálculos do mês
+        // Cálculos do mês (exclui parcelados pausados)
+        const variaveisParaCalculo = variaveisMes.filter(d => !d.grupoPausado);
         const totalRecebido = receitasMes.filter(r => r.recebido).reduce((s, r) => s + r.valor, 0);
         const totalPagoFixas = fixasMes.filter(d => d.pago).reduce((s, d) => s + d.valor, 0);
-        const totalPagoVar = variaveisMes.filter(d => d.pago).reduce((s, d) => s + d.valor, 0);
+        const totalPagoVar = variaveisParaCalculo.filter(d => d.pago).reduce((s, d) => s + d.valor, 0);
         const totalPago = totalPagoFixas + totalPagoVar;
-        const totalDespesasMes = fixasMes.reduce((s, d) => s + d.valor, 0) + variaveisMes.reduce((s, d) => s + d.valor, 0);
+        const totalDespesasMes = fixasMes.reduce((s, d) => s + d.valor, 0) + variaveisParaCalculo.reduce((s, d) => s + d.valor, 0);
         
         // Total de economias (soma dos saldos de todas as reservas)
         const totalEconomiaGeral = (financeiro.economias || []).reduce((s, e) => s + (e.saldo !== undefined ? e.saldo : (e.valor || 0)), 0);
@@ -5313,21 +5428,29 @@
             const valorTotal = todasParcelas.reduce((s, p) => s + p.valor, 0);
             const parcelasPagas = todasParcelas.filter(p => p.pago).length;
             const parcelasRestantes = todasParcelas.length - parcelasPagas;
+            const grupoPausado = primeiraParcela.grupoPausado || false;
 
             // Linha principal com nome da despesa parcelada
             htmlVariaveis += `
-                <tr style="background: rgba(52, 152, 219, 0.05); font-weight: 500;">
+                <tr class="grupo-parcelado${grupoPausado ? ' pausado' : ''}" style="background: rgba(52, 152, 219, 0.05); font-weight: 500;">
                     <td colspan="6" style="padding: 12px 15px;">
                         <div style="display: flex; align-items: center; justify-content: space-between;">
                             <div style="display: flex; align-items: center; gap: 10px;">
                                 <span style="font-size: 1em;">${primeiraParcela.descricao}</span>
-                                <span class="badge parcela">Parcelado</span>
+                                ${grupoPausado ? '<span class="badge pausado">⏸ PAUSADO</span>' : '<span class="badge parcela">Parcelado</span>'}
                                 <span class="categoria">${primeiraParcela.categoria}</span>
                             </div>
                             <div style="display: flex; align-items: center; gap: 15px;">
                                 <span style="color: rgba(255,255,255,0.6); font-size: 0.85em;">Restam: ${parcelasRestantes} parcelas</span>
                                 <span style="color: rgba(255,255,255,0.4); font-size: 0.8em;">Total: ${formatarMoeda(valorTotal)}</span>
                                 <div class="action-buttons">
+                                    <button class="action-btn btn-pause${grupoPausado ? ' active' : ''}" onclick="togglePauseGrupoParcelado('${grupoId}')" title="${grupoPausado ? 'Despausar' : 'Pausar'}">
+                                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                            ${grupoPausado 
+                                                ? '<polygon points="5 3 19 12 5 21 5 3"></polygon>' 
+                                                : '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>'}
+                                        </svg>
+                                    </button>
                                     <button class="action-btn btn-edit" onclick="editarDespesaVariavel(${primeiraParcela.id})" title="Editar">
                                         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -5406,18 +5529,27 @@
         empContainer.innerHTML = emprestimosAtivos.map(e => {
             const percentQuitado = e.principalOriginal > 0 ? Math.round(((e.principalOriginal - e.principal) / e.principalOriginal) * 100) : 0;
             const temJurosPendentes = (e.jurosAcumulados || 0) > 0;
+            const estaPausado = e.pausado || false;
 
             return `
-                <div class="emprestimo-card">
+                <div class="emprestimo-card${estaPausado ? ' pausado' : ''}">
                     <div class="emprestimo-card-header">
                         <div class="emprestimo-card-title">
                             ${e.descricao}
-                            ${temJurosPendentes ? '<span class="badge juros-pendente"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Juros</span>' : ''}
+                            ${estaPausado ? '<span class="badge pausado">⏸ PAUSADO</span>' : ''}
+                            ${temJurosPendentes && !estaPausado ? '<span class="badge juros-pendente"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Juros</span>' : ''}
                             <small>
                                 <span class="categoria">${e.categoria}</span> • Taxa: ${e.taxaJuros}% a.m.
                             </small>
                         </div>
                         <div class="emprestimo-card-acoes">
+                            <button class="action-btn btn-pause${estaPausado ? ' active' : ''}" onclick="togglePauseEmprestimo(${e.id})" title="${estaPausado ? 'Despausar' : 'Pausar'}">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    ${estaPausado 
+                                        ? '<polygon points="5 3 19 12 5 21 5 3"></polygon>' 
+                                        : '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>'}
+                                </svg>
+                            </button>
                             <button class="action-btn btn-edit" onclick="editarEmprestimo(${e.id})" title="Editar">
                                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -5565,7 +5697,7 @@
         }).join('');
 
         // Renderizar Balanço Geral (ETAPA 4)
-        renderizarBalanco(totalRecebido, totalDespesasMes, emprestimosAtivos, totalEconomiaGeral);
+        renderizarBalanco(totalRecebido, totalDespesasMes, emprestimosParaCalculo, totalEconomiaGeral);
     }
 
     // Renderizar itens arquivados
