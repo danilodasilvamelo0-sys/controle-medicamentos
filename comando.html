@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -216,6 +217,29 @@
         .selo-shelby svg{width:60px;height:60px;color:#d4af7d;margin-bottom:15px}
         .selo-shelby h2{font-family:'Cinzel',serif;font-size:1.5em;color:#d4af7d;letter-spacing:3px;margin-bottom:8px}
         .selo-shelby p{color:rgba(255,255,255,.6)}
+        /* ANÁLISE ILÍCITA */
+        .analise-ilicita{background:linear-gradient(135deg,rgba(26,58,74,.2),rgba(10,30,40,.3));border:1px solid rgba(26,58,74,.4);border-radius:8px;padding:25px}
+        .analise-quote{font-style:italic;color:rgba(93,138,168,.9);font-size:1.05em;text-align:center;padding:15px 20px;margin-bottom:20px;border-left:3px solid #1a3a4a;background:rgba(0,0,0,.2)}
+        .analise-ilicita h5{font-family:'Cinzel',serif;color:#5d8aa8;letter-spacing:2px;margin-bottom:20px;font-size:.9em}
+        .analise-pontos{display:flex;flex-direction:column;gap:15px;margin-bottom:20px}
+        .analise-ponto{display:flex;gap:15px;align-items:flex-start;padding:12px;background:rgba(0,0,0,.2);border-radius:6px;border-left:2px solid #1a3a4a}
+        .ponto-num{width:28px;height:28px;min-width:28px;background:rgba(26,58,74,.4);border:1px solid #1a3a4a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;color:#5d8aa8;font-size:.9em}
+        .analise-ponto strong{color:#d4af7d;display:block;margin-bottom:5px;font-size:.95em}
+        .analise-ponto p{color:rgba(255,255,255,.6);font-size:.85em;line-height:1.5;margin:0}
+        .analise-conclusao{background:rgba(26,58,74,.15);border:1px solid rgba(26,58,74,.3);border-radius:6px;padding:15px;text-align:center}
+        .analise-conclusao strong{color:#5d8aa8}
+        .analise-conclusao{color:rgba(255,255,255,.7);font-size:.9em}
+        /* CRIMES GRID */
+        .crimes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:20px}
+        .crime-item{display:flex;align-items:center;gap:15px;padding:15px;background:rgba(0,0,0,.3);border:1px solid rgba(26,58,74,.3);border-radius:8px;transition:all .3s}
+        .crime-item:hover{border-color:#1a3a4a;background:rgba(26,58,74,.1)}
+        .crime-icon{width:40px;height:40px;min-width:40px;background:rgba(26,58,74,.3);border:1px solid rgba(26,58,74,.5);border-radius:8px;display:flex;align-items:center;justify-content:center}
+        .crime-icon svg{width:20px;height:20px;stroke:#5d8aa8}
+        .crime-info h6{font-family:'Cinzel',serif;color:#5d8aa8;font-size:.85em;letter-spacing:1px;margin-bottom:4px}
+        .crime-info p{color:rgba(255,255,255,.5);font-size:.8em;line-height:1.4;margin:0}
+        .crimes-footer{background:rgba(26,58,74,.1);border:1px solid rgba(26,58,74,.2);border-radius:6px;padding:15px;text-align:center}
+        .crimes-footer p{color:rgba(255,255,255,.6);font-size:.85em;line-height:1.6;margin:0}
+        .crimes-footer strong{color:#d4af7d}
     </style>
 </head>
 <body>
@@ -421,6 +445,36 @@
                         <h4 class="section-title-shelby ilicito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> TRAÇOS ILÍCITOS SHELBY</h4>
                         <div id="tracosIlicitosGrid" class="tracos-shelby-grid"></div>
                     </div>
+                    <!-- ANÁLISE DO LADO ILÍCITO -->
+                    <div class="shelby-section">
+                        <h4 class="section-title-shelby ilicito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> ANÁLISE DO LADO ILÍCITO</h4>
+                        <div class="analise-ilicita">
+                            <p class="analise-quote">"Eu não sou um criminoso. Eu sou um estrategista que opera onde o sistema não alcança."</p>
+                            <h5>RESUMO TÁTICO DO COMPORTAMENTO ILÍCITO</h5>
+                            <div class="analise-pontos">
+                                <div class="analise-ponto"><span class="ponto-num">1</span><div><strong>Não comete crimes por impulso. Constrói sistemas.</strong><p>Thomas estrutura impérios paralelos, com aparência legal, mas função oculta. Age como um CEO do submundo.</p></div></div>
+                                <div class="analise-ponto"><span class="ponto-num">2</span><div><strong>Comanda, não executa.</strong><p>Terceiriza tudo. Cobra com frieza. Lealdade é função, não afeto.</p></div></div>
+                                <div class="analise-ponto"><span class="ponto-num">3</span><div><strong>Guerra Psicológica é sua arma principal.</strong><p>Vence pela dúvida, pelo silêncio, pelo domínio mental.</p></div></div>
+                                <div class="analise-ponto"><span class="ponto-num">4</span><div><strong>Infiltra e domina.</strong><p>Entra como ninguém, sai como dono. Se espalha como vírus.</p></div></div>
+                                <div class="analise-ponto"><span class="ponto-num">5</span><div><strong>Usa o sistema legal como escudo.</strong><p>Conhece a lei melhor que os juízes. Opera dentro das brechas.</p></div></div>
+                            </div>
+                            <div class="analise-conclusao"><strong>CONCLUSÃO:</strong> O lado ilícito de Thomas é estrutural, cirúrgico e invisível. É poder sob disfarce.</div>
+                        </div>
+                    </div>
+                    <!-- CRIMES DE THOMAS SHELBY -->
+                    <div class="shelby-section">
+                        <h4 class="section-title-shelby ilicito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 19l2 2"/></svg> PRINCIPAIS CRIMES COMETIDOS</h4>
+                        <div class="crimes-grid">
+                            <div class="crime-item"><div class="crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="crime-info"><h6>EXTORSÃO</h6><p>Obediência ou cooptação sem contratos</p></div></div>
+                            <div class="crime-item"><div class="crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div><div class="crime-info"><h6>HOMICÍDIO</h6><p>Eliminação cirúrgica de risco ou retaliação estratégica</p></div></div>
+                            <div class="crime-item"><div class="crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="crime-info"><h6>CORRUPÇÃO</h6><p>Acesso a decisões e escudos legais</p></div></div>
+                            <div class="crime-item"><div class="crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="crime-info"><h6>CONTRABANDO</h6><p>Financiamento e influência popular</p></div></div>
+                            <div class="crime-item"><div class="crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><div class="crime-info"><h6>LAVAGEM DE DINHEIRO</h6><p>Sustentação do império "legal"</p></div></div>
+                            <div class="crime-item"><div class="crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="crime-info"><h6>FRAUDE POLÍTICA</h6><p>Domínio institucional e blindagem</p></div></div>
+                            <div class="crime-item"><div class="crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div class="crime-info"><h6>ESPIONAGEM</h6><p>Vantagem absoluta em todas as frentes</p></div></div>
+                        </div>
+                        <div class="crimes-footer"><p>Esses crimes não eram cometidos por impulso, e sim por <strong>inteligência e propósito</strong>. Cada ação servia ao império, e cada violação da lei era, na prática, uma peça movida no tabuleiro de poder.</p></div>
+                    </div>
                     <div class="shelby-section">
                         <h4 class="section-title-shelby ilicito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> FASES DO ANO — LADO ILÍCITO</h4>
                         <div id="fasesIlicitasContainer"></div>
@@ -507,634 +561,629 @@ function toggleFavorite(number){const law=data.laws.find(l=>l.number===number);l
 function saveLawNotes(number,notes){data.laws.find(l=>l.number===number).notes=notes;saveData();}
 function changeLawOfWeek(){const pending=data.laws.filter(l=>!l.applied&&l.number!==data.lawOfTheWeek);data.lawOfTheWeek=pending.length>0?pending[Math.floor(Math.random()*pending.length)].number:Math.floor(Math.random()*48)+1;saveData();renderLawOfTheWeek();showToast('Nova lei selecionada!','success');}
 
-function openExportModal(){document.getElementById('exportModal').classList.add('active');}
-function closeExportModal(){document.getElementById('exportModal').classList.remove('active');}
+function openExportModal(){document.getElementById(‘exportModal’).classList.add(‘active’);}
+function closeExportModal(){document.getElementById(‘exportModal’).classList.remove(‘active’);}
 
 function generateReport(){
-    const format = document.getElementById('exportFormat').value;
-    const now = new Date();
-    const dateStr = now.toLocaleDateString('pt-BR', {day:'2-digit',month:'2-digit',year:'numeric'});
-    
-    // Comentários automáticos baseados nos níveis
-    const disciplineComments = {
-        low: "⚠️ Você está sangrando. A guerra não perdoa os fracos.",
-        medium: "🔶 Ainda há brechas. O inimigo observa cada vacilo.",
-        high: "🛡️ O escudo está erguido. Continue assim, soldado."
-    };
-    const focusComments = {
-        fraco: "Você ainda se distrai com lixo. O fraco mira no nada.",
-        moderado: "A mira ainda treme. Estabilize ou será abatido.",
-        afiado: "Um tiro. Um alvo. Zero desperdício."
-    };
-    const spiritComments = {
-        seco: "A chama está morrendo. Reacenda ou será consumido pelas trevas.",
-        vivo: "O fogo arde, mas precisa de lenha. Continue alimentando.",
-        blindado: "Nada penetra. Nada abala. Você é fortaleza."
-    };
-    const dangerComments = {
-        baixo: "Você está doméstico demais. Um leão de zoológico não caça.",
-        medio: "Você ainda é previsível. Surpreenda ou seja surpreendido.",
-        alto: "Eles temem o que não entendem. Continue sendo o caos calculado."
-    };
-    
-    // Determinar nível de disciplina
-    const discLevel = data.status.discipline < 40 ? 'low' : data.status.discipline < 70 ? 'medium' : 'high';
-    
-    // Labels
-    const focusLabels = {fraco:'FRACO',moderado:'MODERADO',afiado:'AFIADO'};
-    const spiritLabels = {seco:'SECO',vivo:'VIVO',blindado:'BLINDADO'};
-    const dangerLabels = {baixo:'BAIXO',medio:'MÉDIO',alto:'ALTO'};
-    
-    // Buscar último corte e vitória
-    const lastEntry = data.warHistory.length > 0 ? data.warHistory[0] : null;
-    const lastCut = lastEntry?.cut || null;
-    const lastVictory = lastEntry?.victory || null;
-    
-    // Lei da semana
-    const lawOfWeek = data.laws.find(l => l.number === data.lawOfTheWeek);
-    
-    // Frases de encerramento
-    const closingPhrases = [
-        "Eu sou perigoso porque domino minha mente.",
-        "Eu sou livre porque ninguém me controla.",
-        "O fraco morre todos os dias. O forte morre uma vez.",
-        "Disciplina é a ponte entre metas e conquistas.",
-        "Quem controla a si mesmo, controla o mundo."
-    ];
-    const closingPhrase = closingPhrases[Math.floor(Math.random() * closingPhrases.length)];
-    
-    const report = `
+const format = document.getElementById(‘exportFormat’).value;
+const now = new Date();
+const dateStr = now.toLocaleDateString(‘pt-BR’, {day:‘2-digit’,month:‘2-digit’,year:‘numeric’});
+
+```
+// Comentários automáticos baseados nos níveis
+const disciplineComments = {
+    low: "⚠️ Você está sangrando. A guerra não perdoa os fracos.",
+    medium: "🔶 Ainda há brechas. O inimigo observa cada vacilo.",
+    high: "🛡️ O escudo está erguido. Continue assim, soldado."
+};
+const focusComments = {
+    fraco: "Você ainda se distrai com lixo. O fraco mira no nada.",
+    moderado: "A mira ainda treme. Estabilize ou será abatido.",
+    afiado: "Um tiro. Um alvo. Zero desperdício."
+};
+const spiritComments = {
+    seco: "A chama está morrendo. Reacenda ou será consumido pelas trevas.",
+    vivo: "O fogo arde, mas precisa de lenha. Continue alimentando.",
+    blindado: "Nada penetra. Nada abala. Você é fortaleza."
+};
+const dangerComments = {
+    baixo: "Você está doméstico demais. Um leão de zoológico não caça.",
+    medio: "Você ainda é previsível. Surpreenda ou seja surpreendido.",
+    alto: "Eles temem o que não entendem. Continue sendo o caos calculado."
+};
+
+// Determinar nível de disciplina
+const discLevel = data.status.discipline < 40 ? 'low' : data.status.discipline < 70 ? 'medium' : 'high';
+
+// Labels
+const focusLabels = {fraco:'FRACO',moderado:'MODERADO',afiado:'AFIADO'};
+const spiritLabels = {seco:'SECO',vivo:'VIVO',blindado:'BLINDADO'};
+const dangerLabels = {baixo:'BAIXO',medio:'MÉDIO',alto:'ALTO'};
+
+// Buscar último corte e vitória
+const lastEntry = data.warHistory.length > 0 ? data.warHistory[0] : null;
+const lastCut = lastEntry?.cut || null;
+const lastVictory = lastEntry?.victory || null;
+
+// Lei da semana
+const lawOfWeek = data.laws.find(l => l.number === data.lawOfTheWeek);
+
+// Frases de encerramento
+const closingPhrases = [
+    "Eu sou perigoso porque domino minha mente.",
+    "Eu sou livre porque ninguém me controla.",
+    "O fraco morre todos os dias. O forte morre uma vez.",
+    "Disciplina é a ponte entre metas e conquistas.",
+    "Quem controla a si mesmo, controla o mundo."
+];
+const closingPhrase = closingPhrases[Math.floor(Math.random() * closingPhrases.length)];
+
+const report = `
+```
+
 ══════════════════════════════════════════════════════════════
 ⚔️ RELATÓRIO DE GUERRA – ${dateStr}
-> "Quem não sangra no treino, sangra no campo."
-══════════════════════════════════════════════════════════════
 
+> “Quem não sangra no treino, sangra no campo.”
+> ══════════════════════════════════════════════════════════════
 
 🎯 STATUS DE GUERRA
 ──────────────────────────────────────────────────────────────
 
 • Disciplina: ${data.status.discipline}%
-  ${disciplineComments[discLevel]}
+${disciplineComments[discLevel]}
 
 • Foco: ${focusLabels[data.status.focus]}
-  ${focusComments[data.status.focus]}
+${focusComments[data.status.focus]}
 
 • Espírito: ${spiritLabels[data.status.spirit]}
-  ${spiritComments[data.status.spirit]}
+${spiritComments[data.status.spirit]}
 
 • Perigo: ${dangerLabels[data.status.danger]}
-  ${dangerComments[data.status.danger]}
-
+${dangerComments[data.status.danger]}
 
 💀 CORTE DO DIA
 ──────────────────────────────────────────────────────────────
-${lastCut ? `
-• Corte aplicado: ${lastCut.description}
-• Categoria: ${lastCut.category.toUpperCase()}
-• Data: ${lastCut.date}
-${lastCut.notes ? `• Motivo: ${lastCut.notes}` : ''}
-` : `
-• Nenhum corte registrado hoje.
-  ⚠️ O que você está tolerando que deveria eliminar?
-`}
+${lastCut ? `• Corte aplicado: ${lastCut.description} • Categoria: ${lastCut.category.toUpperCase()} • Data: ${lastCut.date} ${lastCut.notes ?`• Motivo: ${lastCut.notes}`: ''}` : `• Nenhum corte registrado hoje. ⚠️ O que você está tolerando que deveria eliminar?`}
 
 🛡️ VITÓRIA DO DIA
 ──────────────────────────────────────────────────────────────
-${lastVictory ? `
-• Ação realizada: ${lastVictory.description}
-${lastVictory.resisted ? `• Resistência: ${lastVictory.resisted}` : ''}
-${lastVictory.lawApplied ? `• Lei aplicada: Lei ${lastVictory.lawApplied}` : ''}
-• Resultado: Mais um passo em direção à versão imbatível.
-` : `
-• Nenhuma vitória registrada hoje.
-  ⚠️ Quem não registra vitórias, não reconhece seu progresso.
-`}
+${lastVictory ? `• Ação realizada: ${lastVictory.description} ${lastVictory.resisted ?`• Resistência: ${lastVictory.resisted}`: ''} ${lastVictory.lawApplied ?`• Lei aplicada: Lei ${lastVictory.lawApplied}`: ''} • Resultado: Mais um passo em direção à versão imbatível.` : `• Nenhuma vitória registrada hoje. ⚠️ Quem não registra vitórias, não reconhece seu progresso.`}
 
 📜 LEI DA SEMANA
 ──────────────────────────────────────────────────────────────
 
-Lei ${lawOfWeek.number}: "${lawOfWeek.title}"
-Status: ${lawOfWeek.applied ? '✅ APLICADA' : '⏳ PENDENTE'}
+Lei ${lawOfWeek.number}: “${lawOfWeek.title}”
+Status: ${lawOfWeek.applied ? ‘✅ APLICADA’ : ‘⏳ PENDENTE’}
 
-"${lawOfWeek.description}"
-
+“${lawOfWeek.description}”
 
 ══════════════════════════════════════════════════════════════
-                    ENCERRAMENTO
+ENCERRAMENTO
 ══════════════════════════════════════════════════════════════
 
-"${closingPhrase}"
+“${closingPhrase}”
 
 ──────────────────────────────────────────────────────────────
-            ZARA • PAINEL DE GUERRA • ${dateStr}
+ZARA • PAINEL DE GUERRA • ${dateStr}
 ══════════════════════════════════════════════════════════════
 `;
 
-    if(format === 'txt'){
-        // Exportar como TXT
-        const blob = new Blob([report], {type:'text/plain;charset=utf-8'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `relatorio-guerra-${now.toISOString().split('T')[0]}.txt`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        closeExportModal();
-        showToast('Relatório TXT exportado!','success');
-    } else {
-        // Exportar como PDF usando jsPDF
-        generatePDF(report, dateStr, now);
-    }
+```
+if(format === 'txt'){
+    // Exportar como TXT
+    const blob = new Blob([report], {type:'text/plain;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `relatorio-guerra-${now.toISOString().split('T')[0]}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    closeExportModal();
+    showToast('Relatório TXT exportado!','success');
+} else {
+    // Exportar como PDF usando jsPDF
+    generatePDF(report, dateStr, now);
+}
+```
+
 }
 
 function generatePDF(reportText, dateStr, now){
-    const printWindow = window.open('', '_blank');
-    const htmlContent = '<!DOCTYPE html><html><head><title>Relatório de Guerra - ' + dateStr + '</title><style>@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap");*{margin:0;padding:0;box-sizing:border-box}body{font-family:"Courier Prime",monospace;background:#0a0a0a;color:#d4af7d;padding:40px;line-height:1.6}.container{max-width:800px;margin:0 auto;background:#141414;border:2px solid #d4af7d;padding:40px;box-shadow:0 0 50px rgba(212,175,125,0.2)}pre{white-space:pre-wrap;word-wrap:break-word;font-family:"Courier Prime",monospace;font-size:14px;color:#e0e0e0}@media print{body{background:white;color:black;padding:20px}.container{border-color:#333;box-shadow:none;background:white}pre{color:#333}}</style></head><body><div class="container"><pre>' + reportText.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</pre></div><script>setTimeout(function(){window.print();},500);<\/script></body></html>';
-    printWindow.document.write(htmlContent);
-    printWindow.document.close();
-    closeExportModal();
-    showToast('PDF gerado! Use Ctrl+P para salvar.','success');
+const printWindow = window.open(’’, ‘_blank’);
+const htmlContent = ‘<!DOCTYPE html><html><head><title>Relatório de Guerra - ’ + dateStr + ‘</title><style>@import url(“https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap”);*{margin:0;padding:0;box-sizing:border-box}body{font-family:“Courier Prime”,monospace;background:#0a0a0a;color:#d4af7d;padding:40px;line-height:1.6}.container{max-width:800px;margin:0 auto;background:#141414;border:2px solid #d4af7d;padding:40px;box-shadow:0 0 50px rgba(212,175,125,0.2)}pre{white-space:pre-wrap;word-wrap:break-word;font-family:“Courier Prime”,monospace;font-size:14px;color:#e0e0e0}@media print{body{background:white;color:black;padding:20px}.container{border-color:#333;box-shadow:none;background:white}pre{color:#333}}</style></head><body><div class="container"><pre>’ + reportText.replace(/</g,’<’).replace(/>/g,’>’) + ‘</pre></div><script>setTimeout(function(){window.print();},500);</script></body></html>’;
+printWindow.document.write(htmlContent);
+printWindow.document.close();
+closeExportModal();
+showToast(‘PDF gerado! Use Ctrl+P para salvar.’,‘success’);
 }
-function showToast(message,type='success'){const toast=document.getElementById('toast');toast.textContent=message;toast.className='toast '+type+' active';setTimeout(()=>{toast.classList.remove('active');},3000);}
+function showToast(message,type=‘success’){const toast=document.getElementById(‘toast’);toast.textContent=message;toast.className=‘toast ‘+type+’ active’;setTimeout(()=>{toast.classList.remove(‘active’);},3000);}
 function renderAll(){renderStatus();renderHistory();renderMissions();renderRituals();renderLaws();renderToji();renderShelby();}
 
 // ============================================
 // TOJI - CAMINHO DO PREDADOR SILENCIOSO
 // ============================================
-const TOJI_STORAGE='toji_data';
+const TOJI_STORAGE=‘toji_data’;
 const TRACOS_TOJI=[
-    {id:'frieza',nome:'Frieza Absoluta',desc:'Controle emocional total.',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>'},
-    {id:'forca',nome:'Força Bruta',desc:'Corpo como arma. Treino constante.',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="12" height="12"/></svg>'},
-    {id:'silencio',nome:'Silêncio Estratégico',desc:'Falar apenas o necessário.',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/></svg>'},
-    {id:'desapego',nome:'Desapego Material',desc:'Nenhuma dependência de conforto.',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>'},
-    {id:'instinto',nome:'Instinto Predador',desc:'Decisões rápidas, sem hesitação.',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>'},
-    {id:'disciplina',nome:'Disciplina Monástica',desc:'Rotina inflexível.',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>'},
-    {id:'isolamento',nome:'Isolamento Produtivo',desc:'Solidão como ferramenta.',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'},
-    {id:'resistencia',nome:'Resistência ao Prazer',desc:'Negar gratificação instantânea.',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'},
-    {id:'execucao',nome:'Execução Silenciosa',desc:'Agir sem anunciar.',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'},
-    {id:'indiferenca',nome:'Indiferença Social',desc:'Opinião alheia é irrelevante.',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'}
+{id:‘frieza’,nome:‘Frieza Absoluta’,desc:‘Controle emocional total.’,icon:’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>’},
+{id:‘forca’,nome:‘Força Bruta’,desc:‘Corpo como arma. Treino constante.’,icon:’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="12" height="12"/></svg>’},
+{id:‘silencio’,nome:‘Silêncio Estratégico’,desc:‘Falar apenas o necessário.’,icon:’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/></svg>’},
+{id:‘desapego’,nome:‘Desapego Material’,desc:‘Nenhuma dependência de conforto.’,icon:’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>’},
+{id:‘instinto’,nome:‘Instinto Predador’,desc:‘Decisões rápidas, sem hesitação.’,icon:’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>’},
+{id:‘disciplina’,nome:‘Disciplina Monástica’,desc:‘Rotina inflexível.’,icon:’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>’},
+{id:‘isolamento’,nome:‘Isolamento Produtivo’,desc:‘Solidão como ferramenta.’,icon:’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>’},
+{id:‘resistencia’,nome:‘Resistência ao Prazer’,desc:‘Negar gratificação instantânea.’,icon:’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>’},
+{id:‘execucao’,nome:‘Execução Silenciosa’,desc:‘Agir sem anunciar.’,icon:’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>’},
+{id:‘indiferenca’,nome:‘Indiferença Social’,desc:‘Opinião alheia é irrelevante.’,icon:’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><line x1="1" y1="1" x2="23" y2="23"/></svg>’}
 ];
 const BLOCOS_TOJI_DEFAULT=[
-    {id:1,nome:'CORPO COMO ARMA',dias:'Dias 1–90',frase:'Antes de ser frio por dentro, seja inquebrável por fora.',metas:[{id:'m1_1',texto:'Treinar 6x/semana'},{id:'m1_2',texto:'Banho gelado diário'},{id:'m1_3',texto:'Cortar pornografia'},{id:'m1_4',texto:'Alimentação funcional'},{id:'m1_5',texto:'Dormir antes 23h'}],prova:'48h de disciplina monástica'},
-    {id:2,nome:'FRIEZA SILENCIOSA',dias:'Dias 91–180',frase:'Ninguém merece sua reação. Só sua vitória.',metas:[{id:'m2_1',texto:'Reduzir fala ao mínimo'},{id:'m2_2',texto:'Treino mesmo cansado'},{id:'m2_3',texto:'Execução sem aviso'}],prova:'3 dias sem expressar emoção'},
-    {id:3,nome:'INSTINTO SELVAGEM',dias:'Dias 181–270',frase:'Se pensar demais, já perdeu.',metas:[{id:'m3_1',texto:'Treinar reação/sparring'},{id:'m3_2',texto:'Decisões em 5s'},{id:'m3_3',texto:'Cortar hesitação'}],prova:'Executar plano em 24h'},
-    {id:4,nome:'DESAPEGO TOTAL',dias:'Dias 271–365',frase:'Se tiver que cortar, corta. Ponto.',metas:[{id:'m4_1',texto:'Eliminar dependência emocional'},{id:'m4_2',texto:'7 dias sem conforto'}],prova:'1 dia sem falar, sem celular'}
+{id:1,nome:‘CORPO COMO ARMA’,dias:‘Dias 1–90’,frase:‘Antes de ser frio por dentro, seja inquebrável por fora.’,metas:[{id:‘m1_1’,texto:‘Treinar 6x/semana’},{id:‘m1_2’,texto:‘Banho gelado diário’},{id:‘m1_3’,texto:‘Cortar pornografia’},{id:‘m1_4’,texto:‘Alimentação funcional’},{id:‘m1_5’,texto:‘Dormir antes 23h’}],prova:‘48h de disciplina monástica’},
+{id:2,nome:‘FRIEZA SILENCIOSA’,dias:‘Dias 91–180’,frase:‘Ninguém merece sua reação. Só sua vitória.’,metas:[{id:‘m2_1’,texto:‘Reduzir fala ao mínimo’},{id:‘m2_2’,texto:‘Treino mesmo cansado’},{id:‘m2_3’,texto:‘Execução sem aviso’}],prova:‘3 dias sem expressar emoção’},
+{id:3,nome:‘INSTINTO SELVAGEM’,dias:‘Dias 181–270’,frase:‘Se pensar demais, já perdeu.’,metas:[{id:‘m3_1’,texto:‘Treinar reação/sparring’},{id:‘m3_2’,texto:‘Decisões em 5s’},{id:‘m3_3’,texto:‘Cortar hesitação’}],prova:‘Executar plano em 24h’},
+{id:4,nome:‘DESAPEGO TOTAL’,dias:‘Dias 271–365’,frase:‘Se tiver que cortar, corta. Ponto.’,metas:[{id:‘m4_1’,texto:‘Eliminar dependência emocional’},{id:‘m4_2’,texto:‘7 dias sem conforto’}],prova:‘1 dia sem falar, sem celular’}
 ];
 const RITUAIS_TOJI_DEFAULT=[
-    {id:'acordar',texto:'Acordar 05h sem celular',hora:'05:00'},
-    {id:'banho',texto:'Banho gelado',hora:'05:15'},
-    {id:'jejum',texto:'Jejum até meio-dia',hora:'12:00'},
-    {id:'treino',texto:'Treino (mínimo 45min)',hora:'06:00'},
-    {id:'silencio',texto:'Silêncio absoluto 20min',hora:'22:00'}
+{id:‘acordar’,texto:‘Acordar 05h sem celular’,hora:‘05:00’},
+{id:‘banho’,texto:‘Banho gelado’,hora:‘05:15’},
+{id:‘jejum’,texto:‘Jejum até meio-dia’,hora:‘12:00’},
+{id:‘treino’,texto:‘Treino (mínimo 45min)’,hora:‘06:00’},
+{id:‘silencio’,texto:‘Silêncio absoluto 20min’,hora:‘22:00’}
 ];
-const DIAS_SEMANA=['S','T','Q','Q','S','S','D'];
-const DIAS_SEMANA_FULL=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+const DIAS_SEMANA=[‘S’,‘T’,‘Q’,‘Q’,‘S’,‘S’,‘D’];
+const DIAS_SEMANA_FULL=[‘Seg’,‘Ter’,‘Qua’,‘Qui’,‘Sex’,‘Sáb’,‘Dom’];
 let tojiData=JSON.parse(localStorage.getItem(TOJI_STORAGE))||{tracos:{},blocos:{},rituais:{},rituaisConfig:null,cortes:[],lastReset:null,weekStart:null};
-if(!tojiData.blocos||typeof tojiData.blocos!=='object')tojiData.blocos={};
-if(!tojiData.rituaisConfig)tojiData.rituaisConfig=[...RITUAIS_TOJI_DEFAULT];
+if(!tojiData.blocos||typeof tojiData.blocos!==‘object’)tojiData.blocos={};
+if(!tojiData.rituaisConfig)tojiData.rituaisConfig=[…RITUAIS_TOJI_DEFAULT];
 function saveToji(){localStorage.setItem(TOJI_STORAGE,JSON.stringify(tojiData));}
 function getBlocosConfig(){
-    if(!tojiData.blocosConfig)tojiData.blocosConfig=JSON.parse(JSON.stringify(BLOCOS_TOJI_DEFAULT));
-    return tojiData.blocosConfig;
+if(!tojiData.blocosConfig)tojiData.blocosConfig=JSON.parse(JSON.stringify(BLOCOS_TOJI_DEFAULT));
+return tojiData.blocosConfig;
 }
 function getWeekStart(){
-    const now=new Date();
-    const day=now.getDay();
-    const diff=now.getDate()-day+(day===0?-6:1);
-    return new Date(now.setDate(diff)).toDateString();
+const now=new Date();
+const day=now.getDay();
+const diff=now.getDate()-day+(day===0?-6:1);
+return new Date(now.setDate(diff)).toDateString();
 }
 function checkWeekReset(){
-    const currentWeek=getWeekStart();
-    if(tojiData.weekStart&&tojiData.weekStart!==currentWeek){
-        // Nova semana - verificar se completou todos os 7 dias em cada fase
-        const blocos=getBlocosConfig();
-        blocos.forEach(b=>{
-            const bd=tojiData.blocos[b.id];
-            if(bd&&bd.metasCheck){
-                // Contar quantos dias foram completos na semana anterior
-                let diasCompletos=0;
-                for(let i=0;i<7;i++){
-                    const diaCompleto=b.metas.every(m=>{
-                        const checks=bd.metasCheck[m.id]||{};
-                        return checks[i]===true;
-                    });
-                    if(diaCompleto)diasCompletos++;
-                }
-                // Se não completou os 7 dias, RESET para 0
-                if(diasCompletos<7){
-                    setFaseProgresso(b.id,0);
-                    showToast('FASE '+b.id+' RESETADA! Você falhou em '+(7-diasCompletos)+' dia(s).','error');
-                }
-                // Limpar checkboxes para nova semana
-                bd.metasCheck={};
-            }
-        });
-        saveToji();
-    }
-    tojiData.weekStart=currentWeek;
-    saveToji();
+const currentWeek=getWeekStart();
+if(tojiData.weekStart&&tojiData.weekStart!==currentWeek){
+// Nova semana - verificar se completou todos os 7 dias em cada fase
+const blocos=getBlocosConfig();
+blocos.forEach(b=>{
+const bd=tojiData.blocos[b.id];
+if(bd&&bd.metasCheck){
+// Contar quantos dias foram completos na semana anterior
+let diasCompletos=0;
+for(let i=0;i<7;i++){
+const diaCompleto=b.metas.every(m=>{
+const checks=bd.metasCheck[m.id]||{};
+return checks[i]===true;
+});
+if(diaCompleto)diasCompletos++;
+}
+// Se não completou os 7 dias, RESET para 0
+if(diasCompletos<7){
+setFaseProgresso(b.id,0);
+showToast(‘FASE ‘+b.id+’ RESETADA! Você falhou em ‘+(7-diasCompletos)+’ dia(s).’,‘error’);
+}
+// Limpar checkboxes para nova semana
+bd.metasCheck={};
+}
+});
+saveToji();
+}
+tojiData.weekStart=currentWeek;
+saveToji();
 }
 function renderToji(){
-    checkWeekReset();
-    const hoje=new Date().toDateString();
-    if(tojiData.lastReset!==hoje){tojiData.rituais={};tojiData.lastReset=hoje;saveToji();}
-    renderTracosToji();renderBlocosToji();renderRituaisToji();renderCortesToji();atualizarEssenciaToji();verificarSeloPredador();
+checkWeekReset();
+const hoje=new Date().toDateString();
+if(tojiData.lastReset!==hoje){tojiData.rituais={};tojiData.lastReset=hoje;saveToji();}
+renderTracosToji();renderBlocosToji();renderRituaisToji();renderCortesToji();atualizarEssenciaToji();verificarSeloPredador();
 }
 function renderTracosToji(){
-    const grid=document.getElementById('tracosGrid');if(!grid)return;
-    grid.innerHTML=TRACOS_TOJI.map(t=>{
-        const v=tojiData.tracos[t.id]||0;
-        return `<div class="traco-item"><div class="traco-header">${t.icon}<h4>${t.nome}</h4></div><p class="traco-desc">${t.desc}</p><div class="traco-bar"><div class="traco-fill" style="width:${v}%"></div></div><div class="traco-controls"><span class="traco-percent">${v}%</span><div class="traco-btns"><button class="traco-btn" onclick="ajustarTracoToji('${t.id}',-5)">−</button><button class="traco-btn" onclick="ajustarTracoToji('${t.id}',5)">+</button></div></div></div>`;
-    }).join('');
+const grid=document.getElementById(‘tracosGrid’);if(!grid)return;
+grid.innerHTML=TRACOS_TOJI.map(t=>{
+const v=tojiData.tracos[t.id]||0;
+return `<div class="traco-item"><div class="traco-header">${t.icon}<h4>${t.nome}</h4></div><p class="traco-desc">${t.desc}</p><div class="traco-bar"><div class="traco-fill" style="width:${v}%"></div></div><div class="traco-controls"><span class="traco-percent">${v}%</span><div class="traco-btns"><button class="traco-btn" onclick="ajustarTracoToji('${t.id}',-5)">−</button><button class="traco-btn" onclick="ajustarTracoToji('${t.id}',5)">+</button></div></div></div>`;
+}).join(’’);
 }
 function ajustarTracoToji(id,delta){tojiData.tracos[id]=Math.max(0,Math.min(100,(tojiData.tracos[id]||0)+delta));saveToji();renderTracosToji();atualizarEssenciaToji();}
 function atualizarEssenciaToji(){
-    const vals=TRACOS_TOJI.map(t=>tojiData.tracos[t.id]||0);
-    const media=vals.reduce((a,b)=>a+b,0)/vals.length;
-    const el=document.getElementById('essenciaValor');if(el)el.textContent=Math.round(media)+'%';
-    const circle=document.getElementById('essenciaCircle');if(circle){const circ=2*Math.PI*60;circle.style.strokeDashoffset=circ-(media/100)*circ;}
+const vals=TRACOS_TOJI.map(t=>tojiData.tracos[t.id]||0);
+const media=vals.reduce((a,b)=>a+b,0)/vals.length;
+const el=document.getElementById(‘essenciaValor’);if(el)el.textContent=Math.round(media)+’%’;
+const circle=document.getElementById(‘essenciaCircle’);if(circle){const circ=2*Math.PI*60;circle.style.strokeDashoffset=circ-(media/100)*circ;}
 }
-function getFaseProgresso(faseId){return parseInt(localStorage.getItem('toji_fase'+faseId+'_progresso'))||0;}
-function setFaseProgresso(faseId,valor){localStorage.setItem('toji_fase'+faseId+'_progresso',Math.min(90,Math.max(0,valor)));}
+function getFaseProgresso(faseId){return parseInt(localStorage.getItem(‘toji_fase’+faseId+’_progresso’))||0;}
+function setFaseProgresso(faseId,valor){localStorage.setItem(‘toji_fase’+faseId+’_progresso’,Math.min(90,Math.max(0,valor)));}
 function verificarDiaCompleto(blocoId,diaIdx){
-    const blocos=getBlocosConfig();
-    const bloco=blocos.find(b=>b.id===blocoId);
-    if(!bloco)return false;
-    const bd=tojiData.blocos[blocoId];
-    if(!bd||!bd.metasCheck)return false;
-    return bloco.metas.every(m=>{
-        const checks=bd.metasCheck[m.id]||{};
-        return checks[diaIdx]===true;
-    });
+const blocos=getBlocosConfig();
+const bloco=blocos.find(b=>b.id===blocoId);
+if(!bloco)return false;
+const bd=tojiData.blocos[blocoId];
+if(!bd||!bd.metasCheck)return false;
+return bloco.metas.every(m=>{
+const checks=bd.metasCheck[m.id]||{};
+return checks[diaIdx]===true;
+});
 }
 function contarDiasCompletos(blocoId){
-    let count=0;
-    for(let i=0;i<7;i++){
-        if(verificarDiaCompleto(blocoId,i))count++;
-    }
-    return count;
+let count=0;
+for(let i=0;i<7;i++){
+if(verificarDiaCompleto(blocoId,i))count++;
+}
+return count;
 }
 function toggleMetaDia(blocoId,metaId,diaIdx){
-    if(!tojiData.blocos[blocoId])tojiData.blocos[blocoId]={metasCheck:{},prova:false,open:true};
-    if(!tojiData.blocos[blocoId].metasCheck)tojiData.blocos[blocoId].metasCheck={};
-    if(!tojiData.blocos[blocoId].metasCheck[metaId])tojiData.blocos[blocoId].metasCheck[metaId]={};
-    
-    const eraCompletoAntes=verificarDiaCompleto(blocoId,diaIdx);
-    tojiData.blocos[blocoId].metasCheck[metaId][diaIdx]=!tojiData.blocos[blocoId].metasCheck[metaId][diaIdx];
-    const eraCompletoDepois=verificarDiaCompleto(blocoId,diaIdx);
-    
-    const diasCompletos=contarDiasCompletos(blocoId);
-    setFaseProgresso(blocoId,diasCompletos);
-    
-    if(!eraCompletoAntes&&eraCompletoDepois){
-        showToast('DIA COMPLETO! Fase '+blocoId+': '+diasCompletos+'/90','success');
-    }
-    
-    saveToji();
-    renderBlocosToji();
+if(!tojiData.blocos[blocoId])tojiData.blocos[blocoId]={metasCheck:{},prova:false,open:true};
+if(!tojiData.blocos[blocoId].metasCheck)tojiData.blocos[blocoId].metasCheck={};
+if(!tojiData.blocos[blocoId].metasCheck[metaId])tojiData.blocos[blocoId].metasCheck[metaId]={};
+
+```
+const eraCompletoAntes=verificarDiaCompleto(blocoId,diaIdx);
+tojiData.blocos[blocoId].metasCheck[metaId][diaIdx]=!tojiData.blocos[blocoId].metasCheck[metaId][diaIdx];
+const eraCompletoDepois=verificarDiaCompleto(blocoId,diaIdx);
+
+const diasCompletos=contarDiasCompletos(blocoId);
+setFaseProgresso(blocoId,diasCompletos);
+
+if(!eraCompletoAntes&&eraCompletoDepois){
+    showToast('DIA COMPLETO! Fase '+blocoId+': '+diasCompletos+'/90','success');
+}
+
+saveToji();
+renderBlocosToji();
+```
+
 }
 function renderBlocosToji(){
-    const c=document.getElementById('blocosContainer');if(!c)return;
-    const blocos=getBlocosConfig();
-    const checkSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
-    const chevSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>';
-    const editSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
-    const delSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
-    const addSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+const c=document.getElementById(‘blocosContainer’);if(!c)return;
+const blocos=getBlocosConfig();
+const checkSvg=’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>’;
+const chevSvg=’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>’;
+const editSvg=’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>’;
+const delSvg=’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>’;
+const addSvg=’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>’;
+
+```
+c.innerHTML=blocos.map(b=>{
+    const bd=tojiData.blocos[b.id]||{metasCheck:{},prova:false,open:false};
+    const progresso=getFaseProgresso(b.id);
+    const percentual=Math.floor((progresso/90)*100);
     
-    c.innerHTML=blocos.map(b=>{
-        const bd=tojiData.blocos[b.id]||{metasCheck:{},prova:false,open:false};
-        const progresso=getFaseProgresso(b.id);
-        const percentual=Math.floor((progresso/90)*100);
-        
-        // Verificar quais dias estão completos
-        const diasCompletos=[];
-        for(let i=0;i<7;i++){diasCompletos[i]=verificarDiaCompleto(b.id,i);}
-        
-        // Header com dias da semana
-        const diasHeader=DIAS_SEMANA.map((d,i)=>`<div class="dia-header ${diasCompletos[i]?'completo':''}">${d}</div>`).join('');
-        
-        const metasHtml=b.metas.map(m=>{
-            const checks=bd.metasCheck?.[m.id]||{};
-            const diasHtml=DIAS_SEMANA.map((d,i)=>{
-                const checked=checks[i]?'checked':'';
-                return `<div class="dia-check ${checked}" onclick="toggleMetaDia(${b.id},'${m.id}',${i})"></div>`;
-            }).join('');
-            return `<div class="meta-row-toji"><div class="meta-nome">${m.texto}<div class="meta-actions-inline"><button class="btn-meta-action-sm" onclick="editarMetaToji(${b.id},'${m.id}')" title="Editar">${editSvg}</button><button class="btn-meta-action-sm del" onclick="excluirMetaToji(${b.id},'${m.id}')" title="Excluir">${delSvg}</button></div></div><div class="meta-dias-row">${diasHtml}</div></div>`;
+    // Verificar quais dias estão completos
+    const diasCompletos=[];
+    for(let i=0;i<7;i++){diasCompletos[i]=verificarDiaCompleto(b.id,i);}
+    
+    // Header com dias da semana
+    const diasHeader=DIAS_SEMANA.map((d,i)=>`<div class="dia-header ${diasCompletos[i]?'completo':''}">${d}</div>`).join('');
+    
+    const metasHtml=b.metas.map(m=>{
+        const checks=bd.metasCheck?.[m.id]||{};
+        const diasHtml=DIAS_SEMANA.map((d,i)=>{
+            const checked=checks[i]?'checked':'';
+            return `<div class="dia-check ${checked}" onclick="toggleMetaDia(${b.id},'${m.id}',${i})"></div>`;
         }).join('');
-        
-        return `<div class="bloco-toji ${bd.open?'open':''}" id="bloco-toji-${b.id}"><div class="bloco-header-toji" onclick="toggleBlocoToji(${b.id})"><div class="bloco-info"><div class="bloco-num">${b.id}</div><div><div class="bloco-nome">${b.nome}</div><div class="bloco-dias">${b.dias}</div></div></div><div class="bloco-status-toji"><div class="bloco-check-toji ${bd.prova?'done':''}">${checkSvg}</div><div class="bloco-toggle">${chevSvg}</div></div></div><div class="bloco-content-toji"><div class="fase-progress-container"><div class="fase-progress-header"><span class="fase-progress-label">PROGRESSO DA FASE</span><span class="fase-progress-count">${progresso}/90 dias</span></div><div class="fase-progress-bar"><div class="fase-progress-fill" style="width:${percentual}%"></div></div><div class="fase-progress-percent">${percentual}% concluído</div></div><p class="bloco-frase-toji">"${b.frase}"</p><div class="metas-header"><span>METAS DA FASE</span><button class="btn-add-meta" onclick="adicionarMetaToji(${b.id})">${addSvg} Adicionar</button></div><div class="metas-grid-container"><div class="metas-dias-header"><div class="meta-nome-header">Meta</div><div class="dias-header-row">${diasHeader}</div></div>${metasHtml}</div><div class="prova-final-toji"><h5>⚔️ PROVA FINAL</h5><p>${b.prova}</p><button class="prova-btn-toji ${bd.prova?'done':''}" onclick="toggleProvaToji(${b.id})">${bd.prova?'✓ CONCLUÍDA':'MARCAR CONCLUÍDA'}</button></div></div></div>`;
+        return `<div class="meta-row-toji"><div class="meta-nome">${m.texto}<div class="meta-actions-inline"><button class="btn-meta-action-sm" onclick="editarMetaToji(${b.id},'${m.id}')" title="Editar">${editSvg}</button><button class="btn-meta-action-sm del" onclick="excluirMetaToji(${b.id},'${m.id}')" title="Excluir">${delSvg}</button></div></div><div class="meta-dias-row">${diasHtml}</div></div>`;
     }).join('');
+    
+    return `<div class="bloco-toji ${bd.open?'open':''}" id="bloco-toji-${b.id}"><div class="bloco-header-toji" onclick="toggleBlocoToji(${b.id})"><div class="bloco-info"><div class="bloco-num">${b.id}</div><div><div class="bloco-nome">${b.nome}</div><div class="bloco-dias">${b.dias}</div></div></div><div class="bloco-status-toji"><div class="bloco-check-toji ${bd.prova?'done':''}">${checkSvg}</div><div class="bloco-toggle">${chevSvg}</div></div></div><div class="bloco-content-toji"><div class="fase-progress-container"><div class="fase-progress-header"><span class="fase-progress-label">PROGRESSO DA FASE</span><span class="fase-progress-count">${progresso}/90 dias</span></div><div class="fase-progress-bar"><div class="fase-progress-fill" style="width:${percentual}%"></div></div><div class="fase-progress-percent">${percentual}% concluído</div></div><p class="bloco-frase-toji">"${b.frase}"</p><div class="metas-header"><span>METAS DA FASE</span><button class="btn-add-meta" onclick="adicionarMetaToji(${b.id})">${addSvg} Adicionar</button></div><div class="metas-grid-container"><div class="metas-dias-header"><div class="meta-nome-header">Meta</div><div class="dias-header-row">${diasHeader}</div></div>${metasHtml}</div><div class="prova-final-toji"><h5>⚔️ PROVA FINAL</h5><p>${b.prova}</p><button class="prova-btn-toji ${bd.prova?'done':''}" onclick="toggleProvaToji(${b.id})">${bd.prova?'✓ CONCLUÍDA':'MARCAR CONCLUÍDA'}</button></div></div></div>`;
+}).join('');
+```
+
 }
 function toggleBlocoToji(id){if(!tojiData.blocos[id])tojiData.blocos[id]={metasCheck:{},prova:false,open:false};tojiData.blocos[id].open=!tojiData.blocos[id].open;saveToji();renderBlocosToji();}
 function toggleProvaToji(bid){if(!tojiData.blocos[bid])tojiData.blocos[bid]={metasCheck:{},prova:false,open:true};tojiData.blocos[bid].prova=!tojiData.blocos[bid].prova;saveToji();renderBlocosToji();verificarSeloPredador();}
-function verificarSeloPredador(){const blocos=getBlocosConfig();const todos=blocos.every(b=>tojiData.blocos[b.id]?.prova);const selo=document.getElementById('seloPredador');if(selo){if(todos)selo.classList.add('visivel');else selo.classList.remove('visivel');}}
+function verificarSeloPredador(){const blocos=getBlocosConfig();const todos=blocos.every(b=>tojiData.blocos[b.id]?.prova);const selo=document.getElementById(‘seloPredador’);if(selo){if(todos)selo.classList.add(‘visivel’);else selo.classList.remove(‘visivel’);}}
 function adicionarMetaToji(blocoId){
-    const texto=prompt('Nome da meta:');if(!texto)return;
-    const blocos=getBlocosConfig();
-    const bloco=blocos.find(b=>b.id===blocoId);
-    if(bloco){
-        const novoId='m'+blocoId+'_'+Date.now();
-        bloco.metas.push({id:novoId,texto});
-        saveToji();renderBlocosToji();showToast('Meta adicionada!','success');
-    }
+const texto=prompt(‘Nome da meta:’);if(!texto)return;
+const blocos=getBlocosConfig();
+const bloco=blocos.find(b=>b.id===blocoId);
+if(bloco){
+const novoId=‘m’+blocoId+’*’+Date.now();
+bloco.metas.push({id:novoId,texto});
+saveToji();renderBlocosToji();showToast(‘Meta adicionada!’,‘success’);
+}
 }
 function editarMetaToji(blocoId,metaId){
-    const blocos=getBlocosConfig();
-    const bloco=blocos.find(b=>b.id===blocoId);
-    const meta=bloco?.metas.find(m=>m.id===metaId);
-    if(!meta)return;
-    const texto=prompt('Nome da meta:',meta.texto);if(!texto)return;
-    meta.texto=texto;
-    saveToji();renderBlocosToji();showToast('Meta editada!','success');
+const blocos=getBlocosConfig();
+const bloco=blocos.find(b=>b.id===blocoId);
+const meta=bloco?.metas.find(m=>m.id===metaId);
+if(!meta)return;
+const texto=prompt(‘Nome da meta:’,meta.texto);if(!texto)return;
+meta.texto=texto;
+saveToji();renderBlocosToji();showToast(‘Meta editada!’,‘success’);
 }
 function excluirMetaToji(blocoId,metaId){
-    if(!confirm('Excluir esta meta?'))return;
-    const blocos=getBlocosConfig();
-    const bloco=blocos.find(b=>b.id===blocoId);
-    if(bloco){
-        bloco.metas=bloco.metas.filter(m=>m.id!==metaId);
-        if(tojiData.blocos[blocoId]?.metasCheck){
-            delete tojiData.blocos[blocoId].metasCheck[metaId];
-        }
-        const diasCompletos=contarDiasCompletos(blocoId);
-        setFaseProgresso(blocoId,diasCompletos);
-        saveToji();renderBlocosToji();showToast('Meta excluída!','success');
-    }
+if(!confirm(‘Excluir esta meta?’))return;
+const blocos=getBlocosConfig();
+const bloco=blocos.find(b=>b.id===blocoId);
+if(bloco){
+bloco.metas=bloco.metas.filter(m=>m.id!==metaId);
+if(tojiData.blocos[blocoId]?.metasCheck){
+delete tojiData.blocos[blocoId].metasCheck[metaId];
+}
+const diasCompletos=contarDiasCompletos(blocoId);
+setFaseProgresso(blocoId,diasCompletos);
+saveToji();renderBlocosToji();showToast(‘Meta excluída!’,‘success’);
+}
 }
 function renderRituaisToji(){
-    const c=document.getElementById('rituaisToji');if(!c)return;
-    const rituais=tojiData.rituaisConfig||RITUAIS_TOJI_DEFAULT;
-    const checkSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
-    const editSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
-    const delSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
-    c.innerHTML=rituais.map(r=>{
-        const checked=tojiData.rituais[r.id]||false;
-        return `<div class="ritual-item-toji"><div class="ritual-check-toji ${checked?'checked':''}" onclick="toggleRitualToji('${r.id}')">${checkSvg}</div><span class="ritual-text-toji">${r.texto}</span><span class="ritual-time-toji">${r.hora}</span><div class="ritual-actions-toji"><button class="btn-meta-action" onclick="editarRitualToji('${r.id}')" title="Editar">${editSvg}</button><button class="btn-meta-action del" onclick="excluirRitualToji('${r.id}')" title="Excluir">${delSvg}</button></div></div>`;
-    }).join('');
-    c.innerHTML+=`<button class="btn-add-ritual" onclick="adicionarRitualToji()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Adicionar Ritual</button>`;
-    const done=rituais.filter(r=>tojiData.rituais[r.id]).length;
-    const prog=document.getElementById('rituaisTojProgress');if(prog)prog.textContent=`${done} / ${rituais.length} rituais hoje`;
+const c=document.getElementById(‘rituaisToji’);if(!c)return;
+const rituais=tojiData.rituaisConfig||RITUAIS_TOJI_DEFAULT;
+const checkSvg=’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>’;
+const editSvg=’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>’;
+const delSvg=’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>’;
+c.innerHTML=rituais.map(r=>{
+const checked=tojiData.rituais[r.id]||false;
+return `<div class="ritual-item-toji"><div class="ritual-check-toji ${checked?'checked':''}" onclick="toggleRitualToji('${r.id}')">${checkSvg}</div><span class="ritual-text-toji">${r.texto}</span><span class="ritual-time-toji">${r.hora}</span><div class="ritual-actions-toji"><button class="btn-meta-action" onclick="editarRitualToji('${r.id}')" title="Editar">${editSvg}</button><button class="btn-meta-action del" onclick="excluirRitualToji('${r.id}')" title="Excluir">${delSvg}</button></div></div>`;
+}).join(’’);
+c.innerHTML+=`<button class="btn-add-ritual" onclick="adicionarRitualToji()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Adicionar Ritual</button>`;
+const done=rituais.filter(r=>tojiData.rituais[r.id]).length;
+const prog=document.getElementById(‘rituaisTojProgress’);if(prog)prog.textContent=`${done} / ${rituais.length} rituais hoje`;
 }
 function toggleRitualToji(id){tojiData.rituais[id]=!tojiData.rituais[id];saveToji();renderRituaisToji();}
 function adicionarRitualToji(){
-    const texto=prompt('Nome do ritual:');if(!texto)return;
-    const hora=prompt('Horário (ex: 05:00):','00:00');if(!hora)return;
-    if(!tojiData.rituaisConfig)tojiData.rituaisConfig=[...RITUAIS_TOJI_DEFAULT];
-    const novoId='r_'+Date.now();
-    tojiData.rituaisConfig.push({id:novoId,texto,hora});
-    saveToji();renderRituaisToji();showToast('Ritual adicionado!','success');
+const texto=prompt(‘Nome do ritual:’);if(!texto)return;
+const hora=prompt(‘Horário (ex: 05:00):’,‘00:00’);if(!hora)return;
+if(!tojiData.rituaisConfig)tojiData.rituaisConfig=[…RITUAIS_TOJI_DEFAULT];
+const novoId=’r*’+Date.now();
+tojiData.rituaisConfig.push({id:novoId,texto,hora});
+saveToji();renderRituaisToji();showToast(‘Ritual adicionado!’,‘success’);
 }
 function editarRitualToji(id){
-    const rituais=tojiData.rituaisConfig||RITUAIS_TOJI_DEFAULT;
-    const ritual=rituais.find(r=>r.id===id);
-    if(!ritual)return;
-    const texto=prompt('Nome do ritual:',ritual.texto);if(!texto)return;
-    const hora=prompt('Horário (ex: 05:00):',ritual.hora);if(!hora)return;
-    ritual.texto=texto;ritual.hora=hora;
-    saveToji();renderRituaisToji();showToast('Ritual editado!','success');
+const rituais=tojiData.rituaisConfig||RITUAIS_TOJI_DEFAULT;
+const ritual=rituais.find(r=>r.id===id);
+if(!ritual)return;
+const texto=prompt(‘Nome do ritual:’,ritual.texto);if(!texto)return;
+const hora=prompt(‘Horário (ex: 05:00):’,ritual.hora);if(!hora)return;
+ritual.texto=texto;ritual.hora=hora;
+saveToji();renderRituaisToji();showToast(‘Ritual editado!’,‘success’);
 }
 function excluirRitualToji(id){
-    if(!confirm('Excluir este ritual?'))return;
-    if(!tojiData.rituaisConfig)tojiData.rituaisConfig=[...RITUAIS_TOJI_DEFAULT];
-    tojiData.rituaisConfig=tojiData.rituaisConfig.filter(r=>r.id!==id);
-    saveToji();renderRituaisToji();showToast('Ritual excluído!','success');
+if(!confirm(‘Excluir este ritual?’))return;
+if(!tojiData.rituaisConfig)tojiData.rituaisConfig=[…RITUAIS_TOJI_DEFAULT];
+tojiData.rituaisConfig=tojiData.rituaisConfig.filter(r=>r.id!==id);
+saveToji();renderRituaisToji();showToast(‘Ritual excluído!’,‘success’);
 }
 function renderCortesToji(){
-    const c=document.getElementById('cortesListaToji');if(!c)return;
-    const last7=tojiData.cortes.slice(-7).reverse();
-    if(!last7.length){c.innerHTML='<p style="color:rgba(255,255,255,.4);text-align:center;padding:20px;">Nenhum corte registrado.</p>';return;}
-    c.innerHTML=last7.map(ct=>`<div class="corte-item-toji"><div class="corte-icon-toji"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div><span class="corte-text-toji">${ct.texto}</span><span class="corte-data-toji">${ct.data}</span></div>`).join('');
+const c=document.getElementById(‘cortesListaToji’);if(!c)return;
+const last7=tojiData.cortes.slice(-7).reverse();
+if(!last7.length){c.innerHTML=’<p style="color:rgba(255,255,255,.4);text-align:center;padding:20px;">Nenhum corte registrado.</p>’;return;}
+c.innerHTML=last7.map(ct=>`<div class="corte-item-toji"><div class="corte-icon-toji"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div><span class="corte-text-toji">${ct.texto}</span><span class="corte-data-toji">${ct.data}</span></div>`).join(’’);
 }
 function adicionarCorteToji(){
-    const input=document.getElementById('corteInputToji');const texto=input.value.trim();if(!texto)return;
-    tojiData.cortes.push({texto,data:new Date().toLocaleDateString('pt-BR')});
-    saveToji();input.value='';renderCortesToji();showToast('Corte registrado!','success');
+const input=document.getElementById(‘corteInputToji’);const texto=input.value.trim();if(!texto)return;
+tojiData.cortes.push({texto,data:new Date().toLocaleDateString(‘pt-BR’)});
+saveToji();input.value=’’;renderCortesToji();showToast(‘Corte registrado!’,‘success’);
 }
-document.addEventListener('keypress',function(e){if(e.target.id==='corteInputToji'&&e.key==='Enter')adicionarCorteToji();});
+document.addEventListener(‘keypress’,function(e){if(e.target.id===‘corteInputToji’&&e.key===‘Enter’)adicionarCorteToji();});
 
 // ============================================
 // SHELBY - PLANO DE 1 ANO
 // ============================================
-const SHELBY_STORAGE='shelby_data';
+const SHELBY_STORAGE=‘shelby_data’;
 const TRACOS_LICITOS=[
-    {id:'visao',nome:'Mente Visionária'},
-    {id:'influencia',nome:'Influência Social'},
-    {id:'frieza',nome:'Frieza Política'},
-    {id:'imagem',nome:'Imagem de Autoridade'},
-    {id:'rede',nome:'Rede de Aliados'}
+{id:‘visao’,nome:‘Mente Visionária’},
+{id:‘influencia’,nome:‘Influência Social’},
+{id:‘frieza’,nome:‘Frieza Política’},
+{id:‘imagem’,nome:‘Imagem de Autoridade’},
+{id:‘rede’,nome:‘Rede de Aliados’}
 ];
 const TRACOS_ILICITOS=[
-    {id:'manipulacao',nome:'Manipulação Calculada'},
-    {id:'dominio',nome:'Domínio Emocional'},
-    {id:'guerra',nome:'Guerra Psicológica'},
-    {id:'comando',nome:'Comando Paralelo'},
-    {id:'execucao',nome:'Execução Fria'}
+{id:‘manipulacao’,nome:‘Manipulação Calculada’},
+{id:‘dominio’,nome:‘Domínio Emocional’},
+{id:‘guerra’,nome:‘Guerra Psicológica’},
+{id:‘comando’,nome:‘Comando Paralelo’},
+{id:‘execucao’,nome:‘Execução Fria’}
 ];
 const FASES_LICITAS=[
-    {id:1,nome:'CONSTRUIR O NOME',dias:'Dias 1–90',frase:'Antes de dominar outros, domine sua imagem.',metas:[{id:'fl1_1',texto:'Definir identidade visual de poder'},{id:'fl1_2',texto:'Criar rotina de autoridade'},{id:'fl1_3',texto:'Estudar 1 lei do poder por semana'},{id:'fl1_4',texto:'Networking estratégico semanal'},{id:'fl1_5',texto:'Zero reações emocionais públicas'}],prova:'Ser reconhecido como referência em seu meio'},
-    {id:2,nome:'DOMINAR O TERRENO',dias:'Dias 91–180',frase:'Conheça cada peça do tabuleiro.',metas:[{id:'fl2_1',texto:'Mapear todos os players do ambiente'},{id:'fl2_2',texto:'Criar 3 alianças estratégicas'},{id:'fl2_3',texto:'Eliminar 1 fraqueza pessoal por mês'},{id:'fl2_4',texto:'Dominar a arte da negociação'}],prova:'Fechar um acordo que beneficie apenas você'},
-    {id:3,nome:'CONSTRUIR O IMPÉRIO',dias:'Dias 181–270',frase:'Tijolo por tijolo, silenciosamente.',metas:[{id:'fl3_1',texto:'Criar fonte de renda/influência paralela'},{id:'fl3_2',texto:'Posicionar aliados em lugares estratégicos'},{id:'fl3_3',texto:'Documentar tudo, expor nada'}],prova:'Ter uma conquista que ninguém sabe que foi sua'},
-    {id:4,nome:'GUERRA TOTAL',dias:'Dias 271–365',frase:'Quando atacar, não deixe sobreviventes.',metas:[{id:'fl4_1',texto:'Executar plano de dominação completo'},{id:'fl4_2',texto:'Neutralizar última ameaça'},{id:'fl4_3',texto:'Consolidar posição de poder'}],prova:'Estar em posição que ninguém pode tocar'}
+{id:1,nome:‘CONSTRUIR O NOME’,dias:‘Dias 1–90’,frase:‘Antes de dominar outros, domine sua imagem.’,metas:[{id:‘fl1_1’,texto:‘Definir identidade visual de poder’},{id:‘fl1_2’,texto:‘Criar rotina de autoridade’},{id:‘fl1_3’,texto:‘Estudar 1 lei do poder por semana’},{id:‘fl1_4’,texto:‘Networking estratégico semanal’},{id:‘fl1_5’,texto:‘Zero reações emocionais públicas’}],prova:‘Ser reconhecido como referência em seu meio’},
+{id:2,nome:‘DOMINAR O TERRENO’,dias:‘Dias 91–180’,frase:‘Conheça cada peça do tabuleiro.’,metas:[{id:‘fl2_1’,texto:‘Mapear todos os players do ambiente’},{id:‘fl2_2’,texto:‘Criar 3 alianças estratégicas’},{id:‘fl2_3’,texto:‘Eliminar 1 fraqueza pessoal por mês’},{id:‘fl2_4’,texto:‘Dominar a arte da negociação’}],prova:‘Fechar um acordo que beneficie apenas você’},
+{id:3,nome:‘CONSTRUIR O IMPÉRIO’,dias:‘Dias 181–270’,frase:‘Tijolo por tijolo, silenciosamente.’,metas:[{id:‘fl3_1’,texto:‘Criar fonte de renda/influência paralela’},{id:‘fl3_2’,texto:‘Posicionar aliados em lugares estratégicos’},{id:‘fl3_3’,texto:‘Documentar tudo, expor nada’}],prova:‘Ter uma conquista que ninguém sabe que foi sua’},
+{id:4,nome:‘GUERRA TOTAL’,dias:‘Dias 271–365’,frase:‘Quando atacar, não deixe sobreviventes.’,metas:[{id:‘fl4_1’,texto:‘Executar plano de dominação completo’},{id:‘fl4_2’,texto:‘Neutralizar última ameaça’},{id:‘fl4_3’,texto:‘Consolidar posição de poder’}],prova:‘Estar em posição que ninguém pode tocar’}
 ];
 const FASES_ILICITAS=[
-    {id:1,nome:'OBSERVAR NA SOMBRA',dias:'Dias 1–90',frase:'Veja tudo, revele nada.',metas:[{id:'fi1_1',texto:'Mapear fraquezas de todos ao redor'},{id:'fi1_2',texto:'Criar persona pública neutra'},{id:'fi1_3',texto:'Praticar leitura fria diária'},{id:'fi1_4',texto:'Nunca ser o primeiro a falar'}],prova:'Descobrir um segredo útil sem perguntar'},
-    {id:2,nome:'MANIPULAR SUTILMENTE',dias:'Dias 91–180',frase:'Plante ideias, colha resultados.',metas:[{id:'fi2_1',texto:'Fazer alguém agir sem perceber sua influência'},{id:'fi2_2',texto:'Controlar uma narrativa'},{id:'fi2_3',texto:'Criar dependência em alguém útil'}],prova:'Mudar uma decisão importante sem ser citado'},
-    {id:3,nome:'COMANDO INVISÍVEL',dias:'Dias 181–270',frase:'Lidere sem título.',metas:[{id:'fi3_1',texto:'Ter informantes em diferentes círculos'},{id:'fi3_2',texto:'Influenciar decisões à distância'},{id:'fi3_3',texto:'Ser consultado sem pedir'}],prova:'Ser o poder por trás de uma decisão pública'},
-    {id:4,nome:'EXECUÇÃO FINAL',dias:'Dias 271–365',frase:'Quando mover, será tarde demais para reagir.',metas:[{id:'fi4_1',texto:'Executar operação de alto impacto'},{id:'fi4_2',texto:'Deixar marca permanente sem rastros'}],prova:'Operação Oculta concluída com sucesso'}
+{id:1,nome:‘OBSERVAR NA SOMBRA’,dias:‘Dias 1–90’,frase:‘Veja tudo, revele nada.’,metas:[{id:‘fi1_1’,texto:‘Mapear fraquezas de todos ao redor’},{id:‘fi1_2’,texto:‘Criar persona pública neutra’},{id:‘fi1_3’,texto:‘Praticar leitura fria diária’},{id:‘fi1_4’,texto:‘Nunca ser o primeiro a falar’}],prova:‘Descobrir um segredo útil sem perguntar’},
+{id:2,nome:‘MANIPULAR SUTILMENTE’,dias:‘Dias 91–180’,frase:‘Plante ideias, colha resultados.’,metas:[{id:‘fi2_1’,texto:‘Fazer alguém agir sem perceber sua influência’},{id:‘fi2_2’,texto:‘Controlar uma narrativa’},{id:‘fi2_3’,texto:‘Criar dependência em alguém útil’}],prova:‘Mudar uma decisão importante sem ser citado’},
+{id:3,nome:‘COMANDO INVISÍVEL’,dias:‘Dias 181–270’,frase:‘Lidere sem título.’,metas:[{id:‘fi3_1’,texto:‘Ter informantes em diferentes círculos’},{id:‘fi3_2’,texto:‘Influenciar decisões à distância’},{id:‘fi3_3’,texto:‘Ser consultado sem pedir’}],prova:‘Ser o poder por trás de uma decisão pública’},
+{id:4,nome:‘EXECUÇÃO FINAL’,dias:‘Dias 271–365’,frase:‘Quando mover, será tarde demais para reagir.’,metas:[{id:‘fi4_1’,texto:‘Executar operação de alto impacto’},{id:‘fi4_2’,texto:‘Deixar marca permanente sem rastros’}],prova:‘Operação Oculta concluída com sucesso’}
 ];
 const CHECKLIST_COMANDO=[
-    {id:'cc1',texto:'Aparência tática impecável'},
-    {id:'cc2',texto:'30min de leitura estratégica'},
-    {id:'cc3',texto:'1 ação executada sem hesitação'},
-    {id:'cc4',texto:'Influência ou silêncio calculado'},
-    {id:'cc5',texto:'Análise de 1 pessoa/situação'}
+{id:‘cc1’,texto:‘Aparência tática impecável’},
+{id:‘cc2’,texto:‘30min de leitura estratégica’},
+{id:‘cc3’,texto:‘1 ação executada sem hesitação’},
+{id:‘cc4’,texto:‘Influência ou silêncio calculado’},
+{id:‘cc5’,texto:‘Análise de 1 pessoa/situação’}
 ];
 const LEITURAS_FASES=[
-    {fase:1,titulo:'FASE 1',livros:['O Príncipe - Maquiavel','As 48 Leis do Poder - Robert Greene','Meditações - Marco Aurélio']},
-    {fase:2,titulo:'FASE 2',livros:['A Arte da Guerra - Sun Tzu','O Jogo - Neil Strauss','Se o Corpo Falasse - Pierre Weil']},
-    {fase:3,titulo:'FASE 3',livros:['Maestria - Robert Greene','O Ego é Seu Inimigo - Ryan Holiday','O Obstáculo é o Caminho - Ryan Holiday']},
-    {fase:4,titulo:'FASE 4',livros:['As 33 Estratégias de Guerra - Robert Greene','A Arte da Sedução - Robert Greene','Antifrágil - Nassim Taleb']}
+{fase:1,titulo:‘FASE 1’,livros:[‘O Príncipe - Maquiavel’,‘As 48 Leis do Poder - Robert Greene’,‘Meditações - Marco Aurélio’]},
+{fase:2,titulo:‘FASE 2’,livros:[‘A Arte da Guerra - Sun Tzu’,‘O Jogo - Neil Strauss’,‘Se o Corpo Falasse - Pierre Weil’]},
+{fase:3,titulo:‘FASE 3’,livros:[‘Maestria - Robert Greene’,‘O Ego é Seu Inimigo - Ryan Holiday’,‘O Obstáculo é o Caminho - Ryan Holiday’]},
+{fase:4,titulo:‘FASE 4’,livros:[‘As 33 Estratégias de Guerra - Robert Greene’,‘A Arte da Sedução - Robert Greene’,‘Antifrágil - Nassim Taleb’]}
 ];
 const MISSOES_SOMBRIAS=[
-    {id:'ms1',texto:'Influenciar uma decisão sem ser percebido'},
-    {id:'ms2',texto:'Coletar informação estratégica sobre alguém'},
-    {id:'ms3',texto:'Dominar um ambiente sem falar'},
-    {id:'ms4',texto:'Criar um laço por interesse puro'},
-    {id:'ms5',texto:'Cortar alguém sem drama ou explicação'}
+{id:‘ms1’,texto:‘Influenciar uma decisão sem ser percebido’},
+{id:‘ms2’,texto:‘Coletar informação estratégica sobre alguém’},
+{id:‘ms3’,texto:‘Dominar um ambiente sem falar’},
+{id:‘ms4’,texto:‘Criar um laço por interesse puro’},
+{id:‘ms5’,texto:‘Cortar alguém sem drama ou explicação’}
 ];
-let shelbyData=JSON.parse(localStorage.getItem(SHELBY_STORAGE))||{tracosLicitos:{},tracosIlicitos:{},fasesLicitas:{},fasesIlicitas:{},checklist:{},missoesSombrias:{},operacaoOculta:{texto:'',concluida:false},weekStart:null,lastReset:null};
+let shelbyData=JSON.parse(localStorage.getItem(SHELBY_STORAGE))||{tracosLicitos:{},tracosIlicitos:{},fasesLicitas:{},fasesIlicitas:{},checklist:{},missoesSombrias:{},operacaoOculta:{texto:’’,concluida:false},weekStart:null,lastReset:null};
 function saveShelby(){localStorage.setItem(SHELBY_STORAGE,JSON.stringify(shelbyData));}
-function getShelbyFaseProgresso(tipo,faseId){return parseInt(localStorage.getItem('shelby_'+tipo+'_fase'+faseId+'_progresso'))||0;}
-function setShelbyFaseProgresso(tipo,faseId,valor){localStorage.setItem('shelby_'+tipo+'_fase'+faseId+'_progresso',Math.min(90,Math.max(0,valor)));}
+function getShelbyFaseProgresso(tipo,faseId){return parseInt(localStorage.getItem(‘shelby_’+tipo+’_fase’+faseId+’*progresso’))||0;}
+function setShelbyFaseProgresso(tipo,faseId,valor){localStorage.setItem(’shelby*’+tipo+’_fase’+faseId+’_progresso’,Math.min(90,Math.max(0,valor)));}
 function toggleLadoShelby(lado){
-    document.querySelectorAll('.lado-btn').forEach(b=>b.classList.remove('active'));
-    event.target.closest('.lado-btn').classList.add('active');
-    if(lado==='ilicito')event.target.closest('.lado-btn').classList.add('ilicito');
-    document.getElementById('ladoLicito').classList.toggle('hidden',lado!=='licito');
-    document.getElementById('ladoIlicito').classList.toggle('hidden',lado!=='ilicito');
+document.querySelectorAll(’.lado-btn’).forEach(b=>b.classList.remove(‘active’));
+event.target.closest(’.lado-btn’).classList.add(‘active’);
+if(lado===‘ilicito’)event.target.closest(’.lado-btn’).classList.add(‘ilicito’);
+document.getElementById(‘ladoLicito’).classList.toggle(‘hidden’,lado!==‘licito’);
+document.getElementById(‘ladoIlicito’).classList.toggle(‘hidden’,lado!==‘ilicito’);
 }
 function renderShelby(){
-    checkShelbyWeekReset();
-    const hoje=new Date().toDateString();
-    if(shelbyData.lastReset!==hoje){shelbyData.checklist={};shelbyData.lastReset=hoje;saveShelby();}
-    renderTracosLicitos();renderTracosIlicitos();
-    renderFasesShelby('licitas',FASES_LICITAS,'fasesLicitasContainer');
-    renderFasesShelby('ilicitas',FASES_ILICITAS,'fasesIlicitasContainer');
-    renderChecklistComando();renderLeituras();renderMissoesSombrias();renderOperacaoOculta();verificarSeloShelby();
+checkShelbyWeekReset();
+const hoje=new Date().toDateString();
+if(shelbyData.lastReset!==hoje){shelbyData.checklist={};shelbyData.lastReset=hoje;saveShelby();}
+renderTracosLicitos();renderTracosIlicitos();
+renderFasesShelby(‘licitas’,FASES_LICITAS,‘fasesLicitasContainer’);
+renderFasesShelby(‘ilicitas’,FASES_ILICITAS,‘fasesIlicitasContainer’);
+renderChecklistComando();renderLeituras();renderMissoesSombrias();renderOperacaoOculta();verificarSeloShelby();
 }
 function renderTracosLicitos(){
-    const grid=document.getElementById('tracosLicitosGrid');if(!grid)return;
-    grid.innerHTML=TRACOS_LICITOS.map(t=>{
-        const v=shelbyData.tracosLicitos[t.id]||0;
-        return `<div class="traco-shelby"><h5>${t.nome}</h5><div class="traco-shelby-bar"><div class="traco-shelby-fill" style="width:${v}%"></div></div><div class="traco-shelby-controls"><span class="traco-shelby-percent">${v}%</span><div class="traco-shelby-btns"><button class="traco-shelby-btn" onclick="ajustarTracoShelby('licitos','${t.id}',-5)">−</button><button class="traco-shelby-btn" onclick="ajustarTracoShelby('licitos','${t.id}',5)">+</button></div></div></div>`;
-    }).join('');
+const grid=document.getElementById(‘tracosLicitosGrid’);if(!grid)return;
+grid.innerHTML=TRACOS_LICITOS.map(t=>{
+const v=shelbyData.tracosLicitos[t.id]||0;
+return `<div class="traco-shelby"><h5>${t.nome}</h5><div class="traco-shelby-bar"><div class="traco-shelby-fill" style="width:${v}%"></div></div><div class="traco-shelby-controls"><span class="traco-shelby-percent">${v}%</span><div class="traco-shelby-btns"><button class="traco-shelby-btn" onclick="ajustarTracoShelby('licitos','${t.id}',-5)">−</button><button class="traco-shelby-btn" onclick="ajustarTracoShelby('licitos','${t.id}',5)">+</button></div></div></div>`;
+}).join(’’);
 }
 function renderTracosIlicitos(){
-    const grid=document.getElementById('tracosIlicitosGrid');if(!grid)return;
-    grid.innerHTML=TRACOS_ILICITOS.map(t=>{
-        const v=shelbyData.tracosIlicitos[t.id]||0;
-        return `<div class="traco-shelby ilicito"><h5>${t.nome}</h5><div class="traco-shelby-bar"><div class="traco-shelby-fill" style="width:${v}%"></div></div><div class="traco-shelby-controls"><span class="traco-shelby-percent">${v}%</span><div class="traco-shelby-btns"><button class="traco-shelby-btn" onclick="ajustarTracoShelby('ilicitos','${t.id}',-5)">−</button><button class="traco-shelby-btn" onclick="ajustarTracoShelby('ilicitos','${t.id}',5)">+</button></div></div></div>`;
-    }).join('');
+const grid=document.getElementById(‘tracosIlicitosGrid’);if(!grid)return;
+grid.innerHTML=TRACOS_ILICITOS.map(t=>{
+const v=shelbyData.tracosIlicitos[t.id]||0;
+return `<div class="traco-shelby ilicito"><h5>${t.nome}</h5><div class="traco-shelby-bar"><div class="traco-shelby-fill" style="width:${v}%"></div></div><div class="traco-shelby-controls"><span class="traco-shelby-percent">${v}%</span><div class="traco-shelby-btns"><button class="traco-shelby-btn" onclick="ajustarTracoShelby('ilicitos','${t.id}',-5)">−</button><button class="traco-shelby-btn" onclick="ajustarTracoShelby('ilicitos','${t.id}',5)">+</button></div></div></div>`;
+}).join(’’);
 }
 function ajustarTracoShelby(tipo,id,delta){
-    const key=tipo==='licitos'?'tracosLicitos':'tracosIlicitos';
-    shelbyData[key][id]=Math.max(0,Math.min(100,(shelbyData[key][id]||0)+delta));
-    saveShelby();
-    tipo==='licitos'?renderTracosLicitos():renderTracosIlicitos();
+const key=tipo===‘licitos’?‘tracosLicitos’:‘tracosIlicitos’;
+shelbyData[key][id]=Math.max(0,Math.min(100,(shelbyData[key][id]||0)+delta));
+saveShelby();
+tipo===‘licitos’?renderTracosLicitos():renderTracosIlicitos();
 }
 function verificarDiaCompletoShelby(tipo,faseId,diaIdx,fases){
-    const fase=fases.find(f=>f.id===faseId);if(!fase)return false;
-    const key=tipo==='licitas'?'fasesLicitas':'fasesIlicitas';
-    const fd=shelbyData[key][faseId];
-    if(!fd||!fd.metasCheck)return false;
-    return fase.metas.every(m=>{const checks=fd.metasCheck[m.id]||{};return checks[diaIdx]===true;});
+const fase=fases.find(f=>f.id===faseId);if(!fase)return false;
+const key=tipo===‘licitas’?‘fasesLicitas’:‘fasesIlicitas’;
+const fd=shelbyData[key][faseId];
+if(!fd||!fd.metasCheck)return false;
+return fase.metas.every(m=>{const checks=fd.metasCheck[m.id]||{};return checks[diaIdx]===true;});
 }
 function contarDiasCompletosShelby(tipo,faseId,fases){
-    let count=0;
-    for(let i=0;i<7;i++){if(verificarDiaCompletoShelby(tipo,faseId,i,fases))count++;}
-    return count;
+let count=0;
+for(let i=0;i<7;i++){if(verificarDiaCompletoShelby(tipo,faseId,i,fases))count++;}
+return count;
 }
 function toggleMetaDiaShelby(tipo,faseId,metaId,diaIdx){
-    const key=tipo==='licitas'?'fasesLicitas':'fasesIlicitas';
-    const fases=tipo==='licitas'?FASES_LICITAS:FASES_ILICITAS;
-    if(!shelbyData[key][faseId])shelbyData[key][faseId]={metasCheck:{},prova:false,open:true};
-    if(!shelbyData[key][faseId].metasCheck)shelbyData[key][faseId].metasCheck={};
-    if(!shelbyData[key][faseId].metasCheck[metaId])shelbyData[key][faseId].metasCheck[metaId]={};
-    const antes=verificarDiaCompletoShelby(tipo,faseId,diaIdx,fases);
-    shelbyData[key][faseId].metasCheck[metaId][diaIdx]=!shelbyData[key][faseId].metasCheck[metaId][diaIdx];
-    const depois=verificarDiaCompletoShelby(tipo,faseId,diaIdx,fases);
-    const dias=contarDiasCompletosShelby(tipo,faseId,fases);
-    setShelbyFaseProgresso(tipo,faseId,dias);
-    if(!antes&&depois)showToast('DIA COMPLETO! '+dias+'/90','success');
-    saveShelby();
-    renderFasesShelby(tipo,fases,tipo==='licitas'?'fasesLicitasContainer':'fasesIlicitasContainer');
+const key=tipo===‘licitas’?‘fasesLicitas’:‘fasesIlicitas’;
+const fases=tipo===‘licitas’?FASES_LICITAS:FASES_ILICITAS;
+if(!shelbyData[key][faseId])shelbyData[key][faseId]={metasCheck:{},prova:false,open:true};
+if(!shelbyData[key][faseId].metasCheck)shelbyData[key][faseId].metasCheck={};
+if(!shelbyData[key][faseId].metasCheck[metaId])shelbyData[key][faseId].metasCheck[metaId]={};
+const antes=verificarDiaCompletoShelby(tipo,faseId,diaIdx,fases);
+shelbyData[key][faseId].metasCheck[metaId][diaIdx]=!shelbyData[key][faseId].metasCheck[metaId][diaIdx];
+const depois=verificarDiaCompletoShelby(tipo,faseId,diaIdx,fases);
+const dias=contarDiasCompletosShelby(tipo,faseId,fases);
+setShelbyFaseProgresso(tipo,faseId,dias);
+if(!antes&&depois)showToast(‘DIA COMPLETO! ‘+dias+’/90’,‘success’);
+saveShelby();
+renderFasesShelby(tipo,fases,tipo===‘licitas’?‘fasesLicitasContainer’:‘fasesIlicitasContainer’);
 }
 function renderFasesShelby(tipo,fases,containerId){
-    const c=document.getElementById(containerId);if(!c)return;
-    const key=tipo==='licitas'?'fasesLicitas':'fasesIlicitas';
-    const isIlicito=tipo==='ilicitas';
-    const checkSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
-    const chevSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>';
-    const DIAS=['S','T','Q','Q','S','S','D'];
-    c.innerHTML=fases.map(f=>{
-        const fd=shelbyData[key][f.id]||{metasCheck:{},prova:false,open:false};
-        const prog=getShelbyFaseProgresso(tipo,f.id);
-        const pct=Math.floor((prog/90)*100);
-        const diasCompletos=[];for(let i=0;i<7;i++){diasCompletos[i]=verificarDiaCompletoShelby(tipo,f.id,i,fases);}
-        const diasHeader=DIAS.map((d,i)=>`<div class="dia-header ${diasCompletos[i]?'completo':''}">${d}</div>`).join('');
-        const metasHtml=f.metas.map(m=>{
-            const checks=fd.metasCheck?.[m.id]||{};
-            const diasHtml=DIAS.map((d,i)=>{const checked=checks[i]?'checked':'';return `<div class="dia-check ${checked}" onclick="toggleMetaDiaShelby('${tipo}',${f.id},'${m.id}',${i})"></div>`;}).join('');
-            return `<div class="meta-row-toji"><div class="meta-nome">${m.texto}</div><div class="meta-dias-row">${diasHtml}</div></div>`;
-        }).join('');
-        return `<div class="bloco-toji ${fd.open?'open':''}" style="${isIlicito?'border-color:rgba(26,58,74,.3)':''}"><div class="bloco-header-toji" onclick="toggleFaseShelby('${tipo}',${f.id})" style="${isIlicito?'background:rgba(26,58,74,.1)':''}"><div class="bloco-info"><div class="bloco-num" style="${isIlicito?'border-color:#1a3a4a;background:rgba(26,58,74,.2)':''}">${f.id}</div><div><div class="bloco-nome" style="${isIlicito?'color:#5d8aa8':''}">${f.nome}</div><div class="bloco-dias">${f.dias}</div></div></div><div class="bloco-status-toji"><div class="bloco-check-toji ${fd.prova?'done':''}" style="${isIlicito?'border-color:rgba(26,58,74,.4)':''}">${checkSvg}</div><div class="bloco-toggle">${chevSvg}</div></div></div><div class="bloco-content-toji"><div class="fase-progress-container" style="${isIlicito?'border-color:rgba(26,58,74,.2)':''}"><div class="fase-progress-header"><span class="fase-progress-label" style="${isIlicito?'color:#5d8aa8':''}">PROGRESSO</span><span class="fase-progress-count">${prog}/90</span></div><div class="fase-progress-bar" style="${isIlicito?'background:rgba(26,58,74,.2)':''}"><div class="fase-progress-fill" style="width:${pct}%;${isIlicito?'background:linear-gradient(90deg,#1a3a4a,#5d8aa8)':''}"></div></div><div class="fase-progress-percent">${pct}%</div></div><p class="bloco-frase-toji">"${f.frase}"</p><div class="metas-grid-container" style="${isIlicito?'border-color:rgba(26,58,74,.2)':''}"><div class="metas-dias-header" style="${isIlicito?'background:rgba(26,58,74,.15)':''}"><div class="meta-nome-header">Meta</div><div class="dias-header-row">${diasHeader}</div></div>${metasHtml}</div><div class="prova-final-toji" style="${isIlicito?'background:rgba(26,58,74,.15);border-color:rgba(26,58,74,.4)':''}"><h5 style="${isIlicito?'color:#5d8aa8':''}">⚔️ PROVA FINAL</h5><p>${f.prova}</p><button class="prova-btn-toji ${fd.prova?'done':''}" onclick="toggleProvaShelby('${tipo}',${f.id})" style="${isIlicito?'border-color:#1a3a4a;color:#5d8aa8':''}">${fd.prova?'✓ CONCLUÍDA':'MARCAR CONCLUÍDA'}</button></div></div></div>`;
-    }).join('');
+const c=document.getElementById(containerId);if(!c)return;
+const key=tipo===‘licitas’?‘fasesLicitas’:‘fasesIlicitas’;
+const isIlicito=tipo===‘ilicitas’;
+const checkSvg=’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>’;
+const chevSvg=’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>’;
+const DIAS=[‘S’,‘T’,‘Q’,‘Q’,‘S’,‘S’,‘D’];
+c.innerHTML=fases.map(f=>{
+const fd=shelbyData[key][f.id]||{metasCheck:{},prova:false,open:false};
+const prog=getShelbyFaseProgresso(tipo,f.id);
+const pct=Math.floor((prog/90)*100);
+const diasCompletos=[];for(let i=0;i<7;i++){diasCompletos[i]=verificarDiaCompletoShelby(tipo,f.id,i,fases);}
+const diasHeader=DIAS.map((d,i)=>`<div class="dia-header ${diasCompletos[i]?'completo':''}">${d}</div>`).join(’’);
+const metasHtml=f.metas.map(m=>{
+const checks=fd.metasCheck?.[m.id]||{};
+const diasHtml=DIAS.map((d,i)=>{const checked=checks[i]?‘checked’:’’;return `<div class="dia-check ${checked}" onclick="toggleMetaDiaShelby('${tipo}',${f.id},'${m.id}',${i})"></div>`;}).join(’’);
+return `<div class="meta-row-toji"><div class="meta-nome">${m.texto}</div><div class="meta-dias-row">${diasHtml}</div></div>`;
+}).join(’’);
+return `<div class="bloco-toji ${fd.open?'open':''}" style="${isIlicito?'border-color:rgba(26,58,74,.3)':''}"><div class="bloco-header-toji" onclick="toggleFaseShelby('${tipo}',${f.id})" style="${isIlicito?'background:rgba(26,58,74,.1)':''}"><div class="bloco-info"><div class="bloco-num" style="${isIlicito?'border-color:#1a3a4a;background:rgba(26,58,74,.2)':''}">${f.id}</div><div><div class="bloco-nome" style="${isIlicito?'color:#5d8aa8':''}">${f.nome}</div><div class="bloco-dias">${f.dias}</div></div></div><div class="bloco-status-toji"><div class="bloco-check-toji ${fd.prova?'done':''}" style="${isIlicito?'border-color:rgba(26,58,74,.4)':''}">${checkSvg}</div><div class="bloco-toggle">${chevSvg}</div></div></div><div class="bloco-content-toji"><div class="fase-progress-container" style="${isIlicito?'border-color:rgba(26,58,74,.2)':''}"><div class="fase-progress-header"><span class="fase-progress-label" style="${isIlicito?'color:#5d8aa8':''}">PROGRESSO</span><span class="fase-progress-count">${prog}/90</span></div><div class="fase-progress-bar" style="${isIlicito?'background:rgba(26,58,74,.2)':''}"><div class="fase-progress-fill" style="width:${pct}%;${isIlicito?'background:linear-gradient(90deg,#1a3a4a,#5d8aa8)':''}"></div></div><div class="fase-progress-percent">${pct}%</div></div><p class="bloco-frase-toji">"${f.frase}"</p><div class="metas-grid-container" style="${isIlicito?'border-color:rgba(26,58,74,.2)':''}"><div class="metas-dias-header" style="${isIlicito?'background:rgba(26,58,74,.15)':''}"><div class="meta-nome-header">Meta</div><div class="dias-header-row">${diasHeader}</div></div>${metasHtml}</div><div class="prova-final-toji" style="${isIlicito?'background:rgba(26,58,74,.15);border-color:rgba(26,58,74,.4)':''}"><h5 style="${isIlicito?'color:#5d8aa8':''}">⚔️ PROVA FINAL</h5><p>${f.prova}</p><button class="prova-btn-toji ${fd.prova?'done':''}" onclick="toggleProvaShelby('${tipo}',${f.id})" style="${isIlicito?'border-color:#1a3a4a;color:#5d8aa8':''}">${fd.prova?'✓ CONCLUÍDA':'MARCAR CONCLUÍDA'}</button></div></div></div>`;
+}).join(’’);
 }
 function toggleFaseShelby(tipo,id){
-    const key=tipo==='licitas'?'fasesLicitas':'fasesIlicitas';
-    if(!shelbyData[key][id])shelbyData[key][id]={metasCheck:{},prova:false,open:false};
-    shelbyData[key][id].open=!shelbyData[key][id].open;
-    saveShelby();
-    renderFasesShelby(tipo,tipo==='licitas'?FASES_LICITAS:FASES_ILICITAS,tipo==='licitas'?'fasesLicitasContainer':'fasesIlicitasContainer');
+const key=tipo===‘licitas’?‘fasesLicitas’:‘fasesIlicitas’;
+if(!shelbyData[key][id])shelbyData[key][id]={metasCheck:{},prova:false,open:false};
+shelbyData[key][id].open=!shelbyData[key][id].open;
+saveShelby();
+renderFasesShelby(tipo,tipo===‘licitas’?FASES_LICITAS:FASES_ILICITAS,tipo===‘licitas’?‘fasesLicitasContainer’:‘fasesIlicitasContainer’);
 }
 function toggleProvaShelby(tipo,id){
-    const key=tipo==='licitas'?'fasesLicitas':'fasesIlicitas';
-    if(!shelbyData[key][id])shelbyData[key][id]={metasCheck:{},prova:false,open:true};
-    shelbyData[key][id].prova=!shelbyData[key][id].prova;
-    saveShelby();
-    renderFasesShelby(tipo,tipo==='licitas'?FASES_LICITAS:FASES_ILICITAS,tipo==='licitas'?'fasesLicitasContainer':'fasesIlicitasContainer');
-    verificarSeloShelby();
+const key=tipo===‘licitas’?‘fasesLicitas’:‘fasesIlicitas’;
+if(!shelbyData[key][id])shelbyData[key][id]={metasCheck:{},prova:false,open:true};
+shelbyData[key][id].prova=!shelbyData[key][id].prova;
+saveShelby();
+renderFasesShelby(tipo,tipo===‘licitas’?FASES_LICITAS:FASES_ILICITAS,tipo===‘licitas’?‘fasesLicitasContainer’:‘fasesIlicitasContainer’);
+verificarSeloShelby();
 }
 function renderChecklistComando(){
-    const c=document.getElementById('checklistComandoContainer');if(!c)return;
-    const checkSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
-    c.innerHTML=CHECKLIST_COMANDO.map(item=>{
-        const checked=shelbyData.checklist[item.id]||false;
-        return `<div class="ritual-item-toji"><div class="ritual-check-toji ${checked?'checked':''}" onclick="toggleChecklistShelby('${item.id}')">${checkSvg}</div><span class="ritual-text-toji">${item.texto}</span></div>`;
-    }).join('');
+const c=document.getElementById(‘checklistComandoContainer’);if(!c)return;
+const checkSvg=’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>’;
+c.innerHTML=CHECKLIST_COMANDO.map(item=>{
+const checked=shelbyData.checklist[item.id]||false;
+return `<div class="ritual-item-toji"><div class="ritual-check-toji ${checked?'checked':''}" onclick="toggleChecklistShelby('${item.id}')">${checkSvg}</div><span class="ritual-text-toji">${item.texto}</span></div>`;
+}).join(’’);
 }
 function toggleChecklistShelby(id){shelbyData.checklist[id]=!shelbyData.checklist[id];saveShelby();renderChecklistComando();}
 function renderLeituras(){
-    const c=document.getElementById('leiturasContainer');if(!c)return;
-    c.innerHTML=LEITURAS_FASES.map(lf=>`<div class="leitura-fase"><h5>${lf.titulo}</h5><ul>${lf.livros.map(l=>`<li>${l}</li>`).join('')}</ul></div>`).join('');
+const c=document.getElementById(‘leiturasContainer’);if(!c)return;
+c.innerHTML=LEITURAS_FASES.map(lf=>`<div class="leitura-fase"><h5>${lf.titulo}</h5><ul>${lf.livros.map(l=>`<li>${l}</li>`).join('')}</ul></div>`).join(’’);
 }
 function renderMissoesSombrias(){
-    const c=document.getElementById('missoesSombriasContainer');if(!c)return;
-    const checkSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
-    c.innerHTML=MISSOES_SOMBRIAS.map(m=>{
-        const checked=shelbyData.missoesSombrias[m.id]||false;
-        return `<div class="ritual-item-toji" style="border-color:rgba(26,58,74,.2)"><div class="ritual-check-toji ${checked?'checked':''}" onclick="toggleMissaoSombria('${m.id}')" style="border-color:rgba(26,58,74,.4)">${checkSvg}</div><span class="ritual-text-toji">${m.texto}</span></div>`;
-    }).join('');
+const c=document.getElementById(‘missoesSombriasContainer’);if(!c)return;
+const checkSvg=’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>’;
+c.innerHTML=MISSOES_SOMBRIAS.map(m=>{
+const checked=shelbyData.missoesSombrias[m.id]||false;
+return `<div class="ritual-item-toji" style="border-color:rgba(26,58,74,.2)"><div class="ritual-check-toji ${checked?'checked':''}" onclick="toggleMissaoSombria('${m.id}')" style="border-color:rgba(26,58,74,.4)">${checkSvg}</div><span class="ritual-text-toji">${m.texto}</span></div>`;
+}).join(’’);
 }
 function toggleMissaoSombria(id){shelbyData.missoesSombrias[id]=!shelbyData.missoesSombrias[id];saveShelby();renderMissoesSombrias();}
 function renderOperacaoOculta(){
-    const txt=document.getElementById('operacaoOcultaTexto');
-    const btn=document.getElementById('btnOperacao');
-    if(txt)txt.value=shelbyData.operacaoOculta.texto||'';
-    if(btn){
-        if(shelbyData.operacaoOculta.concluida){btn.classList.add('done');btn.textContent='✓ OPERAÇÃO CONCLUÍDA';}
-        else{btn.classList.remove('done');btn.textContent='OPERAÇÃO CONCLUÍDA';}
-    }
+const txt=document.getElementById(‘operacaoOcultaTexto’);
+const btn=document.getElementById(‘btnOperacao’);
+if(txt)txt.value=shelbyData.operacaoOculta.texto||’’;
+if(btn){
+if(shelbyData.operacaoOculta.concluida){btn.classList.add(‘done’);btn.textContent=‘✓ OPERAÇÃO CONCLUÍDA’;}
+else{btn.classList.remove(‘done’);btn.textContent=‘OPERAÇÃO CONCLUÍDA’;}
+}
 }
 function concluirOperacaoOculta(){
-    const txt=document.getElementById('operacaoOcultaTexto');
-    shelbyData.operacaoOculta.texto=txt?txt.value:'';
-    shelbyData.operacaoOculta.concluida=!shelbyData.operacaoOculta.concluida;
-    saveShelby();renderOperacaoOculta();verificarSeloShelby();
-    if(shelbyData.operacaoOculta.concluida)showToast('OPERAÇÃO OCULTA CONCLUÍDA','success');
+const txt=document.getElementById(‘operacaoOcultaTexto’);
+shelbyData.operacaoOculta.texto=txt?txt.value:’’;
+shelbyData.operacaoOculta.concluida=!shelbyData.operacaoOculta.concluida;
+saveShelby();renderOperacaoOculta();verificarSeloShelby();
+if(shelbyData.operacaoOculta.concluida)showToast(‘OPERAÇÃO OCULTA CONCLUÍDA’,‘success’);
 }
 function checkShelbyWeekReset(){
-    const currentWeek=getWeekStart();
-    if(shelbyData.weekStart&&shelbyData.weekStart!==currentWeek){
-        [['licitas',FASES_LICITAS,'fasesLicitas'],['ilicitas',FASES_ILICITAS,'fasesIlicitas']].forEach(([tipo,fases,key])=>{
-            fases.forEach(f=>{
-                const fd=shelbyData[key][f.id];
-                if(fd&&fd.metasCheck){
-                    let diasCompletos=0;
-                    for(let i=0;i<7;i++){if(verificarDiaCompletoShelby(tipo,f.id,i,fases))diasCompletos++;}
-                    if(diasCompletos<7){setShelbyFaseProgresso(tipo,f.id,0);showToast('FASE '+f.id+' ('+tipo.toUpperCase()+') RESETADA!','error');}
-                    fd.metasCheck={};
-                }
-            });
-        });
-        shelbyData.missoesSombrias={};
-        saveShelby();
-    }
-    shelbyData.weekStart=currentWeek;
-    saveShelby();
+const currentWeek=getWeekStart();
+if(shelbyData.weekStart&&shelbyData.weekStart!==currentWeek){
+[[‘licitas’,FASES_LICITAS,‘fasesLicitas’],[‘ilicitas’,FASES_ILICITAS,‘fasesIlicitas’]].forEach(([tipo,fases,key])=>{
+fases.forEach(f=>{
+const fd=shelbyData[key][f.id];
+if(fd&&fd.metasCheck){
+let diasCompletos=0;
+for(let i=0;i<7;i++){if(verificarDiaCompletoShelby(tipo,f.id,i,fases))diasCompletos++;}
+if(diasCompletos<7){setShelbyFaseProgresso(tipo,f.id,0);showToast(‘FASE ‘+f.id+’ (’+tipo.toUpperCase()+’) RESETADA!’,‘error’);}
+fd.metasCheck={};
+}
+});
+});
+shelbyData.missoesSombrias={};
+saveShelby();
+}
+shelbyData.weekStart=currentWeek;
+saveShelby();
 }
 function verificarSeloShelby(){
-    const licitasDone=FASES_LICITAS.every(f=>shelbyData.fasesLicitas[f.id]?.prova);
-    const ilicitasDone=FASES_ILICITAS.every(f=>shelbyData.fasesIlicitas[f.id]?.prova);
-    const opDone=shelbyData.operacaoOculta.concluida;
-    const selo=document.getElementById('seloShelby');
-    if(selo){if(licitasDone&&ilicitasDone&&opDone)selo.classList.add('visivel');else selo.classList.remove('visivel');}
+const licitasDone=FASES_LICITAS.every(f=>shelbyData.fasesLicitas[f.id]?.prova);
+const ilicitasDone=FASES_ILICITAS.every(f=>shelbyData.fasesIlicitas[f.id]?.prova);
+const opDone=shelbyData.operacaoOculta.concluida;
+const selo=document.getElementById(‘seloShelby’);
+if(selo){if(licitasDone&&ilicitasDone&&opDone)selo.classList.add(‘visivel’);else selo.classList.remove(‘visivel’);}
 }
 
 init();
-    </script>
+</script>
+
 </body>
 </html>
