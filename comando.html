@@ -658,7 +658,7 @@ function generatePDF(reportText, dateStr, now){
     showToast('PDF gerado! Use Ctrl+P para salvar.','success');
 }
 function showToast(message,type='success'){const toast=document.getElementById('toast');toast.textContent=message;toast.className='toast '+type+' active';setTimeout(()=>{toast.classList.remove('active');},3000);}
-function renderAll(){renderStatus();renderHistory();renderMissions();renderRituals();renderLaws();renderToji();}
+function renderAll(){renderStatus();renderHistory();renderMissions();renderRituals();renderLaws();renderToji();renderShelby();}
 
 // ============================================
 // TOJI - CAMINHO DO PREDADOR SILENCIOSO
@@ -1133,10 +1133,6 @@ function verificarSeloShelby(){
     const selo=document.getElementById('seloShelby');
     if(selo){if(licitasDone&&ilicitasDone&&opDone)selo.classList.add('visivel');else selo.classList.remove('visivel');}
 }
-
-// Atualizar renderAll para incluir Shelby
-const originalRenderAll=renderAll;
-function renderAll(){originalRenderAll();renderShelby();}
 
 init();
     </script>
