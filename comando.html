@@ -149,6 +149,73 @@
         .btn-meta-action{background:transparent;border:1px solid rgba(212,175,125,.2);color:rgba(255,255,255,.5);padding:5px 8px;border-radius:4px;cursor:pointer;transition:all .2s}
         .btn-meta-action:hover{border-color:#d4af7d;color:#d4af7d;background:rgba(212,175,125,.1)}
         .btn-meta-action.del:hover{border-color:#e74c3c;color:#e74c3c;background:rgba(231,76,60,.1)}
+        /* SHELBY STYLES */
+        .shelby-header{text-align:center;padding:30px 20px;border-bottom:1px solid rgba(139,69,19,.3);margin-bottom:25px}
+        .shelby-title{font-family:'Cinzel',serif;font-size:2.2em;color:#8b4513;letter-spacing:6px;text-transform:uppercase;margin-bottom:5px}
+        .shelby-subtitle{font-family:'Cinzel',serif;font-size:1em;color:rgba(212,175,125,.8);letter-spacing:4px;margin-bottom:15px}
+        .shelby-frase{font-style:italic;color:rgba(255,255,255,.5);font-size:.9em;max-width:600px;margin:0 auto;line-height:1.6}
+        .shelby-lado-toggle{display:flex;gap:10px;justify-content:center;margin-bottom:25px}
+        .lado-btn{display:flex;align-items:center;gap:8px;padding:12px 25px;background:transparent;border:1px solid rgba(212,175,125,.3);color:rgba(255,255,255,.5);font-family:'Cinzel',serif;font-size:.85em;letter-spacing:1px;cursor:pointer;border-radius:6px;transition:all .3s}
+        .lado-btn:hover{border-color:#d4af7d;color:#d4af7d}
+        .lado-btn.active{background:rgba(212,175,125,.15);border-color:#d4af7d;color:#d4af7d}
+        .lado-btn.ilicito.active{background:rgba(139,0,0,.2);border-color:#8b0000;color:#ff4444}
+        .lado-btn svg{width:18px;height:18px}
+        .shelby-lado{transition:all .3s}
+        .shelby-lado.hidden{display:none}
+        .lado-header{padding:20px;border-radius:8px;margin-bottom:25px;text-align:center}
+        .lado-header.licito{background:linear-gradient(135deg,rgba(139,69,19,.2),rgba(212,175,125,.1));border:1px solid rgba(139,69,19,.3)}
+        .lado-header.ilicito{background:linear-gradient(135deg,rgba(139,0,0,.2),rgba(50,0,0,.3));border:1px solid rgba(139,0,0,.4)}
+        .lado-header h3{font-family:'Cinzel',serif;font-size:1.3em;letter-spacing:3px;margin-bottom:8px}
+        .lado-header.licito h3{color:#d4af7d}
+        .lado-header.ilicito h3{color:#ff4444}
+        .lado-header p{font-size:.85em;color:rgba(255,255,255,.5);letter-spacing:1px}
+        .shelby-section{margin-bottom:30px}
+        .section-title-shelby{font-family:'Cinzel',serif;font-size:1em;color:#d4af7d;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid rgba(212,175,125,.2);display:flex;align-items:center;gap:10px}
+        .section-title-shelby svg{width:20px;height:20px}
+        .section-title-shelby.ilicito{color:#ff4444;border-color:rgba(139,0,0,.3)}
+        .tracos-shelby-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:15px}
+        .traco-shelby{background:rgba(0,0,0,.3);border:1px solid rgba(212,175,125,.15);border-radius:8px;padding:15px}
+        .traco-shelby.ilicito{border-color:rgba(139,0,0,.3)}
+        .traco-shelby h5{font-family:'Cinzel',serif;font-size:.85em;color:#d4af7d;margin-bottom:10px;letter-spacing:1px}
+        .traco-shelby.ilicito h5{color:#ff4444}
+        .traco-shelby-bar{height:6px;background:rgba(212,175,125,.15);border-radius:3px;overflow:hidden;margin-bottom:8px}
+        .traco-shelby.ilicito .traco-shelby-bar{background:rgba(139,0,0,.2)}
+        .traco-shelby-fill{height:100%;background:linear-gradient(90deg,#8b4513,#d4af7d);border-radius:3px;transition:width .3s}
+        .traco-shelby.ilicito .traco-shelby-fill{background:linear-gradient(90deg,#8b0000,#ff4444)}
+        .traco-shelby-controls{display:flex;justify-content:space-between;align-items:center}
+        .traco-shelby-percent{font-size:.9em;color:#d4af7d}
+        .traco-shelby.ilicito .traco-shelby-percent{color:#ff4444}
+        .traco-shelby-btns{display:flex;gap:5px}
+        .traco-shelby-btn{width:26px;height:26px;border:1px solid rgba(212,175,125,.3);background:transparent;color:#d4af7d;border-radius:4px;cursor:pointer;font-weight:bold;transition:all .2s}
+        .traco-shelby-btn:hover{background:#d4af7d;color:#0a0a0a}
+        .traco-shelby.ilicito .traco-shelby-btn{border-color:rgba(139,0,0,.4);color:#ff4444}
+        .traco-shelby.ilicito .traco-shelby-btn:hover{background:#8b0000;color:#fff}
+        .codigo-shelby{background:linear-gradient(135deg,rgba(139,0,0,.15),rgba(50,0,0,.2));border:1px solid rgba(139,0,0,.4);border-radius:8px;padding:20px;margin-bottom:25px}
+        .codigo-shelby h5{font-family:'Cinzel',serif;color:#ff4444;letter-spacing:2px;margin-bottom:15px;text-align:center}
+        .codigo-shelby ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+        .codigo-shelby li{color:rgba(255,255,255,.6);font-size:.85em;padding:8px 12px;background:rgba(0,0,0,.3);border-radius:4px;border-left:2px solid #8b0000}
+        .codigo-shelby li strong{color:#ff4444}
+        .estetica-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px}
+        .estetica-item{background:rgba(0,0,0,.2);border:1px solid rgba(212,175,125,.1);border-radius:8px;padding:15px}
+        .estetica-item h5{font-family:'Cinzel',serif;color:#d4af7d;font-size:.85em;margin-bottom:8px;letter-spacing:1px}
+        .estetica-item p{color:rgba(255,255,255,.6);font-size:.85em;line-height:1.5}
+        .leituras-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px}
+        .leitura-fase{background:rgba(0,0,0,.2);border:1px solid rgba(212,175,125,.15);border-radius:8px;padding:15px}
+        .leitura-fase h5{font-family:'Cinzel',serif;color:#d4af7d;font-size:.85em;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(212,175,125,.1)}
+        .leitura-fase ul{list-style:none}
+        .leitura-fase li{color:rgba(255,255,255,.6);font-size:.85em;padding:5px 0;display:flex;align-items:center;gap:8px}
+        .leitura-fase li::before{content:'📖';font-size:.7em}
+        .operacao-oculta{background:rgba(139,0,0,.1);border:1px solid rgba(139,0,0,.3);border-radius:8px;padding:20px}
+        .operacao-oculta p{color:rgba(255,255,255,.6);font-size:.9em;margin-bottom:15px;line-height:1.5}
+        .operacao-oculta textarea{width:100%;min-height:100px;background:rgba(0,0,0,.3);border:1px solid rgba(139,0,0,.3);border-radius:6px;padding:12px;color:#e0e0e0;font-size:.9em;resize:vertical;margin-bottom:15px}
+        .operacao-oculta textarea::placeholder{color:rgba(255,255,255,.3)}
+        .btn-operacao{background:transparent;border:1px solid #8b0000;color:#ff4444;padding:12px 25px;border-radius:6px;cursor:pointer;font-family:'Cinzel',serif;letter-spacing:2px;transition:all .3s;width:100%}
+        .btn-operacao:hover,.btn-operacao.done{background:#8b0000;color:#fff}
+        .selo-shelby{display:none;text-align:center;padding:30px;background:linear-gradient(135deg,rgba(139,69,19,.2),rgba(212,175,125,.1));border:2px solid #d4af7d;border-radius:8px;margin-top:25px}
+        .selo-shelby.visivel{display:block}
+        .selo-shelby svg{width:60px;height:60px;color:#d4af7d;margin-bottom:15px}
+        .selo-shelby h2{font-family:'Cinzel',serif;font-size:1.5em;color:#d4af7d;letter-spacing:3px;margin-bottom:8px}
+        .selo-shelby p{color:rgba(255,255,255,.6)}
     </style>
 </head>
 <body>
@@ -190,6 +257,7 @@
                     <button class="tab-btn" onclick="switchTab('rituals')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg><span>Rituais</span></button>
                     <button class="tab-btn" onclick="switchTab('laws')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>Leis do Poder</span></button>
                     <button class="tab-btn" onclick="switchTab('toji')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 19l2 2"/></svg><span>TOJI</span></button>
+                    <button class="tab-btn" onclick="switchTab('shelby')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 7-7h4a7 7 0 0 1 7 7v2"/><line x1="12" y1="3" x2="12" y2="1"/></svg><span>SHELBY</span></button>
                 </div>
             </div>
             <div class="tab-content active" id="tab-status">
@@ -280,6 +348,101 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
                     <h2>PREDADOR FORMADO</h2>
                     <p>Você completou o Caminho Toji. A força está em você.</p>
+                </div>
+            </div>
+            <!-- ABA SHELBY -->
+            <div class="tab-content" id="tab-shelby">
+                <div class="shelby-header">
+                    <h2 class="shelby-title">THOMAS SHELBY</h2>
+                    <p class="shelby-subtitle">PLANO DE 1 ANO</p>
+                    <p class="shelby-frase">"Você pode me chamar de líder, mas saiba que eu comando porque ninguém tem coragem de fazer o que eu faço."</p>
+                </div>
+                <!-- LADO TOGGLE -->
+                <div class="shelby-lado-toggle">
+                    <button class="lado-btn active" onclick="toggleLadoShelby('licito')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                        LADO LÍCITO
+                    </button>
+                    <button class="lado-btn" onclick="toggleLadoShelby('ilicito')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        LADO ILÍCITO
+                    </button>
+                </div>
+                <!-- LADO LÍCITO -->
+                <div class="shelby-lado" id="ladoLicito">
+                    <div class="lado-header licito">
+                        <h3>O ESTRATEGISTA IMPERIAL</h3>
+                        <p>Visão • Inteligência • Imagem • Influência • Expansão</p>
+                    </div>
+                    <div class="shelby-section">
+                        <h4 class="section-title-shelby"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> TRAÇOS LÍCITOS SHELBY</h4>
+                        <div id="tracosLicitosGrid" class="tracos-shelby-grid"></div>
+                    </div>
+                    <div class="shelby-section">
+                        <h4 class="section-title-shelby"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> FASES DO ANO — LADO LÍCITO</h4>
+                        <div id="fasesLicitasContainer"></div>
+                    </div>
+                    <div class="shelby-section">
+                        <h4 class="section-title-shelby"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> CHECKLIST DE COMANDO PESSOAL</h4>
+                        <div id="checklistComandoContainer"></div>
+                    </div>
+                    <div class="shelby-section">
+                        <h4 class="section-title-shelby"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> LEITURA OBRIGATÓRIA</h4>
+                        <div id="leiturasContainer" class="leituras-grid"></div>
+                    </div>
+                    <div class="shelby-section">
+                        <h4 class="section-title-shelby"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg> ESTÉTICA DE PODER</h4>
+                        <div class="estetica-grid">
+                            <div class="estetica-item"><h5>VESTIMENTA</h5><p>Roupas escuras, bem cortadas. Sobretudo como armadura. Nada casual, tudo intencional.</p></div>
+                            <div class="estetica-item"><h5>LINGUAGEM CORPORAL</h5><p>Movimentos lentos, deliberados. Nunca demonstrar pressa. Olhar fixo, sem desviar primeiro.</p></div>
+                            <div class="estetica-item"><h5>CONTROLE VOCAL</h5><p>Tom grave, pausado. Falar menos, impactar mais. Silêncio como ferramenta de poder.</p></div>
+                            <div class="estetica-item"><h5>IMAGEM COMO ARMADURA</h5><p>Cada detalhe comunica autoridade. Cabelo, postura, acessórios — nada é acidente.</p></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- LADO ILÍCITO -->
+                <div class="shelby-lado hidden" id="ladoIlicito">
+                    <div class="lado-header ilicito">
+                        <h3>O GENERAL NA SOMBRA</h3>
+                        <p>Guerra Psicológica • Manipulação • Controle • Poder Invisível</p>
+                    </div>
+                    <!-- CÓDIGO SHELBY FIXO -->
+                    <div class="codigo-shelby">
+                        <h5>CÓDIGO SHELBY DA SOMBRA</h5>
+                        <ul>
+                            <li>Nunca ameaça, <strong>surpreenda</strong></li>
+                            <li>Nunca reage, <strong>conduz</strong></li>
+                            <li>Nunca explica, <strong>age</strong></li>
+                            <li>Nunca pede, <strong>toma</strong></li>
+                            <li>Nunca expõe, <strong>manipula</strong></li>
+                        </ul>
+                    </div>
+                    <div class="shelby-section">
+                        <h4 class="section-title-shelby ilicito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> TRAÇOS ILÍCITOS SHELBY</h4>
+                        <div id="tracosIlicitosGrid" class="tracos-shelby-grid"></div>
+                    </div>
+                    <div class="shelby-section">
+                        <h4 class="section-title-shelby ilicito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> FASES DO ANO — LADO ILÍCITO</h4>
+                        <div id="fasesIlicitasContainer"></div>
+                    </div>
+                    <div class="shelby-section">
+                        <h4 class="section-title-shelby ilicito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> MISSÕES SOMBRIAS SEMANAIS</h4>
+                        <div id="missoesSombriasContainer"></div>
+                    </div>
+                    <div class="shelby-section">
+                        <h4 class="section-title-shelby ilicito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/></svg> OPERAÇÃO OCULTA — PROVA FINAL</h4>
+                        <div class="operacao-oculta">
+                            <p>Criar um plano de impacto real no mundo. Executar silenciosamente. Ninguém pode saber que foi você.</p>
+                            <textarea id="operacaoOcultaTexto" placeholder="Descreva sua operação oculta..."></textarea>
+                            <button class="btn-operacao" id="btnOperacao" onclick="concluirOperacaoOculta()">OPERAÇÃO CONCLUÍDA</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- SELO SHELBY -->
+                <div class="selo-shelby" id="seloShelby">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 7-7h4a7 7 0 0 1 7 7v2"/></svg>
+                    <h2>BY ORDER OF THE PEAKY BLINDERS</h2>
+                    <p>Você completou o Plano Shelby. O império é seu.</p>
                 </div>
             </div>
             <div class="footer-actions"><span class="reset-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Reset automático: Segunda-feira, 05:00</span><button class="btn-primary" onclick="openExportModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;vertical-align:middle;margin-right:8px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Exportar Relatório</button></div>
@@ -751,6 +914,229 @@ function adicionarCorteToji(){
     saveToji();input.value='';renderCortesToji();showToast('Corte registrado!','success');
 }
 document.addEventListener('keypress',function(e){if(e.target.id==='corteInputToji'&&e.key==='Enter')adicionarCorteToji();});
+
+// ============================================
+// SHELBY - PLANO DE 1 ANO
+// ============================================
+const SHELBY_STORAGE='shelby_data';
+const TRACOS_LICITOS=[
+    {id:'visao',nome:'Mente Visionária'},
+    {id:'influencia',nome:'Influência Social'},
+    {id:'frieza',nome:'Frieza Política'},
+    {id:'imagem',nome:'Imagem de Autoridade'},
+    {id:'rede',nome:'Rede de Aliados'}
+];
+const TRACOS_ILICITOS=[
+    {id:'manipulacao',nome:'Manipulação Calculada'},
+    {id:'dominio',nome:'Domínio Emocional'},
+    {id:'guerra',nome:'Guerra Psicológica'},
+    {id:'comando',nome:'Comando Paralelo'},
+    {id:'execucao',nome:'Execução Fria'}
+];
+const FASES_LICITAS=[
+    {id:1,nome:'CONSTRUIR O NOME',dias:'Dias 1–90',frase:'Antes de dominar outros, domine sua imagem.',metas:[{id:'fl1_1',texto:'Definir identidade visual de poder'},{id:'fl1_2',texto:'Criar rotina de autoridade'},{id:'fl1_3',texto:'Estudar 1 lei do poder por semana'},{id:'fl1_4',texto:'Networking estratégico semanal'},{id:'fl1_5',texto:'Zero reações emocionais públicas'}],prova:'Ser reconhecido como referência em seu meio'},
+    {id:2,nome:'DOMINAR O TERRENO',dias:'Dias 91–180',frase:'Conheça cada peça do tabuleiro.',metas:[{id:'fl2_1',texto:'Mapear todos os players do ambiente'},{id:'fl2_2',texto:'Criar 3 alianças estratégicas'},{id:'fl2_3',texto:'Eliminar 1 fraqueza pessoal por mês'},{id:'fl2_4',texto:'Dominar a arte da negociação'}],prova:'Fechar um acordo que beneficie apenas você'},
+    {id:3,nome:'CONSTRUIR O IMPÉRIO',dias:'Dias 181–270',frase:'Tijolo por tijolo, silenciosamente.',metas:[{id:'fl3_1',texto:'Criar fonte de renda/influência paralela'},{id:'fl3_2',texto:'Posicionar aliados em lugares estratégicos'},{id:'fl3_3',texto:'Documentar tudo, expor nada'}],prova:'Ter uma conquista que ninguém sabe que foi sua'},
+    {id:4,nome:'GUERRA TOTAL',dias:'Dias 271–365',frase:'Quando atacar, não deixe sobreviventes.',metas:[{id:'fl4_1',texto:'Executar plano de dominação completo'},{id:'fl4_2',texto:'Neutralizar última ameaça'},{id:'fl4_3',texto:'Consolidar posição de poder'}],prova:'Estar em posição que ninguém pode tocar'}
+];
+const FASES_ILICITAS=[
+    {id:1,nome:'OBSERVAR NA SOMBRA',dias:'Dias 1–90',frase:'Veja tudo, revele nada.',metas:[{id:'fi1_1',texto:'Mapear fraquezas de todos ao redor'},{id:'fi1_2',texto:'Criar persona pública neutra'},{id:'fi1_3',texto:'Praticar leitura fria diária'},{id:'fi1_4',texto:'Nunca ser o primeiro a falar'}],prova:'Descobrir um segredo útil sem perguntar'},
+    {id:2,nome:'MANIPULAR SUTILMENTE',dias:'Dias 91–180',frase:'Plante ideias, colha resultados.',metas:[{id:'fi2_1',texto:'Fazer alguém agir sem perceber sua influência'},{id:'fi2_2',texto:'Controlar uma narrativa'},{id:'fi2_3',texto:'Criar dependência em alguém útil'}],prova:'Mudar uma decisão importante sem ser citado'},
+    {id:3,nome:'COMANDO INVISÍVEL',dias:'Dias 181–270',frase:'Lidere sem título.',metas:[{id:'fi3_1',texto:'Ter informantes em diferentes círculos'},{id:'fi3_2',texto:'Influenciar decisões à distância'},{id:'fi3_3',texto:'Ser consultado sem pedir'}],prova:'Ser o poder por trás de uma decisão pública'},
+    {id:4,nome:'EXECUÇÃO FINAL',dias:'Dias 271–365',frase:'Quando mover, será tarde demais para reagir.',metas:[{id:'fi4_1',texto:'Executar operação de alto impacto'},{id:'fi4_2',texto:'Deixar marca permanente sem rastros'}],prova:'Operação Oculta concluída com sucesso'}
+];
+const CHECKLIST_COMANDO=[
+    {id:'cc1',texto:'Aparência tática impecável'},
+    {id:'cc2',texto:'30min de leitura estratégica'},
+    {id:'cc3',texto:'1 ação executada sem hesitação'},
+    {id:'cc4',texto:'Influência ou silêncio calculado'},
+    {id:'cc5',texto:'Análise de 1 pessoa/situação'}
+];
+const LEITURAS_FASES=[
+    {fase:1,titulo:'FASE 1',livros:['O Príncipe - Maquiavel','As 48 Leis do Poder - Robert Greene','Meditações - Marco Aurélio']},
+    {fase:2,titulo:'FASE 2',livros:['A Arte da Guerra - Sun Tzu','O Jogo - Neil Strauss','Se o Corpo Falasse - Pierre Weil']},
+    {fase:3,titulo:'FASE 3',livros:['Maestria - Robert Greene','O Ego é Seu Inimigo - Ryan Holiday','O Obstáculo é o Caminho - Ryan Holiday']},
+    {fase:4,titulo:'FASE 4',livros:['As 33 Estratégias de Guerra - Robert Greene','A Arte da Sedução - Robert Greene','Antifrágil - Nassim Taleb']}
+];
+const MISSOES_SOMBRIAS=[
+    {id:'ms1',texto:'Influenciar uma decisão sem ser percebido'},
+    {id:'ms2',texto:'Coletar informação estratégica sobre alguém'},
+    {id:'ms3',texto:'Dominar um ambiente sem falar'},
+    {id:'ms4',texto:'Criar um laço por interesse puro'},
+    {id:'ms5',texto:'Cortar alguém sem drama ou explicação'}
+];
+let shelbyData=JSON.parse(localStorage.getItem(SHELBY_STORAGE))||{tracosLicitos:{},tracosIlicitos:{},fasesLicitas:{},fasesIlicitas:{},checklist:{},missoesSombrias:{},operacaoOculta:{texto:'',concluida:false},weekStart:null,lastReset:null};
+function saveShelby(){localStorage.setItem(SHELBY_STORAGE,JSON.stringify(shelbyData));}
+function getShelbyFaseProgresso(tipo,faseId){return parseInt(localStorage.getItem('shelby_'+tipo+'_fase'+faseId+'_progresso'))||0;}
+function setShelbyFaseProgresso(tipo,faseId,valor){localStorage.setItem('shelby_'+tipo+'_fase'+faseId+'_progresso',Math.min(90,Math.max(0,valor)));}
+function toggleLadoShelby(lado){
+    document.querySelectorAll('.lado-btn').forEach(b=>b.classList.remove('active'));
+    event.target.closest('.lado-btn').classList.add('active');
+    if(lado==='ilicito')event.target.closest('.lado-btn').classList.add('ilicito');
+    document.getElementById('ladoLicito').classList.toggle('hidden',lado!=='licito');
+    document.getElementById('ladoIlicito').classList.toggle('hidden',lado!=='ilicito');
+}
+function renderShelby(){
+    checkShelbyWeekReset();
+    const hoje=new Date().toDateString();
+    if(shelbyData.lastReset!==hoje){shelbyData.checklist={};shelbyData.lastReset=hoje;saveShelby();}
+    renderTracosLicitos();renderTracosIlicitos();
+    renderFasesShelby('licitas',FASES_LICITAS,'fasesLicitasContainer');
+    renderFasesShelby('ilicitas',FASES_ILICITAS,'fasesIlicitasContainer');
+    renderChecklistComando();renderLeituras();renderMissoesSombrias();renderOperacaoOculta();verificarSeloShelby();
+}
+function renderTracosLicitos(){
+    const grid=document.getElementById('tracosLicitosGrid');if(!grid)return;
+    grid.innerHTML=TRACOS_LICITOS.map(t=>{
+        const v=shelbyData.tracosLicitos[t.id]||0;
+        return `<div class="traco-shelby"><h5>${t.nome}</h5><div class="traco-shelby-bar"><div class="traco-shelby-fill" style="width:${v}%"></div></div><div class="traco-shelby-controls"><span class="traco-shelby-percent">${v}%</span><div class="traco-shelby-btns"><button class="traco-shelby-btn" onclick="ajustarTracoShelby('licitos','${t.id}',-5)">−</button><button class="traco-shelby-btn" onclick="ajustarTracoShelby('licitos','${t.id}',5)">+</button></div></div></div>`;
+    }).join('');
+}
+function renderTracosIlicitos(){
+    const grid=document.getElementById('tracosIlicitosGrid');if(!grid)return;
+    grid.innerHTML=TRACOS_ILICITOS.map(t=>{
+        const v=shelbyData.tracosIlicitos[t.id]||0;
+        return `<div class="traco-shelby ilicito"><h5>${t.nome}</h5><div class="traco-shelby-bar"><div class="traco-shelby-fill" style="width:${v}%"></div></div><div class="traco-shelby-controls"><span class="traco-shelby-percent">${v}%</span><div class="traco-shelby-btns"><button class="traco-shelby-btn" onclick="ajustarTracoShelby('ilicitos','${t.id}',-5)">−</button><button class="traco-shelby-btn" onclick="ajustarTracoShelby('ilicitos','${t.id}',5)">+</button></div></div></div>`;
+    }).join('');
+}
+function ajustarTracoShelby(tipo,id,delta){
+    const key=tipo==='licitos'?'tracosLicitos':'tracosIlicitos';
+    shelbyData[key][id]=Math.max(0,Math.min(100,(shelbyData[key][id]||0)+delta));
+    saveShelby();
+    tipo==='licitos'?renderTracosLicitos():renderTracosIlicitos();
+}
+function verificarDiaCompletoShelby(tipo,faseId,diaIdx,fases){
+    const fase=fases.find(f=>f.id===faseId);if(!fase)return false;
+    const key=tipo==='licitas'?'fasesLicitas':'fasesIlicitas';
+    const fd=shelbyData[key][faseId];
+    if(!fd||!fd.metasCheck)return false;
+    return fase.metas.every(m=>{const checks=fd.metasCheck[m.id]||{};return checks[diaIdx]===true;});
+}
+function contarDiasCompletosShelby(tipo,faseId,fases){
+    let count=0;
+    for(let i=0;i<7;i++){if(verificarDiaCompletoShelby(tipo,faseId,i,fases))count++;}
+    return count;
+}
+function toggleMetaDiaShelby(tipo,faseId,metaId,diaIdx){
+    const key=tipo==='licitas'?'fasesLicitas':'fasesIlicitas';
+    const fases=tipo==='licitas'?FASES_LICITAS:FASES_ILICITAS;
+    if(!shelbyData[key][faseId])shelbyData[key][faseId]={metasCheck:{},prova:false,open:true};
+    if(!shelbyData[key][faseId].metasCheck)shelbyData[key][faseId].metasCheck={};
+    if(!shelbyData[key][faseId].metasCheck[metaId])shelbyData[key][faseId].metasCheck[metaId]={};
+    const antes=verificarDiaCompletoShelby(tipo,faseId,diaIdx,fases);
+    shelbyData[key][faseId].metasCheck[metaId][diaIdx]=!shelbyData[key][faseId].metasCheck[metaId][diaIdx];
+    const depois=verificarDiaCompletoShelby(tipo,faseId,diaIdx,fases);
+    const dias=contarDiasCompletosShelby(tipo,faseId,fases);
+    setShelbyFaseProgresso(tipo,faseId,dias);
+    if(!antes&&depois)showToast('DIA COMPLETO! '+dias+'/90','success');
+    saveShelby();
+    renderFasesShelby(tipo,fases,tipo==='licitas'?'fasesLicitasContainer':'fasesIlicitasContainer');
+}
+function renderFasesShelby(tipo,fases,containerId){
+    const c=document.getElementById(containerId);if(!c)return;
+    const key=tipo==='licitas'?'fasesLicitas':'fasesIlicitas';
+    const isIlicito=tipo==='ilicitas';
+    const checkSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+    const chevSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>';
+    const DIAS=['S','T','Q','Q','S','S','D'];
+    c.innerHTML=fases.map(f=>{
+        const fd=shelbyData[key][f.id]||{metasCheck:{},prova:false,open:false};
+        const prog=getShelbyFaseProgresso(tipo,f.id);
+        const pct=Math.floor((prog/90)*100);
+        const diasCompletos=[];for(let i=0;i<7;i++){diasCompletos[i]=verificarDiaCompletoShelby(tipo,f.id,i,fases);}
+        const diasHeader=DIAS.map((d,i)=>`<div class="dia-header ${diasCompletos[i]?'completo':''}">${d}</div>`).join('');
+        const metasHtml=f.metas.map(m=>{
+            const checks=fd.metasCheck?.[m.id]||{};
+            const diasHtml=DIAS.map((d,i)=>{const checked=checks[i]?'checked':'';return `<div class="dia-check ${checked}" onclick="toggleMetaDiaShelby('${tipo}',${f.id},'${m.id}',${i})"></div>`;}).join('');
+            return `<div class="meta-row-toji"><div class="meta-nome">${m.texto}</div><div class="meta-dias-row">${diasHtml}</div></div>`;
+        }).join('');
+        return `<div class="bloco-toji ${fd.open?'open':''}" style="${isIlicito?'border-color:rgba(139,0,0,.3)':''}"><div class="bloco-header-toji" onclick="toggleFaseShelby('${tipo}',${f.id})" style="${isIlicito?'background:rgba(139,0,0,.1)':''}"><div class="bloco-info"><div class="bloco-num" style="${isIlicito?'border-color:#8b0000;background:rgba(139,0,0,.2)':''}">${f.id}</div><div><div class="bloco-nome" style="${isIlicito?'color:#ff4444':''}">${f.nome}</div><div class="bloco-dias">${f.dias}</div></div></div><div class="bloco-status-toji"><div class="bloco-check-toji ${fd.prova?'done':''}" style="${isIlicito?'border-color:rgba(139,0,0,.4)':''}">${checkSvg}</div><div class="bloco-toggle">${chevSvg}</div></div></div><div class="bloco-content-toji"><div class="fase-progress-container" style="${isIlicito?'border-color:rgba(139,0,0,.2)':''}"><div class="fase-progress-header"><span class="fase-progress-label" style="${isIlicito?'color:#ff4444':''}">PROGRESSO</span><span class="fase-progress-count">${prog}/90</span></div><div class="fase-progress-bar" style="${isIlicito?'background:rgba(139,0,0,.2)':''}"><div class="fase-progress-fill" style="width:${pct}%;${isIlicito?'background:linear-gradient(90deg,#8b0000,#ff4444)':''}"></div></div><div class="fase-progress-percent">${pct}%</div></div><p class="bloco-frase-toji">"${f.frase}"</p><div class="metas-grid-container" style="${isIlicito?'border-color:rgba(139,0,0,.2)':''}"><div class="metas-dias-header" style="${isIlicito?'background:rgba(139,0,0,.15)':''}"><div class="meta-nome-header">Meta</div><div class="dias-header-row">${diasHeader}</div></div>${metasHtml}</div><div class="prova-final-toji" style="${isIlicito?'background:rgba(139,0,0,.15);border-color:rgba(139,0,0,.4)':''}"><h5 style="${isIlicito?'color:#ff4444':''}">⚔️ PROVA FINAL</h5><p>${f.prova}</p><button class="prova-btn-toji ${fd.prova?'done':''}" onclick="toggleProvaShelby('${tipo}',${f.id})" style="${isIlicito?'border-color:#8b0000;color:#ff4444':''}">${fd.prova?'✓ CONCLUÍDA':'MARCAR CONCLUÍDA'}</button></div></div></div>`;
+    }).join('');
+}
+function toggleFaseShelby(tipo,id){
+    const key=tipo==='licitas'?'fasesLicitas':'fasesIlicitas';
+    if(!shelbyData[key][id])shelbyData[key][id]={metasCheck:{},prova:false,open:false};
+    shelbyData[key][id].open=!shelbyData[key][id].open;
+    saveShelby();
+    renderFasesShelby(tipo,tipo==='licitas'?FASES_LICITAS:FASES_ILICITAS,tipo==='licitas'?'fasesLicitasContainer':'fasesIlicitasContainer');
+}
+function toggleProvaShelby(tipo,id){
+    const key=tipo==='licitas'?'fasesLicitas':'fasesIlicitas';
+    if(!shelbyData[key][id])shelbyData[key][id]={metasCheck:{},prova:false,open:true};
+    shelbyData[key][id].prova=!shelbyData[key][id].prova;
+    saveShelby();
+    renderFasesShelby(tipo,tipo==='licitas'?FASES_LICITAS:FASES_ILICITAS,tipo==='licitas'?'fasesLicitasContainer':'fasesIlicitasContainer');
+    verificarSeloShelby();
+}
+function renderChecklistComando(){
+    const c=document.getElementById('checklistComandoContainer');if(!c)return;
+    const checkSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+    c.innerHTML=CHECKLIST_COMANDO.map(item=>{
+        const checked=shelbyData.checklist[item.id]||false;
+        return `<div class="ritual-item-toji"><div class="ritual-check-toji ${checked?'checked':''}" onclick="toggleChecklistShelby('${item.id}')">${checkSvg}</div><span class="ritual-text-toji">${item.texto}</span></div>`;
+    }).join('');
+}
+function toggleChecklistShelby(id){shelbyData.checklist[id]=!shelbyData.checklist[id];saveShelby();renderChecklistComando();}
+function renderLeituras(){
+    const c=document.getElementById('leiturasContainer');if(!c)return;
+    c.innerHTML=LEITURAS_FASES.map(lf=>`<div class="leitura-fase"><h5>${lf.titulo}</h5><ul>${lf.livros.map(l=>`<li>${l}</li>`).join('')}</ul></div>`).join('');
+}
+function renderMissoesSombrias(){
+    const c=document.getElementById('missoesSombriasContainer');if(!c)return;
+    const checkSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+    c.innerHTML=MISSOES_SOMBRIAS.map(m=>{
+        const checked=shelbyData.missoesSombrias[m.id]||false;
+        return `<div class="ritual-item-toji" style="border-color:rgba(139,0,0,.2)"><div class="ritual-check-toji ${checked?'checked':''}" onclick="toggleMissaoSombria('${m.id}')" style="border-color:rgba(139,0,0,.4)">${checkSvg}</div><span class="ritual-text-toji">${m.texto}</span></div>`;
+    }).join('');
+}
+function toggleMissaoSombria(id){shelbyData.missoesSombrias[id]=!shelbyData.missoesSombrias[id];saveShelby();renderMissoesSombrias();}
+function renderOperacaoOculta(){
+    const txt=document.getElementById('operacaoOcultaTexto');
+    const btn=document.getElementById('btnOperacao');
+    if(txt)txt.value=shelbyData.operacaoOculta.texto||'';
+    if(btn){
+        if(shelbyData.operacaoOculta.concluida){btn.classList.add('done');btn.textContent='✓ OPERAÇÃO CONCLUÍDA';}
+        else{btn.classList.remove('done');btn.textContent='OPERAÇÃO CONCLUÍDA';}
+    }
+}
+function concluirOperacaoOculta(){
+    const txt=document.getElementById('operacaoOcultaTexto');
+    shelbyData.operacaoOculta.texto=txt?txt.value:'';
+    shelbyData.operacaoOculta.concluida=!shelbyData.operacaoOculta.concluida;
+    saveShelby();renderOperacaoOculta();verificarSeloShelby();
+    if(shelbyData.operacaoOculta.concluida)showToast('OPERAÇÃO OCULTA CONCLUÍDA','success');
+}
+function checkShelbyWeekReset(){
+    const currentWeek=getWeekStart();
+    if(shelbyData.weekStart&&shelbyData.weekStart!==currentWeek){
+        [['licitas',FASES_LICITAS,'fasesLicitas'],['ilicitas',FASES_ILICITAS,'fasesIlicitas']].forEach(([tipo,fases,key])=>{
+            fases.forEach(f=>{
+                const fd=shelbyData[key][f.id];
+                if(fd&&fd.metasCheck){
+                    let diasCompletos=0;
+                    for(let i=0;i<7;i++){if(verificarDiaCompletoShelby(tipo,f.id,i,fases))diasCompletos++;}
+                    if(diasCompletos<7){setShelbyFaseProgresso(tipo,f.id,0);showToast('FASE '+f.id+' ('+tipo.toUpperCase()+') RESETADA!','error');}
+                    fd.metasCheck={};
+                }
+            });
+        });
+        shelbyData.missoesSombrias={};
+        saveShelby();
+    }
+    shelbyData.weekStart=currentWeek;
+    saveShelby();
+}
+function verificarSeloShelby(){
+    const licitasDone=FASES_LICITAS.every(f=>shelbyData.fasesLicitas[f.id]?.prova);
+    const ilicitasDone=FASES_ILICITAS.every(f=>shelbyData.fasesIlicitas[f.id]?.prova);
+    const opDone=shelbyData.operacaoOculta.concluida;
+    const selo=document.getElementById('seloShelby');
+    if(selo){if(licitasDone&&ilicitasDone&&opDone)selo.classList.add('visivel');else selo.classList.remove('visivel');}
+}
+
+// Atualizar renderAll para incluir Shelby
+const originalRenderAll=renderAll;
+function renderAll(){originalRenderAll();renderShelby();}
 
 init();
     </script>
