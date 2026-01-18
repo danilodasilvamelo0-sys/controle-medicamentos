@@ -1067,6 +1067,80 @@
     .emprestimo-valor-item .valor.saldo { color: #e74c3c; }
 
     /* ========== RESERVAS / ECONOMIAS ========== */
+    .emprestimo-historico {
+        margin-top: 15px;
+        border: 1px solid rgba(212, 175, 125, 0.15);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .emprestimo-historico-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 15px;
+        background: rgba(212, 175, 125, 0.08);
+        cursor: pointer;
+        font-size: 0.85em;
+        color: rgba(255, 255, 255, 0.7);
+        transition: all 0.3s;
+    }
+
+    .emprestimo-historico-header:hover {
+        background: rgba(212, 175, 125, 0.12);
+    }
+
+    .emprestimo-historico-lista {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .historico-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        font-size: 0.85em;
+    }
+
+    .historico-item:last-child {
+        border-bottom: none;
+    }
+
+    .historico-item.amortizacao {
+        background: rgba(46, 204, 113, 0.03);
+    }
+
+    .historico-item.juros {
+        background: rgba(231, 76, 60, 0.03);
+    }
+
+    .historico-data {
+        color: rgba(255, 255, 255, 0.5);
+        min-width: 80px;
+    }
+
+    .historico-tipo {
+        color: rgba(255, 255, 255, 0.6);
+        flex: 1;
+        text-align: center;
+    }
+
+    .historico-valor {
+        font-weight: 500;
+        min-width: 100px;
+        text-align: right;
+    }
+
+    .historico-valor.amort {
+        color: #2ecc71;
+    }
+
+    .historico-valor.juros {
+        color: #e74c3c;
+    }
+
     .reserva-card {
         background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
         border: 1px solid rgba(46, 204, 113, 0.2);
@@ -2548,14 +2622,6 @@
                 </svg>
                 <span>Profissional</span>
             </a>
-            <div class="sidebar-divider"></div>
-            <a href="pessoal.html">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-                <span>Pessoal</span>
-            </a>
         </div>
         <div class="sidebar-footer">
             <p><span class="instituto">ZARA</span>Private Access</p>
@@ -2597,13 +2663,6 @@
                     <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                 </svg>
                 Prof.
-            </a>
-            <a href="pessoal.html" class="mobile-nav-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-                Pessoal
             </a>
         </div>
     </nav>
@@ -3696,6 +3755,145 @@
         });
     }
 
+    // Função para editar valor de uma instância de despesa fixa (ex: adicionar juros)
+    function editarValorInstancia(id, tipo) {
+        const key = getMesAnoKey();
+        let item = null;
+        
+        if (tipo === 'fixa') {
+            // Procurar em todas as chaves de mês
+            for (const k of Object.keys(financeiro.despesasFixasMes)) {
+                const found = financeiro.despesasFixasMes[k]?.find(d => d.id === id);
+                if (found) {
+                    item = found;
+                    break;
+                }
+            }
+        }
+        
+        if (!item) return;
+
+        const valorAtual = item.valor;
+        const modelo = financeiro.despesasFixas.find(df => df.id === item.modeloId);
+        const valorOriginal = modelo ? modelo.valor : valorAtual;
+        const diferenca = valorAtual - valorOriginal;
+
+        const body = document.getElementById('modalEditarBody');
+        body.innerHTML = `
+            <div class="info-box">
+                <strong>${item.descricao}</strong><br>
+                <small>Valor original: ${formatarMoeda(valorOriginal)}</small>
+                ${diferenca !== 0 ? `<br><small style="color: ${diferenca > 0 ? '#e74c3c' : '#2ecc71'};">Diferença atual: ${diferenca > 0 ? '+' : ''}${formatarMoeda(diferenca)}</small>` : ''}
+            </div>
+            <div class="form-group">
+                <label>Novo Valor (apenas para este mês)</label>
+                <input type="number" id="novoValorInstancia" value="${valorAtual.toFixed(2)}" step="0.01" min="0">
+            </div>
+            <div class="form-group">
+                <label>Motivo (opcional)</label>
+                <input type="text" id="motivoAlteracao" placeholder="Ex: Juros de atraso, multa, etc." value="${item.motivoAlteracao || ''}">
+            </div>
+            <div class="form-buttons">
+                <button class="btn-cancelar" onclick="fecharModal('modalEditar')">Cancelar</button>
+                <button class="btn-secondary" onclick="resetarValorInstancia(${id})">Resetar Original</button>
+                <button class="btn-salvar" onclick="salvarValorInstancia(${id})">Salvar</button>
+            </div>
+        `;
+        document.querySelector('#modalEditar .modal-header h3').textContent = 'Editar Valor (apenas este mês)';
+        abrirModal('modalEditar');
+    }
+
+    function salvarValorInstancia(id) {
+        const novoValor = parseFloat(document.getElementById('novoValorInstancia').value);
+        const motivo = document.getElementById('motivoAlteracao').value;
+        
+        if (isNaN(novoValor) || novoValor < 0) {
+            alert('Valor inválido!');
+            return;
+        }
+
+        // Procurar o item em todas as chaves de mês
+        for (const k of Object.keys(financeiro.despesasFixasMes)) {
+            const item = financeiro.despesasFixasMes[k]?.find(d => d.id === id);
+            if (item) {
+                item.valor = novoValor;
+                item.motivoAlteracao = motivo;
+                item.valorAlterado = true;
+                break;
+            }
+        }
+
+        salvarDados();
+        fecharModal('modalEditar');
+        renderizar();
+    }
+
+    function resetarValorInstancia(id) {
+        for (const k of Object.keys(financeiro.despesasFixasMes)) {
+            const item = financeiro.despesasFixasMes[k]?.find(d => d.id === id);
+            if (item) {
+                const modelo = financeiro.despesasFixas.find(df => df.id === item.modeloId);
+                if (modelo) {
+                    item.valor = modelo.valor;
+                    item.motivoAlteracao = null;
+                    item.valorAlterado = false;
+                }
+                break;
+            }
+        }
+        salvarDados();
+        fecharModal('modalEditar');
+        renderizar();
+    }
+
+    // Função para editar valor de uma parcela
+    function editarValorParcela(id) {
+        const item = financeiro.despesasVariaveis.find(d => d.id === id);
+        if (!item) return;
+
+        const body = document.getElementById('modalEditarBody');
+        body.innerHTML = `
+            <div class="info-box">
+                <strong>${item.descricao}</strong><br>
+                <small>Parcela ${item.parcelaAtual}/${item.totalParcelas}</small>
+            </div>
+            <div class="form-group">
+                <label>Novo Valor (apenas para esta parcela)</label>
+                <input type="number" id="novoValorParcela" value="${item.valor.toFixed(2)}" step="0.01" min="0">
+            </div>
+            <div class="form-group">
+                <label>Motivo (opcional)</label>
+                <input type="text" id="motivoAlteracaoParcela" placeholder="Ex: Juros de atraso, multa, etc." value="${item.motivoAlteracao || ''}">
+            </div>
+            <div class="form-buttons">
+                <button class="btn-cancelar" onclick="fecharModal('modalEditar')">Cancelar</button>
+                <button class="btn-salvar" onclick="salvarValorParcela(${id})">Salvar</button>
+            </div>
+        `;
+        document.querySelector('#modalEditar .modal-header h3').textContent = 'Editar Valor da Parcela';
+        abrirModal('modalEditar');
+    }
+
+    function salvarValorParcela(id) {
+        const novoValor = parseFloat(document.getElementById('novoValorParcela').value);
+        const motivo = document.getElementById('motivoAlteracaoParcela').value;
+        
+        if (isNaN(novoValor) || novoValor < 0) {
+            alert('Valor inválido!');
+            return;
+        }
+
+        const item = financeiro.despesasVariaveis.find(d => d.id === id);
+        if (item) {
+            item.valor = novoValor;
+            item.motivoAlteracao = motivo;
+        }
+
+        salvarDados();
+        fecharModal('modalEditar');
+        renderizar();
+    }
+
     function togglePagoFixa(id) {
         const key = getMesAnoKey();
         const item = financeiro.despesasFixasMes[key]?.find(d => d.id === id);
@@ -4588,6 +4786,14 @@
             jurosRestantes: emp.jurosAcumulados
         });
 
+        // Adicionar ao histórico de pagamentos para exibição
+        if (!emp.historicoPagamentos) emp.historicoPagamentos = [];
+        emp.historicoPagamentos.push({
+            tipo: 'juros',
+            valor: valor,
+            data: data
+        });
+
         salvarDados();
         fecharModal('modalPagarJuros');
         renderizar();
@@ -4662,6 +4868,14 @@
             saldoRestante: emp.principal
         });
 
+        // Adicionar ao histórico de pagamentos para exibição
+        if (!emp.historicoPagamentos) emp.historicoPagamentos = [];
+        emp.historicoPagamentos.push({
+            tipo: 'amortizacao',
+            valor: valor,
+            data: data
+        });
+
         // Arquivar automaticamente se quitado
         if (emp.principal <= 0 && (emp.jurosAcumulados || 0) <= 0) {
             emp.arquivado = true;
@@ -4675,6 +4889,13 @@
         salvarDados();
         fecharModal('modalAmortizar');
         renderizar();
+    }
+
+    function toggleHistoricoEmprestimo(id) {
+        const lista = document.getElementById('historico-emp-' + id);
+        if (lista) {
+            lista.style.display = lista.style.display === 'none' ? 'block' : 'none';
+        }
     }
 
     function editarEmprestimo(id) {
@@ -5275,6 +5496,7 @@
             atrasadas.forEach(d => {
                 const status = getStatusVencimento(d.data, d.pago);
                 const temComprovante = d.comprovante !== null && d.comprovante !== undefined;
+                const valorClass = d.pago ? 'valor-positivo' : 'valor-negativo';
                 htmlFixas += `
                     <tr class="${d.pago ? 'done' : ''} ${status.classe}" style="background: rgba(231, 76, 60, 0.05);">
                         <td style="padding-left: 40px;"><input type="checkbox" class="checkbox-status" ${d.pago ? 'checked' : ''} onchange="togglePagoFixa(${d.id})"></td>
@@ -5284,7 +5506,7 @@
                         </td>
                         <td></td>
                         <td>${formatarData(d.data)} <span class="badge vencido">🔴 Vencido</span></td>
-                        <td class="valor-negativo">${formatarMoeda(d.valor)}</td>
+                        <td class="${valorClass}" style="cursor: pointer;" onclick="editarValorInstancia(${d.id}, 'fixa')" title="Clique para editar valor">${formatarMoeda(d.valor)}</td>
                         <td>
                             ${temComprovante ? `
                                 <button class="action-btn btn-comprovante" onclick="verComprovanteFixa(${d.id})" title="Ver Comprovante">
@@ -5302,6 +5524,7 @@
             if (atual) {
                 const status = getStatusVencimento(atual.data, atual.pago);
                 const temComprovante = atual.comprovante !== null && atual.comprovante !== undefined;
+                const valorClass = atual.pago ? 'valor-positivo' : 'valor-negativo';
                 htmlFixas += `
                     <tr class="${atual.pago ? 'done' : ''} ${status.classe}">
                         <td style="padding-left: 40px;"><input type="checkbox" class="checkbox-status" ${atual.pago ? 'checked' : ''} onchange="togglePagoFixa(${atual.id})"></td>
@@ -5311,7 +5534,7 @@
                         </td>
                         <td></td>
                         <td>${formatarData(atual.data)} ${status.badge}</td>
-                        <td class="valor-negativo">${formatarMoeda(atual.valor)}</td>
+                        <td class="${valorClass}" style="cursor: pointer;" onclick="editarValorInstancia(${atual.id}, 'fixa')" title="Clique para editar valor">${formatarMoeda(atual.valor)}</td>
                         <td>
                             ${temComprovante ? `
                                 <button class="action-btn btn-comprovante" onclick="verComprovanteFixa(${atual.id})" title="Ver Comprovante">
@@ -5351,6 +5574,7 @@
         naoParceladas.forEach(d => {
             const status = getStatusVencimento(d.data, d.pago);
             const temComprovante = d.comprovante !== null && d.comprovante !== undefined;
+            const valorClass = d.pago ? 'valor-positivo' : 'valor-negativo';
 
             htmlVariaveis += `
                 <tr class="${d.pago ? 'done' : ''} ${status.classe}">
@@ -5361,7 +5585,7 @@
                     </td>
                     <td><span class="categoria">${d.categoria}</span></td>
                     <td>${formatarData(d.data)} ${status.badge}</td>
-                    <td class="valor-negativo">${formatarMoeda(d.valor)}</td>
+                    <td class="${valorClass}">${formatarMoeda(d.valor)}</td>
                     <td>
                         <div class="action-buttons">
                             ${temComprovante ? `
@@ -5474,6 +5698,7 @@
                     corStatus = '#3498db';
                 }
 
+                const valorClass = p.pago ? 'valor-positivo' : 'valor-negativo';
                 htmlVariaveis += `
                     <tr class="${p.pago ? 'done' : ''} ${status.classe}" style="background: ${p.pago ? 'rgba(46, 204, 113, 0.03)' : (statusParcela === 'Atrasada' ? 'rgba(231, 76, 60, 0.05)' : 'transparent')};">
                         <td style="padding-left: 40px;"><input type="checkbox" class="checkbox-status" ${p.pago ? 'checked' : ''} onchange="togglePagoVariavel(${p.id})"></td>
@@ -5483,7 +5708,7 @@
                         </td>
                         <td></td>
                         <td>${formatarData(p.data)} ${status.badge}</td>
-                        <td class="valor-negativo">${formatarMoeda(p.valor)}</td>
+                        <td class="${valorClass}" style="cursor: pointer;" onclick="editarValorParcela(${p.id})" title="Clique para editar valor">${formatarMoeda(p.valor)}</td>
                         <td>
                             ${temComprovante ? `
                                 <button class="action-btn btn-comprovante" onclick="verComprovanteVariavel(${p.id})" title="Ver Comprovante">
@@ -5548,11 +5773,15 @@
                         </div>
                         <div class="emprestimo-valor-item">
                             <label>Juros Pagos</label>
-                            <div class="valor juros-pagos">${formatarMoeda(e.totalJurosPagos || 0)}</div>
+                            <div class="valor juros-pagos" style="color: #2ecc71;">${formatarMoeda(e.totalJurosPagos || 0)}</div>
                         </div>
                         <div class="emprestimo-valor-item">
                             <label>Total Amortizado</label>
-                            <div class="valor amortizado">${formatarMoeda(e.totalAmortizado || 0)}</div>
+                            <div class="valor amortizado" style="color: #2ecc71;">${formatarMoeda(e.totalAmortizado || 0)}</div>
+                        </div>
+                        <div class="emprestimo-valor-item">
+                            <label>Total Pago</label>
+                            <div class="valor total-pago" style="color: #d4af7d; font-weight: 600;">${formatarMoeda((e.totalAmortizado || 0) + (e.totalJurosPagos || 0))}</div>
                         </div>
                     </div>
 
@@ -5562,6 +5791,24 @@
                             <div class="progress-bar-fill" style="width: ${percentQuitado}%"></div>
                         </div>
                     </div>
+
+                    ${(e.historicoPagamentos && e.historicoPagamentos.length > 0) ? `
+                    <div class="emprestimo-historico">
+                        <div class="emprestimo-historico-header" onclick="toggleHistoricoEmprestimo(${e.id})">
+                            <span>Histórico de Pagamentos (${e.historicoPagamentos.length})</span>
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                        <div class="emprestimo-historico-lista" id="historico-emp-${e.id}" style="display: none;">
+                            ${e.historicoPagamentos.slice().reverse().map(h => `
+                                <div class="historico-item ${h.tipo}">
+                                    <span class="historico-data">${formatarData(h.data)}</span>
+                                    <span class="historico-tipo">${h.tipo === 'amortizacao' ? 'Amortização' : h.tipo === 'juros' ? 'Juros' : 'Pagamento'}</span>
+                                    <span class="historico-valor ${h.tipo === 'amortizacao' ? 'amort' : 'juros'}">${formatarMoeda(h.valor)}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    ` : ''}
 
                     <div class="emprestimo-acoes-rapidas">
                         <button class="btn-gerar-juros" onclick="gerarJurosMes(${e.id})">
