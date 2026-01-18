@@ -39,8 +39,8 @@
         .footer-actions{background:linear-gradient(135deg,#1a1a1a,#0f0f0f);border-top:1px solid rgba(212,175,125,.2);padding:20px 25px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}.reset-info{font-size:.8em;color:rgba(255,255,255,.4)}.reset-info svg{width:14px;height:14px;vertical-align:middle;margin-right:5px}
         .toast{position:fixed;bottom:100px;right:20px;padding:15px 25px;background:#1a1a1a;border:1px solid rgba(212,175,125,.3);border-radius:10px;color:#fff;font-size:.9em;z-index:10001;opacity:0;transform:translateY(20px);transition:all .3s}.toast.active{opacity:1;transform:translateY(0)}.toast.success{border-color:#2ecc71}.toast.error{border-color:#e74c3c}
         ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#0a0a0a}::-webkit-scrollbar-thumb{background:rgba(212,175,125,.3);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:rgba(212,175,125,.5)}
-        @media(max-width:768px){.header h1{font-size:1.4em;letter-spacing:2px}.identity-card{padding:20px}.identity-text{font-size:1.1em}.provocation-text{font-size:1.2em}.provocation-actions{flex-direction:column}.provocation-actions button{width:100%;justify-content:center}.status-grid{grid-template-columns:1fr 1fr;gap:12px}.status-card{padding:15px}.missions-grid{grid-template-columns:1fr}.tabs-header{gap:5px}.tab-btn{padding:10px 12px;font-size:.75em;flex:1;justify-content:center}.tab-btn span{display:none}.law-week-title{font-size:1.4em}.law-week-actions{flex-direction:column}.law-week-actions button{width:100%}.footer-actions{flex-direction:column;text-align:center}}
-        @media(max-width:480px){.status-grid{grid-template-columns:1fr}.weekly-checks{justify-content:space-between}.day-check input[type="checkbox"]{width:28px;height:28px}}
+        @media(max-width:768px){.header h1{font-size:1.4em;letter-spacing:2px}.identity-card{padding:20px}.identity-text{font-size:1.1em}.provocation-text{font-size:1.2em}.provocation-actions{flex-direction:column}.provocation-actions button{width:100%;justify-content:center}.status-grid{grid-template-columns:1fr 1fr;gap:12px}.status-card{padding:15px}.missions-grid{grid-template-columns:1fr}.tabs-header{gap:5px}.tab-btn{padding:10px 12px;font-size:.75em;flex:1;justify-content:center}.tab-btn span{display:none}.law-week-title{font-size:1.4em}.law-week-actions{flex-direction:column}.law-week-actions button{width:100%}.footer-actions{flex-direction:column;text-align:center}.crimes-cards-grid{grid-template-columns:1fr}.fase-accordion-header{padding:15px}.fase-accordion-title{font-size:.9em}.fase-accordion-num{width:32px;height:32px;font-size:.9em}.fase-crime-item-header{padding:12px}.fase-crime-item-nome{font-size:.85em}.manual-section-content{padding-left:0}.manual-section-header{flex-wrap:wrap}}
+        @media(max-width:480px){.status-grid{grid-template-columns:1fr}.weekly-checks{justify-content:space-between}.day-check input[type="checkbox"]{width:28px;height:28px}.crimes-cards-grid{gap:10px}.crime-card-mini{padding:15px}.fase-accordion-subtitle{font-size:.7em}}
         /* TOJI STYLES */
         .toji-header{text-align:center;padding:30px 20px;border-bottom:1px solid rgba(212,175,125,.2);margin-bottom:25px}
         .toji-title{font-family:"Cinzel",serif;font-size:2.5em;color:#d4af7d;letter-spacing:8px;text-transform:uppercase;margin-bottom:5px}
@@ -274,27 +274,58 @@
         .crimes-footer{background:rgba(212,175,125,.1);border:1px solid rgba(212,175,125,.2);border-radius:6px;padding:15px;text-align:center;margin-top:15px}
         .crimes-footer p{color:rgba(255,255,255,.6);font-size:.85em;line-height:1.6;margin:0}
         .crimes-footer strong{color:#d4af7d}
-        /* FASES CRIMES */
+        /* CARDS DE CRIMES */
+        .crimes-cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px;margin-bottom:15px}
+        .crime-card-mini{background:rgba(0,0,0,.3);border:1px solid rgba(212,175,125,.2);border-radius:10px;padding:20px;transition:all .3s;cursor:pointer}
+        .crime-card-mini:hover{border-color:#d4af7d;transform:translateY(-2px)}
+        .crime-card-mini-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+        .crime-card-mini-icon{width:40px;height:40px;background:rgba(212,175,125,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#d4af7d}
+        .crime-card-mini-icon svg{width:20px;height:20px}
+        .crime-card-mini-title{font-family:'Cinzel',serif;color:#d4af7d;font-size:.95em;letter-spacing:1px}
+        .crime-card-mini-desc{color:rgba(255,255,255,.6);font-size:.8em;line-height:1.5}
+        /* FASES ACCORDION */
         .fases-crimes-desc{color:rgba(255,255,255,.6);font-size:.9em;line-height:1.6;margin-bottom:20px;padding:15px;background:rgba(212,175,125,.08);border-left:3px solid #d4af7d;border-radius:0 6px 6px 0}
-        .fases-crimes-container{display:flex;flex-direction:column;gap:15px}
-        .fase-crime-card{background:rgba(0,0,0,.3);border:1px solid rgba(212,175,125,.2);border-radius:8px;overflow:hidden}
-        .fase-crime-header{display:flex;align-items:center;gap:15px;padding:20px;background:rgba(212,175,125,.1)}
-        .fase-crime-num{width:40px;height:40px;background:rgba(212,175,125,.2);border:2px solid #d4af7d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:1.2em;color:#d4af7d;font-weight:bold}
-        .fase-crime-info{flex:1}
-        .fase-crime-info h5{font-family:'Cinzel',serif;color:#d4af7d;font-size:1em;letter-spacing:2px;margin-bottom:4px}
-        .fase-crime-info span{color:rgba(255,255,255,.5);font-size:.8em}
-        .fase-crime-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:#d4af7d}
-        .fase-crime-icon svg{width:24px;height:24px}
-        .fase-crime-body{padding:20px}
-        .fase-crime-resumo{color:rgba(255,255,255,.7);font-size:.9em;margin-bottom:15px;padding:10px 15px;background:rgba(212,175,125,.05);border-radius:4px}
-        .fase-crime-modulos{list-style:none;padding:0;margin:0 0 15px 0}
-        .fase-crime-modulos li{color:rgba(255,255,255,.6);font-size:.85em;padding:8px 12px;background:rgba(0,0,0,.2);border-left:2px solid rgba(212,175,125,.3);margin-bottom:6px}
-        .fase-crime-modulos li:last-child{margin-bottom:0}
-        .fase-crime-caso{background:rgba(212,175,125,.1);border:1px solid rgba(212,175,125,.2);border-radius:6px;padding:12px 15px;color:rgba(255,255,255,.7);font-size:.85em;margin-bottom:15px}
-        .fase-crime-caso strong{color:#d4af7d}
-        .fase-crime-btns{display:flex;gap:10px;flex-wrap:wrap}
-        .btn-manual{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:transparent;border:1px solid rgba(212,175,125,.4);color:#d4af7d;font-size:.85em;border-radius:6px;cursor:pointer;transition:all .3s;font-family:'Inter',sans-serif}
-        .btn-manual:hover{background:rgba(212,175,125,.15);border-color:#d4af7d}
+        .fases-accordion{display:flex;flex-direction:column;gap:12px}
+        .fase-accordion-item{background:rgba(0,0,0,.3);border:1px solid rgba(212,175,125,.2);border-radius:10px;overflow:hidden}
+        .fase-accordion-header{display:flex;align-items:center;gap:15px;padding:18px 20px;cursor:pointer;transition:all .3s;background:rgba(212,175,125,.08)}
+        .fase-accordion-header:hover{background:rgba(212,175,125,.12)}
+        .fase-accordion-header.active{background:rgba(212,175,125,.15);border-bottom:1px solid rgba(212,175,125,.2)}
+        .fase-accordion-num{width:36px;height:36px;background:rgba(212,175,125,.2);border:2px solid #d4af7d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:1em;color:#d4af7d;font-weight:bold;flex-shrink:0}
+        .fase-accordion-info{flex:1}
+        .fase-accordion-title{font-family:'Cinzel',serif;color:#d4af7d;font-size:1em;letter-spacing:2px;margin-bottom:3px}
+        .fase-accordion-subtitle{color:rgba(255,255,255,.5);font-size:.75em}
+        .fase-accordion-toggle{width:24px;height:24px;color:#d4af7d;transition:transform .3s}
+        .fase-accordion-toggle svg{width:100%;height:100%}
+        .fase-accordion-header.active .fase-accordion-toggle{transform:rotate(180deg)}
+        .fase-accordion-content{display:none;padding:20px;border-top:1px solid rgba(212,175,125,.1)}
+        .fase-accordion-content.active{display:block}
+        .fase-crimes-list{display:flex;flex-direction:column;gap:15px}
+        .fase-crime-item{background:rgba(212,175,125,.05);border:1px solid rgba(212,175,125,.15);border-radius:8px;overflow:hidden}
+        .fase-crime-item-header{display:flex;align-items:center;gap:12px;padding:15px;cursor:pointer;transition:all .3s}
+        .fase-crime-item-header:hover{background:rgba(212,175,125,.08)}
+        .fase-crime-item-num{width:28px;height:28px;background:rgba(212,175,125,.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.8em;color:#d4af7d;font-weight:600}
+        .fase-crime-item-info{flex:1}
+        .fase-crime-item-nome{color:#d4af7d;font-size:.9em;font-weight:500;margin-bottom:2px}
+        .fase-crime-item-desc{color:rgba(255,255,255,.5);font-size:.75em;line-height:1.4}
+        .fase-crime-item-toggle{width:18px;height:18px;color:rgba(212,175,125,.6);transition:transform .3s}
+        .fase-crime-item-header.active .fase-crime-item-toggle{transform:rotate(180deg)}
+        .fase-crime-manual{display:none;padding:20px;background:rgba(0,0,0,.2);border-top:1px solid rgba(212,175,125,.1)}
+        .fase-crime-manual.active{display:block}
+        /* MANUAL STYLING */
+        .manual-section-new{margin-bottom:20px}
+        .manual-section-new:last-child{margin-bottom:0}
+        .manual-section-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+        .manual-section-icon{width:28px;height:28px;background:rgba(212,175,125,.15);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#d4af7d}
+        .manual-section-icon svg{width:16px;height:16px}
+        .manual-section-title{font-family:'Cinzel',serif;color:#d4af7d;font-size:.85em;letter-spacing:1px;text-transform:uppercase}
+        .manual-section-content{color:rgba(255,255,255,.7);font-size:.85em;line-height:1.7;padding-left:38px}
+        .manual-section-content p{margin-bottom:10px}
+        .manual-section-content p:last-child{margin-bottom:0}
+        .manual-section-list{list-style:none;padding:0;margin:0}
+        .manual-section-list li{padding:8px 12px;background:rgba(212,175,125,.05);border-left:2px solid rgba(212,175,125,.3);margin-bottom:6px;color:rgba(255,255,255,.7);font-size:.85em}
+        .manual-section-list li:last-child{margin-bottom:0}
+        .manual-section-list li strong{color:#d4af7d;display:block;margin-bottom:4px}
+        .manual-quote{background:rgba(212,175,125,.1);border:1px solid rgba(212,175,125,.2);border-radius:6px;padding:15px;font-style:italic;color:rgba(255,255,255,.8);font-size:.85em;margin-top:10px}
         .fases-crimes-nota{margin-top:20px;padding:15px;background:rgba(212,175,125,.08);border:1px solid rgba(212,175,125,.2);border-radius:6px}
         .fases-crimes-nota p{color:rgba(255,255,255,.6);font-size:.85em;margin:0;line-height:1.6}
         .fases-crimes-nota strong{color:#d4af7d}
@@ -530,103 +561,14 @@
                     <!-- CRIMES DE THOMAS SHELBY -->
                     <div class="shelby-section">
                         <h4 class="section-title-shelby ilicito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 19l2 2"/></svg> PRINCIPAIS CRIMES COMETIDOS</h4>
-                        <div class="crimes-grid" id="crimesGrid"></div>
+                        <div class="crimes-cards-grid" id="crimesCardsGrid"></div>
                         <div class="crimes-footer"><p>Esses crimes não eram cometidos por impulso, e sim por <strong>inteligência e propósito</strong>. Cada ação servia ao império, e cada violação da lei era, na prática, uma peça movida no tabuleiro de poder.</p></div>
                     </div>
-                    <!-- FASES DO ANO — CRIMES -->
+                    <!-- FASES DO ANO — CRIMES (ACCORDION) -->
                     <div class="shelby-section">
                         <h4 class="section-title-shelby ilicito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6"/></svg> FASES DO ANO — CRIMES</h4>
                         <p class="fases-crimes-desc">Estudo tático dos mecanismos ilícitos que sustentam impérios paralelos. Nada aqui é incentivo. Tudo aqui é inteligência.</p>
-                        <div class="fases-crimes-container">
-                            <!-- FASE 1 -->
-                            <div class="fase-crime-card">
-                                <div class="fase-crime-header">
-                                    <div class="fase-crime-num">1</div>
-                                    <div class="fase-crime-info">
-                                        <h5>APRENDER A COAGIR</h5>
-                                        <span>Dias 1–90</span>
-                                    </div>
-                                    <div class="fase-crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v10l4.5 4.5"/><circle cx="12" cy="12" r="10"/></svg></div>
-                                </div>
-                                <div class="fase-crime-body">
-                                    <p class="fase-crime-resumo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;vertical-align:middle;margin-right:5px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Estudo aplicado sobre extorsão, chantagem e alavancas de controle não contratuais.</p>
-                                    <ul class="fase-crime-modulos">
-                                        <li>Identificar alvos vulneráveis a pressão</li>
-                                        <li>Montagem de dossiês com poder de dano</li>
-                                        <li>Postura e silêncio como ameaça</li>
-                                        <li>Frases ambíguas com peso de coação</li>
-                                    </ul>
-                                    <div class="fase-crime-caso"><strong>Estudo de Caso:</strong> Thomas obriga empresários a "colaborar" sob ameaça de exposição.</div>
-                                    <button class="btn-manual" onclick="toggleCrime('extorsao')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Manual: EXTORSÃO</button>
-                                </div>
-                            </div>
-                            <!-- FASE 2 -->
-                            <div class="fase-crime-card">
-                                <div class="fase-crime-header">
-                                    <div class="fase-crime-num">2</div>
-                                    <div class="fase-crime-info">
-                                        <h5>MANIPULAR OS FLUXOS</h5>
-                                        <span>Dias 91–180</span>
-                                    </div>
-                                    <div class="fase-crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-                                </div>
-                                <div class="fase-crime-body">
-                                    <p class="fase-crime-resumo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;vertical-align:middle;margin-right:5px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Estudo sobre contrabando, movimentação de dinheiro e influência através da necessidade.</p>
-                                    <ul class="fase-crime-modulos">
-                                        <li>Controle de produtos de desejo</li>
-                                        <li>Rotas paralelas e influência local</li>
-                                        <li>Camuflagem de fluxos ilegais</li>
-                                    </ul>
-                                    <div class="fase-crime-caso"><strong>Estudo de Caso:</strong> Thomas movimenta bebida proibida usando contratos legais.</div>
-                                    <button class="btn-manual" onclick="toggleCrime('contrabando')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Manual: CONTRABANDO</button>
-                                </div>
-                            </div>
-                            <!-- FASE 3 -->
-                            <div class="fase-crime-card">
-                                <div class="fase-crime-header">
-                                    <div class="fase-crime-num">3</div>
-                                    <div class="fase-crime-info">
-                                        <h5>ESCONDER O IMPÉRIO</h5>
-                                        <span>Dias 181–270</span>
-                                    </div>
-                                    <div class="fase-crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
-                                </div>
-                                <div class="fase-crime-body">
-                                    <p class="fase-crime-resumo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;vertical-align:middle;margin-right:5px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Estudo sobre lavagem de dinheiro, fraudes e blindagens jurídicas.</p>
-                                    <ul class="fase-crime-modulos">
-                                        <li>Fachadas legais e doações "limpas"</li>
-                                        <li>Intermediários e nomes de laranja</li>
-                                        <li>Blindagem jurídica com políticos e advogados</li>
-                                    </ul>
-                                    <div class="fase-crime-caso"><strong>Estudo de Caso:</strong> Thomas investe lucros sujos em hipódromos e instituições legais.</div>
-                                    <button class="btn-manual" onclick="toggleCrime('lavagem')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Manual: LAVAGEM DE DINHEIRO</button>
-                                </div>
-                            </div>
-                            <!-- FASE 4 -->
-                            <div class="fase-crime-card">
-                                <div class="fase-crime-header">
-                                    <div class="fase-crime-num">4</div>
-                                    <div class="fase-crime-info">
-                                        <h5>ELIMINAR E SUBIR</h5>
-                                        <span>Dias 271–365</span>
-                                    </div>
-                                    <div class="fase-crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div>
-                                </div>
-                                <div class="fase-crime-body">
-                                    <p class="fase-crime-resumo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;vertical-align:middle;margin-right:5px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Estudo sobre homicídio estratégico, espionagem e domínio psicológico absoluto.</p>
-                                    <ul class="fase-crime-modulos">
-                                        <li>Quando eliminar vale mais que negociar</li>
-                                        <li>Sumiços e mortes como mensagens silenciosas</li>
-                                        <li>Espionagem interna e sabotagem sutil</li>
-                                    </ul>
-                                    <div class="fase-crime-caso"><strong>Estudo de Caso:</strong> Thomas elimina Billy Grade e envia a mensagem: "traidores somem".</div>
-                                    <div class="fase-crime-btns">
-                                        <button class="btn-manual" onclick="toggleCrime('homicidio')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Manual: HOMICÍDIO</button>
-                                        <button class="btn-manual" onclick="toggleCrime('espionagem')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Manual: ESPIONAGEM</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="fases-accordion" id="fasesAccordion"></div>
                         <div class="fases-crimes-nota"><p><strong>Nota:</strong> Estes estudos são apenas para fins estratégicos. Conhecer os mecanismos da escuridão é o primeiro passo para não ser manipulado por eles.</p></div>
                     </div>
                     <div class="shelby-section">
@@ -690,14 +632,14 @@ function closeVictoryModal(){document.getElementById('victoryModal').classList.r
 function saveVictory(){const description=document.getElementById('victoryDescription').value.trim();const resisted=document.getElementById('victoryResisted').value.trim();const lawApplied=document.getElementById('victoryLaw').value;const date=document.getElementById('victoryDate').value;if(!description){showToast('Descreva a vitória','error');return;}let entry=data.warHistory.find(h=>h.date===date);if(!entry){entry={id:Date.now(),date,cut:null,victory:null};data.warHistory.push(entry);}entry.victory={description,resisted,lawApplied:lawApplied?parseInt(lawApplied):null};data.warHistory.sort((a,b)=>new Date(b.date)-new Date(a.date));data.warHistory=data.warHistory.slice(0,30);saveData();renderHistory();closeVictoryModal();showToast('Vitória registrada!','success');}
 function renderHistory(){const container=document.getElementById('historyList');const last7=data.warHistory.slice(0,7);if(last7.length===0){container.innerHTML='<div class="history-empty">Nenhum registro ainda. Comece registrando um corte ou vitória.</div>';return;}const daysOfWeek=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];container.innerHTML=last7.map(entry=>{const dateObj=new Date(entry.date+'T12:00:00');const dayName=daysOfWeek[dateObj.getDay()];const dayNum=dateObj.getDate();const month=dateObj.toLocaleDateString('pt-BR',{month:'short'});const lawInfo=entry.victory?.lawApplied?laws48.find(l=>l.number===entry.victory.lawApplied):null;return`<div class="history-item"><div class="history-date">${dayNum} ${month}<small>${dayName}</small></div><div class="history-cut"><span class="history-cut-label">Corte</span><span class="history-cut-value">${entry.cut?.description||'—'}</span></div><div class="history-victory"><span class="history-victory-label">Vitória</span><span class="history-victory-value">${entry.victory?.description||'—'}</span></div><div class="history-law">${lawInfo?`<span class="history-law-number">${lawInfo.number}</span><span class="history-law-title">${lawInfo.title}</span>`:'<span style="color:rgba(255,255,255,.3);font-size:.85em">—</span>'}</div><div class="history-actions"><button class="btn-icon" onclick="editHistoryEntry('${entry.date}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button></div></div>`;}).join('');}
 function editHistoryEntry(date){const entry=data.warHistory.find(h=>h.date===date);if(!entry)return;if(entry.cut){document.getElementById('cutDescription').value=entry.cut.description||'';document.getElementById('cutCategory').value=entry.cut.category||'comportamento';document.getElementById('cutDate').value=date;document.getElementById('cutNotes').value=entry.cut.notes||'';document.getElementById('cutModal').classList.add('active');}else{openCutModal();document.getElementById('cutDate').value=date;}}
-function renderMissions(){const container=document.getElementById('missionsList');const icons={corpo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="5" r="3"/><path d="M12 8v8"/><path d="M8 14l4 4 4-4"/></svg>',mente:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a8 8 0 0 1 8 8c0 5.33-8 12-8 12S4 15.33 4 10a8 8 0 0 1 8-8z"/><circle cx="12" cy="10" r="3"/></svg>',espirito:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c1 3 2.5 3.5 3.5 4.5A5 5 0 0 1 17 10c0 3.5-2.5 6-5 8-2.5-2-5-4.5-5-8a5 5 0 0 1 1.5-3.5C9.5 5.5 11 5 12 2z"/></svg>'};const typeLabels={corpo:'Corpo',mente:'Mente',espirito:'Espírito'};const days=['seg','ter','qua','qui','sex','sab','dom'];const dayLabels={seg:'S',ter:'T',qua:'Q',qui:'Q',sex:'S',sab:'S',dom:'D'};container.innerHTML=data.missions.map(mission=>`<div class="mission-card"><div class="mission-card-header ${mission.type}"><div class="mission-info"><div class="mission-type">${typeLabels[mission.type]}</div><div class="mission-title">${mission.title}</div></div><div class="mission-icon">${icons[mission.type]}</div></div><div class="mission-card-body"><p class="mission-description">${mission.description}</p><div class="weekly-checks">${days.map(day=>`<div class="day-check"><label>${dayLabels[day]}</label><input type="checkbox" ${mission.weeklyChecks[day]?'checked':''} onchange="toggleMissionDay(${mission.id},'${day}')"></div>`).join('')}</div></div><div class="mission-card-footer"><button class="btn-icon" onclick="editMission(${mission.id})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" onclick="deleteMission(${mission.id})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div>`).join('');}
+function renderMissions(){const container=document.getElementById('missionsList');if(!container)return;const icons={corpo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="5" r="3"/><path d="M12 8v8"/><path d="M8 14l4 4 4-4"/></svg>',mente:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a8 8 0 0 1 8 8c0 5.33-8 12-8 12S4 15.33 4 10a8 8 0 0 1 8-8z"/><circle cx="12" cy="10" r="3"/></svg>',espirito:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c1 3 2.5 3.5 3.5 4.5A5 5 0 0 1 17 10c0 3.5-2.5 6-5 8-2.5-2-5-4.5-5-8a5 5 0 0 1 1.5-3.5C9.5 5.5 11 5 12 2z"/></svg>'};const typeLabels={corpo:'Corpo',mente:'Mente',espirito:'Espírito'};const days=['seg','ter','qua','qui','sex','sab','dom'];const dayLabels={seg:'S',ter:'T',qua:'Q',qui:'Q',sex:'S',sab:'S',dom:'D'};container.innerHTML=data.missions.map(mission=>`<div class="mission-card"><div class="mission-card-header ${mission.type}"><div class="mission-info"><div class="mission-type">${typeLabels[mission.type]}</div><div class="mission-title">${mission.title}</div></div><div class="mission-icon">${icons[mission.type]}</div></div><div class="mission-card-body"><p class="mission-description">${mission.description}</p><div class="weekly-checks">${days.map(day=>`<div class="day-check"><label>${dayLabels[day]}</label><input type="checkbox" ${mission.weeklyChecks[day]?'checked':''} onchange="toggleMissionDay(${mission.id},'${day}')"></div>`).join('')}</div></div><div class="mission-card-footer"><button class="btn-icon" onclick="editMission(${mission.id})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" onclick="deleteMission(${mission.id})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div>`).join('');}
 function toggleMissionDay(missionId,day){const mission=data.missions.find(m=>m.id===missionId);if(mission){mission.weeklyChecks[day]=!mission.weeklyChecks[day];saveData();}}
 function openMissionModal(missionId=null){const modal=document.getElementById('missionModal');document.getElementById('missionId').value=missionId||'';if(missionId){const mission=data.missions.find(m=>m.id===missionId);document.getElementById('missionType').value=mission.type;document.getElementById('missionTitle').value=mission.title;document.getElementById('missionDescription').value=mission.description;}else{document.getElementById('missionType').value='corpo';document.getElementById('missionTitle').value='';document.getElementById('missionDescription').value='';}modal.classList.add('active');}
 function closeMissionModal(){document.getElementById('missionModal').classList.remove('active');}
 function saveMission(){const id=document.getElementById('missionId').value;const type=document.getElementById('missionType').value;const title=document.getElementById('missionTitle').value.trim();const description=document.getElementById('missionDescription').value.trim();if(!title){showToast('Preencha o título','error');return;}if(data.missions.length>=3&&!id){showToast('Máximo de 3 missões','error');return;}if(id){const mission=data.missions.find(m=>m.id===parseInt(id));mission.type=type;mission.title=title;mission.description=description;}else{data.missions.push({id:Math.max(...data.missions.map(m=>m.id),0)+1,type,title,description,weeklyChecks:{seg:false,ter:false,qua:false,qui:false,sex:false,sab:false,dom:false}});}saveData();renderMissions();closeMissionModal();showToast('Missão salva!','success');}
 function editMission(id){openMissionModal(id);}
 function deleteMission(id){if(confirm('Excluir missão?')){data.missions=data.missions.filter(m=>m.id!==id);saveData();renderMissions();showToast('Excluída','success');}}
-function renderRituals(){const iconsSvg={sun:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',fire:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c1 3 2.5 3.5 3.5 4.5A5 5 0 0 1 17 10c0 3.5-2.5 6-5 8-2.5-2-5-4.5-5-8a5 5 0 0 1 1.5-3.5C9.5 5.5 11 5 12 2z"/></svg>',book:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',run:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="5" r="2"/><path d="M4 17l4-4 4 4 4-4 4 4"/><line x1="12" y1="7" x2="12" y2="13"/></svg>',meditate:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="6" r="3"/><path d="M12 9v4"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7"/></svg>',write:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>'};const renderList=(rituals,listId)=>{const container=document.getElementById(listId);if(rituals.length===0){container.innerHTML='<div style="text-align:center;color:rgba(255,255,255,.4);padding:20px">Nenhum ritual</div>';return;}container.innerHTML=rituals.map(ritual=>`<div class="ritual-item ${ritual.completed?'completed':''}"><input type="checkbox" class="ritual-check" ${ritual.completed?'checked':''} onchange="toggleRitual(${ritual.id})"><div class="ritual-icon">${iconsSvg[ritual.icon]||iconsSvg.fire}</div><div class="ritual-info"><div class="ritual-name">${ritual.name}</div>${ritual.time?`<div class="ritual-time">${ritual.time}</div>`:''}</div><div class="ritual-actions"><button class="btn-icon" onclick="editRitual(${ritual.id})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" onclick="deleteRitual(${ritual.id})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div>`).join('');};renderList(data.rituals.daily,'dailyRitualsList');renderList(data.rituals.weekly,'weeklyRitualsList');}
+function renderRituals(){const iconsSvg={sun:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',fire:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c1 3 2.5 3.5 3.5 4.5A5 5 0 0 1 17 10c0 3.5-2.5 6-5 8-2.5-2-5-4.5-5-8a5 5 0 0 1 1.5-3.5C9.5 5.5 11 5 12 2z"/></svg>',book:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',run:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="5" r="2"/><path d="M4 17l4-4 4 4 4-4 4 4"/><line x1="12" y1="7" x2="12" y2="13"/></svg>',meditate:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="6" r="3"/><path d="M12 9v4"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7"/></svg>',write:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>'};const renderList=(rituals,listId)=>{const container=document.getElementById(listId);if(!container)return;if(rituals.length===0){container.innerHTML='<div style="text-align:center;color:rgba(255,255,255,.4);padding:20px">Nenhum ritual</div>';return;}container.innerHTML=rituals.map(ritual=>`<div class="ritual-item ${ritual.completed?'completed':''}"><input type="checkbox" class="ritual-check" ${ritual.completed?'checked':''} onchange="toggleRitual(${ritual.id})"><div class="ritual-icon">${iconsSvg[ritual.icon]||iconsSvg.fire}</div><div class="ritual-info"><div class="ritual-name">${ritual.name}</div>${ritual.time?`<div class="ritual-time">${ritual.time}</div>`:''}</div><div class="ritual-actions"><button class="btn-icon" onclick="editRitual(${ritual.id})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" onclick="deleteRitual(${ritual.id})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></div>`).join('');};renderList(data.rituals.daily,'dailyRitualsList');renderList(data.rituals.weekly,'weeklyRitualsList');}
 function toggleRitual(id){let ritual=data.rituals.daily.find(r=>r.id===id)||data.rituals.weekly.find(r=>r.id===id);if(ritual){ritual.completed=!ritual.completed;saveData();renderRituals();}}
 function openRitualModal(frequency,ritualId=null){const modal=document.getElementById('ritualModal');document.getElementById('ritualId').value=ritualId||'';document.getElementById('ritualFrequency').value=frequency;if(ritualId){const ritual=data.rituals.daily.find(r=>r.id===ritualId)||data.rituals.weekly.find(r=>r.id===ritualId);document.getElementById('ritualName').value=ritual.name;document.getElementById('ritualTime').value=ritual.time||'';document.getElementById('ritualIcon').value=ritual.icon;}else{document.getElementById('ritualName').value='';document.getElementById('ritualTime').value='';document.getElementById('ritualIcon').value='sun';}modal.classList.add('active');}
 function closeRitualModal(){document.getElementById('ritualModal').classList.remove('active');}
@@ -850,7 +792,7 @@ closeExportModal();
 showToast('PDF gerado! Use Ctrl+P para salvar.','success');
 }
 function showToast(message,type='success'){const toast=document.getElementById('toast');toast.textContent=message;toast.className='toast '+type+' active';setTimeout(()=>{toast.classList.remove('active');},3000);}
-function renderAll(){renderStatus();renderHistory();renderMissions();renderRituals();renderLaws();renderToji();renderShelby();}
+function renderAll(){renderStatus();renderHistory();renderLaws();renderToji();renderShelby();}
 
 // ============================================
 // TOJI - CAMINHO DO PREDADOR SILENCIOSO
@@ -1252,15 +1194,61 @@ saveShelby();
 tipo==='licitos'?renderTracosLicitos():renderTracosIlicitos();
 }
 function renderCrimesShelby(){
-const grid=document.getElementById('crimesGrid');if(!grid)return;
-const chevSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>';
+// Render cards de crimes
+const cardsGrid=document.getElementById('crimesCardsGrid');
+if(cardsGrid){
+cardsGrid.innerHTML=CRIMES_SHELBY.map(c=>`<div class="crime-card-mini" onclick="scrollToCrimeAndOpen('${c.id}')"><div class="crime-card-mini-header"><div class="crime-card-mini-icon">${c.icon}</div><div class="crime-card-mini-title">${c.nome}</div></div><div class="crime-card-mini-desc">${c.desc}</div></div>`).join('');
+}
+// Render accordion de fases
+const accordion=document.getElementById('fasesAccordion');
+if(!accordion)return;
+const chevSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>';
 const defSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>';
 const alvSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>';
-const mecSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
+const mecSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
 const exeSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>';
 const exmSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
 const codSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>';
-grid.innerHTML=CRIMES_SHELBY.map(c=>`<div class="crime-card" id="crime-${c.id}"><div class="crime-header" onclick="toggleCrime('${c.id}')"><div class="crime-icon">${c.icon}</div><div class="crime-info"><h6>${c.nome}</h6><p>${c.desc}</p></div><div class="crime-toggle">${chevSvg}</div></div><div class="crime-manual"><div class="manual-section"><h5>${defSvg} DEFINIÇÃO FRIA</h5><p>${c.definicao}</p></div><div class="manual-section"><h5>${alvSvg} OBJETIVO ESTRATÉGICO</h5><p>${c.objetivo}</p></div><div class="manual-section"><h5>${mecSvg} MECANISMOS UTILIZADOS</h5><ul>${c.mecanismos.map(m=>'<li>'+m+'</li>').join('')}</ul></div><div class="manual-section"><h5>${exeSvg} ESTRUTURA DE EXECUÇÃO</h5><ul>${c.execucao.map(e=>'<li>'+e+'</li>').join('')}</ul></div><div class="manual-section"><h5>${exmSvg} EXEMPLO SHELBY</h5><div class="manual-exemplo">${c.exemplo}</div></div><div class="manual-section"><h5>${codSvg} CÓDIGO DO ESTRATEGISTA</h5><div class="manual-codigo">${c.codigo.map(cd=>'<p>"'+cd+'"</p>').join('')}</div></div></div></div>`).join('');
+const psiSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>';
+const rskSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+const FASES=[
+{id:1,titulo:'CRIMES ESTRUTURAIS',subtitulo:'Base do Império',periodo:'Dias 1–120',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>',crimes:['lavagem','contrabando','corrupcao','fraude']},
+{id:2,titulo:'CRIMES OPERACIONAIS',subtitulo:'Execução Direta',periodo:'Dias 121–240',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="22" y1="2" x2="2" y2="22"/></svg>',crimes:['homicidio','extorsao','espionagem']},
+{id:3,titulo:'CRIMES PSICOLÓGICOS',subtitulo:'Manipulação e Controle',periodo:'Dias 241–365',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/></svg>',crimes:[]}
+];
+if(!shelbyData.fasesCrimesOpen)shelbyData.fasesCrimesOpen={};
+if(!shelbyData.crimesOpen)shelbyData.crimesOpen={};
+accordion.innerHTML=FASES.map(fase=>{
+const faseOpen=shelbyData.fasesCrimesOpen[fase.id]||false;
+const crimesData=CRIMES_SHELBY.filter(c=>fase.crimes.includes(c.id));
+const crimesHtml=crimesData.map((c,idx)=>{
+const crimeOpen=shelbyData.crimesOpen[c.id]||false;
+return `<div class="fase-crime-item" data-crime-id="${c.id}"><div class="fase-crime-item-header ${crimeOpen?'active':''}" onclick="toggleCrimeManual('${c.id}')"><div class="fase-crime-item-num">${idx+1}</div><div class="fase-crime-item-info"><div class="fase-crime-item-nome">${c.nome}</div><div class="fase-crime-item-desc">${c.desc}</div></div><div class="fase-crime-item-toggle">${chevSvg}</div></div><div class="fase-crime-manual ${crimeOpen?'active':''}"><div class="manual-section-new"><div class="manual-section-header"><div class="manual-section-icon">${defSvg}</div><div class="manual-section-title">Definição Fria</div></div><div class="manual-section-content"><p>${c.definicao}</p></div></div><div class="manual-section-new"><div class="manual-section-header"><div class="manual-section-icon">${alvSvg}</div><div class="manual-section-title">Objetivo Estratégico</div></div><div class="manual-section-content"><p>${c.objetivo}</p></div></div><div class="manual-section-new"><div class="manual-section-header"><div class="manual-section-icon">${mecSvg}</div><div class="manual-section-title">Mecanismos Utilizados</div></div><div class="manual-section-content"><ul class="manual-section-list">${c.mecanismos.map(m=>'<li>'+m+'</li>').join('')}</ul></div></div><div class="manual-section-new"><div class="manual-section-header"><div class="manual-section-icon">${exeSvg}</div><div class="manual-section-title">Estrutura de Execução</div></div><div class="manual-section-content"><ul class="manual-section-list">${c.execucao.map(e=>'<li>'+e+'</li>').join('')}</ul></div></div><div class="manual-section-new"><div class="manual-section-header"><div class="manual-section-icon">${psiSvg}</div><div class="manual-section-title">Psicologia do Comando</div></div><div class="manual-section-content"><p>Perfil de quem lidera: frieza calculada, distância emocional, visão de longo prazo, paranoia produtiva.</p></div></div><div class="manual-section-new"><div class="manual-section-header"><div class="manual-section-icon">${rskSvg}</div><div class="manual-section-title">Riscos e Falhas Comuns</div></div><div class="manual-section-content"><p>Centralização excessiva, vaidade, confiança mal colocada, padrões detectáveis.</p></div></div><div class="manual-section-new"><div class="manual-section-header"><div class="manual-section-icon">${exmSvg}</div><div class="manual-section-title">Exemplo Shelby</div></div><div class="manual-section-content"><div class="manual-quote">${c.exemplo}</div></div></div><div class="manual-section-new"><div class="manual-section-header"><div class="manual-section-icon">${codSvg}</div><div class="manual-section-title">Lições Estratégicas</div></div><div class="manual-section-content"><ul class="manual-section-list">${c.codigo.map(cd=>'<li>"'+cd+'"</li>').join('')}</ul></div></div></div></div>`;
+}).join('');
+return `<div class="fase-accordion-item"><div class="fase-accordion-header ${faseOpen?'active':''}" onclick="toggleFaseCrime(${fase.id})"><div class="fase-accordion-num">${fase.id}</div><div class="fase-accordion-info"><div class="fase-accordion-title">${fase.titulo}</div><div class="fase-accordion-subtitle">${fase.subtitulo} • ${fase.periodo}</div></div><div class="fase-accordion-toggle">${chevSvg}</div></div><div class="fase-accordion-content ${faseOpen?'active':''}"><div class="fase-crimes-list">${crimesHtml.length?crimesHtml:'<p style="color:rgba(255,255,255,.5);text-align:center;padding:20px;">Crimes desta fase serão adicionados em breve.</p>'}</div></div></div>`;
+}).join('');
+}
+function toggleFaseCrime(id){
+if(!shelbyData.fasesCrimesOpen)shelbyData.fasesCrimesOpen={};
+shelbyData.fasesCrimesOpen[id]=!shelbyData.fasesCrimesOpen[id];
+saveShelby();renderCrimesShelby();
+}
+function toggleCrimeManual(id){
+if(!shelbyData.crimesOpen)shelbyData.crimesOpen={};
+shelbyData.crimesOpen[id]=!shelbyData.crimesOpen[id];
+saveShelby();renderCrimesShelby();
+}
+function scrollToCrimeAndOpen(id){
+const fases=[{id:1,crimes:['lavagem','contrabando','corrupcao','fraude']},{id:2,crimes:['homicidio','extorsao','espionagem']},{id:3,crimes:[]}];
+const fase=fases.find(f=>f.crimes.includes(id));
+if(fase){
+if(!shelbyData.fasesCrimesOpen)shelbyData.fasesCrimesOpen={};
+if(!shelbyData.crimesOpen)shelbyData.crimesOpen={};
+shelbyData.fasesCrimesOpen[fase.id]=true;
+shelbyData.crimesOpen[id]=true;
+saveShelby();renderCrimesShelby();
+setTimeout(()=>{const el=document.querySelector('[data-crime-id="'+id+'"]');if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},100);
+}
 }
 function toggleCrime(id){
 const card=document.getElementById('crime-'+id);
