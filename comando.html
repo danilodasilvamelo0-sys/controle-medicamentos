@@ -244,12 +244,33 @@
         .analise-conclusao{color:rgba(255,255,255,.7);font-size:.9em}
         /* CRIMES GRID */
         .crimes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:20px}
-        .crime-item{display:flex;align-items:center;gap:15px;padding:15px;background:rgba(0,0,0,.3);border:1px solid rgba(212,175,125,.3);border-radius:8px;transition:all .3s}
-        .crime-item:hover{border-color:#d4af7d;background:rgba(212,175,125,.1)}
+        .crime-card{background:rgba(0,0,0,.3);border:1px solid rgba(212,175,125,.3);border-radius:8px;overflow:hidden;transition:all .3s}
+        .crime-card:hover{border-color:#d4af7d}
+        .crime-card.open{border-color:#d4af7d}
+        .crime-header{display:flex;align-items:center;gap:15px;padding:15px;cursor:pointer;transition:all .3s}
+        .crime-header:hover{background:rgba(212,175,125,.1)}
         .crime-icon{width:40px;height:40px;min-width:40px;background:rgba(212,175,125,.3);border:1px solid rgba(212,175,125,.5);border-radius:8px;display:flex;align-items:center;justify-content:center}
         .crime-icon svg{width:20px;height:20px;stroke:#d4af7d}
+        .crime-info{flex:1}
         .crime-info h6{font-family:'Cinzel',serif;color:#d4af7d;font-size:.85em;letter-spacing:1px;margin-bottom:4px}
         .crime-info p{color:rgba(255,255,255,.5);font-size:.8em;line-height:1.4;margin:0}
+        .crime-toggle{color:rgba(212,175,125,.5);transition:transform .3s}
+        .crime-card.open .crime-toggle{transform:rotate(180deg)}
+        .crime-toggle svg{width:20px;height:20px}
+        .crime-manual{display:none;padding:20px;background:rgba(0,0,0,.2);border-top:1px solid rgba(212,175,125,.2)}
+        .crime-card.open .crime-manual{display:block}
+        .manual-section{margin-bottom:20px}
+        .manual-section:last-child{margin-bottom:0}
+        .manual-section h5{font-family:'Cinzel',serif;color:#d4af7d;font-size:.8em;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+        .manual-section h5 svg{width:16px;height:16px}
+        .manual-section p{color:rgba(255,255,255,.7);font-size:.85em;line-height:1.6;margin:0}
+        .manual-section ul{list-style:none;padding:0;margin:0}
+        .manual-section li{color:rgba(255,255,255,.6);font-size:.85em;padding:8px 12px;background:rgba(212,175,125,.05);border-left:2px solid rgba(212,175,125,.3);margin-bottom:6px;line-height:1.5}
+        .manual-section li:last-child{margin-bottom:0}
+        .manual-exemplo{background:rgba(212,175,125,.1);border:1px solid rgba(212,175,125,.2);border-radius:6px;padding:12px 15px;font-style:italic;color:rgba(255,255,255,.8);font-size:.85em;line-height:1.6}
+        .manual-codigo{background:rgba(0,0,0,.3);border:1px solid rgba(212,175,125,.2);border-radius:6px;padding:15px}
+        .manual-codigo p{color:#d4af7d;font-family:'Cinzel',serif;font-size:.85em;letter-spacing:.5px;margin-bottom:8px;padding-left:15px;border-left:2px solid #d4af7d}
+        .manual-codigo p:last-child{margin-bottom:0}
         .crimes-footer{background:rgba(212,175,125,.1);border:1px solid rgba(212,175,125,.2);border-radius:6px;padding:15px;text-align:center}
         .crimes-footer p{color:rgba(255,255,255,.6);font-size:.85em;line-height:1.6;margin:0}
         .crimes-footer strong{color:#d4af7d}
@@ -381,19 +402,6 @@
                 </div>
                 <div class="toji-section">
                     <h3 class="toji-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:20px;height:20px"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6"/></svg> PLANO DE 1 ANO — O CAMINHO TOJI</h3>
-                    <div class="toji-plano-desc">
-                        <p>Transformação total em 4 fases de 90 dias, cada uma com metas brutais, rituais e uma prova final. Cada fase só é liberada após conclusão total da anterior.</p>
-                        <div class="sistema-progresso-info">
-                            <strong>🔄 Sistema de Progresso Diário:</strong>
-                            <ul>
-                                <li>A barra representa os dias em que todos os rituais foram cumpridos com perfeição</li>
-                                <li>Cada dia completo = +1 no contador</li>
-                                <li>Quando atingir 90/90, a prova final é desbloqueada automaticamente</li>
-                                <li>Às 00h, os checkboxes dos rituais diários são reiniciados</li>
-                            </ul>
-                            <p class="sem-feedback">Sem feedback. Sem recompensa. Só avanço.</p>
-                        </div>
-                    </div>
                     <div id="blocosContainer"></div>
                 </div>
                 <div class="toji-section">
@@ -505,15 +513,7 @@
                     <!-- CRIMES DE THOMAS SHELBY -->
                     <div class="shelby-section">
                         <h4 class="section-title-shelby ilicito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 19l2 2"/></svg> PRINCIPAIS CRIMES COMETIDOS</h4>
-                        <div class="crimes-grid">
-                            <div class="crime-item"><div class="crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="crime-info"><h6>EXTORSÃO</h6><p>Obediência ou cooptação sem contratos</p></div></div>
-                            <div class="crime-item"><div class="crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div><div class="crime-info"><h6>HOMICÍDIO</h6><p>Eliminação cirúrgica de risco ou retaliação estratégica</p></div></div>
-                            <div class="crime-item"><div class="crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="crime-info"><h6>CORRUPÇÃO</h6><p>Acesso a decisões e escudos legais</p></div></div>
-                            <div class="crime-item"><div class="crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="crime-info"><h6>CONTRABANDO</h6><p>Financiamento e influência popular</p></div></div>
-                            <div class="crime-item"><div class="crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><div class="crime-info"><h6>LAVAGEM DE DINHEIRO</h6><p>Sustentação do império "legal"</p></div></div>
-                            <div class="crime-item"><div class="crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="crime-info"><h6>FRAUDE POLÍTICA</h6><p>Domínio institucional e blindagem</p></div></div>
-                            <div class="crime-item"><div class="crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div class="crime-info"><h6>ESPIONAGEM</h6><p>Vantagem absoluta em todas as frentes</p></div></div>
-                        </div>
+                        <div class="crimes-grid" id="crimesGrid"></div>
                         <div class="crimes-footer"><p>Esses crimes não eram cometidos por impulso, e sim por <strong>inteligência e propósito</strong>. Cada ação servia ao império, e cada violação da lei era, na prática, uma peça movida no tabuleiro de poder.</p></div>
                     </div>
                     <div class="shelby-section">
@@ -547,7 +547,7 @@
     <div class="modal-overlay" id="victoryModal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Relatar Vitória do Dia</h3><button class="modal-close" onclick="closeVictoryModal()">&times;</button></div><div class="form-group"><label>O que você venceu hoje?</label><input type="text" id="victoryDescription" placeholder="Ex: Completei treino mesmo cansado..."></div><div class="form-group"><label>O que você resistiu?</label><input type="text" id="victoryResisted" placeholder="Ex: Tentação de desistir..."></div><div class="form-group"><label>Lei do Poder Aplicada</label><select id="victoryLaw"><option value="">Nenhuma</option></select></div><div class="form-group"><label>Data</label><input type="date" id="victoryDate"></div><div class="modal-buttons"><button class="btn-secondary" onclick="closeVictoryModal()">Cancelar</button><button class="btn-gold" onclick="saveVictory()" style="padding:12px 25px">Registrar Vitória</button></div></div></div>
     <div class="modal-overlay" id="missionModal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Nova Missão Estratégica</h3><button class="modal-close" onclick="closeMissionModal()">&times;</button></div><input type="hidden" id="missionId"><div class="form-group"><label>Tipo de Missão</label><select id="missionType"><option value="corpo">Corpo</option><option value="mente">Mente</option><option value="espirito">Espírito</option></select></div><div class="form-group"><label>Título</label><input type="text" id="missionTitle" placeholder="Ex: Dominar o físico"></div><div class="form-group"><label>Descrição</label><textarea id="missionDescription" rows="3" placeholder="Descreva sua missão..."></textarea></div><div class="modal-buttons"><button class="btn-secondary" onclick="closeMissionModal()">Cancelar</button><button class="btn-primary" onclick="saveMission()">Salvar</button></div></div></div>
     <div class="modal-overlay" id="ritualModal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Novo Ritual de Força</h3><button class="modal-close" onclick="closeRitualModal()">&times;</button></div><input type="hidden" id="ritualId"><input type="hidden" id="ritualFrequency"><div class="form-group"><label>Nome do Ritual</label><input type="text" id="ritualName" placeholder="Ex: Meditação matinal"></div><div class="form-group"><label>Horário (opcional)</label><input type="time" id="ritualTime"></div><div class="form-group"><label>Ícone</label><select id="ritualIcon"><option value="sun">☀️ Sol</option><option value="moon">🌙 Lua</option><option value="fire">🔥 Fogo</option><option value="book">📖 Livro</option><option value="run">🏃 Exercício</option><option value="meditate">🧘 Meditação</option><option value="write">✍️ Escrita</option></select></div><div class="modal-buttons"><button class="btn-secondary" onclick="closeRitualModal()">Cancelar</button><button class="btn-primary" onclick="saveRitual()">Salvar</button></div></div></div>
-    <div class="modal-overlay" id="exportModal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Exportar Relatório de Guerra</h3><button class="modal-close" onclick="closeExportModal()">&times;</button></div><div class="form-group"><label>Formato de Exportação</label><select id="exportFormat"><option value="txt">📄 TXT (Texto Puro)</option><option value="pdf">📑 PDF (Documento)</option></select></div><div style="padding:15px;background:rgba(212,175,125,.1);border:1px solid rgba(212,175,125,.3);border-radius:8px;margin-bottom:15px;"><p style="font-size:.85em;color:rgba(255,255,255,.7);line-height:1.5;margin:0;font-style:italic;">"Quem não sangra no treino, sangra no campo."</p></div><div class="modal-buttons"><button class="btn-secondary" onclick="closeExportModal()">Cancelar</button><button class="btn-primary" onclick="generateReport()">⚔️ Gerar Relatório</button></div></div></div>
+    <div class="modal-overlay" id="exportModal"><div class="modal-content"><div class="modal-header"><h3 class="modal-title">Exportar Relatório de Guerra</h3><button class="modal-close" onclick="closeExportModal()">&times;</button></div><div class="form-group"><label>Formato de Exportação</label><select id="exportFormat"><option value="txt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;vertical-align:middle;margin-right:5px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>TXT (Texto Puro)</option><option value="pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;vertical-align:middle;margin-right:5px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>PDF (Documento)</option></select></div><div style="padding:15px;background:rgba(212,175,125,.1);border:1px solid rgba(212,175,125,.3);border-radius:8px;margin-bottom:15px;"><p style="font-size:.85em;color:rgba(255,255,255,.7);line-height:1.5;margin:0;font-style:italic;">"Quem não sangra no treino, sangra no campo."</p></div><div class="modal-buttons"><button class="btn-secondary" onclick="closeExportModal()">Cancelar</button><button class="btn-primary" onclick="generateReport()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:16px;height:16px;vertical-align:middle;margin-right:5px"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg>Gerar Relatório</button></div></div></div>
     <div class="toast" id="toast"></div>
     <script>
 const STORAGE_KEY='painelGuerra';
@@ -661,7 +661,7 @@ const closingPhrase = closingPhrases[Math.floor(Math.random() * closingPhrases.l
 const report = `
 
 ══════════════════════════════════════════════════════════════
-⚔️ RELATÓRIO DE GUERRA – ${dateStr}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:16px;height:16px;vertical-align:middle;margin-right:5px"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg>RELATÓRIO DE GUERRA – ${dateStr}
 
 > "Quem não sangra no treino, sangra no campo."
 > ══════════════════════════════════════════════════════════════
@@ -906,7 +906,7 @@ c.innerHTML=blocos.map(b=>{
         return `<div class="meta-row-toji"><div class="meta-nome">${m.texto}<div class="meta-actions-inline"><button class="btn-meta-action-sm" onclick="editarMetaToji(${b.id},'${m.id}')" title="Editar">${editSvg}</button><button class="btn-meta-action-sm del" onclick="excluirMetaToji(${b.id},'${m.id}')" title="Excluir">${delSvg}</button></div></div><div class="meta-dias-row">${diasHtml}</div></div>`;
     }).join('');
     
-    return `<div class="bloco-toji ${bd.open?'open':''}" id="bloco-toji-${b.id}"><div class="bloco-header-toji" onclick="toggleBlocoToji(${b.id})"><div class="bloco-info"><div class="bloco-num">${b.id}</div><div><div class="bloco-nome">${b.nome}</div><div class="bloco-dias">${b.dias}</div></div></div><div class="bloco-status-toji"><div class="bloco-check-toji ${bd.prova?'done':''}">${checkSvg}</div><div class="bloco-toggle">${chevSvg}</div></div></div><div class="bloco-content-toji"><div class="fase-progress-container"><div class="fase-progress-header"><span class="fase-progress-label">PROGRESSO DA FASE</span><span class="fase-progress-count">${progresso}/90 dias</span></div><div class="fase-progress-bar"><div class="fase-progress-fill" style="width:${percentual}%"></div></div><div class="fase-progress-percent">${percentual}% concluído</div></div><p class="bloco-frase-toji">"${b.frase}"</p><div class="metas-header"><span>METAS DA FASE</span><button class="btn-add-meta" onclick="adicionarMetaToji(${b.id})">${addSvg} Adicionar</button></div><div class="metas-grid-container"><div class="metas-dias-header"><div class="meta-nome-header">Meta</div><div class="dias-header-row">${diasHeader}</div></div>${metasHtml}</div>${b.rituaisSemanais?`<div class="rituais-semanais-toji"><h5>🔄 RITUAIS SEMANAIS</h5><ul>${b.rituaisSemanais.map(r=>'<li>'+r.texto+'</li>').join('')}</ul></div>`:''}<div class="prova-final-toji"><h5>⚔️ PROVA FINAL</h5><p>${b.prova}</p><button class="prova-btn-toji ${bd.prova?'done':''}" onclick="toggleProvaToji(${b.id})">${bd.prova?'✓ CONCLUÍDA':'MARCAR CONCLUÍDA'}</button></div></div></div>`;
+    return `<div class="bloco-toji ${bd.open?'open':''}" id="bloco-toji-${b.id}"><div class="bloco-header-toji" onclick="toggleBlocoToji(${b.id})"><div class="bloco-info"><div class="bloco-num">${b.id}</div><div><div class="bloco-nome">${b.nome}</div><div class="bloco-dias">${b.dias}</div></div></div><div class="bloco-status-toji"><div class="bloco-check-toji ${bd.prova?'done':''}">${checkSvg}</div><div class="bloco-toggle">${chevSvg}</div></div></div><div class="bloco-content-toji"><div class="fase-progress-container"><div class="fase-progress-header"><span class="fase-progress-label">PROGRESSO DA FASE</span><span class="fase-progress-count">${progresso}/90 dias</span></div><div class="fase-progress-bar"><div class="fase-progress-fill" style="width:${percentual}%"></div></div><div class="fase-progress-percent">${percentual}% concluído</div></div><p class="bloco-frase-toji">"${b.frase}"</p><div class="metas-header"><span>METAS DA FASE</span><button class="btn-add-meta" onclick="adicionarMetaToji(${b.id})">${addSvg} Adicionar</button></div><div class="metas-grid-container"><div class="metas-dias-header"><div class="meta-nome-header">Meta</div><div class="dias-header-row">${diasHeader}</div></div>${metasHtml}</div>${b.rituaisSemanais?`<div class="rituais-semanais-toji"><h5><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:16px;height:16px;vertical-align:middle;margin-right:5px"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>RITUAIS SEMANAIS</h5><ul>${b.rituaisSemanais.map(r=>'<li>'+r.texto+'</li>').join('')}</ul></div>`:''}<div class="prova-final-toji"><h5><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:16px;height:16px;vertical-align:middle;margin-right:5px"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg>PROVA FINAL</h5><p>${b.prova}</p><button class="prova-btn-toji ${bd.prova?'done':''}" onclick="toggleProvaToji(${b.id})">${bd.prova?'✓ CONCLUÍDA':'MARCAR CONCLUÍDA'}</button></div></div></div>`;
 }).join('');
 
 }
@@ -1047,6 +1047,57 @@ const MISSOES_SOMBRIAS=[
 {id:'ms4',texto:'Criar um laço por interesse puro'},
 {id:'ms5',texto:'Cortar alguém sem drama ou explicação'}
 ];
+const CRIMES_SHELBY=[
+{id:'extorsao',nome:'EXTORSÃO',desc:'Obediência ou cooptação sem contratos',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>',
+definicao:'Uso de ameaça, força implícita ou pressão para obter obediência, dinheiro, recursos ou cooperação de indivíduos ou empresas, sem qualquer contrato formal.',
+objetivo:'Garantir lealdade forçada, silêncio de testemunhas, e fluxo de recursos sem rastros jurídicos. Serve para controlar sem aparecer.',
+mecanismos:['Ameaças veladas ou explícitas','Destruição de propriedade como aviso','Proteção forçada (cobrança por não ser atacado)','Controle de informações comprometedoras'],
+execucao:['Identificar vulnerabilidades do alvo','Criar contexto de dependência ou medo','Fazer a oferta: proteção ou consequência','Manter presença silenciosa e constante','Cobrar sem negociação'],
+exemplo:'Thomas oferecia "proteção" a comerciantes de Small Heath. Quem recusava era visitado por Arthur. Quem aceitava, pagava mensalmente — e ninguém falava com a polícia.',
+codigo:['A obediência vale mais que o contrato.','O medo bem administrado é mais eficiente que a violência constante.','Quem paga, pertence.']},
+{id:'homicidio',nome:'HOMICÍDIO',desc:'Eliminação cirúrgica de risco ou retaliação estratégica',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="22" y1="2" x2="2" y2="22"/></svg>',
+definicao:'Assassinato premeditado como ferramenta estratégica. Eliminação de ameaças, traidores ou obstáculos que não podem ser neutralizados de outra forma.',
+objetivo:'Remover permanentemente uma variável perigosa do tabuleiro. Proteger o império, enviar mensagem, ou vingar traições de forma definitiva.',
+mecanismos:['Execução direta por membros leais','Contratação de terceiros sem ligação','Acidentes fabricados','Desaparecimentos sem rastro'],
+execucao:['Avaliar se a eliminação é a única saída','Planejar sem envolvimento direto','Definir executor de confiança absoluta','Criar álibi sólido','Garantir silêncio eterno'],
+exemplo:'Quando descobriu que um informante da polícia estava infiltrado, Thomas ordenou a execução sem hesitar — o corpo nunca foi encontrado.',
+codigo:['Matar não é a primeira opção. É a última. Mas quando é necessária, não se hesita.','Mortos não falam, não traem, não voltam.','O sangue lava, mas também mancha. Use com precisão.']},
+{id:'corrupcao',nome:'CORRUPÇÃO',desc:'Acesso a decisões e escudos legais',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+definicao:'Suborno, cooptação ou chantagem de agentes públicos, políticos, juízes e policiais para garantir proteção, informação privilegiada ou manipulação de decisões.',
+objetivo:'Transformar o Estado em aliado invisível. Ter acesso a decisões antes que aconteçam. Blindar operações ilegais com aparência de legalidade.',
+mecanismos:['Pagamentos regulares a policiais e políticos','Favores e presentes estratégicos','Chantagem com informações comprometedoras','Financiamento de campanhas'],
+execucao:['Mapear quem tem poder real','Descobrir fraquezas: dinheiro, vícios, segredos','Fazer a primeira oferta discreta','Criar dependência mútua','Nunca deixar rastros diretos'],
+exemplo:'Thomas financiou campanhas de políticos e mantinha policiais na folha de pagamento. Quando precisava, um telefonema resolvia mandados, investigações e prisões de rivais.',
+codigo:['Todo homem tem um preço. Descubra o dele antes que ele descubra o seu.','O Estado é uma ferramenta. Quem não o controla, é controlado por ele.','Corrupção é investimento de longo prazo.']},
+{id:'contrabando',nome:'CONTRABANDO',desc:'Financiamento e influência popular',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>',
+definicao:'Transporte e venda de mercadorias ilegais ou sem impostos: bebidas, armas, cigarros, produtos roubados. Base financeira de impérios criminosos.',
+objetivo:'Gerar capital fora do sistema tributário. Criar rede de distribuição e lealdade. Financiar outras operações com dinheiro limpo na origem.',
+mecanismos:['Rotas secretas de transporte','Suborno de fiscais e guardas','Armazéns e esconderijos estratégicos','Rede de revendedores locais'],
+execucao:['Identificar demanda: o que o povo quer e não pode ter','Estabelecer fonte confiável','Criar logística segura','Distribuir por intermediários','Reinvestir lucros em operações legais'],
+exemplo:'Os Peaky Blinders começaram com apostas e bebidas contrabandeadas. O dinheiro financiou a expansão para negócios legítimos e compra de influência.',
+codigo:['O povo quer o que é proibido. Quem fornece, lidera.','Contrabando é a porta de entrada. Legitimidade é a saída.','Cada caixa que passa é um tijolo do império.']},
+{id:'lavagem',nome:'LAVAGEM DE DINHEIRO',desc:'Sustentação do império "legal"',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>',
+definicao:'Processo de transformar dinheiro obtido ilegalmente em capital aparentemente legítimo, através de empresas de fachada, investimentos e movimentações financeiras complexas.',
+objetivo:'Permitir uso livre do capital sem levantar suspeitas. Criar patrimônio legal que justifique o padrão de vida. Blindar o império contra investigações financeiras.',
+mecanismos:['Empresas de fachada (bares, lavanderias, apostas)','Compra e venda de imóveis','Investimentos em negócios legítimos','Doações e transações em dinheiro vivo'],
+execucao:['Criar negócios com alto fluxo de caixa','Misturar dinheiro sujo com receita real','Documentar tudo com aparência legal','Diversificar fontes de "renda"','Manter contadores leais e discretos'],
+exemplo:'Thomas abriu a Shelby Company Limited, oficialmente uma empresa de exportação. Na prática, todo dinheiro do submundo passava por ela e saía limpo.',
+codigo:['Dinheiro sujo compra, mas não constrói. Limpe-o primeiro.','Um império sem fachada é uma fortaleza sem muros.','O contador certo vale mais que dez soldados.']},
+{id:'fraude',nome:'FRAUDE POLÍTICA',desc:'Domínio institucional e blindagem',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+definicao:'Manipulação de processos eleitorais, compra de votos, falsificação de resultados, e uso de cargo público para benefício próprio ou do grupo.',
+objetivo:'Controlar o sistema por dentro. Ter acesso direto a decisões de Estado. Criar leis favoráveis e bloquear investigações.',
+mecanismos:['Compra de votos em massa','Intimidação de oponentes','Falsificação de urnas e resultados','Uso de cargos para favorecimento'],
+execucao:['Identificar eleição estratégica','Financiar candidato controlável','Mobilizar base de apoio (legal e ilegal)','Garantir vitória por qualquer meio','Cobrar favores após a posse'],
+exemplo:'Thomas se candidatou ao Parlamento. Usou dinheiro, influência e intimidação para vencer. Uma vez dentro, tinha acesso a informações privilegiadas e proteção institucional.',
+codigo:['Melhor ter um político no bolso do que cem soldados na rua.','O poder real não está no parlamento. Está em quem controla quem senta lá.','A democracia é um jogo. Aprenda as regras, depois quebre-as.']},
+{id:'espionagem',nome:'ESPIONAGEM',desc:'Vantagem absoluta em todas as frentes',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
+definicao:'Coleta sistemática de informações sobre rivais, aliados, autoridades e mercados. Infiltração, vigilância e interceptação de comunicações.',
+objetivo:'Saber tudo antes de todos. Antecipar movimentos de inimigos. Ter sempre a vantagem da informação.',
+mecanismos:['Informantes em organizações rivais','Vigilância de alvos estratégicos','Interceptação de correspondências','Infiltrados em posições-chave'],
+execucao:['Mapear quem sabe o quê','Recrutar informantes com incentivos ou pressão','Criar rede de coleta de informações','Analisar e cruzar dados','Agir antes que o inimigo perceba'],
+exemplo:'Thomas mantinha informantes em gangues rivais, na polícia e até no governo. Sabia de operações antes de acontecerem e sempre estava um passo à frente.',
+codigo:['Informação é a moeda mais valiosa. Quem tem, comanda.','Nunca entre em uma sala sem saber quem está lá e o que querem.','O espião perfeito é aquele que ninguém sabe que existe.']}
+];
 let shelbyData=JSON.parse(localStorage.getItem(SHELBY_STORAGE))||{tracosLicitos:{},tracosIlicitos:{},fasesLicitas:{},fasesIlicitas:{},checklist:{},missoesSombrias:{},operacaoOculta:{texto:'',concluida:false},weekStart:null,lastReset:null};
 function saveShelby(){localStorage.setItem(SHELBY_STORAGE,JSON.stringify(shelbyData));}
 function getShelbyFaseProgresso(tipo,faseId){return parseInt(localStorage.getItem('shelby_'+tipo+'_fase'+faseId+'*progresso'))||0;}
@@ -1062,7 +1113,7 @@ function renderShelby(){
 checkShelbyWeekReset();
 const hoje=new Date().toDateString();
 if(shelbyData.lastReset!==hoje){shelbyData.checklist={};shelbyData.lastReset=hoje;saveShelby();}
-renderTracosLicitos();renderTracosIlicitos();
+renderTracosLicitos();renderTracosIlicitos();renderCrimesShelby();
 renderFasesShelby('licitas',FASES_LICITAS,'fasesLicitasContainer');
 renderFasesShelby('ilicitas',FASES_ILICITAS,'fasesIlicitasContainer');
 renderChecklistComando();renderLeituras();renderMissoesSombrias();renderOperacaoOculta();verificarSeloShelby();
@@ -1086,6 +1137,21 @@ const key=tipo==='licitos'?'tracosLicitos':'tracosIlicitos';
 shelbyData[key][id]=Math.max(0,Math.min(100,(shelbyData[key][id]||0)+delta));
 saveShelby();
 tipo==='licitos'?renderTracosLicitos():renderTracosIlicitos();
+}
+function renderCrimesShelby(){
+const grid=document.getElementById('crimesGrid');if(!grid)return;
+const chevSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>';
+const defSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>';
+const alvSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>';
+const mecSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
+const exeSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>';
+const exmSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+const codSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>';
+grid.innerHTML=CRIMES_SHELBY.map(c=>`<div class="crime-card" id="crime-${c.id}"><div class="crime-header" onclick="toggleCrime('${c.id}')"><div class="crime-icon">${c.icon}</div><div class="crime-info"><h6>${c.nome}</h6><p>${c.desc}</p></div><div class="crime-toggle">${chevSvg}</div></div><div class="crime-manual"><div class="manual-section"><h5>${defSvg} DEFINIÇÃO FRIA</h5><p>${c.definicao}</p></div><div class="manual-section"><h5>${alvSvg} OBJETIVO ESTRATÉGICO</h5><p>${c.objetivo}</p></div><div class="manual-section"><h5>${mecSvg} MECANISMOS UTILIZADOS</h5><ul>${c.mecanismos.map(m=>'<li>'+m+'</li>').join('')}</ul></div><div class="manual-section"><h5>${exeSvg} ESTRUTURA DE EXECUÇÃO</h5><ul>${c.execucao.map(e=>'<li>'+e+'</li>').join('')}</ul></div><div class="manual-section"><h5>${exmSvg} EXEMPLO SHELBY</h5><div class="manual-exemplo">${c.exemplo}</div></div><div class="manual-section"><h5>${codSvg} CÓDIGO DO ESTRATEGISTA</h5><div class="manual-codigo">${c.codigo.map(cd=>'<p>"'+cd+'"</p>').join('')}</div></div></div></div>`).join('');
+}
+function toggleCrime(id){
+const card=document.getElementById('crime-'+id);
+if(card)card.classList.toggle('open');
 }
 function verificarDiaCompletoShelby(tipo,faseId,diaIdx,fases){
 const fase=fases.find(f=>f.id===faseId);if(!fase)return false;
@@ -1132,7 +1198,7 @@ const checks=fd.metasCheck?.[m.id]||{};
 const diasHtml=DIAS.map((d,i)=>{const checked=checks[i]?'checked':'';return `<div class="dia-check ${checked}" onclick="toggleMetaDiaShelby('${tipo}',${f.id},'${m.id}',${i})"></div>`;}).join('');
 return `<div class="meta-row-toji"><div class="meta-nome">${m.texto}</div><div class="meta-dias-row">${diasHtml}</div></div>`;
 }).join('');
-return `<div class="bloco-toji ${fd.open?'open':''}" style="${isIlicito?'border-color:rgba(212,175,125,.3)':''}"><div class="bloco-header-toji" onclick="toggleFaseShelby('${tipo}',${f.id})" style="${isIlicito?'background:rgba(212,175,125,.1)':''}"><div class="bloco-info"><div class="bloco-num" style="${isIlicito?'border-color:#d4af7d;background:rgba(212,175,125,.2)':''}">${f.id}</div><div><div class="bloco-nome" style="${isIlicito?'color:#d4af7d':''}">${f.nome}</div><div class="bloco-dias">${f.dias}</div></div></div><div class="bloco-status-toji"><div class="bloco-check-toji ${fd.prova?'done':''}" style="${isIlicito?'border-color:rgba(212,175,125,.4)':''}">${checkSvg}</div><div class="bloco-toggle">${chevSvg}</div></div></div><div class="bloco-content-toji"><div class="fase-progress-container" style="${isIlicito?'border-color:rgba(212,175,125,.2)':''}"><div class="fase-progress-header"><span class="fase-progress-label" style="${isIlicito?'color:#d4af7d':''}">PROGRESSO</span><span class="fase-progress-count">${prog}/90</span></div><div class="fase-progress-bar" style="${isIlicito?'background:rgba(212,175,125,.2)':''}"><div class="fase-progress-fill" style="width:${pct}%;${isIlicito?'background:linear-gradient(90deg,#d4af7d,#d4af7d)':''}"></div></div><div class="fase-progress-percent">${pct}%</div></div><p class="bloco-frase-toji">"${f.frase}"</p><div class="metas-grid-container" style="${isIlicito?'border-color:rgba(212,175,125,.2)':''}"><div class="metas-dias-header" style="${isIlicito?'background:rgba(212,175,125,.15)':''}"><div class="meta-nome-header">Meta</div><div class="dias-header-row">${diasHeader}</div></div>${metasHtml}</div><div class="prova-final-toji" style="${isIlicito?'background:rgba(212,175,125,.15);border-color:rgba(212,175,125,.4)':''}"><h5 style="${isIlicito?'color:#d4af7d':''}">⚔️ PROVA FINAL</h5><p>${f.prova}</p><button class="prova-btn-toji ${fd.prova?'done':''}" onclick="toggleProvaShelby('${tipo}',${f.id})" style="${isIlicito?'border-color:#d4af7d;color:#d4af7d':''}">${fd.prova?'✓ CONCLUÍDA':'MARCAR CONCLUÍDA'}</button></div></div></div>`;
+return `<div class="bloco-toji ${fd.open?'open':''}" style="${isIlicito?'border-color:rgba(212,175,125,.3)':''}"><div class="bloco-header-toji" onclick="toggleFaseShelby('${tipo}',${f.id})" style="${isIlicito?'background:rgba(212,175,125,.1)':''}"><div class="bloco-info"><div class="bloco-num" style="${isIlicito?'border-color:#d4af7d;background:rgba(212,175,125,.2)':''}">${f.id}</div><div><div class="bloco-nome" style="${isIlicito?'color:#d4af7d':''}">${f.nome}</div><div class="bloco-dias">${f.dias}</div></div></div><div class="bloco-status-toji"><div class="bloco-check-toji ${fd.prova?'done':''}" style="${isIlicito?'border-color:rgba(212,175,125,.4)':''}">${checkSvg}</div><div class="bloco-toggle">${chevSvg}</div></div></div><div class="bloco-content-toji"><div class="fase-progress-container" style="${isIlicito?'border-color:rgba(212,175,125,.2)':''}"><div class="fase-progress-header"><span class="fase-progress-label" style="${isIlicito?'color:#d4af7d':''}">PROGRESSO</span><span class="fase-progress-count">${prog}/90</span></div><div class="fase-progress-bar" style="${isIlicito?'background:rgba(212,175,125,.2)':''}"><div class="fase-progress-fill" style="width:${pct}%;${isIlicito?'background:linear-gradient(90deg,#d4af7d,#d4af7d)':''}"></div></div><div class="fase-progress-percent">${pct}%</div></div><p class="bloco-frase-toji">"${f.frase}"</p><div class="metas-grid-container" style="${isIlicito?'border-color:rgba(212,175,125,.2)':''}"><div class="metas-dias-header" style="${isIlicito?'background:rgba(212,175,125,.15)':''}"><div class="meta-nome-header">Meta</div><div class="dias-header-row">${diasHeader}</div></div>${metasHtml}</div><div class="prova-final-toji" style="${isIlicito?'background:rgba(212,175,125,.15);border-color:rgba(212,175,125,.4)':''}"><h5 style="${isIlicito?'color:#d4af7d':''}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:16px;height:16px;vertical-align:middle;margin-right:5px"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg>PROVA FINAL</h5><p>${f.prova}</p><button class="prova-btn-toji ${fd.prova?'done':''}" onclick="toggleProvaShelby('${tipo}',${f.id})" style="${isIlicito?'border-color:#d4af7d;color:#d4af7d':''}">${fd.prova?'✓ CONCLUÍDA':'MARCAR CONCLUÍDA'}</button></div></div></div>`;
 }).join('');
 }
 function toggleFaseShelby(tipo,id){
