@@ -342,6 +342,8 @@
             <a href="saude.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><span>Saude</span></a>
             <a href="financeiro.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Financeiro</span></a>
             <a href="profissional.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><span>Profissional</span></a>
+            <div class="sidebar-divider"></div>
+            <a href="pessoal.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Pessoal</span></a>
         </div>
         <div class="sidebar-footer"><p><span class="instituto">ZARA</span>Private Access</p></div>
     </nav>
@@ -366,6 +368,10 @@
             <a href="profissional.html" class="mobile-nav-item active">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
                 Prof
+            </a>
+            <a href="pessoal.html" class="mobile-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                Pessoal
             </a>
         </div>
     </nav>
@@ -537,6 +543,7 @@ function renderCron(){
     html+='<div class="cronograma-semana">'+fmtData(s.inicio)+' a '+fmtData(s.fim)+'</div></div>';
     html+='<div class="cronograma-nav">';
     html+='<button class="cronograma-nav-btn" onclick="navSemana(-1)" '+(semanaAtualIdx===0?'disabled':'')+' title="Semana anterior"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>';
+    html+='<button class="cronograma-nav-btn" onclick="irParaSemanaAtual()" title="Ir para semana atual" style="font-size:0.7em;font-weight:bold;width:auto;padding:0 10px;">HOJE</button>';
     html+='<button class="cronograma-nav-btn" onclick="navSemana(1)" '+(semanaAtualIdx>=D.cronogramas.length-1?'disabled':'')+' title="Próxima semana"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>';
     html+='<button class="btn-icon delete" onclick="delSem(\''+s.id+'\')" title="Excluir semana"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>';
     html+='</div></div>';
@@ -596,6 +603,11 @@ function renderCron(){
 
 function navSemana(dir){
     semanaAtualIdx+=dir;
+    renderCron();
+}
+
+function irParaSemanaAtual(){
+    semanaAtualIdx=encontrarSemanaAtual();
     renderCron();
 }
 
@@ -827,10 +839,26 @@ async function inicializar(){
     calcDias();
     atualizarSelects();
     renderDisc();
-    semanaAtualIdx=D.cronogramas.length?D.cronogramas.length-1:0;
+    // Encontrar semana atual baseada na data de hoje
+    semanaAtualIdx=encontrarSemanaAtual();
     renderCron();
     renderSimulados();
     renderExercicios();
+}
+// Função para encontrar o índice da semana que contém a data atual
+function encontrarSemanaAtual(){
+    if(!D.cronogramas.length)return 0;
+    const hoje=new Date();hoje.setHours(0,0,0,0);
+    for(let i=0;i<D.cronogramas.length;i++){
+        const s=D.cronogramas[i];
+        const inicio=new Date(s.inicio+'T00:00:00');
+        const fim=new Date(s.fim+'T23:59:59');
+        if(hoje>=inicio&&hoje<=fim)return i;
+    }
+    // Se não encontrar, verificar se é antes da primeira ou depois da última
+    const primeira=new Date(D.cronogramas[0].inicio+'T00:00:00');
+    if(hoje<primeira)return 0;
+    return D.cronogramas.length-1;
 }
 inicializar();
     </script>
