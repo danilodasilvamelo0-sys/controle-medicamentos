@@ -271,9 +271,33 @@
         .manual-codigo{background:rgba(0,0,0,.3);border:1px solid rgba(212,175,125,.2);border-radius:6px;padding:15px}
         .manual-codigo p{color:#d4af7d;font-family:'Cinzel',serif;font-size:.85em;letter-spacing:.5px;margin-bottom:8px;padding-left:15px;border-left:2px solid #d4af7d}
         .manual-codigo p:last-child{margin-bottom:0}
-        .crimes-footer{background:rgba(212,175,125,.1);border:1px solid rgba(212,175,125,.2);border-radius:6px;padding:15px;text-align:center}
+        .crimes-footer{background:rgba(212,175,125,.1);border:1px solid rgba(212,175,125,.2);border-radius:6px;padding:15px;text-align:center;margin-top:15px}
         .crimes-footer p{color:rgba(255,255,255,.6);font-size:.85em;line-height:1.6;margin:0}
         .crimes-footer strong{color:#d4af7d}
+        /* FASES CRIMES */
+        .fases-crimes-desc{color:rgba(255,255,255,.6);font-size:.9em;line-height:1.6;margin-bottom:20px;padding:15px;background:rgba(212,175,125,.08);border-left:3px solid #d4af7d;border-radius:0 6px 6px 0}
+        .fases-crimes-container{display:flex;flex-direction:column;gap:15px}
+        .fase-crime-card{background:rgba(0,0,0,.3);border:1px solid rgba(212,175,125,.2);border-radius:8px;overflow:hidden}
+        .fase-crime-header{display:flex;align-items:center;gap:15px;padding:20px;background:rgba(212,175,125,.1)}
+        .fase-crime-num{width:40px;height:40px;background:rgba(212,175,125,.2);border:2px solid #d4af7d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:1.2em;color:#d4af7d;font-weight:bold}
+        .fase-crime-info{flex:1}
+        .fase-crime-info h5{font-family:'Cinzel',serif;color:#d4af7d;font-size:1em;letter-spacing:2px;margin-bottom:4px}
+        .fase-crime-info span{color:rgba(255,255,255,.5);font-size:.8em}
+        .fase-crime-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:#d4af7d}
+        .fase-crime-icon svg{width:24px;height:24px}
+        .fase-crime-body{padding:20px}
+        .fase-crime-resumo{color:rgba(255,255,255,.7);font-size:.9em;margin-bottom:15px;padding:10px 15px;background:rgba(212,175,125,.05);border-radius:4px}
+        .fase-crime-modulos{list-style:none;padding:0;margin:0 0 15px 0}
+        .fase-crime-modulos li{color:rgba(255,255,255,.6);font-size:.85em;padding:8px 12px;background:rgba(0,0,0,.2);border-left:2px solid rgba(212,175,125,.3);margin-bottom:6px}
+        .fase-crime-modulos li:last-child{margin-bottom:0}
+        .fase-crime-caso{background:rgba(212,175,125,.1);border:1px solid rgba(212,175,125,.2);border-radius:6px;padding:12px 15px;color:rgba(255,255,255,.7);font-size:.85em;margin-bottom:15px}
+        .fase-crime-caso strong{color:#d4af7d}
+        .fase-crime-btns{display:flex;gap:10px;flex-wrap:wrap}
+        .btn-manual{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:transparent;border:1px solid rgba(212,175,125,.4);color:#d4af7d;font-size:.85em;border-radius:6px;cursor:pointer;transition:all .3s;font-family:'Inter',sans-serif}
+        .btn-manual:hover{background:rgba(212,175,125,.15);border-color:#d4af7d}
+        .fases-crimes-nota{margin-top:20px;padding:15px;background:rgba(212,175,125,.08);border:1px solid rgba(212,175,125,.2);border-radius:6px}
+        .fases-crimes-nota p{color:rgba(255,255,255,.6);font-size:.85em;margin:0;line-height:1.6}
+        .fases-crimes-nota strong{color:#d4af7d}
         /* TOJI EXPANDIDO */
         .traco-missao{margin-top:12px;padding-top:12px;border-top:1px solid rgba(212,175,125,.1)}
         .traco-missao input{width:100%;background:rgba(0,0,0,.3);border:1px solid rgba(212,175,125,.2);border-radius:4px;padding:8px 12px;color:#e0e0e0;font-size:.85em}
@@ -515,6 +539,102 @@
                         <h4 class="section-title-shelby ilicito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 19l2 2"/></svg> PRINCIPAIS CRIMES COMETIDOS</h4>
                         <div class="crimes-grid" id="crimesGrid"></div>
                         <div class="crimes-footer"><p>Esses crimes não eram cometidos por impulso, e sim por <strong>inteligência e propósito</strong>. Cada ação servia ao império, e cada violação da lei era, na prática, uma peça movida no tabuleiro de poder.</p></div>
+                    </div>
+                    <!-- FASES DO ANO — CRIMES -->
+                    <div class="shelby-section">
+                        <h4 class="section-title-shelby ilicito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6"/></svg> FASES DO ANO — CRIMES</h4>
+                        <p class="fases-crimes-desc">Estudo tático dos mecanismos ilícitos que sustentam impérios paralelos. Nada aqui é incentivo. Tudo aqui é inteligência.</p>
+                        <div class="fases-crimes-container">
+                            <!-- FASE 1 -->
+                            <div class="fase-crime-card">
+                                <div class="fase-crime-header">
+                                    <div class="fase-crime-num">1</div>
+                                    <div class="fase-crime-info">
+                                        <h5>APRENDER A COAGIR</h5>
+                                        <span>Dias 1–90</span>
+                                    </div>
+                                    <div class="fase-crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v10l4.5 4.5"/><circle cx="12" cy="12" r="10"/></svg></div>
+                                </div>
+                                <div class="fase-crime-body">
+                                    <p class="fase-crime-resumo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;vertical-align:middle;margin-right:5px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Estudo aplicado sobre extorsão, chantagem e alavancas de controle não contratuais.</p>
+                                    <ul class="fase-crime-modulos">
+                                        <li>Identificar alvos vulneráveis a pressão</li>
+                                        <li>Montagem de dossiês com poder de dano</li>
+                                        <li>Postura e silêncio como ameaça</li>
+                                        <li>Frases ambíguas com peso de coação</li>
+                                    </ul>
+                                    <div class="fase-crime-caso"><strong>Estudo de Caso:</strong> Thomas obriga empresários a "colaborar" sob ameaça de exposição.</div>
+                                    <button class="btn-manual" onclick="toggleCrime('extorsao')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Manual: EXTORSÃO</button>
+                                </div>
+                            </div>
+                            <!-- FASE 2 -->
+                            <div class="fase-crime-card">
+                                <div class="fase-crime-header">
+                                    <div class="fase-crime-num">2</div>
+                                    <div class="fase-crime-info">
+                                        <h5>MANIPULAR OS FLUXOS</h5>
+                                        <span>Dias 91–180</span>
+                                    </div>
+                                    <div class="fase-crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+                                </div>
+                                <div class="fase-crime-body">
+                                    <p class="fase-crime-resumo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;vertical-align:middle;margin-right:5px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Estudo sobre contrabando, movimentação de dinheiro e influência através da necessidade.</p>
+                                    <ul class="fase-crime-modulos">
+                                        <li>Controle de produtos de desejo</li>
+                                        <li>Rotas paralelas e influência local</li>
+                                        <li>Camuflagem de fluxos ilegais</li>
+                                    </ul>
+                                    <div class="fase-crime-caso"><strong>Estudo de Caso:</strong> Thomas movimenta bebida proibida usando contratos legais.</div>
+                                    <button class="btn-manual" onclick="toggleCrime('contrabando')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Manual: CONTRABANDO</button>
+                                </div>
+                            </div>
+                            <!-- FASE 3 -->
+                            <div class="fase-crime-card">
+                                <div class="fase-crime-header">
+                                    <div class="fase-crime-num">3</div>
+                                    <div class="fase-crime-info">
+                                        <h5>ESCONDER O IMPÉRIO</h5>
+                                        <span>Dias 181–270</span>
+                                    </div>
+                                    <div class="fase-crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+                                </div>
+                                <div class="fase-crime-body">
+                                    <p class="fase-crime-resumo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;vertical-align:middle;margin-right:5px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Estudo sobre lavagem de dinheiro, fraudes e blindagens jurídicas.</p>
+                                    <ul class="fase-crime-modulos">
+                                        <li>Fachadas legais e doações "limpas"</li>
+                                        <li>Intermediários e nomes de laranja</li>
+                                        <li>Blindagem jurídica com políticos e advogados</li>
+                                    </ul>
+                                    <div class="fase-crime-caso"><strong>Estudo de Caso:</strong> Thomas investe lucros sujos em hipódromos e instituições legais.</div>
+                                    <button class="btn-manual" onclick="toggleCrime('lavagem')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Manual: LAVAGEM DE DINHEIRO</button>
+                                </div>
+                            </div>
+                            <!-- FASE 4 -->
+                            <div class="fase-crime-card">
+                                <div class="fase-crime-header">
+                                    <div class="fase-crime-num">4</div>
+                                    <div class="fase-crime-info">
+                                        <h5>ELIMINAR E SUBIR</h5>
+                                        <span>Dias 271–365</span>
+                                    </div>
+                                    <div class="fase-crime-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div>
+                                </div>
+                                <div class="fase-crime-body">
+                                    <p class="fase-crime-resumo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;vertical-align:middle;margin-right:5px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Estudo sobre homicídio estratégico, espionagem e domínio psicológico absoluto.</p>
+                                    <ul class="fase-crime-modulos">
+                                        <li>Quando eliminar vale mais que negociar</li>
+                                        <li>Sumiços e mortes como mensagens silenciosas</li>
+                                        <li>Espionagem interna e sabotagem sutil</li>
+                                    </ul>
+                                    <div class="fase-crime-caso"><strong>Estudo de Caso:</strong> Thomas elimina Billy Grade e envia a mensagem: "traidores somem".</div>
+                                    <div class="fase-crime-btns">
+                                        <button class="btn-manual" onclick="toggleCrime('homicidio')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Manual: HOMICÍDIO</button>
+                                        <button class="btn-manual" onclick="toggleCrime('espionagem')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Manual: ESPIONAGEM</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fases-crimes-nota"><p><strong>Nota:</strong> Estes estudos são apenas para fins estratégicos. Conhecer os mecanismos da escuridão é o primeiro passo para não ser manipulado por eles.</p></div>
                     </div>
                     <div class="shelby-section">
                         <h4 class="section-title-shelby ilicito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> FASES DO ANO — LADO ILÍCITO</h4>
